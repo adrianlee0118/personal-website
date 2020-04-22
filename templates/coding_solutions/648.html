@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In English, we have a concept called root, which can be followed by some other words to form another longer word - 
+        let's call this word successor. For example, the root an, followed by other, which can form another word another.
+    </p>
+    <p class="question">
+        Now, given a dictionary consisting of many roots and a sentence. You need to replace all the successor in the 
+        sentence with the root forming it. If a successor has many roots can form it, replace it with the root with the shortest length.
+    </p>
+    <p class="question">
+        You need to output the sentence after the replacement.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string replaceWords(vector<string>& dict, string sentence) {
+            string ans = "";
+            
+            //Iterate through sentence word by word
+            istringstream iss(sentence);
+            string word;
+            while(iss >> word) {
+                ans += replace(word,dict);      //replace word if necessary
+                ans += " ";
+            }
+            ans.pop_back();   //remove the trailing space and return
+            return ans;
+        }
+        
+        string replace(string& word, vector<string>& dict){
+            string replacement = "";
+            int minlen = 101;
+            for (auto& d : dict){                  //iterating through dictionary
+                if (word.rfind(d,0) == 0){
+                    if (d.size() < minlen){        //if the given root exists at the beginning of the word
+                        replacement = d;           //set a replacement
+                        minlen = d.size();         //track the shortest replacement
+                    }
+                }
+            }
+            if (replacement == ""){                //if no replacement was found, return the word, else return the replacement
+                return word;
+            } else {
+                return replacement;
+            }
+        }
+    };
+{% endblock solution_code %}

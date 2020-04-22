@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, return the preorder traversal of its nodes' values.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> preorderTraversal(TreeNode* root) {
+            vector<int> vals;
+            preOrderTraversal(vals,root);
+            return vals;
+        }
+        
+        void preOrderTraversal(vector<int>& vals, TreeNode* root){
+            if (!root) return;
+            vals.push_back(root->val);
+            preOrderTraversal(vals,root->left);
+            preOrderTraversal(vals,root->right);
+            return;
+        }
+    };
+{% endblock solution_code %}

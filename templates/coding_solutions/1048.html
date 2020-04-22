@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a list of words, each word consists of English lowercase letters.
+    </p>
+    <p class="question">
+        Let's say word1 is a predecessor of word2 if and only if we can add exactly one letter anywhere in word1 
+        to make it equal to word2.  For example, "abc" is a predecessor of "abac".
+    </p>
+    <p class="question">
+        A word chain is a sequence of words [word_1, word_2, ..., word_k] with k >= 1, where word_1 is a 
+        predecessor of word_2, word_2 is a predecessor of word_3, and so on.
+    </p>
+    <p class="question">
+        Return the longest possible length of a word chain with words chosen from the given list of words.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int longestStrChain(vector<string>& words) {
+            if (words.size() == 1) return 1;
+            sort(words.begin(), words.end(), [](const std::string& s1, const std::string& s2){
+                return s1.size() < s2.size();             //sort words shortest to longest
+            });
+            
+            unordered_map<string, int> dp;                 //maximum sequence length for some string s
+            int maxlen = 0;
+            for(auto& w : words) {                        //iterating over the words
+                for(int i = 0; i < w.size(); i++) {        //iterating over all letter indices of the current word to examine all possible previous forms of the current word
+                    dp[w] = max(dp[w], dp[w.substr(0,i)+w.substr(i+1)] + 1);       //if we have a sequence length for the proposed ancestor, use its total as the base for the current word's sequence length
+                }
+                maxlen = max(maxlen,dp[w]);
+            }
+            return maxlen;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,64 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A company has n employees with a unique ID for each employee from 0 to n - 1. The head of the company has is the one 
+        with headID.
+    </p>
+    <p class="question">
+        Each employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th 
+        employee, manager[headID] = -1. Also it's guaranteed that the subordination relationships have a tree structure.
+    </p>
+    <p class="question">
+        The head of the company wants to inform all the employees of the company of an urgent piece of news. He will 
+        inform his direct subordinates and they will inform their subordinates and so on until all employees know about the urgent news.
+    </p>
+    <p class="question">
+        The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e After informTime[i] minutes, 
+        all his direct subordinates can start spreading the news).
+    </p>
+    <p class="question">
+        Return the number of minutes needed to inform all the employees about the urgent news.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Basically a DFS post-order traversal on the tree representing all manager relationships. The idea is that at each node, we 
+        compare the times beyond that point required for each branch to be completely notified--using the post-order traversal we 
+        return the maximum branch time, which is passed backwards up the tree until the greatest notification time remains at the root.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+            unordered_map<int,vector<int>> MgrEmpPos;     //allow us to iterate over subordinates given a manager ID
+            for (int i = 0; i < manager.size(); i++){
+                MgrEmpPos[manager[i]].push_back(i);
+            }
+            return getMaxTime(headID,MgrEmpPos,manager,informTime);
+        }
+        
+        //Post Order traversal, pass up the maximum time to the root from any leaf
+        int getMaxTime(int headID, unordered_map<int,vector<int>>& MgrEmpPos,vector<int>& manager, vector<int>& informTime){
+            unordered_map<int,vector<int>>::iterator got = MgrEmpPos.find(headID);
+            if (got != MgrEmpPos.end()){        //If subordinates exist
+                int maxBranch = 0;              //Get maximum time to alert all subordinates downstream of each sub
+                for (auto& b : MgrEmpPos[headID]){
+                    maxBranch = max(maxBranch,getMaxTime(b,MgrEmpPos,manager,informTime));
+                }
+                return informTime[headID]+maxBranch;           //Pass the longest time up in the tree
+            }
+            return informTime[headID];       //if no manager subs, pass the time for this leaf to notify everyone else
+        }
+    };
+{% endblock solution_code %}

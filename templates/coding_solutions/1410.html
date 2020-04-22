@@ -1,0 +1,67 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        HTML entity parser is the parser that takes HTML code as input and replace all the entities of the special characters 
+        by the characters itself.
+    </p>
+    <p class="question">
+        The special characters and their entities for HTML are:
+    </p>
+    <ul>
+        <li>Quotation Mark: the entity is &quot; and symbol character is ".</li>
+        <li>Single Quote Mark: the entity is &apos; and symbol character is '.</li>
+        <li>Ampersand: the entity is &amp; and symbol character is &.</li>
+        <li>Greater Than Sign: the entity is &gt; and symbol character is >.</li>
+        <li>Less Than Sign: the entity is &lt; and symbol character is <.</li>
+        <li>Slash: the entity is &frasl; and symbol character is /.</li>
+    </ul>
+    <p class="question">
+        Given the input text string to the HTML parser, you have to implement the entity parser.
+    </p>
+    <p class="question">
+        Return the text after replacing the entities by the special characters.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string entityParser(string text) {
+            replaceString(text, "&amp;", "-");  //turn the plain ampersands into a placeholder so they don't affect the other parses
+            replaceString(text, "&quot;", "\"");
+            replaceString(text, "&apos;", "\'");
+            replaceString(text, "&gt;", ">");
+            replaceString(text, "&lt;", "<");
+            replaceString(text, "&frasl;", "/");
+            replaceString(text, "-", "&");       //convert the ampersands
+            return text;
+        }
+    
+        void replaceString(string& text, const string& search, const string& replace) {
+            int i = 0;
+            while(i < text.size()) {
+                int i = text.find(search,i);
+                if (i == string::npos){
+                    break;
+                }
+                text.replace(i, search.size(), replace);
+                i += replace.size();
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

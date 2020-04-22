@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of strings, group anagrams together.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        anagrams 2D vector stores groups of anagrams. Companion vector idx stores sorted key that corresponds by to each group in 
+        anagrams, mapped by position. Use std::distance with iterator to place each word in the appopriate group.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<string>> groupAnagrams(vector<string>& strs) {
+            vector<vector<string>> anagrams;
+            vector<string> idx;
+            for (int i = 0; i < strs.size(); i++){
+                string tmp = strs[i];
+                sort(tmp.begin(),tmp.end());
+                auto it = find(idx.begin(),idx.end(),tmp);
+                if (it == idx.end()){
+                    idx.push_back(tmp);
+                    anagrams.push_back({strs[i]});
+                } else {
+                    anagrams[distance(idx.begin(),it)].push_back(strs[i]);
+                }
+            }
+            return anagrams;
+        }
+    };
+{% endblock solution_code %}

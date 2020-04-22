@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty integer array, find the minimum number of moves required to make all array elements equal, where a 
+        move is incrementing a selected element by 1 or decrementing a selected element by 1.
+    </p>
+    <p class="question">
+        You may assume the array's length is at most 10,000.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minMoves2(vector<int>& nums) {
+            sort(nums.begin(),nums.end());
+            int median = nums[nums.size()/2];
+            int moves = 0;
+            for (auto& n : nums){
+                moves += abs(median - n);
+            }
+            return moves;
+        }
+    };
+{% endblock solution_code %}

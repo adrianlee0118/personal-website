@@ -1,0 +1,51 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A zero-indexed array A of length N contains all integers from 0 to N-1. Find and return the longest length of set S, 
+        where S[i] = {A[i], A[A[i]], A[A[A[i]]], ... } subjected to the rule below.
+    </p>
+    <p class="question">
+        Suppose the first element in S starts with the selection of element A[i] of index = i, the next element in S should 
+        be A[A[i]], and then A[A[A[i]]]… By that analogy, we stop adding right before a duplicate element occurs in S.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate through the array and launch the jump recursion--at each step, we change the number to -1 in nums to indicate 
+        that the number has been visited, and the recursion cuts off when we re-encounter a -1. Maintain a maximum jump path 
+        length and return.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int arrayNesting(vector<int>& nums) {
+            int maxlen = 0;
+            for (int i = 0; i < nums.size(); i++){
+                jump(nums,i,0,maxlen);
+            }
+            return maxlen;
+        }
+        
+        void jump(vector<int>& nums, int pos, int pathlen, int& maxlen){
+            if (nums[pos] != -1){
+                int og = nums[pos];
+                nums[pos] = -1;
+                jump(nums,og,pathlen+1,maxlen);
+            } else {
+                maxlen = max(maxlen,pathlen);
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

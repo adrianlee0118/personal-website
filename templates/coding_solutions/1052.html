@@ -1,0 +1,67 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Today, the bookstore owner has a store open for customers.length minutes.  Every minute, some number of customers 
+        (customers[i]) enter the store, and all those customers leave after the end of that minute.
+    </p>
+    <p class="question">
+        On some minutes, the bookstore owner is grumpy.  If the bookstore owner is grumpy on the i-th minute, grumpy[i] = 1, 
+        otherwise grumpy[i] = 0.  When the bookstore owner is grumpy, the customers of that minute are not satisfied, otherwise they are satisfied.
+    </p>
+    <p class="question">
+        The bookstore owner knows a secret technique to keep themselves not grumpy for X minutes straight, but can only use it once.
+    </p>
+    <p class="question">
+        Return the maximum number of customers that can be satisfied throughout the day.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Get current total of satisfied customers--this won't change. Populate a prefix sum array of currently unsatisfied customers 
+        to facilitate sliding window calculations. Use sliding window analysis with the prefix sum to find the maximum amount of 
+        unsatisfied customers within a range of length X, add to total satisfied customers and return.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int X) {
+            
+            //Get the current total of satisfied customers
+            int satisfied = 0;
+            for (int i = 0; i < customers.size(); i++){
+                if (grumpy[i] == 0){
+                    satisfied += customers[i];
+                }
+            }
+            
+            //Cumulative sum of grumpy customers at each position in customers array
+            vector<int>prefix (customers.size()+1,0);
+            for (int i = 1; i <= customers.size(); i++){
+                if (grumpy[i-1] == 1){
+                    prefix[i] = customers[i-1]+prefix[i-1];
+                } else {
+                    prefix[i] = prefix[i-1];   
+                }
+            }
+            
+            //get the maximum possible capture of grumpy customers in a subarray of length X
+            int maxchange = 0;
+            for (int i = X; i < prefix.size(); i++){
+                maxchange = max(maxchange,prefix[i]-prefix[i-X]); 
+            }
+            
+            return satisfied+maxchange;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,61 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+    </p>
+    <p class="question">
+        Calling next() will return the next smallest number in the BST.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class BSTIterator {
+    private:
+        TreeNode* root;
+        vector<TreeNode*> inOrderList;
+        int current;
+        
+    public:
+        BSTIterator(TreeNode* root) {
+            this->root = root;
+            inOrderTrav(root);
+            this->current = -1;
+        }
+        
+        void inOrderTrav(TreeNode* root){
+            if (!root) return;
+            if (root->left) inOrderTrav(root->left);
+            this->inOrderList.push_back(root);
+            if (root->right) inOrderTrav(root->right);
+            return;
+        }
+        
+        /** @return the next smallest number */
+        int next() {
+            current++;
+            return inOrderList[current]->val;
+        }
+        
+        /** @return whether we have a next smallest number */
+        bool hasNext() {
+            if (current+1 < this->inOrderList.size()){
+                return true;
+            }
+            return false;
+        }
+    };
+{% endblock solution_code %}

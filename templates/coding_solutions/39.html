@@ -1,0 +1,59 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique 
+        combinations in candidates where the candidate numbers sums to target.
+    </p>
+    <p class="question">
+        The same repeated number may be chosen from candidates unlimited number of times.
+    </p>
+    <p class="question">
+        Note:
+    </p>
+    <ul>
+        <li>All numbers (including target) will be positive integers.</li>
+        <li>The solution set must not contain duplicate combinations.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> combinationSum(vector<int>& candidates, int target){
+            vector<vector<int>> ans;                                       //Store solutions
+            vector<int> path;                                              //Build solutions
+            buildSums(candidates,ans,path,0,target);                       //Find and store all solutions
+            return ans;
+        }
+        
+        void buildSums(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& path, int idx, int& target){
+            if (!path.empty()){
+                if (accumulate(path.begin(),path.end(),0) == target){          //If we found a solution, store it
+                    ans.push_back(path);
+                    return;
+                } else if (accumulate(path.begin(),path.end(),0) > target)  return;   //If sum > target no need to keep building the solution
+            }
+            
+            for (int i = idx; i < candidates.size(); i++){          //Recursion backtrack to build all possible solutions
+                path.push_back(candidates[i]);                       //Iteratin from idx forward ensures we won't find duplicate solutions
+                buildSums(candidates,ans,path,i,target);
+                path.pop_back();
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}
