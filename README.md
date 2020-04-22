@@ -33,5 +33,8 @@ The following companies for hosting site's files:
 ## Pending Tasks
   - Update theme
   - Add remainder of existing LeetCode solutions
-  - Add contacts page
+  - Contacts page
   - New material: LeetCode, Blog
+  - Add 404 pages
+  - Search box for coding_solutions table
+  - Add PDF resume
