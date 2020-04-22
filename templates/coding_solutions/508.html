@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root of a tree, you are asked to find the most frequent subtree sum. The subtree sum of a node is defined as the 
+        sum of all the node values formed by the subtree rooted at that node (including the node itself). So what is the most 
+        frequent subtree sum value? If there is a tie, return all the values with the highest frequency in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Post order DFS to calculate subtree sums at all nodes, store in an unordered_map by frequency. During the DFS, keep track 
+        of the maximum observed frequency of any sum. Iterate through map and extract all sums with the maximum observed frequency.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> findFrequentTreeSum(TreeNode* root) {
+            unordered_map<int,int> sumCount;
+            int maxFreq = 0;
+            postOrderSubSum(root,sumCount,maxFreq);
+            
+            vector<int> ans;
+            for (auto& sc : sumCount){
+                if (sc.second == maxFreq) ans.push_back(sc.first);
+            }
+            return ans;
+        }
+        
+        //Stores and counts subtree sums at all nodes, stores greatest observed frequency
+        int postOrderSubSum(TreeNode* root, unordered_map<int,int>& sumCount, int& maxFreq){
+            if (!root) return 0;
+            int sum = root->val + postOrderSubSum(root->left,sumCount,maxFreq) + postOrderSubSum(root->right,sumCount,maxFreq);
+            sumCount[sum]++;
+            maxFreq = max(maxFreq,sumCount[sum]);
+            return sum;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have n binary tree nodes numbered from 0 to n - 1 where node i has two children leftChild[i] and rightChild[i], 
+        return true if and only if all the given nodes form exactly one valid binary tree.
+    </p>
+    <p class="question">
+        If node i has no left child then leftChild[i] will equal -1, similarly for the right child.
+    </p>
+    <p class="question">
+        Note that the nodes have no values and that we only use the node numbers in this problem.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        ID root, DFS, check completeness of traversal.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
+            vector<int> possibleRoot(n, 1);                    //find the tree's root
+            for (int i = 0; i < n; i++) {                           //if a root is a child of another root, it's not the main root
+                if (leftChild[i] >= 0) possibleRoot[leftChild[i]] = 0;
+                if (rightChild[i] >= 0) possibleRoot[rightChild[i]] = 0;
+            }
+            if (accumulate(begin(possibleRoot),end(possibleRoot),0) != 1) return false;    //if more than one root or no roots (case where there is a cycle) return false
+            int root = -1;
+            for (int i = 0; i < n; i++) {      //get the root
+                if (possibleRoot[i] == 1) {
+                    root = i;
+                    break;
+                }
+            }
+            vector<int> LVis(n, 0);
+            vector<int> RVis(n, 0);
+            bool check = DFS(LVis,RVis,leftChild,rightChild,root);          //do the DFS; if we visited all the nodes doing that then all the nodes are part of one tree
+            if (check && accumulate(LVis.begin(),LVis.end(),0) == n && accumulate(RVis.begin(),RVis.end(),0) == n)
+                return true;
+            return false;
+        }
+        
+        //DFS to visit all the nodes in pre-order, returns false if a node is detected that is a child of more than one node
+        bool DFS(vector<int>& LVis, vector<int>& RVis, vector<int>& leftChild, vector<int>& rightChild, int node){
+            if (LVis[node] || RVis[node]) return false;
+            LVis[node] = 1;
+            RVis[node] = 1;
+            bool l = true, r = true;
+            if (leftChild[node] != -1) l = DFS(LVis,RVis,leftChild,rightChild,leftChild[node]);
+            if (rightChild[node] != -1) r = DFS(LVis,RVis,leftChild,rightChild,rightChild[node]);
+            return l && r;
+        }
+    };
+{% endblock solution_code %}

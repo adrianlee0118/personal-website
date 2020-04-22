@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given head, the head node of a linked list containing unique integer values.
+    </p>
+    <p class="question">
+        We are also given the list G, a subset of the values in the linked list.
+    </p>
+    <p class="question">
+        Return the number of connected components in G, where two values are connected if they appear consecutively in the linked list.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        The combination of the question's wording and examples are a bit ambiguous--it says to return the "number of connected 
+        components" which based on the initial examples initially led me to believe we were counting connected pairs and 
+        unconnected singles only.
+    </p>
+    <p>
+        To clarify, the problem is to find the number of continuously connected groups of numbers that are observed in the linked 
+        list (adjacency groups of size 2 or greater), where those groups are composed of numbers in the vector G only.
+    </p>
+    <p>
+        Convert G into a set to speed up searching of that array when iterating over linked list. If the current node's value is 
+        in G and either the current node is the last node or the next node's value is not in G, increase the count.
+    </p>
+    <p>
+        i.e. for every connected group we observe, we count it on the last number in the connected group, not the first. If we 
+        encounter an unconnected number that is in G, we count it. This helps us avoid double-counting the last number if it is 
+        present in G.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numComponents(ListNode* head, vector<int>& G) {
+            int count = 0;
+            unordered_set<int> nums(G.begin(), G.end());
+            while(head) {
+                if(nums.count(head->val) && (!head->next || (nums.count(head->next->val) == 0))) count++;
+                head = head->next;
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

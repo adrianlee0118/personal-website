@@ -1,0 +1,51 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Return any binary tree that matches the given preorder and postorder traversals.
+    </p>
+    <p class="question">
+        Values in the traversals pre and post are distinct positive integers.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution { 
+    public:
+        TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+            return construct(pre,post,0,pre.size()-1,0,post.size()-1);
+        }
+        
+        TreeNode* construct(vector<int>& pre, vector<int>& post, int preleft, int preright, int postleft, int postright)    {
+            if (preleft > preright){ return nullptr; }                       //something went wrong
+            if (preleft == preright){ return new TreeNode(pre[preleft]); }   //we are at a leaf, only one in range
+            TreeNode* root = new TreeNode(pre[preleft]);
+    
+            int pos = 0;
+            for (int i = postleft; i <= postright; i++){
+                if (post[i] == pre[preleft+1]){
+                    pos = i;
+                }
+            }
+            int partition = pos+1;          //left bound of next node in post
+            partition -= postleft;                        //adjust for offset so that partition is strictly a difference
+        
+            root->left = construct(pre,post,preleft+1,preleft+partition,postleft,postleft+partition-1);
+            root->right = construct(pre,post,preleft+partition+1,preright,postleft+partition,postright);
+            return root;
+        }
+    };
+{% endblock solution_code %}

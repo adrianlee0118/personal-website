@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two binary search trees root1 and root2.
+    </p>
+    <p class="question">
+        Return a list containing all the integers from both trees sorted in ascending order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
+            vector<int> ans;
+            DFS(root1, ans);
+            DFS(root2, ans);
+            sort(begin(ans),end(ans));
+            return ans;
+        }
+        
+        void DFS(TreeNode* root, vector<int>& ans){
+            if (!root) return;
+            ans.push_back(root->val);
+            DFS(root->left, ans);
+            DFS(root->right,ans);
+            return;
+        }
+    };
+{% endblock solution_code %}

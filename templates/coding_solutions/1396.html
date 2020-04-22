@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Implement the class UndergroundSystem that supports three methods:
+    </p>
+    <ol>
+        <li>checkIn(int id, string stationName, int t)</li>
+            <ul>
+                <li>A customer with id card equal to id, gets in the station stationName at time t.</li>
+                <li>A customer can only be checked into one place at a time.</li>
+            </ul>
+        <li>checkOut(int id, string stationName, int t)</li>
+            <ul>
+                <li>A customer with id card equal to id, gets out from the station stationName at time t.</li>
+            </ul>
+        <li>getAverageTime(string startStation, string endStation) </li>
+            <ul>
+                <li>Returns the average time to travel between the startStation and the endStation.</li>
+                <li>The average time is computed from all the previous traveling from startStation to endStation that happened 
+                    directly.</li>
+                <li>Call to getAverageTime is always valid.</li>
+            </ul>
+    </ol>
+    <p class="question">
+        You can assume all calls to checkIn and checkOut methods are consistent. That is, if a customer gets in at time t1 
+        at some station, then it gets out at time t2 with t2 > t1. All events happen in chronological order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class UndergroundSystem {
+    private:
+        unordered_map<int,pair<string,int>> ongoing;                  //ID, (startstation, starttime)
+        unordered_map<string,vector<pair<string,int>>> trips;        //startstation, (endstation, time)
+        
+    public:
+        UndergroundSystem() {
+            
+        }
+        
+        void checkIn(int id, string stationName, int t) {
+            ongoing[id] = make_pair(stationName,t);                  //add id to ongoing trips map, with start station and start time
+            return;
+        }
+        
+        void checkOut(int id, string stationName, int t) {
+            string start = ongoing[id].first;                                                //retrieve start station of current traveller
+            trips[start].push_back(make_pair(stationName, t - ongoing[id].second));          //add trip indexed by startstation with information for end station and travel time
+            ongoing.erase(id);                                                          //erase the ongoing trip
+            return;
+        }
+        
+        double getAverageTime(string startStation, string endStation) {
+            double count = 0;
+            double times = 0;
+            for (auto& t : trips[startStation]){           //iterate over all trips at the start station of interest
+                if (t.first == endStation){                   //if we found a trip with the desired end station
+                    count++;                                       //count and add time, used to calculate average
+                    times+=t.second;
+                }
+            }
+            return times/count;
+        }
+    };
+{% endblock solution_code %}

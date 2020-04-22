@@ -1,0 +1,84 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Suppose you are given the following code:
+    </p>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+        class FooBar {
+            public void foo() {
+                for (int i = 0; i < n; i++) {
+                print("foo");
+                }
+            }
+            
+            public void bar() {
+                for (int i = 0; i < n; i++) {
+                print("bar");
+                }
+            }
+        }
+        </code>
+    </pre>
+    <p class="question">
+        The same instance of FooBar will be passed to two different threads. Thread A will call foo() while thread 
+        B will call bar(). Modify the given program to output "foobar" n times.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class FooBar {
+    private:
+        int n;
+        bool fooed = false;
+        condition_variable cv;
+        mutex mtx;
+    
+    public:
+        FooBar(int n) {
+            this->n = n;
+        }
+    
+        void foo(function<void()> printFoo) {
+            
+            for (int i = 0; i < n; i++) {
+                unique_lock<mutex> lck(this->mtx);
+                while (fooed) {
+                    cv.wait(lck);
+                }
+                // printFoo() outputs "foo". Do not change or remove this line.
+                printFoo();
+                fooed = true;
+                cv.notify_one();
+            }
+        }
+    
+        void bar(function<void()> printBar) {
+            
+            for (int i = 0; i < n; i++) {
+                unique_lock<mutex> lck(this->mtx);
+                while (!fooed) {
+                    cv.wait(lck);
+                }
+                // printBar() outputs "bar". Do not change or remove this line.
+                printBar();
+                fooed = false;
+                cv.notify_one();
+            }
+        }
+    };
+{% endblock solution_code %}

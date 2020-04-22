@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We have a sequence of books: the i-th book has thickness books[i][0] and height books[i][1].
+    </p>
+    <p class="question">
+        We want to place these books in order onto bookcase shelves that have total width shelf_width.
+    </p>
+    <p class="question">
+        We choose some of the books to place on this shelf (such that the sum of their thickness is <= shelf_width), then build 
+        another level of shelf of the bookcase so that the total height of the bookcase has increased by the maximum height of the 
+        books we just put down.  We repeat this process until there are no more books to place.
+    </p>
+    <p class="question">
+        Note again that at each step of the above process, the order of the books we place is the same order as the given sequence 
+        of books.  For example, if we have an ordered list of 5 books, we might place the first and second book onto the first 
+        shelf, the third book on the second shelf, and the fourth and fifth book on the last shelf.
+    </p>
+    <p class="question">
+        Return the minimum possible height that the total bookshelf can be after placing shelves in this manner.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        For every subsequence of books from 0 to the current book, try to find the bookcase height for the scenario where as many 
+        of the most recently added books as possible fit onto the newest shelf.
+    </p>
+    <p>
+        Check this scenario by adding books from i-1 to 0 until a shelf is filled, and add this shelf height to the height of the 
+        bookcase excluding the books in this shelf--store this value if it is less than previous calculations when new shelves were started after more books were placed onto earlier shelves.
+    </p>
+    <p>
+        This algorithm ensures that the bookcase height for the most optimal points of starting new shelves (optimal in the sense 
+        that a minimum total height is obtained) is stored.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minHeightShelves(vector<vector<int>>& books, int shelf_width) {
+            vector<int>dp(books.size() + 1, INT_MAX);          //where dp[i] equals minimum height of shelf at the ith book (containing books from 0 to i-1)
+            dp[0] = 0;
+            for(int i = 1; i <= books.size(); i++) {        //for all positions i
+                int height = 0, width = 0;
+                for(int j = i - 1; j >= 0; j--) {           //iterating through all books from i-1 to 0
+                    width += books[j][0];                   //add books from last to first to a single shelf, break when shelf width exceeded as we will need a new shelf
+                    if(width > shelf_width) break;
+                    height = max(height, books[j][1]);       //keep track of the height of the shelf being built
+                    dp[i] = min(dp[i], dp[j] + height);     //add the entire shelf height to the height of bookcase before the current book was added
+                }
+            }
+            return dp[books.size()];
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You need to find the largest value in each row of a binary tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> largestValues(TreeNode* root) {
+            
+            vector<int> LevelMax;
+            DFS(root, 0, LevelMax);
+            return LevelMax;
+        }
+        
+        void DFS (TreeNode* root, int level, vector<int>& LevelMax){
+            
+            if (!root) {
+                return;
+            }
+            
+            if (LevelMax.size() < level+1){
+                LevelMax.push_back(root->val);
+            } else {
+                LevelMax[level] = max(LevelMax[level], root->val);
+            }
+            
+            if (root->left){
+                DFS (root->left, level+1, LevelMax);    
+            }
+            if (root->right){
+                DFS (root->right, level+1, LevelMax);
+            }
+            
+            return;
+        }
+    };
+{% endblock solution_code %}

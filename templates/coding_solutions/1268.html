@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of strings products and a string searchWord. We want to design a system that suggests at most three product 
+        names from products after each character of searchWord is typed. Suggested products should have common prefix with the 
+        searchWord. If there are more than three products with a common prefix return the three lexicographically minimums products.
+    </p>
+    <p class="question">
+        Return list of lists of the suggested products after each character of searchWord is typed. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Slow-form iteration solution. Could probably be done faster with a Trie.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+            
+            vector<vector<string>> ans;
+            
+            //For all partial forms of searchWord from first letter
+            for (int i = 1; i <= searchWord.size(); i++){
+                
+                vector<string> temp;
+                
+                //Track lexicographic minimum words using priority queue
+                priority_queue <string> pq; 
+                string currstr = searchWord.substr(0,i);
+                
+                //Determine viable words in products
+                for (auto s : products){
+                    
+                    bool stringOK = true;
+                    for (int j = 0; j < currstr.size(); j++){
+                        if (s[j] != currstr[j]){
+                            stringOK = false;
+                            break;
+                        }
+                    }
+                    
+                    //store in queue if viable
+                    if (stringOK){
+                        pq.push(s);
+                    }
+                    
+                }
+                
+                //Write three lexicographically smallest words to answer in lexicographic smallest to biggest
+                stack<string> overflow;
+                while (!pq.empty()){
+                    if (pq.size() <= 3){
+                        overflow.push(pq.top());
+                    }
+                    pq.pop();
+                }
+                while (!overflow.empty()){
+                    temp.push_back(overflow.top());
+                    overflow.pop();
+                }
+                ans.push_back(temp);
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

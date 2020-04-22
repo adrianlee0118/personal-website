@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+    </p>
+    <p class="question">
+        For example, given n = 3, a solution set is:
+    </p>
+    <p class="question">
+        "((()))", <br>
+        "(()())", <br>
+        "(())()", <br>
+        "()(())", <br>
+        "()()()"
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Recursively generate all possible permutations of valid bracket sequences taking into account open brackets and brackets 
+        that are unused, DFS to the leaves where we push the sequences to the answer vector.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> generateParenthesis(int n) {
+            
+            vector<string> perms;
+            string curr = "(";
+            int open = n-1;
+            int closed = n;
+            int isOpen = 1;
+            generatePerms(curr, perms, open, closed, isOpen);
+            return perms;
+        }
+        
+        void generatePerms(string curr, vector<string>& perms, int open, int closed, int isOpen){
+            
+            if (open == 0 && closed == 0){
+                perms.push_back(curr);
+                return;
+            }
+            
+            if (isOpen && closed > 0){
+                generatePerms(curr+')',perms,open,closed-1,isOpen-1);
+            }
+            
+            if (open > 0){
+                generatePerms(curr+'(',perms,open-1,closed,isOpen+1);
+            }
+            
+            return;
+        }
+    };
+{% endblock solution_code %}

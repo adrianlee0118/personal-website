@@ -1,0 +1,81 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array A, we can perform a pancake flip: We choose some positive integer k <= A.length, then reverse the order 
+        of the first k elements of A.  We want to perform zero or more pancake flips (doing them one after another in succession) 
+        to sort the array A.
+    </p>
+    <p class="question">
+        Return the k-values corresponding to a sequence of pancake flips that sort A.  Any valid answer that sorts the array 
+        within 10 * A.length flips will be judged as correct.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Algorithm: identify maximum, send to back by flipping it to the front and then flipping all the pancakes before the 
+        last maximum value. Shrink the unsorted range located at the front of the array and iterate.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> pancakeSort(vector<int>& A) {
+            
+            vector<int> kvals;
+            
+            if (isSorted(A)){
+                return kvals;
+            }
+            
+            int lastpos = A.size()-1;
+            int currtarget;
+            
+            //for all targets from greatest to least, if already in position, continue, else flip to front and then back
+            //store the k values for flipping to the front and then to the back
+            for (int i = 0; i < A.size(); i++){
+                currtarget = *max_element(A.begin(),A.begin()+lastpos+1);
+                if (A[lastpos] == currtarget){
+                    lastpos--;
+                } else {
+                    int targpos = findInRange(A,currtarget,0,lastpos);
+                    reverse(A.begin(),A.begin()+targpos+1);  //target value flipped to to front
+                    kvals.push_back(targpos+1);              //because targpos is 0-indexed and k is to be 1-indexed
+                    reverse(A.begin(),A.begin()+lastpos+1); //target value flipped to back of unsorted range
+                    kvals.push_back(lastpos+1);
+                    lastpos--;                            //reduce size of unsorted range
+                }
+            }
+    
+            return kvals;
+        }
+        
+        bool isSorted(vector<int> A){
+            for (int i = 1; i < A.size(); i++){
+                if (A[i-1] >= A[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        //find in range
+        int findInRange(vector<int>& A, int item, int start, int end){
+            for (int i = start; i <= end; i++){
+                if (A[i] == item){
+                    return i;
+                }
+            }
+            return -1;
+        }
+    };
+{% endblock solution_code %}

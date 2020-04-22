@@ -1,0 +1,71 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an n-ary tree, return the level order traversal of its nodes' values.
+    </p>
+    <p class="question">
+        Nary-Tree input serialization is represented in their level order traversal, 
+        each group of children is separated by the null value (See examples).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Two solutions; DFS and BFS as shown below.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    /* DFS */
+    class Solution {
+    public:
+        vector<vector<int>> levelOrder(Node* root) {
+            vector<vector<int>> ans;
+            DFS(root,ans, 0);
+            return ans;
+        }
+        
+        void DFS(Node* root, vector<vector<int>>& ans, int depth){
+            if (!root) return;
+            if (ans.empty() || ans.size() <= depth) ans.push_back({});
+            ans[depth].push_back(root->val);
+            for (auto& c : root->children){
+                DFS(c,ans,depth+1);
+            }
+            return;
+        }
+    };
+
+    /* BFS */
+    class Solution {
+    public:
+        vector<vector<int>> levelOrder(Node* root) {
+            vector<vector<int>> ans;
+            if (!root) return {};
+            queue<Node*> BFS;
+            BFS.push(root);
+            while (!BFS.empty()){
+                int levelsize = BFS.size();
+                vector<int> level;
+                for (int i = 0; i < levelsize; i++){
+                    Node* curr = BFS.front();
+                    BFS.pop();
+                    for (auto& c : curr->children){
+                        BFS.push(c);
+                    }
+                    level.push_back(curr->val);
+                }
+                ans.push_back(level);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

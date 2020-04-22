@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block style %}
+    <!-- Code block styling CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='third_party/prism.css') }}"
+    />
+{% endblock style %}
+{% block content %}
+    <div>
+        <h3 class="proj_heading">
+            <!-- Problem name including link -->
+            {% block head %}{% endblock head %}
+        </h3>
+        <div>
+            <!-- Problem statement -->
+            {% block question %}{% endblock question %}
+        </div>      
+    </div>
+    <div>
+        <h3 class="proj_heading">
+            Solution:
+        </h3>
+        <div>
+            <!-- Verbal portion of solution -->
+            {% block solution_exp %}{% endblock solution_exp %}
+        </div>
+        <pre class="line-numbers">
+            <code class="language-cpp">
+                <!-- Coding portion of solution -->
+                {% block solution_code %}{% endblock solution_code %}
+            </code>
+        </pre>
+        {% block other_code %}{% endblock other_code %}
+    </div>
+{% endblock content %}
+{% block script %}
+    <!-- Javascript for code block styling -->
+    <script src="{{ url_for('static', filename='third_party/prism.js') }}"></script>
+{% endblock script %}

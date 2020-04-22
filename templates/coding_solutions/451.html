@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string, sort it in decreasing order based on the frequency of characters.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string frequencySort(string s) {
+            
+            //Count
+            map<char,int> CharCount;
+            for (char c: s){
+                CharCount[c]++;
+            }
+            
+            //Remove count duplicates and sort
+            set<int> Counts;
+            for (map<char,int>::iterator it = CharCount.begin(); it != CharCount.end(); it++){
+                Counts.insert(it->second);
+            }
+            priority_queue<int> OrderedCounts;
+            for (auto a : Counts){
+                OrderedCounts.push(a);
+            }
+            
+            //Write and return answer
+            string ans = "";
+            while (!OrderedCounts.empty()){
+                int currCount = OrderedCounts.top();
+                OrderedCounts.pop();
+                for (map<char,int>::iterator it = CharCount.begin(); it != CharCount.end(); it++){
+                    if (it->second == currCount){ 
+                        for (int k = 0; k < currCount; k++){
+                            ans+=it->first;
+                        }
+                    }
+                }
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

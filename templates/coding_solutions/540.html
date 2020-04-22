@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given a sorted array consisting of only integers where every element appears exactly twice, except for one 
+        element which appears exactly once. Find this single element that appears only once.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int singleNonDuplicate(vector<int>& nums) {
+            
+            if (nums.size() == 1){
+                return nums[0];
+            }
+            
+            for (int i = 0; i < nums.size()-1; i+=2){
+                if (nums[i] != nums[i+1]){
+                    return nums[i];
+                }
+            }
+            
+            return nums[nums.size()-1];
+        }
+    };
+{% endblock solution_code %}

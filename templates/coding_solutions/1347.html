@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two equal-size strings s and t. In one step you can choose any character of t and replace it with another character.
+    </p>
+    <p class="question">
+        Return the minimum number of steps to make t an anagram of s.
+    </p>
+    <p class="question">
+        An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minSteps(string s, string t) {
+            int letters[26] = {0};
+            for (auto c : s){
+                letters[c-'a']++;
+            }
+            int count = 0;
+            for (auto c : t){
+                letters[c-'a']--;
+                if (letters[c-'a'] < 0 ){
+                    count++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

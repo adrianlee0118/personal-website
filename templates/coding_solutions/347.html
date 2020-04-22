@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty array of integers, return the k most frequent elements.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> topKFrequent(vector<int>& nums, int k) {
+            
+            if (k == nums.size()){
+                return nums;
+            }
+            
+            //Count all elements
+            map<int,int> NumberCount;
+            for (auto n : nums){
+                NumberCount[n]++;
+            }
+            
+            //Remove duplicate counts
+            set <int, greater<int>> counts; 
+            for(auto it = NumberCount.begin(); it != NumberCount.end(); it++){
+                counts.insert(it->second);
+            }
+            
+            //Rank counts
+            priority_queue<int> CountRank;
+            for (auto c : counts){
+                CountRank.push(c);
+            }
+            
+            //Retrieve greatest k counts' reference numbers
+            vector<int> ans;
+            while (k > 0){
+                int currCount = CountRank.top();
+                CountRank.pop();
+                
+                for(auto it = NumberCount.begin(); it != NumberCount.end(); it++){
+                    if (it->second == currCount){
+                        ans.push_back(it->first);
+                        k--;
+                    }
+                    if (k == 0){
+                        break;
+                    }
+                }
+            }
+            
+            return ans;
+        }   
+    };
+{% endblock solution_code %}

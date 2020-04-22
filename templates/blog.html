@@ -1,0 +1,179 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>
+        Mental meanderings, sparkling random conversations I have with myself and maybe the occasional emotional gut spill.
+    </h3>
+    <div class="line"></div>
+    <!--Insert card for next blog post-->
+    <div class="card">
+        <h2><a name="Cold Sweat">Cold Sweat</a></h2>
+        <h5>April 10, 2020</h5>
+        <div class="img">
+            <img src="{{ url_for('static', filename='third_party/images/osaka_nondescript_afternoon.jpg') }}" alt="Nondescript afternoon in north Osaka area">
+        </div>
+        <p class="blog">
+            It's not easy to get a cold sweat in the middle of the summer in Japan. Usually, what you got is the other one.
+        </p>
+        <p class="blog">
+            About a year ago in a board room in a ritzy building in Nishi Osaka I broke into a cold sweat waiting for my 
+            interview to start. It wasn't my first Japanese language job interview but it was one of the first that I ever had in 
+            person, and the stakes were high. Somehow, I'd been shortlisted for the fourth and final stage of a series of 
+            evaluations for a billingual digital marketing manager position at a mobile gaming media company (mobile gaming has 
+            and continues to be one of my greatest tech and personal interests), which included a previous Skype interview in 
+            Japanese and performing a number of sample project tasks billingually.
+        </p>
+        <p class="blog">
+            Given what I'd read about Japanese interviews up until that point I was in a highly unusual situation, 
+            being made to wait in a comfortable chair with coffee in a board room with no people in it as opposed to outside 
+            one that was already occupied by my interviewers. It threw me off. Anyway, as my sweating continued, I did what I could: I 
+            reviewed the predicted questions and corresponding answers I'd prepped in Japanese, as well as the 
+            information translated from shareholder meeting minutes I'd found on the Japanese financial internet.
+        </p>
+        <p class="blog">
+            Talk about being under-prepared! People who know Japanese who have heard me speak the language know it's nothing 
+            to write home about (even though I did exactly that) and I have to give my Japanese teacher in Kobe, Tanaka-san, 
+            credit for supporting and pulling for me through the whole process when many other Japanese young and old probably 
+            would have tempered my expectations of myself instead. Within that interview and others I did in various 
+            languages I had varying degrees of success saying what I'd wanted to say but one thing I noticed in Japan in 
+            particular was that they tended to cut you off mid-answer.
+        </p>
+        <p class="blog">
+            I'm talking here about 2 or 3 sentence answers--maybe they were trying to save me embarrassment lol. My answers ended up
+            shortening with experience, and even though it sort of put me off initially I certainly don't blame corporate Japan for me 
+            being taken aback by what was probably a cultural difference. It did seem, though, at odds with newscasts, advertisements, 
+            teaching styles, and many other things I'd seen in Japan, where call me crazy but verbosity seemed to be the way to go.
+        </p>
+        <p class="blog">
+            I was reminded of this phenomenon everytime I did a workout at home. Youtube ads in Japan are LONG, longer than in any
+            other country in which I have lived or visited. Why Youtube? Because it's my home gym's robot DJ--
+            I don't have to choose the track because of autoplay and often encounter new songs that work, plus there are no 
+            worries about it being illegal. Anyway as every bro knows, in the middle of doing 40 handstand pushups or 100 crunches it's 
+            quite out of the question to break the set and press the skip button on a 1 hour ad. Yes, in Japan there are Youtube 
+            video tweener ads that exceed 1 hour and it's no joke. Like many other people I learned to live with it, though, as even
+            before I got the Chrome ad skipper plugin at worse I'd just have to endure my set with the infomercial-style ad playing 
+            and then have my music back for the next set.
+        </p>
+        <p class="blog">
+            But learning to tolerate it didn't stop it from being a nuisance, and that's how I got an idea which became a plan, 
+            a plan which became a project. As it happened, the Chrome plugin alone did not solve all my problems as I was also dealing 
+            with Youtube's automatic pausing function that initiates after long periods of continuous play with no keyboard or mouse 
+            input.
+        </p>
+        <p class="blog">
+            People like me needed a solution that would do the following things:
+        </p>
+        <ol>
+            <li>Play songs automatically - default autoplay</li>
+            <li>Click the skip ad button automatically</li>
+            <li>Allow for input when one was not physically at the computer (i.e. doing something else)</li>
+        </ol>
+        <p class="blog">
+            And that's how I came up with <span><a href="https://github.com/adrianl0118/workout_dj">workout_dj</a></span>, a
+            desktop app that basically serves as a voice controller for Youtube. The Speech Recognition library for Python from Google
+            is used to transcribe audio input from the microphone into instructions, which are used with Selenium to send commands
+            to a web browser.
+        </p>
+        <img src="{{url_for('static', filename='workout_dj.PNG')}}" 
+            alt="workout_dj screenshot"
+            style="height: 550px;
+                width: 1000px;
+                margin-left: 50px;" >
+        <br>
+        <p class="blog">
+            Latency is quite variable but it's not bad for a personal app and the voice commands are pretty nifty. The third party ad 
+            skipper is a bit finicky though and so eventually I may have to write my own. For the future, it'd also be good to add a song 
+            skipper/next song function. If you're reading this and you have Python 3, feel free to 
+            <span><a href="https://github.com/adrianl0118/workout_dj"><u>try it out</u></a></span>!
+        </p>
+        <p class="blog">
+            If you don't have Python also feel free, but it may be a bit of an undertaking to install it and all the prerequisites 
+            that are listed on the Github page :P.
+        </p>
+    </div>
+    <br>
+
+    <div class="card">
+        <h2><a name="Hikikomori">Hikikomori</a></h2>
+        <h5>March 20, 2020</h5>
+        <div class="img">
+            <img src="{{ url_for('static', filename='third_party/images/cluttered_room.jpg') }}" alt="Cluttered Room">
+        </div>
+        <p class="blog">
+            In a sad but perhaps not so sad alternate universe somewhere I guess being a shut-in, or as the Japanese say, a 
+            <span style="font-style:italic">hikikomori</span> (引きこもり), could have been a reality for me even before COVID 19--in
+            high school, I was relatively withdrawn and preferred to play videogames with my small all-male circle of friends, 
+            and I wouldn't have missed a beat staying in on my computer for entire weekends as I do now. 
+        </p>
+        <p class="blog">
+            My best school memory to this day continues to be the last day of school before the winter holidays one 
+            year when my chemistry teacher showed the Simpsons movie, and then it started snowing outside at the same time 
+            it was snowing in the movie--which was really blissful in a meta sort of way (i.e. Which pane is the window? Which 
+            one is the TV?? OMG)--and afterschool we walked through the flurry to my friend's house nearby, ordered pizzas and 
+            played Street Fighter and Metal Gear Solid while it snowed all night.
+        </p>
+        <p class="blog">
+            It's amazing to me I ever had that much fun without a single drop of alcohol, and it's also amazing how previous 
+            years' definition of a lazy bum has now become the paragon of the responsible adult in this period of heightened
+            awareness. Since returning to Vancouver, BC from living abroad about 5 months ago luckily not much has changed for
+            me due to social distancing--I've continued developing apps at home and the only real 
+            difference is I don't see my friends physically anymore. We have changed up the way we meet like a lot of people
+            have, and my new routine includes online Dungeons and Dragons once or twice a week and the occasional Jackbox gaming 
+            session on Zoom or Netflix watch party :). Using the Roll20 virtual tabletop web app to play DnD has been pretty cool 
+            because they've got a really extensive array of functions (DnD is a complex game) and an equally extensive API that 
+            I'm really excited about. There's lots of opportunity to build new and interesting things!
+        </p>
+
+        <div style="margin-left: 300px">
+            <img src="{{url_for('static', filename='dnd.jpg')}}" 
+                alt="workout_dj screenshot"
+                style="height: 300px;
+                    width: 450px;
+                    margin-left: 50px;" >
+        </div>
+        <br>
+
+        <div style="margin-left:50px">
+            <img src="{{url_for('static', filename='jackbox.jpg')}}" 
+                alt="workout_dj screenshot"
+                style="height: 300px;
+                    width: 450px;
+                    margin-left: 50px;
+                    float: left;" >
+            <img src="{{url_for('static', filename='netflix_party.jpg')}}" 
+                alt="workout_dj screenshot"
+                style="height: 300px;
+                    width: 450px;
+                    margin-left: 50px; 
+                    float: left;" >
+        </div>
+        <br>
+
+        <p class="blog">
+            I think I'll be one of the last people to go insane during this period--I have a fair amount of experience with 
+            isolation from working. However, I do know some people are struggling to adapt to working from home and that's a good
+            reminder to myself to check that complacency by thinking up this not-going-crazy checklist:
+        </p>
+            <ul>
+                <li>Make a detailed to-do list: chores, projects, errands and the maximum amount of time to be spent on each item--getting through stuff on this list will keep you on this side of sanity</li>
+                <li>Start the day like an automaton: make your bed, open the window, dust off your desk--this will provide momentum for going through the to-do list</li>
+                <li>Have an evening routine like a movie or ensuring you floss at 11PM--having a known, fixed endpoint to the day helps me manage my time during the day</li>
+                <li>Keep a list of ideas of things to do if you're a bit listless: new things to cook, new things to build (super important for me), new things to try (i.e. cutting your own hair)</li>
+                <li>Try to make choices ahead of time: movie choice, meal plan etc.--to avoid losing momentum</li>
+                <li>Exercise--obviously</li>
+                <li>Protect sleep habits--so that you're ready to go back to the office when things go back to normal</li>
+            </ul>
+        <p class="blog">
+            I'm told that sobering thoughts are also a good way to help one maintain their composure--for example, if you are about 
+            to cry at your own wedding, a good way to mitigate that is to think about how much the wedding costs. Notwithstanding the
+            physical suffering that COVID has definitely caused, being able to worry about cabin fever instead of finances, which is 
+            the case for me and most of my friends in North America, is a pretty fortunate circumstance to be in and better 
+            than can be said of lots of folks around the world at the moment. I know some of my old teaching colleagues from 
+            Japan and Korea and others in people-facing jobs will struggle and I think social distancing is definitely an 
+            important step in eventually allowing people to resume their livelihoods as soon as possible.
+        </p>
+        <p class="blog">
+            So STAY HOME and just as importanty stay healthy. If you really feel like you're about to turn into Jack Nicholson 
+            in <span style="font-style:italic">The Shining</span> why not start a blog?
+        </p>
+    </div>
+{% endblock content %}

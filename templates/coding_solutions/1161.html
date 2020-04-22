@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.
+    </p>
+    <p class="question">
+        Return the smallest level X such that the sum of all the values of nodes at level X is maximal.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxLevelSum(TreeNode* root) {
+            unordered_map<int,int> levelsum;
+            getLevelSums(root, 1, levelsum);
+            int themax = 0;
+            int mlevel = INT_MAX;
+            for (unordered_map<int,int>::iterator it = levelsum.begin(); it != levelsum.end(); it++){
+                if (it->second > themax){
+                    mlevel = it->first;
+                    themax = it->second;
+                }
+            }
+            return mlevel;
+        }
+        
+        void getLevelSums(TreeNode* root, int level, unordered_map<int,int>& levelsum){
+            if (!root){return;}
+            levelsum[level]+=root->val;
+            getLevelSums(root->left,level+1,levelsum);
+            getLevelSums(root->right,level+1,levelsum);
+            return;
+        }
+    };
+{% endblock solution_code %}

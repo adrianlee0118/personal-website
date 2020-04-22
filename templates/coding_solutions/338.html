@@ -1,0 +1,33 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non negative integer number num. For every number i in the range 0 ≤ i ≤ num calculate the number 
+        of 1's in their binary representation and return them as an array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> countBits(int num) {
+            vector<int>dp(num+1,0);
+            dp[0] = 0;
+            for(int i = 1; i <= num; i++)  dp[i] = dp[i>>1] + i % 2; 
+            return dp;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There is a room with n bulbs, numbered from 1 to n, arranged in a row from left to right. Initially, all the bulbs 
+        are turned off.
+    </p>
+    <p class="question">
+        At moment k (for k from 0 to n - 1), we turn on the light[k] bulb. A bulb change color to blue only if it is on 
+        and all the previous bulbs (to the left) are turned on too.
+    </p>
+    <p class="question">
+        Return the number of moments in which all turned on bulbs are blue.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        A moment exists when the rightmost on light number coincides with the total number of on lights.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numTimesAllBlue(vector<int>& light) {
+            int count = 0;
+            int rightmost = 0;
+            int on = 0;
+            for (auto& l : light){
+                if (l > rightmost) rightmost = l;
+                on++;
+                if (rightmost == on) count++;
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

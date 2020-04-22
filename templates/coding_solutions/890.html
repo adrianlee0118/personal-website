@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have a list of words and a pattern, and you want to know which words in words matches the pattern.
+    </p>
+    <p class="question">
+        A word matches the pattern if there exists a permutation of letters p so that after replacing every letter x in the 
+        pattern with p(x), we get the desired word.
+    </p>
+    <p class="question">
+        (Recall that a permutation of letters is a bijection from letters to letters: every letter maps to another letter, 
+        and no two letters map to the same letter.)
+    </p>
+    <p class="question">
+        Return a list of the words in words that match the given pattern. 
+    </p>
+    <p class="question">
+        You may return the answer in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+            vector<string> ans;
+            string encoded_pattern = encode(pattern);
+            for (auto s : words){
+                if (encode(s) == encoded_pattern){
+                    ans.push_back(s);
+                }
+            }
+            return ans;
+        }
+        
+        //Create a unique number code for string based on order and frequency in which distinct letters are encountered
+        string encode(string word){
+            unordered_map<char,int> map;
+            int label = 1;
+            string ans = "";
+            for (int i = 0; i < word.size(); i++){
+                if (map.find(word[i]) == map.end()){
+                    map[word[i]] = label;
+                    label++;
+                }
+                ans += to_string(map[word[i]]);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

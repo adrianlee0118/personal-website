@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a balanced parentheses string S, compute the score of the string based on the following rule:
+    </p>
+    <ul>
+        <li>() has score 1</li>
+        <li>AB has score A + B, where A and B are balanced parentheses strings.</li>
+        <li>(A) has score 2 * A, where A is a balanced parentheses string.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use open parentheses to determine the current score factor. Scores are added when a closed parentheses 
+        is reached only when the previous parentheses was open and the factor decreases with each closed parentheses.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int scoreOfParentheses(string S) {
+            
+            int score = 0;
+            
+            int levels = 0;
+            bool goingIn = false;
+            for (char c : S){
+                if (c == '('){
+                    levels++;
+                    goingIn = true;
+                } else {
+                    if (goingIn == true){
+                        score += 1*pow(2,levels-1);
+                        goingIn = false;
+                    }
+                    levels--;
+                }
+            }
+            
+            return score;
+        }
+    };
+{% endblock solution_code %}

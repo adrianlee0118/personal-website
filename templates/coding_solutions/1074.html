@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a matrix, and a target, return the number of non-empty submatrices that sum to target.
+    </p>
+    <p class="question">
+        A submatrix x1, y1, x2, y2 is the set of all cells matrix[x][y] with x1 <= x <= x2 and y1 <= y <= y2.
+    </p>
+    <p class="question">
+        Two submatrices (x1, y1, x2, y2) and (x1', y1', x2', y2') are different if they have some coordinate that is different: 
+        for example, if x1 != x1'.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        For all possible row ranges, calculate cumulative matrix sums column by column identifying when sum equals target or 
+        when sum equals a previous sum (in the same row range) minus the target. In the y direction, the cumulative sum is 
+        added to each column incrementally using a vector representing the column sum of interest in the row.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
+            int m = matrix.size();
+            int n = matrix[0].size();
+            int count = 0;
+            
+            for (int i = 0; i < m; i++){                      //Iterating over all possible row ranges between row i and row j
+                vector<int> CumulativeColumns = matrix[i];    //Instead of setting up a prefix sum matrix, add to columns as we go row by row
+                
+                for (int j = i; j < m; j++){
+                    unordered_map<int,int> sumCount;          //track occurrences of corner matrix sums for the current row range
+                    int totalSum = 0;
+                    
+                    for (int k = 0; k < n; k++){
+                        totalSum += CumulativeColumns[k];        //within the current row range, at every row cumulatively build matrix sums using cumulative column sums column by column
+                        if (totalSum == target) count++;         //if the target is found or if a sum is found that has a difference with a previous sum in the same top/bottom bounds exactly equal to target, add submatrices found
+                        if (sumCount.count(totalSum-target)) count += sumCount[totalSum-target];
+                        sumCount[totalSum]++;                    //Store the current cumulative sum to be used later in the row to calculate target matrix counts        
+                        if (j < m - 1) CumulativeColumns[k] += matrix[j+1][k];   //Increment the cumulative column sum for the next row iteration in the current row range if necessary
+                    }
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block style %}
+  <!-- script to make table sortable -->
+  <script src="{{ url_for('static', filename='third_party/sorttable.js') }}"></script>
+{% endblock style %}
+{% block content %}
+    <div>
+        <h3 class="quote">
+            "Truth can only be found in one place: the code." &nbsp;&nbsp;
+            <span style="font-style: normal;">
+              -Robert C. Martin
+            </span>
+        </h3>
+        
+        <div class="content">
+            <p>
+                In another life I think I may have tried to be a mathematician or astrophysicist--reading math books in 
+                college and popular science books by Brian Green and Neil DeGrasse Tyson have always had a certain appeal to me. 
+                Given my differing academic/career experiences thus far to scratch the math itch I make do 
+                with coding challenges online, in particular on LeetCode where I compete almost every week.
+            </p>
+            <p>
+                Below are some of my solutions to problems on LeetCode. Note that they were written for other programmers so
+                it's assumed the reader at least barely understands basic data structures and algorithms, nomenclature and 
+                jargon related to programming techniques (of a range of complexities) and, of course, math.
+            </p>
+            <p>
+                Even if you don't know any of those things, though, far be it from me to stop you from reading. Enjoy!
+            </p>
+        </div>
+        <br>
+
+        <table class="sortable">
+          <thead>
+            <tr>
+              <th>Problem Number</th>
+              <th>Problem Name</th>
+              <th>Difficulty</th>
+              <th>Solution Type</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populate table rows with all records in the DB -->
+            {% for row in db %}
+            <tr>
+              <td>{{row[0]}}</td>
+              <td>{{row[1]}}</td>
+              <td>{{row[2]}}</td>
+              <td>{{row[3]}}</td>
+              <td>
+                <a href="{{ url_for('get_question', question_id=row[0])}}">
+                  Check Solution
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock content %}

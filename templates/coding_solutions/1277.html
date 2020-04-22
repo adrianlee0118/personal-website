@@ -1,0 +1,55 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a m * n matrix of ones and zeros, return how many square submatrices have all ones.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int countSquares(vector<vector<int>>& a) {
+            int n = a.size();
+            int m = a[0].size();
+            
+            vector<vector<int>>dp(n, vector<int>(m,0));
+            for(int i=0; i<m; i++)
+                dp[0][i] = a[0][i];
+            
+            for(int i = 0; i < n; i++)
+                dp[i][0] = a[i][0];
+            
+            //after setting up base values in top row and left column, make each square represent how many matrices
+            //there are in the matrix formed by the current cell as a bottom right corner
+            for(int i=1; i<n; i++){
+                for(int j=1; j<m; j++){
+                    dp[i][j] = a[i][j];
+
+                    // left, topleft, top and current are all > 0, then current is minimum value of those three plus curr
+                    if(dp[i-1][j] > 0 && dp[i-1][j-1] > 0 && dp[i][j-1] > 0 && dp[i][j] > 0)
+                            dp[i][j] = min(dp[i-1][j], min(dp[i-1][j-1],dp[i][j-1])) + dp[i][j];
+                }
+            }
+            
+            int ans = 0;
+            //add up all the values in each row
+            for(int i = 0; i < n; i++)
+                ans = ans + accumulate(dp[i].begin(), dp[i].end(), 0);
+            return ans;
+        }
+    };
+{% endblock solution_code %}

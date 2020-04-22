@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <h3 class="quote">
+            "Problems worthy of attack <br/> prove their worth by fighting back." &nbsp;&nbsp;
+            <span style="font-style: normal;">
+              -Piet Hein
+            </span>
+        </h3>
+        <div class="content" style="padding-bottom: 20px;">
+            <p>
+                Some of the things I've been working on--if there is a hyperlink embedded in the heading, it will take you
+                straight to the repository on Github.
+            </p>
+            <div class="line"></div>
+        </div>
+
+        <h3 class="proj_heading">
+            <a href="https://github.com/adrianl0118/workout_dj">
+                workout_dj - voice controller for youtube (desktop app)
+            </a>
+        </h3>
+        <p>
+            A simple desktop tool for controlling Youtube using voice commands through a miscrophone. Automatically skips ads
+            and autoplays songs. Written in Python and uses Google's Speech Recognition library. Check out the related blog post
+            <span><a href="{{ url_for('blog', _anchor = 'Cold Sweat') }}"><u>here</u></a></span>.
+        </p>
+        <br>
+
+        <h3 class="proj_heading">
+            <a href="https://github.com/adrianl0118/AsiaEast">
+                asiaeast - trip itinerary planner (android development)
+            </a>
+        </h3>
+        <p>
+            A mobile tool that groups location data by geographical proximity and presents it with Kotlin. 
+            Queries a real-time Firebase Firestore database of geopoint data and outputs results to Google Calendar.
+        </p>
+        <br>
+
+        <h3 class="proj_heading">
+            <a href="https://github.com/adrianl0118/personal-website">
+                personal website and blog (web development)
+            </a>
+        </h3>
+        <p>
+            This website! Built in Flask using Python with Bootstrap as indicated on the homepage. Hit the heading link for more details.
+        </p>
+        <br>
+
+        <h3 class="proj_heading">
+            <a href="https://github.com/adrianl0118/Structify">
+                structify - college semester scheduler (android development)
+            </a>
+        </h3>
+        <p>
+            Mobile app in Java that generates study/work schedules for up to 8 simultaneous 
+            courses over a college semester using course syllabi information. Renders a detailed Google Calendar-style GUI and
+            outputs to Google Calendar.
+        </p>
+        <br>
+
+        <h3 class="proj_heading">
+            translation business website (web development) <br/>
+        </h3>
+        <p>
+            A simple static website (much like this one) for a friend's Chinese/English translation 
+            business made with Flask framework for Python and a Bootstrap 4 front end.
+        </p>
+        <br>
+
+        <h3 class="proj_heading">
+            fastrecipe - online recipe finder (android development) <br/>
+        </h3>
+        <p>
+            A simple mobile app that queries web address data stored in a SQLite database based on user inputs
+            through a dynamic UI. Code based in Java.
+        </p>
+        <br>
+    </div>
+{% endblock content %}

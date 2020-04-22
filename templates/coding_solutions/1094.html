@@ -1,0 +1,68 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are driving a vehicle that has capacity empty seats initially available for passengers.  The vehicle only drives 
+        east (ie. it cannot turn around and drive west.)
+    </p>
+    <p class="question">
+        Given a list of trips, trip[i] = [num_passengers, start_location, end_location] contains information about the i-th trip: 
+        the number of passengers that must be picked up, and the locations to pick them up and drop them off.  The locations are 
+        given as the number of kilometers due east from your vehicle's initial location.
+    </p>
+    <p class="question">
+        Return true if and only if it is possible to pick up and drop off all passengers for all the given trips. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool carPooling(vector<vector<int>>& trips, int capacity) {
+            
+            //index passenger demand by start and end locations, sort by location
+            vector<vector<int>> pickups;
+            vector<vector<int>> dropoffs;
+            for (auto& t : trips){
+                pickups.push_back({t[1],t[0]});
+                dropoffs.push_back({t[2],t[0]});
+            }
+            sort(pickups.begin(),pickups.end());
+            sort(dropoffs.begin(),dropoffs.end());
+            
+            
+            //Iterate through trips in physical order of traversal, if we ever have a pickup where there isn't enough space, return false
+            int pick_idx = 0;
+            int drop_idx = 0;
+            while (pick_idx < pickups.size() && drop_idx < dropoffs.size()){
+                if (pickups[pick_idx][0] < dropoffs[drop_idx][0]){
+                    if (pickups[pick_idx][1] > capacity){
+                        return false;
+                    } else {
+                        capacity -= pickups[pick_idx][1];
+                        pick_idx++;
+                    }
+                } else {
+                    capacity += dropoffs[drop_idx][1];
+                    drop_idx++;
+                }
+            }
+            
+            //If we get to the end without passing over any passengers, return true
+            return true;
+        }
+    };
+{% endblock solution_code %}

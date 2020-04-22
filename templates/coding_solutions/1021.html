@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A valid parentheses string is either empty (""), "(" + A + ")", or A + B, where A and B are valid parentheses strings, 
+        and + represents string concatenation.  For example, "", "()", "(())()", and "(()(()))" are all valid parentheses strings.
+    </p>
+    <p class="question">
+        A valid parentheses string S is primitive if it is nonempty, and there does not exist a way to split it into S = A+B, 
+        with A and B nonempty valid parentheses strings.
+    </p>
+    <p class="question">
+        Given a valid parentheses string S, consider its primitive decomposition: S = P<sub>1</sub> + P<sub>2</sub> + ... + 
+        P<sub>k</sub>, where P<sub>i</sub> are 
+        primitive valid parentheses strings.
+    </p>
+    <p class="question">
+        Return S after removing the outermost parentheses of every primitive string in the primitive decomposition of S.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string removeOuterParentheses(string S) {
+            
+            string result;
+            int depth = 0;
+            
+            for (char c : S) {
+                if (c == '(') {
+                    depth++;
+                }   
+
+                if (depth >= 2) {   //while we are inside one open bracket, write all the brackets read
+                    result += c;
+                }
+                    
+                if (c == ')') {   //keep track of what level we are at, if we get out to less than one layer
+                    depth--;
+                }
+            }
+            
+            return result;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a square array of integers A, we want the minimum sum of a falling path through A.
+    </p>
+    <p class="question">
+        A falling path starts at any element in the first row, and chooses one element from each row.  The next row's choice 
+        must be in a column that is different from the previous row's column by at most one.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        vector<int> d = {-1,0,1};
+    public:
+        int minFallingPathSum(vector<vector<int>>& A) {
+            int m = A.size();
+            int n = A[0].size();
+            
+            //Incrementally build the solution row by row (top row to bottom row in this case)
+            vector<vector<int>> cache(m,vector<int>(n,0));
+            for (int i = 0; i < n; i++){
+                cache[0][i] = A[0][i];         //greatest sum at any point in first row is the value in A
+            }
+            
+            //Iterate over over remaining rows and get max sum possible at each cell based on running sums above
+            for (int i = 1; i < m; i++){
+                for (int j = 0; j < n; j++){
+                    int minb = 100*i;
+                    for (int k = 0; k < 3; k++){
+                        if (j + d[k] >= 0 && j + d[k] < n){
+                            minb = std::min(minb,cache[i-1][j+d[k]]);
+                        }
+                    }
+                    cache[i][j] = A[i][j] + minb;
+                }
+            }
+            
+            //Retrieve minimum cumulative sum value from the last row
+            return *min_element(cache.back().begin(),cache.back().end());
+        }
+    };
+{% endblock solution_code %}

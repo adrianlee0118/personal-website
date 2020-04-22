@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri], for each query i compute 
+        the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor ... xor arr[Ri] ). Return an array containing the 
+        result for the given queries.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+            vector<int> ans;
+            vector<int> memo;
+            memo.push_back(arr[0]);
+            
+            for (int i = 1; i < arr.size(); i++){    //memo is a prefix XOR array
+                memo.push_back(arr[i]^memo[i-1]);
+            }
+            for (auto x : queries) {
+                auto first = x[0];
+                auto second = x[1];
+                
+                if (first == 0)
+                    ans.push_back(memo[second]);         //cumulative XOR already calculated from zero
+                else
+                    ans.push_back(memo[first-1]^memo[second]);   //XOR again with lower bound to get rid of cumulative XOR up to that point
+                
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

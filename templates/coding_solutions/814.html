@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given the head node root of a binary tree, where additionally every node's value is either a 0 or a 1.
+    </p>
+    <p class="question">
+        Return the same tree where every subtree (of the given tree) not containing a 1 has been removed.
+    </p>
+    <p class="question">
+        (Recall that the subtree of a node X is X, plus every node that is a descendant of X.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* pruneTree(TreeNode* root) {
+            return removeZeroOnlys(root);
+        }
+        
+        TreeNode* removeZeroOnlys(TreeNode* root){
+            if (!root) return NULL;
+            if (root->left){
+                root->left = removeZeroOnlys(root->left);
+            }
+            if (root->right){
+                root->right = removeZeroOnlys(root->right);
+            }
+            if (!root->left && !root->right && root->val == 0){
+                return NULL;
+            }
+            return root;
+        }
+    };
+{% endblock solution_code %}

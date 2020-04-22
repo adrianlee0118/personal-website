@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given a string s that consists of lower case English letters and brackets. 
+    </p>
+    <p class="question">
+        Reverse the strings in each pair of matching parentheses, starting from the innermost one.
+    </p>
+    <p class="question">
+        Your result should not contain any brackets.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Bracketed Letters stack stores in-bracket letters in the order that they are encountered, including brackets. When the sweep 
+        encounters a closed bracket, retrieve letters from stack until the last open bracket is reached. At this point, if previously 
+        bracketed letters still exist (i.e. stack not empty), then the letters that were just extracted will be put back into the stack 
+        in reverse--this string of letters is an inner part of another bracket-enclosed string that will be flipped again when the next 
+        closed bracket is met. When the Bracketed Letters stack is empty and all characters in s are accounted for, return answer string.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string reverseParentheses(string s) {
+            
+            stack<char> bracketedletters;
+            string ans = "";
+            
+            for (char c : s){
+                
+                if (bracketedletters.empty() && c != '('){
+                    ans.push_back(c);
+                } else if (c == '(' || c != ')'){
+                    bracketedletters.push(c);
+                } else {
+                    
+                    string temp = "";
+                    while (!bracketedletters.empty()){
+                        if (bracketedletters.top() == '('){
+                            bracketedletters.pop();
+                            break;
+                        } else {
+                            temp.push_back(bracketedletters.top());
+                            bracketedletters.pop(); 
+                        }
+                    }
+                    
+                    if (!bracketedletters.empty()){
+                        for (char a : temp){
+                            bracketedletters.push(a);
+                        }
+                    } else {
+                        ans.append(temp);
+                    }
+                }
+            }
+            
+            return ans;
+            
+        }
+    };
+{% endblock solution_code %}

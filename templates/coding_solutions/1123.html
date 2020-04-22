@@ -1,0 +1,90 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a rooted binary tree, return the lowest common ancestor of its deepest leaves.
+    </p>
+    <p class="question">
+        Recall that:
+    </p>
+    <ul>
+        <li>The node of a binary tree is a leaf if and only if it has no children</li>
+        <li>The depth of the root of the tree is 0, and if the depth of a node is d, the depth of each of its children 
+            is d+1.</li>
+        <li>The lowest common ancestor of a set S of nodes is the node A with the largest depth such that every node 
+            in S is in the subtree with root A.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        One DFS to ascertain the maximum depth while mapping all TreeNode pointers to depth. Use maximum depth to group all 
+        deepest leaves. Going through the vector of deepest leaves two at a time, find the cumulative LCA using a post-order 
+        traversal DFS that finds the leaves using the pointers found and passes the connected nodes up the tree.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* lcaDeepestLeaves(TreeNode* root) {
+            
+            //map depths to all nodes
+            unordered_map<TreeNode*,int> NodeDepth;
+            int maxDepth = 0;
+            getMaxDepthAndDeepest(root,0,maxDepth,NodeDepth);
+            
+            //determine maximum depth and deepest nodes
+            vector<TreeNode*> Deepest;
+            for (auto t : NodeDepth){
+                if (t.second == maxDepth){
+                    Deepest.push_back(t.first);
+                }
+            }
+            
+            //recursively find LCA
+            TreeNode* ans = Deepest[0];
+            for (int i = 1; i < Deepest.size(); i++){
+                ans = LCA(root,ans,Deepest[i]);
+            }
+            return ans;
+            
+        }
+        
+        //PreOrderTraversal that maps depths to all nodes
+        void getMaxDepthAndDeepest(TreeNode* root, int depth, int& maxDepth, unordered_map<TreeNode*,int>& NodeDepth){
+            
+            if (!root){return;}
+            maxDepth = max(depth,maxDepth);
+            NodeDepth[root] = depth;
+            if (root->left){getMaxDepthAndDeepest(root->left,depth+1,maxDepth,NodeDepth);}
+            if (root->right){getMaxDepthAndDeepest(root->right,depth+1,maxDepth,NodeDepth);}
+            return;
+            
+        }
+        
+        //Find for a given pair of nodes. If the result is used as one of the IDs in another iteration of this method
+        //in conjunction with another node, then the answer is effectively the LCA of all three nodes, and we can
+        //repeat with any number of nodes as shown in driver code.
+        
+        TreeNode* LCA(TreeNode* root, TreeNode* firstID, TreeNode* secondID){
+            
+            if (!root){return NULL;}
+            if (root == firstID || root == secondID){return root;}
+            TreeNode* left = LCA(root->left, firstID, secondID);
+            TreeNode* right = LCA(root->right, firstID, secondID);
+            if (left && right){ return root;}
+            if (left){return left;}
+            if (right){return right;}
+            return NULL;
+            
+        }
+    };
+{% endblock solution_code %}

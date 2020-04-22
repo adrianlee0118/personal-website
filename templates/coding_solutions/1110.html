@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root of a binary tree, each node in the tree has a distinct value.
+    </p>
+    <p class="question">
+        After deleting all nodes with a value in to_delete, we are left with a forest (a disjoint union of trees).
+    </p>
+    <p class="question">
+        Return the roots of the trees in the remaining forest.  You may return the result in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+            vector<TreeNode*> twigs;
+            set<int> del(to_delete.begin(),to_delete.end());
+            magicBrushFire(root,twigs,del);
+            if (root){twigs.push_back(root);}
+            return twigs;
+        }
+        
+        void magicBrushFire(TreeNode*& root, vector<TreeNode*>& twigs, set<int>& del){
+            if (!root){
+                return;
+            }
+            if (root->left){
+                magicBrushFire(root->left,twigs,del);
+            }
+            if (root->right){
+                magicBrushFire(root->right,twigs,del);
+            }
+            if (del.count(root->val)){
+                if (root->left){
+                    twigs.push_back(root->left);
+                }
+                if (root->right){
+                    twigs.push_back(root->right);
+                }
+                root = NULL;
+                delete root;
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

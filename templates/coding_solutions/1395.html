@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are n soldiers standing in a line. Each soldier is assigned a unique rating value.
+    </p>
+    <p class="question">
+        You have to form a team of 3 soldiers amongst them under the following rules:
+    </p>
+    <ul>
+        <li>Choose 3 soldiers with index (i, j, k) with rating (rating[i], rating[j], rating[k]).</li>
+        <li>A team is valid if:  (rating[i] < rating[j] < rating[k]) or (rating[i] > rating[j] > rating[k]) 
+            where (0 <= i < j < k < n).</li>
+    </ul>
+    <p class="question">
+        Return the number of teams you can form given the conditions. (soldiers can be part of multiple teams).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numTeams(vector<int>& rating) {
+            int count = 0;
+            vector<int> team;
+            getTeams(rating,team,0,count);
+            return count;
+        }
+        
+        void getTeams(vector<int>& rating, vector<int>& team, int idx, int& count){
+            if (team.size() == 3){
+                count++;
+                return;
+            }
+            if (idx == rating.size()) return;
+            
+            getTeams(rating,team,idx+1,count);
+            if (team.size() == 2){
+                if (team[0]-team[1] > 0){
+                    if (team[1] - rating[idx] > 0){
+                        team.push_back(rating[idx]);
+                        getTeams(rating,team,idx+1,count);
+                        team.pop_back();
+                    }
+                } else {
+                    if (team[1] - rating[idx] < 0){
+                        team.push_back(rating[idx]);
+                        getTeams(rating,team,idx+1,count);
+                        team.pop_back();
+                    }
+                }
+            } else {
+                team.push_back(rating[idx]);
+                getTeams(rating,team,idx+1,count);
+                team.pop_back();
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

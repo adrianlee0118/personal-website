@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear 
+        exactly twice. Find the two elements that appear only once.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> singleNumber(vector<int>& nums) {
+            unordered_map<int, int> counts;
+            for (auto c: nums){
+                counts[c]++;
+            }
+            
+            vector<int> ans;
+            for (unordered_map<int,int>::iterator it = counts.begin(); it != counts.end(); it++){
+                if (it->second == 1){
+                    ans.push_back(it->first);
+                }
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

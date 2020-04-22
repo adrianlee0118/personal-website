@@ -1,0 +1,94 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a list of words, list of  single letters (might be repeating) and score of every character.
+    </p>
+    <p class="question">
+        Return the maximum score of any valid set of words formed by using the given letters (words[i] cannot be 
+        used two or more times).
+    </p>
+    <p class="question">
+        It is not necessary to use all characters in letters and each letter can only be used once. Score of letters 
+        'a', 'b', 'c', ... ,'z' is given by score[0], score[1], ... , score[25] respectively.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Some re-indexing of data for convenience and readability, then a pretty standard recursion backtrack.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+            
+            //put letters and scores into a map to make for easier access
+            unordered_map<char,int> charscore;
+            for (auto& l : letters){
+                charscore[l] = score[l-'a'];
+            }
+            
+            //iterate over all words and score, index by word
+            unordered_map<string,int> scores;
+            for (int i = 0; i < words.size(); i++){ 
+                int sum = 0;
+                for (auto& c : words[i]){
+                    sum += charscore[c];
+                }
+                scores[words[i]] = sum;
+            }
+            
+            ///DFS to find group scores, keep track of maximum score
+            int maxscore = 0;
+            vector<string> validset;
+            string available(letters.begin(), letters.end());
+            for (int i = 0; i < words.size(); i++){ 
+                DFS(validset, words, scores, i, available, maxscore);
+            }
+            return maxscore;
+        }
+        
+        //DFS backtrack to find all possible group scores whose total letters fit within the available group of letters
+        void DFS(vector<string>& validset, vector<string>& words, unordered_map<string, int>& scores, int pos, string& available, int& maxscore){
+            if (pos == words.size() || available == "" ){
+                int score = 0;
+                for (auto& v : validset){
+                    score+=scores[v];
+                }
+                maxscore = max(maxscore,score);
+                return;
+            }
+            
+            DFS(validset,words,scores,pos+1,available,maxscore);       //DFS without the current word
+            
+            string usedletters = "";                                         //store used letters, to replace when backtracking
+            bool ok = true;
+            for (auto& c : words[pos]){                                     //check to see if we can include the current word
+                if (available.find(c) != std::string::npos){
+                    usedletters+=c;
+                    available.erase(available.begin()+available.find(c));
+                } else {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {                                                             //if yes, do DFS with the current word
+                validset.push_back(words[pos]);
+                DFS(validset, words, scores, pos+1, available, maxscore);
+                validset.pop_back();                                                  //backtrack: restore validset and available
+            }
+            available += usedletters;
+            return;
+        }
+    };
+{% endblock solution_code %}

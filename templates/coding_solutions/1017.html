@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a number N, return a string consisting of "0"s and "1"s that represents its value in base -2 (negative two).
+    </p>
+    <p class="question">
+        The returned string must have no leading zeroes, unless the string is "0".
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string baseNeg2(int N) {
+            
+            if (N == 0) 
+            return "0"; 
+        
+            string converted = ""; 
+            while (N != 0) { 
+                // Get remainder by negative base, decrement N by -2
+                //Note: remainder will be either 1 or -1 if not zero
+                int remainder = N % -2; 
+                N /= -2; 
+        
+                // if remainder is -1, add abs(base) to it and add 1 to n 
+                if (remainder < 0) 
+                { 
+                    remainder += 2;    //remainder -1 -> 1
+                    N += 1; 
+                } 
+        
+                // convert remainder to string add into the result 
+                converted = to_string(remainder) + converted; 
+            } 
+        
+            return converted; 
+        }
+    };
+{% endblock solution_code %}

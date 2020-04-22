@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of non-negative integers arr, you are initially positioned at start index of the array. When you are 
+        at index i, you can jump to i + arr[i] or i - arr[i], check if you can reach to any index with value 0.
+    </p>
+    <p class="question">
+        Notice that you can not jump outside of the array at any time.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Pretty much a standard recursion backtrack. The problem states that all array values are non-negative, therefore use negative versions of original numbers to indicate 
+        that a value has already been visited--no extra memory required.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool canReach(vector<int>& arr, int start) {
+            if (start < 0 || start >= arr.size() || arr[start] < 0) return false;
+            if (arr[start] == 0) return true;
+            arr[start] *= -1;
+            if (canReach(arr,start+arr[start]) || canReach(arr,start-arr[start])) return true;
+            arr[start] *= -1;
+            return false;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree with the following rules:
+    </p>
+    <ol>
+        <li>root.val == 0</li>
+        <li>If treeNode.val == x and treeNode.left != null, then treeNode.left.val == 2 * x + 1</li>
+        <li>If treeNode.val == x and treeNode.right != null, then treeNode.right.val == 2 * x + 2</li>
+    </ol>
+    <p class="question">
+        Now the binary tree is contaminated, which means all treeNode.val have been changed to -1.
+    </p>
+    <p class="question">
+        You need to first recover the binary tree and then implement the FindElements class:
+    </p>
+    <ul>
+        <li>FindElements(TreeNode* root) Initializes the object with a contamined binary tree, you need to recover it first.</li>
+        <li>bool find(int target) Return if the target value exists in the recovered binary tree.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class FindElements {
+    public:
+        FindElements(TreeNode* root) {
+            recover(root, 0);
+        }
+        
+        bool find(int target) {
+            return values.find(target) != values.end();
+        }
+    
+        void recover(TreeNode* node, int val) {
+            if (node) {
+                values.insert(val);
+                node->val = val;
+                recover(node->left, val * 2 + 1);
+                recover(node->right, val * 2 + 2);
+            }
+        }
+        
+    private:
+        unordered_set<int> values;
+    };
+{% endblock solution_code %}

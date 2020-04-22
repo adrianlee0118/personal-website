@@ -1,0 +1,119 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a n * n matrix grid of 0's and 1's only. We want to represent the grid with a Quad-Tree.
+    </p>
+    <p class="question">
+        Return the root of the Quad-Tree representing the grid.
+    </p>
+    <p class="question">
+        We can construct a Quad-Tree from a two-dimensional area using the following steps:
+    </p>
+    <p class="question">
+        A Quad-Tree is a tree data structure in which each internal node has exactly four children. Besides, each node has two 
+        attributes:
+    </p>
+    <ul>
+        <li>val: True if the node represents a grid of 1's or False if the node represents a grid of 0's. </li>
+        <li>isLeaf: True if the node is leaf node on the tree or False if the node has the four children.</li>
+    </ul>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+        class Node {
+            public boolean val;
+            public boolean isLeaf;
+            public Node topLeft;
+            public Node topRight;
+            public Node bottomLeft;
+            public Node bottomRight;
+        }
+        </code>
+    </pre>
+    <p class="question">
+        We can construct a Quad-Tree from a two-dimensional area using the following steps:
+    </p>
+    <ol>
+        <li>If the current grid has the same value (i.e all 1's or all 0's) set isLeaf True and set val to the value of the 
+            grid and set the four children to Null and stop.</li>
+        <li>If the current grid has different values, set isLeaf to False and set val to any value and divide the current 
+            grid into four sub-grids as shown in the photo.</li>
+        <li>Recurse for each of the children with the proper sub-grid.</li>
+    </ol>
+    <p class="question" style="font-weight: 500;">
+        Quad-Tree format:
+    </p>
+    <p class="question">
+        The output represents the serialized format of a Quad-Tree using level order traversal, where null signifies a path 
+        terminator where no node exists below.
+    </p>
+    <p class="question">
+        It is very similar to the serialization of the binary tree. The only difference is that the node is represented as 
+        a list [isLeaf, val].
+    </p>
+    <p class="question">
+        If the value of isLeaf or val is True we represent it as 1 in the list [isLeaf, val] and if the value of isLeaf 
+        or val is False we represent it as 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Recursive DFS to build nodes as necessary.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        Node* construct(vector<vector<int>>& grid) {
+            return AddNodes(grid, grid.size(), 0, 0);
+        }
+        
+        //Within a given grid, assessing the NxN area extending from a given topleft corner coordinate,
+        //Determine if there is uniformity; if not, create node with child nodes that are created via the same
+        //method in recursion
+        Node* AddNodes(vector<vector<int>>& grid, int N, int topleftx, int toplefty){
+            
+            if (N == 0){
+                return NULL;
+            } else if (N == 1){
+                return new Node(grid[topleftx][toplefty],true, NULL, NULL, NULL, NULL);
+            }
+            
+            //Check plot for uniformity
+            bool allsame = true;
+            int initial_value = grid[topleftx][toplefty];
+            for (int i = topleftx; i < topleftx+N; i++){
+                for (int j = toplefty; j < toplefty+N; j++){
+                    if (grid[i][j] != initial_value){
+                        allsame = false;
+                        break;
+                    }
+                }
+                if (!allsame){
+                    break;
+                }
+            }
+            
+            //Create new nodes as necessary
+            if (allsame){
+                return new Node(initial_value, true, NULL, NULL, NULL, NULL);
+            } else {
+                return new Node(false, false,
+                                AddNodes(grid,N/2,topleftx,toplefty),
+                                AddNodes(grid,N/2,topleftx,toplefty+N/2),
+                                AddNodes(grid,N/2,topleftx+N/2,toplefty),
+                                AddNodes(grid,N/2,topleftx+N/2,toplefty+N/2));    
+            }
+            
+        }
+    };
+{% endblock solution_code %}

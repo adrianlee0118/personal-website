@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array A, you partition the array into (contiguous) subarrays of length at most K.  After partitioning, 
+        each subarray has their values changed to become the maximum value of that subarray.
+    </p>
+    <p class="question">
+        Return the largest sum of the given array after partitioning.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Memoization solution.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxSumAfterPartitioning(vector<int>& A, int K) {
+            vector<int> memo(A.size()+1,-1);
+            return maxSum(memo,A,K,0);
+        }
+        
+        int maxSum(vector<int>& memo, vector<int>& A, int& K, int pos){
+            if (pos >= A.size())return 0;
+            if (memo[pos] != -1)return memo[pos];
+            int range_max = A[pos], rightsum = 0;
+            
+            //For all possible sizes of subarray extending right from this point, get sum of the array plus
+            //cumulative sum of values to the right of the array's right bound.
+            for (int i = pos; i < A.size() && i < pos+K; i++){
+                if (A[i] > range_max){
+                    range_max = A[i];
+                }
+                rightsum = max(rightsum,range_max*(i-pos+1)+maxSum(memo,A,K,i+1));     //keep track of max observed sum
+            }
+            return memo[pos] = rightsum;
+        }
+    };
+{% endblock solution_code %}

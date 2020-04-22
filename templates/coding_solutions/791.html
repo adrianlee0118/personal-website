@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        S and T are strings composed of lowercase letters. In S, no letter occurs more than once.
+    </p>
+    <p class="question">
+        S was sorted in some custom order previously. We want to permute the characters of T so that they match the order that S 
+        was sorted. More specifically, if x occurs before y in S, then x should occur before y in the returned string.
+    </p>
+    <p class="question">
+        Return any permutation of T (as a string) that satisfies this property.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use an unordered_map to keep track of all available letters in T. Iterating over S, append all instances of the letter 
+        that are in T. Iterating over the map, append all leftover letters to the end of the answer string and return.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string customSortString(string S, string T) {
+            string ans = "";
+            unordered_map<char,int> letters;
+            for (auto c : T){
+                letters[c]++;
+            }
+            for (auto s : S){
+                while (letters[s] > 0){
+                    ans += s;
+                    letters[s]--;
+                }
+            }
+            for (auto l : letters){
+                while (l.second > 0){
+                    ans += l.first;
+                    l.second--;
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

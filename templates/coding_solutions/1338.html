@@ -1,0 +1,61 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array arr.  You can choose a set of integers and remove all the occurrences of these integers in the array.
+    </p>
+    <p class="question">
+        Return the minimum size of the set so that at least half of the integers of the array are removed.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minSetSize(vector<int>& arr) {
+            
+            //Count various different numbers
+            map<int, int> NumberCount;
+            for (auto c: arr){
+                NumberCount[c]++;
+            }
+            
+            //Sort the counts
+            vector<int> counts;
+            for (map<int,int>::iterator it = NumberCount.begin(); it != NumberCount.end(); it++){
+                counts.push_back(it->second);
+            }
+            sort(counts.begin(),counts.end());
+            
+            //Add largest counts until the sum exceeds half of the size of the array
+            int index = counts.size()-1;
+            int sum = counts[index];
+            int half;
+            if (arr.size() % 2 == 0){
+                half = arr.size()/2;
+            } else {
+                half = arr.size()/2+1;
+            }
+            
+            while (sum < half){
+                index--;
+                sum += counts[index];
+            }
+            
+            return counts.size()-index;
+        }
+    };
+{% endblock solution_code %}

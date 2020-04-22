@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two sequences pushed and popped with distinct values, return true if and only if this could have been the 
+        result of a sequence of push and pop operations on an initially empty stack.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+            
+            //Sequences can not be valid if there are more popped elements than pushed elements, since we start empty
+            if (pushed.size() < popped.size()){
+                return false;
+            }
+            
+            stack<int> overflow;
+            return nextStepsPossible(pushed, popped, 0, 0, overflow);
+            
+        }
+        
+        //Given any subsequences of pushed and popped (from pushpos to end and poppos to end, 
+        //respectively) determine if the two vectors satisfy the push-pop scheme described.
+        bool nextStepsPossible(vector<int>& pushed, vector<int>&popped, int pushpos, int poppos, stack<int>& overflow) {
+            
+            if (pushpos == pushed.size()){
+                if (poppos == popped.size()){
+                    return true;
+                } else if (popped[poppos] != overflow.top()){
+                    return false;
+                } else {
+                    overflow.pop();
+                    return nextStepsPossible(pushed, popped, pushpos, poppos+1, overflow);
+                }
+            }
+            if (poppos == popped.size()){
+                return true;
+            }
+    
+            if (pushed[pushpos] != popped[poppos]){
+                if (!overflow.empty() && overflow.top() == popped[poppos]){
+                    overflow.pop();
+                    return nextStepsPossible(pushed,popped,pushpos,poppos+1,overflow);
+                } else {
+                    overflow.push(pushed[pushpos]);
+                    return nextStepsPossible(pushed,popped,pushpos+1,poppos, overflow);
+                }
+            } else {
+                return nextStepsPossible(pushed,popped,pushpos+1,poppos+1,overflow);
+            }
+        }
+    };
+{% endblock solution_code %}

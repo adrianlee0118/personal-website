@@ -1,0 +1,72 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are N students in a class. Some of them are friends, while some are not. Their friendship is transitive in nature. 
+        For example, if A is a direct friend of B, and B is a direct friend of C, then A is an indirect friend of C. And we 
+        defined a friend circle is a group of students who are direct or indirect friends.
+    </p>
+    <p class="question">
+        Given a N*N matrix M representing the friend relationship between students in the class. If M[i][j] = 1, then the ith and 
+        jth students are direct friends with each other, otherwise not. And you have to output the total number of friend circles 
+        among all the students.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Standard union find. Start with a count equal to the number of people in the class, assuming there are no friend 
+        relationships between any of the people. Iterating over all potential relationships in the matrix, if there is a 
+        friendship, join the groups of those people and reduce the friend circle count.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findCircleNum(vector<vector<int>>& M) {
+            int n = M.size();
+            int count = n;                              //Start with assumption all people are in their own individual groups, reduce as joins are performed
+            vector<int> parent(n);
+            vector<int> rank(n);                            //Initial relative ranks of trees (which one is closer to the root) are zero
+            for (int i = 0; i < n; i++) parent[i] = i;      //Initial parents are the people themselves--they are in groups by themselves
+            for (int i = 0; i < n-1; i++)                   //for all edges in the friends graph
+                for (int j = i+1; j < n; j++)
+                    if (M[i][j]) Union(parent,rank,i,j,count);    //if friends, establish parents of both people and join the subsets of both partners if necessary
+            return count;
+        }
+    
+        //Returns the root parent for the subset of person i
+        int Find(vector<int>& parent, int i) {
+            while (parent[i] != i){                              //While we are not at a root parent (this condition only true when a person has no parent friendships)
+                parent[i] = parent[parent[i]];                   //Re-assign parent to a parent further up the tree
+                i = parent[i];                                   //move the current reference to the new parent
+            }
+            return parent[i];                  //return the root parent found
+        }
+    
+        //Finds the root parents for subsets of person i and person j, joins groups if the two subsets are not the same--called when we know there is a friend relationship
+        void Union(vector<int>& parent, vector<int>& rank, int i, int j, int& count){
+            int pi = Find(parent,i);             //Determine the subsets of both friends
+            int pj = Find(parent,j);
+            if (pi != pj){                       //If these two are not already in the same friend group, join
+                if (rank[i] > rank[j]){          //path compression: put the tallest tree as the root (higher rank, taller tree)
+                    parent[pj] = pi;
+                } else if (rank[j] > rank[i]){
+                    parent[pi] = pj;
+                } else {                        //if same rank, arbitrarily set one as root (parent), increase the parent's rank
+                    parent[pi] = pj;
+                    rank[pj]++;
+                }
+                count--;                    //reduce original group count as two groups have been joined into one
+            }
+        }
+    };
+{% endblock solution_code %}

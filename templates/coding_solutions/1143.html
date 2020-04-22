@@ -1,0 +1,66 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings text1 and text2, return the length of their longest common subsequence.
+    </p>
+    <p class="question">
+        A subsequence of a string is a new string generated from the original string with some characters(can be none) deleted 
+        without changing the relative order of the remaining characters. (eg, "ace" is a subsequence of "abcde" while "aec" is 
+        not). A common subsequence of two strings is a subsequence that is common to both strings.
+    </p>
+    <p class="question">
+        If there is no common subsequence, return 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int longestCommonSubsequence(string text1, string text2) {
+            
+            int l1 = text1.length(), l2 = text2.length();
+            
+            //Memoization a 2D vector that at any i, j records the length of the longest subsequence with respect
+            //to positions of text1 and text2. Given the same position in text1 and an increment of position in text2,
+            //the subsequence length could either be one more than before or the same, and the memoization scheme
+            //takes this into account when the characters in both strings during the iteration do not match.
+            vector<vector<int>> mat(l1, vector(l2, 0));
+            
+            //for all characters in string1, iterate through string 2
+            for (size_t i = 0; i < l1; ++i) {
+                for (size_t j = 0; j < l2; ++j) {
+                    
+                    //if the characters match,
+                    if (text1[i] == text2[j]) {
+                        
+                        //count the first char or add 1 to the previous count with respect to the previous position 
+                        //of both strings
+                        mat[i][j] = (i > 0 && j > 0) ? 1 + mat[i - 1][j - 1] : 1;
+                    } else {
+                        //if no match, copy over count from the previous character with respect to each string
+                        if (i > 0) mat[i][j] = max(mat[i - 1][j], mat[i][j]);
+                        if (j > 0) mat[i][j] = max(mat[i][j - 1], mat[i][j]);
+                    }
+                }
+            }
+            
+            //longest subsequence between text1 and text2 over their entire lengths is bottom right corner of memo 2D
+            //vector
+            return mat[l1 - 1][l2 - 1];
+        }
+    };
+{% endblock solution_code %}

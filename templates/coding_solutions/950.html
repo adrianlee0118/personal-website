@@ -1,0 +1,66 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a deck of cards, every card has a unique integer.  You can order the deck in any order you want.
+    </p>
+    <p class="question">
+        Initially, all the cards start face down (unrevealed) in one deck.
+    </p>
+    <p class="question">
+        Now, you do the following steps repeatedly, until all cards are revealed:
+    </p>
+    <ol>
+        <li>Take the top card of the deck, reveal it, and take it out of the deck.</li>
+        <li>If there are still cards in the deck, put the next top card of the deck at the bottom of the deck.</li>
+        <li>If there are still unrevealed cards, go back to step 1.  Otherwise, stop.</li>
+    </ol>
+    <p class="question">
+        Return an ordering of the deck that would reveal the cards in increasing order.
+    </p>
+    <p class="question">
+        The first entry in the answer is considered to be the top of the deck.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> deckRevealedIncreasing(vector<int>& deck) {
+            sort(deck.begin(),deck.end());
+            queue<int> riggeddeck;
+            
+            //Create ordering within queue back to front
+            while (deck.size() > 1){
+                riggeddeck.push(deck.back());
+                deck.pop_back();
+                int cardToTop = riggeddeck.front();
+                riggeddeck.pop();
+                riggeddeck.push(cardToTop);
+            }
+            riggeddeck.push(deck.back());
+            
+            //Store in a new vector in reverse and return
+            vector<int> finaldeck;
+            while (!riggeddeck.empty()){
+                finaldeck.push_back(riggeddeck.front());
+                riggeddeck.pop();
+            }
+            reverse(finaldeck.begin(),finaldeck.end());
+            return finaldeck;
+        }
+    };
+{% endblock solution_code %}

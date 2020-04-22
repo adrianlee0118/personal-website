@@ -1,0 +1,81 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a m x n binary matrix mat. In one step, you can choose one cell and flip it and all the four neighbours of 
+        it if they exist (Flip is changing 1 to 0 and 0 to 1). A pair of cells are called neighboors if they share one edge.
+    </p>
+    <p class="question">
+        Return the minimum number of steps required to convert mat to a zero matrix or -1 if you cannot.
+    </p>
+    <p class="question">
+        Binary matrix is a matrix with all cells equal to 0 or 1 only.
+    </p>
+    <p class="question">
+        Zero matrix is a matrix with all cells equal to 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int m, n;
+        
+    public:
+        int minFlips(vector<vector<int>>& mat) {
+            this->m = mat.size();
+            this->n = mat[0].size();
+            int ans = DFSBacktrack(mat,0,0,0);
+            return (ans == INT_MAX)?-1:ans;
+        }
+        
+        void flip(vector<vector<int>>& mat, int i, int j) {
+            mat[i][j] ^= 1;                                   //flip the cell
+            if(i  > 0) mat[i-1][j] ^= 1;                      //flip the surrounding cells if they exist
+            if(j > 0) mat[i][j-1] ^= 1;
+            if(i < m-1) mat[i+1][j] ^= 1;
+            if(j < n-1) mat[i][j+1] ^=1;
+            return;
+        }
+        
+        //check if the matrix is a zero matrix
+        bool zeroMat(vector<vector<int>>& mat) {
+            for(int i = 0; i < m; i++) {
+                for(int j = 0; j < n; j++) {
+                    if(mat[i][j]) return false;
+                }
+            }
+            return true;
+        }
+        
+        //DFS Backtrack: at every cell in the matrix, try a DFS with flip and one without a flip, return minimum flip count to get zero matrix if possible, 
+        //else INT_MAX
+        int DFSBacktrack(vector<vector<int>>& mat, int x, int y, int count) {
+            if(x == m) {                                //going row by row from left to right do the analysis
+                x = 0;
+                y++;
+            }
+            if(y == n) {
+                return zeroMat(mat)?count:INT_MAX;   //if finished last row, check if zero matrix, if yes, return number of flips, else INT_MAX
+            }  
+            int path1 = DFSBacktrack(mat,x+1,y,count);                //at each cell do a DFS without flipping the cell
+            flip(mat,x,y);
+            int path2 = DFSBacktrack(mat,x+1,y,count+1) ;             //and do a DFS off of flipping that cell (moving to next cell left to right, top to bottom)
+            flip(mat,x,y);                                           //backtrack: restore the original state
+            return min(path1,path2);                                //return the minimum flips from both options 
+        }
+    };
+{% endblock solution_code %}

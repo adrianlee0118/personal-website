@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, return the inorder traversal of its nodes' values.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> inorderTraversal(TreeNode* root) {
+            vector<int> record;
+            inOrderTraversal(root, record);
+            return record;
+        }
+        
+        void inOrderTraversal(TreeNode* root, vector<int>& record){
+            
+            if (!root){
+                return;
+            }
+            
+            if (root->left){
+                inOrderTraversal(root->left, record);
+            }
+            record.push_back(root->val);
+            if (root->right){
+                inOrderTraversal(root->right, record);
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

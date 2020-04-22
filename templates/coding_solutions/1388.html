@@ -1,0 +1,66 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There is a pizza with 3n slices of varying size, you and your friends will take slices of pizza as follows:
+    </p>
+    <ul>
+        <li> You will pick any pizza slice.</li>
+        <li> Your friend Alice will pick next slice in anti clockwise direction of your pick. </li>
+        <li> Your friend Bob will pick next slice in clockwise direction of your pick.</li>
+        <li> Repeat until there are no more slices of pizzas.</li>
+    </ul>
+    <p class="question">
+        Sizes of Pizza slices are represented by circular array slices in clockwise direction.
+    </p>
+    <p class="question">
+        Return the maximum possible sum of slice sizes which you can have.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Break up the circular problem into two linear problems, one ranging from the first slice to the second last slice and
+        the other from the second slice to the last slice (if we pick the first slice, we can't have the last slice because it
+        is adjacent and vice versa). 
+    </p>
+    <p>
+        For each linear problem, iterate through all the possible slices. Maintain a DP vector where each row represents a possible
+        sequence of pizza slices eaten by the person, starting from some index in the slices linear array. In the DP, index 2 will
+        correspond to index 0 in the slices array so that we can incrementally, uni-directionally calculate the total amount of 
+        pizza eaten; at any slice, the total eaten will be the maximum of eating the current slice and the one two slices before it
+        or eating the previous slice.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution in C++-->
+    class Solution {
+    public:
+        int maxSizeSlices(vector<int>& slices) {
+            int n = (int)slices.size() / 3;
+            auto l1 = vector<int>(slices.begin(), slices.end()-1);  //two problems, can't take first slice and last at the same time
+            auto l2 = vector<int>(slices.begin()+1, slices.end());
+            return max(linear(l1, n), linear(l2, n));
+        }
+        
+    private:
+        int linear(vector<int>& slices, int n) {
+            vector<vector<int>> eat((int)slices.size()+2, vector<int>(n+1, INT_MIN));     //dp vector, each vector represents a possible sequence of pizza slice sizes for the person to eat
+            int ans = INT_MIN;
+            for (int i = 0; i < eat.size(); i++) eat[i][0] = 0;
+            for (int i = 2; i < eat.size(); i++) {
+                for (int j = 1; j < n + 1; j++)                                //for every pizza slice in this eating,
+                    eat[i][j] = max(eat[i-1][j], eat[i-2][j-1] + slices[i-2]);   //take maximum of eating current slice and two slices before that or eating the previous slice (which precludes being able to eat the current slice)
+                ans = max(eat[i][n], ans);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

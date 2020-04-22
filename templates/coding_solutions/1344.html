@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two numbers, hour and minutes. Return the smaller angle (in degrees) formed between the hour and the minute hand.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        double angleClock(int hour, int minutes) {
+            //Get angle of hour and of minute hand clockwise from reference 12 o'clock
+            double minangle = minutes*6;
+            double hourangle = hour*30 + (((double) minutes)/60)*30;   //Add fraction of next hour based on minutes
+            if (hourangle > 360){           //if the hour is 12, ensure the smallest angle from 12 is recorded
+                hourangle -= 360;
+            }
+            
+            //Get the smallest angle between the two hands and return
+            double angle;
+            if (minangle > hourangle){
+                angle = minangle-hourangle;
+            } else {
+                angle = hourangle-minangle;
+            }
+            
+            if (angle > 180){
+                angle = 360-angle;
+            }
+            return angle;
+        }
+    };
+{% endblock solution_code %}

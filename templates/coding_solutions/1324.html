@@ -1,0 +1,63 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s. Return all the words vertically in the same order in which they appear in s.
+    </p>
+    <p class="question">
+        Words are returned as a list of strings, complete with spaces when is necessary. (Trailing spaces are not allowed).
+    </p>
+    <p class="question">
+        Each word would be put on only one column and that in one column there will be only one word.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> printVertically(string s) {
+            
+            vector<string> words;
+            
+            stringstream ss(s);
+            string word;
+            int maxLen = 0;
+            while (ss >> word) {
+                words.push_back(word);
+                maxLen = max((int)word.size(), maxLen);
+            }
+            
+            vector<string> ans;
+            int n = words.size();
+            for (int j = 0; j < maxLen; j++) {
+                
+                string current = "";
+                
+                for (string& word : words) {
+                    
+                    if (j < word.size()) current.push_back(word[j]);
+                    
+                    //this is essential for deleting leading spaces
+                    else current.push_back(' ');
+                }
+                while (current.back() == ' ') current.pop_back();
+                ans.push_back(current);
+            }
+            return ans;
+        }
+    
+    };
+{% endblock solution_code %}

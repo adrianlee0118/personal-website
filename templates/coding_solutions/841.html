@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are N rooms and you start in room 0.  Each room has a distinct number in 0, 1, 2, ..., N-1, and each room may have 
+        some keys to access the next room. 
+    </p>
+    <p class="question">
+        Formally, each room i has a list of keys rooms[i], and each key rooms[i][j] is an integer in [0, 1, ..., N-1] where 
+        N = rooms.length.  A key rooms[i][j] = v opens the room with number v.
+    </p>
+    <p class="question">
+        Initially, all the rooms start locked (except for room 0). 
+    </p>
+    <p class="question">
+        You can walk back and forth between rooms freely.
+    </p>
+    <p class="question">
+        Return true if and only if you can enter every room. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool canVisitAllRooms(vector<vector<int>>& rooms) {
+            vector<bool> visited(rooms.size(),false);
+            queue<int> keys;
+            
+            //visit the first room and acquire keys
+            visited[0] = true;
+            for (auto& k : rooms[0]){
+                keys.push(k);
+            }
+            
+            //visit rooms and acquire keys until all keys are used
+            while (!keys.empty()){
+                if (!visited[keys.front()]){
+                    visited[keys.front()] = true;
+                    for (auto& k : rooms[keys.front()]){
+                        keys.push(k);
+                    }
+                    keys.pop();
+                } else {
+                    keys.pop();           //just throw out the key if we already visited the room once
+                }
+            }
+            
+            //check if all rooms have been visited
+            if (find(visited.begin(),visited.end(),false) != visited.end()){
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+{% endblock solution_code %}

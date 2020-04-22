@@ -1,0 +1,115 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Write a program that outputs the string representation of numbers from 1 to n, however:
+    </p>
+    <ul>
+        <li>If the number is divisible by 3, output "fizz".</li>
+        <li>If the number is divisible by 5, output "buzz".</li>
+        <li>If the number is divisible by both 3 and 5, output "fizzbuzz".</li>
+    </ul>
+    <p class="question">
+        For example, for n = 15, we output: 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz.
+    </p>
+    <p class="question">
+        Suppose you are given the following code:
+    </p>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+            class FizzBuzz {
+                public FizzBuzz(int n) { ... }               // constructor
+                public void fizz(printFizz) { ... }          // only output "fizz"
+                public void buzz(printBuzz) { ... }          // only output "buzz"
+                public void fizzbuzz(printFizzBuzz) { ... }  // only output "fizzbuzz"
+                public void number(printNumber) { ... }      // only output the numbers
+            }
+        </code>
+    </pre>
+    <p class="question">
+        Implement a multithreaded version of FizzBuzz with four threads. The same instance of FizzBuzz will 
+        be passed to four different threads:
+    </p>
+    <ol>
+        <li>Thread A will call fizz() to check for divisibility of 3 and outputs fizz.</li>
+        <li>Thread B will call buzz() to check for divisibility of 5 and outputs buzz.</li>
+        <li>Thread C will call fizzbuzz() to check for divisibility of 3 and 5 and outputs fizzbuzz.</li>
+        <li>Thread D will call number() which should only output the numbers.</li>
+    </ol>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class FizzBuzz {
+    private:
+        int n;
+        int curr;
+        mutex mx;
+        condition_variable cv;
+        
+    public:
+        FizzBuzz(int n) {
+            this->n = n;
+            this->curr = 1;
+        }
+        
+        template<class T, class K>
+        void threadFn(T check, K print) {
+            while(curr <= n) {
+                unique_lock<mutex> lock(mx);
+                cv.wait(lock, [&](){ return check() || curr > n; });                    
+                if (curr > n)
+                    return;
+                print();
+                ++curr;
+                cv.notify_all();
+            }
+        }
+        
+        // printFizz() outputs "fizz".
+        void fizz(function<void()> printFizz) {
+            auto check = [&](){ return curr%3==0 && curr%5!=0; };
+            auto print = [&](){ printFizz(); };
+            threadFn(check, print);
+        }
+    
+        // printBuzz() outputs "buzz".
+        void buzz(function<void()> printBuzz) {
+            auto check = [&](){ return curr%3!=0 && curr%5==0; };
+            auto print = [&](){ printBuzz(); };
+            threadFn(check, print);
+        }
+    
+        // printFizzBuzz() outputs "fizzbuzz".
+        void fizzbuzz(function<void()> printFizzBuzz) {
+            auto check = [&](){ return curr%3==0 && curr%5==0; };
+            auto print = [&](){ printFizzBuzz(); };
+            threadFn(check, print);
+        }
+    
+        // printNumber(x) outputs "x", where x is an integer.
+        void number(function<void(int)> printNumber) {
+            auto check = [&](){ return curr%3!=0 && curr%5!=0; };
+            auto print = [&](){ printNumber(curr); };
+            {
+                unique_lock<mutex> lock(mx);
+                print();
+                ++curr;
+            }
+            cv.notify_all();
+            threadFn(check, print);
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Alex and Lee continue their games with piles of stones.  There are a number of piles arranged in a row, and each pile has a 
+        positive integer number of stones piles[i].  The objective of the game is to end with the most stones. 
+    </p>
+    <p class="question">
+        Alex and Lee take turns, with Alex starting first.  Initially, M = 1.
+    </p>
+    <p class="question">
+        On each player's turn, that player can take all the stones in the first X remaining piles, where 1 <= X <= 2M.  Then, we 
+        set M = max(M, X).
+    </p>
+    <p class="question">
+        The game continues until all the stones have been taken.
+    </p>
+    <p class="question">
+        Assuming Alex and Lee play optimally, return the maximum number of stones Alex can get.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        At a given turn with a given M value and number of stones remaining, calculate the maximum possible score for the current
+        player using a DFS on each possible take with that M value, keeping track of the max. For each DFS, the current player's max
+        score is their take plus the total remaining stones minus the minimum score of the following player. Use a DP
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+        private:
+        vector<vector<int>> cache;
+    
+        public:    
+        int maximum(vector<int>& piles, int start, int M, int total) {
+            if (start >= piles.size()) return 0;
+            if (cache[start][M] != -1) return cache[start][M];
+            int result = INT_MIN;
+            for (int X = 1, sum = 0; X <= 2 * M && X + start <= piles.size(); X++) {
+                sum += piles[start + X - 1];
+                result = max(result, total - maximum(piles, start + X, max(M, X), total - sum));
+            }
+            
+            return cache[start][M] = result;
+        }
+        
+        int stoneGameII(vector<int>& piles) {
+            cache = vector<vector<int>>(piles.size() , vector<int>(piles.size() , -1));
+            return maximum(piles, 0, 1, accumulate(piles.begin(), piles.end(), 0));
+        }
+    
+    };
+{% endblock solution_code %}

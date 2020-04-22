@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have a set of tiles, where each tile has one letter tiles[i] printed on it.  Return the number of possible 
+        non-empty sequences of letters you can make.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        DFS that builds possible sequences by trying every available character at every possible position before launching 
+        the DFS for the next position with the remaining characters.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numTilePossibilities(string tiles) {
+            //Use a map to keep track of available characters. For all possible quantities of used letters,
+            //find all permutations by systematically trying all available characters at the first position
+            //and then all available remaining characters given all possible first character choices and so on.
+            //Using the map ensures that no paths in the DFS traversal will be visited twice (i.e. no duplicate
+            //strings will be generated.)
+            unordered_map<char,int> Chars;
+            for (auto ch : tiles){
+                Chars[ch]++;
+            }
+            int count = 0;
+            for (int i = 1; i <= tiles.size(); i++){
+                count += DFS(Chars, i);
+            }
+            return count;
+        }
+        
+        int DFS(unordered_map<char,int>& Chars, int tilesToUse) {
+            if (tilesToUse == 0){
+                return 1;    //add one to count if we used all the tiles
+            }
+            
+            int count = 0;
+            for (auto& it : Chars){
+                if (it.second > 0){
+                    it.second--;
+                    count += DFS(Chars,tilesToUse-1);
+                    it.second++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

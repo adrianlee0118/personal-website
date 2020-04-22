@@ -1,0 +1,61 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Alex and Lee play a game with piles of stones.  There are an even number of piles arranged in a row, and each pile has 
+        a positive integer number of stones piles[i].
+    </p>
+    <p class="question">
+        The objective of the game is to end with the most stones.  The total number of stones is odd, so there are no ties.
+    </p>
+    <p class="question">
+        Alex and Lee take turns, with Alex starting first.  Each turn, a player takes the entire pile of stones from either the 
+        beginning or the end of the row.  This continues until there are no more piles left, at which point the person with the 
+        most stones wins.
+    </p>
+    <p class="question">
+        Assuming Alex and Lee play optimally, return True if and only if Alex wins the game.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Memoization as described below.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        vector<vector<int>> maxturnscore;       //memoization tool, must have start and end info, the bounds of array
+    public:
+        bool stoneGame(vector<int>& piles) {
+            maxturnscore = vector<vector<int>>(piles.size()+1,vector<int>(piles.size()+1,-1));
+            int total = accumulate(piles.begin(),piles.end(),0);
+            int alexscore = maxscore(piles,0,piles.size()-1);
+            if (alexscore > total-alexscore) return true;
+            else return false;
+        }
+        
+        //Calculate maximum number of stones that can be scored given any range of stone piles denoted by start, end
+        int maxscore(vector<int>& piles, int start, int end){
+            if (start >= end) return 0;
+            if (maxturnscore[start][end] != -1) return maxturnscore[start][end];
+            
+            //Calculate the current player's score by taking pile from this turn added to score from next turn for
+            //both cases where current player takes front or back and where in the next turn the next player takes
+            //front or back--take min of possible next turn scores of the current player because we assume the other player plays optimally.
+            int frontscore = piles[start] + min(maxscore(piles,start+2,end), maxscore(piles,start+1,end-1));
+            int backscore = piles[end] + min(maxscore(piles,start, end-2),maxscore(piles,start+1,end-1));
+        
+            return maxturnscore[start][end] = max(frontscore,backscore);
+        }
+    };
+{% endblock solution_code %}

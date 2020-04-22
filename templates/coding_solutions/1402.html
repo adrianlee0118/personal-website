@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A chef has collected data on the satisfaction level of his n dishes. Chef can cook any dish in 1 unit of time.
+    </p>
+    <p class="question">
+        Like-time coefficient of a dish is defined as the time taken to cook that dish including previous dishes multiplied 
+        by its satisfaction level  i.e.  time[i]*satisfaction[i]
+    </p>
+    <p class="question">
+        Return the maximum sum of Like-time coefficient that the chef can obtain after dishes preparation.
+    </p>
+    <p class="question">
+        Dishes can be prepared in any order and the chef can discard some dishes to get this maximum value.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+class Solution {
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int dp[500][500] = {};         //position ranges from 0-499, time from 1-500
+        
+    public:
+        int maxSatisfaction(vector<int>& satisfaction) {
+            sort(satisfaction.begin(),satisfaction.end());       //set up for bottom-up DP
+            return DFS(satisfaction,0,1);
+        }
+        
+        //DFS that at any position in the sorted list of dishes finds the maximum possible coefficient given how many 
+        //dishes have been taken up to that point as indicated by the time value. This is accomplished by doing a DFS 
+        //with the current position's dish and one without and taking the maximum--answers are stored in a dp vector 
+        //mapping pos to time to speed up later DFS calculations
+        int DFS(vector<int>& satisfaction,int pos,int time){
+            if (pos >= satisfaction.size()) return 0;
+            if (dp[pos][time]) return dp[pos][time];
+            return dp[pos][time] = max(DFS(satisfaction,pos+1,time),time*satisfaction[pos]+DFS(satisfaction,pos+1,time+1));
+        }
+    };
+{% endblock solution_code %}

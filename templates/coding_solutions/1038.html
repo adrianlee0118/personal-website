@@ -1,0 +1,80 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root of a binary search tree with distinct values, modify it so that every node has a new value equal to the sum 
+        of the values of the original tree that are greater than or equal to node.val.
+    </p>
+    <p class="question">
+        As a reminder, a binary search tree is a tree that satisfies these constraints:
+    </p>
+    <ul>
+        <li>The left subtree of a node contains only nodes with keys less than the node's key.</li>
+        <li>The right subtree of a node contains only nodes with keys greater than the node's key.</li>
+        <li>Both the left and right subtrees must also be binary search trees.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* bstToGst(TreeNode* root) {
+            
+            //Record all values in the tree
+            vector<int> storekeys;
+            StoreKeys(root,storekeys);
+            
+            //Generate sums and map
+            sort(storekeys.begin(),storekeys.end());
+            unordered_map<int,int> ValueAdd;
+            for (int i = 0; i < storekeys.size()-1; i++){
+                int sum = 0;
+                for (int j = i+1; j < storekeys.size(); j++){
+                    sum += storekeys[j];
+                }
+                ValueAdd[storekeys[i]] = sum;
+            }
+            
+            //Apply sums and return root
+            AddSums(root,ValueAdd);
+            return root;
+        }
+        
+        void StoreKeys(TreeNode* root, vector<int>& storekeys){
+            if (!root){
+                return;
+            }
+            
+            storekeys.push_back(root->val);
+            
+            StoreKeys(root->left,storekeys);
+            StoreKeys(root->right, storekeys);
+            return;
+        }
+        
+        void AddSums(TreeNode* root, unordered_map<int,int>& ValueAdd){
+            if (!root){
+                return;
+            }
+            
+            root->val += ValueAdd[root->val];
+            
+            AddSums(root->left, ValueAdd);
+            AddSums(root->right, ValueAdd);
+            return;
+        }
+    };
+{% endblock solution_code %}

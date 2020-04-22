@@ -1,0 +1,51 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings representing two complex numbers.
+    </p>
+    <p class="question">
+        You need to return a string representing their multiplication. Note i2 = -1 according to the definition.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use stringstream and getline to parse a and b bit by bit, perform the math with the acquired numbers.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string complexNumberMultiply(string a, string b) {
+            stringstream A(a);
+            stringstream B(b);
+            int a1, b1, a2, b2;
+            string temp;
+            
+            getline(A,temp,'+');
+            a1 = std::stoi(temp);
+            
+            getline(B,temp,'+');
+            b1 = std::stoi(temp);
+            
+            getline(A,temp,'i');
+            a2 = std::stoi(temp);
+            
+            getline(B,temp,'i');
+            b2 = std::stoi(temp);
+            
+            string first = to_string(a1*b1-(a2*b2));
+            string second = to_string(a1*b2+b1*a2);
+            return first+'+'+second+'i';
+        }
+    };
+{% endblock solution_code %}

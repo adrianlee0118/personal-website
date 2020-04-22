@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string S of '(' and ')' parentheses, we add the minimum number of parentheses ( '(' or ')', 
+        and in any positions ) so that the resulting parentheses string is valid.
+    </p>
+    <p class="question">
+        Formally, a parentheses string is valid if and only if:
+    </p>
+    <ul>
+        <li>It is the empty string, or</li>
+        <li>It can be written as AB (A concatenated with B), where A and B are valid strings, or</li>
+        <li>It can be written as (A), where A is a valid string.</li>
+    </ul>
+    <p class="question">
+        Given a parentheses string, return the minimum number of parentheses we must add to make the resulting string valid.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minAddToMakeValid(string S) {
+            int count = 0;
+            int openCount = 0;
+            for(auto c : S){
+                if(c=='(')
+                    openCount++;
+                else
+                    if(openCount>0)
+                        openCount--;
+                    else
+                        count++;
+            }
+            
+            return count+openCount;
+        }
+    };
+{% endblock solution_code %}

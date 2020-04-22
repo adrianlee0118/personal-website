@@ -1,0 +1,71 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A full binary tree is a binary tree where each node has exactly 0 or 2 children.
+    </p>
+    <p class="question">
+        Return a list of all possible full binary trees with N nodes.  Each element of the answer is the root node of one 
+        possible tree.
+    </p>
+    <p class="question">
+        Each node of each tree in the answer must have node.val = 0.
+    </p>
+    <p class="question">
+        You may return the final list of trees in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<TreeNode*> allPossibleFBT(int N) {
+            
+            if (N == 0 || N % 2 == 0){
+                return {};
+            }
+            return allBranches(1,N);
+        }
+        
+        //For some range of cells (possibly the whole array), create a list of root nodes joined to all possible distributions 
+        //of cells across both branches.
+        vector<TreeNode*> allBranches(int start, int end){
+        
+            if (start == end){
+                return {new TreeNode(0)};
+            }
+            vector<TreeNode*> ans;
+            
+            //Divide available nodes in range between both branches in all possible ways by trying all possible partitions 
+            //of the range of nodes, stepping up 2 with each iteration because increments to each side are by 2 to fulfill the
+            //full binary tree condition, add all the arrangements generated to the answer.
+            
+            for (int i = start+1; i <= end; i+=2){          
+                vector<TreeNode*> left = allBranches(start,i-1);   //The separator i's node is not included in 
+                vector<TreeNode*> right = allBranches(i+1,end);   //the recursion ranges because it is the 
+                for (auto& l : left){                             //current root.
+                    for (auto& r : right){
+                        TreeNode* root = new TreeNode(0);
+                        root->left = l;
+                        root->right = r;
+                        ans.push_back(root);
+                    }
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

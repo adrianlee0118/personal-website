@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr and two integers k and threshold.
+    </p>
+    <p class="question">
+        Return the number of sub-arrays of size k and average greater than or equal to threshold.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numOfSubarrays(vector<int>& arr, int k, int threshold) {
+            int count = 0;
+            int minsum = k*threshold;                   //sum must be at least this for subarray to match conditions
+            int startsum = 0;
+            
+            //Get the base sum for the first array of length k
+            for (int i = 0; i < k; i++){
+                startsum += arr[i];
+            }
+            if (startsum >= minsum){
+                count++;
+            }
+            
+            //Iterate through arr starting from index k. Using one pointer at the next new number (k.....arr.size()) and 
+            //another at the earliest number in the array (0.....arr.size()-k), at each iteration get the new sum of
+            //the array by dropping the earliest number of the last array and adding the new number, count if condition
+            //satisfied.
+            int drop = 0;
+            for (int i = k; i < arr.size(); i++){
+                startsum -= arr[drop];
+                startsum += arr[i];
+                drop++;
+                if (startsum >= minsum){
+                    count++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

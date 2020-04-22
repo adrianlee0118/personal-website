@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+    </p>
+    <p class="question">
+        Find all the elements that appear twice in this array.
+    </p>
+    <p class="question">
+        Could you do it without extra space and in O(n) runtime?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> findDuplicates(vector<int>& nums) {
+            vector<int> ans;
+            for (int i = 0; i < nums.size(); i++){
+                int index = abs(nums[i])-1;
+                if (nums[index] < 0){
+                    ans.push_back(abs(nums[i]));
+                }
+                nums[index] = -nums[index];
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

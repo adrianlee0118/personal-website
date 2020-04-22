@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array with no duplicates. A maximum tree building on this array is defined as follows:
+    </p>
+    <ul>
+        <li>The root is the maximum number in the array.</li>
+        <li>The left subtree is the maximum tree constructed from left part subarray divided by the maximum number.</li>
+        <li>The right subtree is the maximum tree constructed from right part subarray divided by the maximum number.</li>
+    </ul>
+    <p class="question">
+        Construct the maximum tree by the given array and output the root node of this tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution in C++-->
+    class Solution {
+    public:
+        TreeNode* constructMaximumBinaryTree(vector<int>& A) {
+            stack<TreeNode*> s;
+            int maxn = 0;
+            TreeNode *root = NULL;
+            
+            //for all letters
+            for(int i = 0; i < A.size(); i++)
+            {
+                //make a new node
+                TreeNode* node = new TreeNode(A[i]);
+                
+                //if a new maximum has been found, set maximum and set root to current new node
+                if(A[i] > maxn)
+                {
+                    maxn = A[i]; root = node;
+                }
+                
+                //If there are previous nodes
+                while(!s.empty())
+                {
+                    //while lesser nodes are in the top of the stack assign to left node of current new node
+                    //(the lesser node retains both of its left/right)
+                    //when a greater node is reached, set to right of current node and break
+                    if(s.top()->val > A[i])
+                    {
+                        s.top()->right = node;
+                        break;
+                    }
+                    else
+                    {
+                        node->left = s.top();
+                        s.pop();
+                    }
+                }
+                //add the current node (with left and right set)
+                s.push(node);
+            }
+            return root;
+        }
+    };
+{% endblock solution_code %}

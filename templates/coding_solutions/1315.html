@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, return the sum of values of nodes with even-valued grandparent.  
+        (A grandparent of a node is the parent of its parent, if it exists.)
+    </p>
+    <p class="question">
+        If there are no nodes with an even-valued grandparent, return 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int sumEvenGrandparent(TreeNode* root) {
+            int sum = 0;
+            checkNodes(root,sum);
+            return sum;
+        }
+        
+        void checkNodes(TreeNode* root, int& sum){
+            
+            if (!root) return;
+            if (root->val % 2 == 0){
+                sumGrandChildren(root,sum);
+            }
+            checkNodes(root->left, sum);
+            checkNodes(root->right, sum);
+            return;
+        }
+        
+        void sumGrandChildren(TreeNode* root, int& sum){
+            
+            if (!root) return;
+            if (root->left){
+                if (root->left->left) sum += root->left->left->val;
+                if (root->left->right) sum += root->left->right->val;
+            }
+            if (root->right){
+                if (root->right->left) sum += root->right->left->val;
+                if (root->right->right) sum += root->right->right->val; 
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree root and an integer target, delete all the leaf nodes with value target.
+    </p>
+    <p class="question">
+        Note that once you delete a leaf node with value target, if it's parent node becomes a leaf node and has the value 
+        target, it should also be deleted (you need to continue doing that until you can't).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* removeLeafNodes(TreeNode* root, int target) {
+            return DeleteNodes(root, target);
+        }
+        
+        TreeNode* DeleteNodes(TreeNode* root, int target){
+            if (!root) return NULL;
+            if (root->left) {
+                root->left = DeleteNodes(root->left,target);
+            }
+            if (root->right) {
+                root->right = DeleteNodes(root->right,target);
+            }
+            if (!root->left && !root->right && root->val == target){
+                return NULL;
+            }
+            return root;
+        }
+    };
+{% endblock solution_code %}

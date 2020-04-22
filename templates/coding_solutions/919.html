@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all 
+        nodes are as far left as possible.
+    </p>
+    <p class="question">
+        Write a data structure CBTInserter that is initialized with a complete binary tree and supports the following operations:
+    </p>
+    <ul>
+        <li>CBTInserter(TreeNode root) initializes the data structure on a given tree with head node root;</li>
+        <li>CBTInserter.insert(int v) will insert a TreeNode into the tree with value node.val = v so that 
+            the tree remains complete, and returns the value of the parent of the inserted TreeNode;</li>
+        <li>CBTInserter.get_root() will return the head node of the tree.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        The algorithm's shortcoming is that for every insert operation we must iterate level-by-level from 
+        the root to find the insert position.
+    </p>
+    <p>
+        Could possibly use a 2D vector to store node values by row and access insert positions more quickly.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class CBTInserter {
+    private:
+        TreeNode* root;
+        
+    public:
+        CBTInserter(TreeNode* root) {
+            this->root = root;
+        }
+        
+        int insert(int v) {
+            queue <TreeNode*> q; 
+            q.push(this->root);
+            while(!q.empty()){                  //iterate over nodes in level order to ensure level-by-level filling
+                TreeNode* curr = q.front();      
+                q.pop();
+                if(curr->left == NULL) {               //if incomplete node, insert with priority at left             
+                    curr->left = new TreeNode(v);
+                    return curr->val;
+                } else if(curr->right == NULL){
+                    curr->right = new TreeNode(v);
+                    return curr->val;
+                }
+                q.push(curr->left);            //if node is complete, push its leaves to prepare for next level   
+                q.push(curr->right);
+            }
+            return -1;                       //If something went wrong
+        }
+            
+        
+        TreeNode* get_root() {
+            return this->root;
+        }
+    };
+{% endblock solution_code %}

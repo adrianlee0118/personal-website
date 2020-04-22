@@ -1,0 +1,107 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree rooted at root, the depth of each node is the shortest distance to the root.
+    </p>
+    <p class="question">
+        A node is deepest if it has the largest depth possible among any node in the entire tree.
+    </p>
+    <p class="question">
+        The subtree of a node is that node, plus the set of all descendants of that node.
+    </p>
+    <p class="question">
+        Return the node with the largest depth such that it contains all the deepest nodes in its subtree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        
+        TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        
+            //Map all nodes to their depth with zero indexing
+            unordered_map<TreeNode*,int> NodeDepth;
+            PreOrderDFS(root, 0, NodeDepth);
+            
+            //Determine maximum depth and count nodes at that depth
+            int maxDepth = 0;
+            int deepCount = 0;
+            for (auto x : NodeDepth){
+                if (x.second > maxDepth){
+                    maxDepth = x.second;
+                    deepCount = 1;
+                } else if (x.second == maxDepth){
+                    deepCount++;
+                }
+            }
+            
+            //Recursion to determine lowest node that is a parent of all deep nodes
+            TreeNode* answer = NULL;
+            LCA(root, maxDepth, deepCount, &answer, 0);
+            
+            return answer;
+        }
+        
+        //PostOrderTraversal that stops going back up the tree when a parent for all deep cells is found
+        int LCA(TreeNode* root, int& maxDepth, int& deepCount, TreeNode** answer, int depth){
+            
+            if (!root){
+                return 0;
+            }
+            
+            //For the edge case where size of tree = 1
+            if (depth == maxDepth && deepCount == 1){
+                *answer = root;
+                return 0;
+            }
+            
+            if (depth == maxDepth){
+                return 1;
+            }
+            
+            //Count downstream nodes that are at maxDepth
+            int downstream_count = LCA(root->left,maxDepth,deepCount,answer,depth+1) + LCA(root->right,maxDepth,deepCount,answer,depth+1);
+            
+            //The very first time we encounter the full count of deepest nodes (that is, as early as possible during
+            //the recursion rebound back up through the tree), set the LCA to that node
+            if (*answer == NULL && downstream_count == deepCount){
+                *answer = root;
+            }
+            return downstream_count;
+        }
+        
+        //Traversal of the array that stores depths
+        void PreOrderDFS(TreeNode* root, int depth, unordered_map<TreeNode*,int>& NodeDepth){
+            
+            if (!root){
+                return;
+            }
+            
+            NodeDepth[root] = depth;
+            
+            if (root->left){
+                PreOrderDFS(root->left, depth+1, NodeDepth);
+            }
+            if (root->right){
+                PreOrderDFS(root->right, depth+1, NodeDepth);
+            }
+            return;
+        }
+        
+    };
+{% endblock solution_code %}

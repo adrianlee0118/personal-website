@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root of a binary tree, find the maximum value V for which there exists different nodes A and B where 
+        V = |A.val - B.val| and A is an ancestor of B.
+    </p>
+    <p class="question">
+        (A node A is an ancestor of B if either: any child of A is equal to B, or any child of A is an ancestor of B.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        void diff(TreeNode* node, int minnum, int maxnum, int &maxdiff)
+        {
+            if(node == nullptr) return;
+            minnum = min(node->val, minnum);
+            maxnum = max(node->val, maxnum);
+            maxdiff = max(abs(minnum - maxnum), maxdiff);
+            diff(node->left, minnum, maxnum, maxdiff);
+            diff(node->right, minnum, maxnum, maxdiff);
+            
+        }
+        int maxAncestorDiff(TreeNode* root) {
+            int maxDiff = INT_MIN;
+            diff(root, INT_MAX, INT_MIN, maxDiff);
+            return maxDiff;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,86 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        On an 8x8 chessboard, there can be multiple Black Queens and one White King.
+    </p>
+    <p class="question">
+        Given an array of integer coordinates queens that represents the positions of the Black Queens, 
+        and a pair of coordinates king that represent the position of the White King, return the coordinates of all the queens 
+        (in any order) that can attack the King.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate over all queens and determine if any of them are in viable positions of attack relative to the King's position.
+        The yes vector accumulates attackers from all positions and is returned.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {
+            vector<vector<int>> yes;
+            vector<int> top, bottom, left, right, topleft, topright, bottomleft, bottomright;
+            for (auto q : queens){
+                if (q[0] == king[0]) {
+                    if (q[1] < king[1]){
+                        if (left.empty() || left[1] < q[1]){
+                            left = q;
+                        }
+                    } else {
+                        if (right.empty() || right[1] > q[1]){
+                            right = q;
+                        }
+                    }
+                } else if (q[1] == king[1]) {
+                    if (q[0] < king[0]){
+                        if (top.empty() || top[0] < q[0]){
+                            top = q;
+                        }
+                    } else {
+                        if (bottom.empty() || bottom[0] > q[0]){
+                            bottom = q;
+                        }
+                    }
+                } else if (abs(q[0]-king[0]) == abs(q[1]-king[1])) {
+                    if (q[0] < king[0] && q[1] < king[1]){
+                        if (topleft.empty() || (topleft[0] < q[0] && topleft[1] < q[1])){
+                            topleft = q;
+                        }
+                    } else if (q[0] > king[0] && q[1] < king[1]) {
+                        if (bottomleft.empty() || (bottomleft[0] > q[0] && bottomleft[1] < q[1])){
+                            bottomleft = q;
+                        }
+                    } else if (q[0] < king[0] && q[1] > king[1]) {
+                        if (topright.empty() || (topright[0] < q[0] && topright[1] > q[1])){
+                            topright = q;
+                        }
+                    } else if (q[0] > king[0] && q[1] > king[1]){
+                        if (bottomright.empty() || (bottomright[0] > q[0] && bottomright[1] > q[1])){
+                            bottomright = q;
+                        }
+                    }
+                }
+            }
+            if (!top.empty()){yes.push_back(top);}
+            if (!bottom.empty()){yes.push_back(bottom);}
+            if (!left.empty()){yes.push_back(left);}
+            if (!right.empty()){yes.push_back(right);}
+            if (!topleft.empty()){yes.push_back(topleft);}
+            if (!bottomleft.empty()){yes.push_back(bottomleft);}
+            if (!topright.empty()){yes.push_back(topright);}
+            if (!bottomright.empty()){yes.push_back(bottomright);}
+            return yes;
+        }
+    };
+{% endblock solution_code %}

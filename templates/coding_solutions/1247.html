@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given two strings s1 and s2 of equal length consisting of letters "x" and "y" only. Your task is to make these two strings 
+        equal to each other. You can swap any two characters that belong to different strings, which means: swap s1[i] and s2[j].
+    </p>
+    <p class="question">
+        Return the minimum number of swaps required to make s1 and s2 equal, or return -1 if it is impossible to do so.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minimumSwap(string s1, string s2) {
+            
+            //Premise: Every pair of exactly alternating chars in opposite configurations (x,y and y,x or y,x and 
+            //x,y) would require 2 swaps, where as every alternating pair of chars in the same configuration (x,y and 
+            //x,y or y,x and y,x) would require just 1 swap. Unpaired groups of alternate characters (x,y and x,y or
+            //y,x and y,x) can also be fixed with just 1 swap.
+            int s1Xs2Y = 0;
+            int s1Ys2X = 0;
+            
+            //Count all disparity configurations
+            for (int i = 0; i < s1.size(); i++){ 
+                if (s1[i] == 'x' && s2[i] == 'y'){
+                    s1Xs2Y++;
+                } else if (s1[i] == 'y' && s2[i] == 'x'){
+                    s1Ys2X++;
+                }
+            }
+            
+            //Pair as many x,y and y,x as possible and check if the remaining numbers of x,y and of y,x are pairable
+            int altpairs;
+            if (s1Xs2Y > 0 && s1Ys2X > 0){
+                altpairs = s1Xs2Y+s1Ys2X;
+                s1Xs2Y -= altpairs;
+                s1Ys2X -= altpairs;
+            } else {
+                altpairs = 0;
+            }
+            if (altpairs % 2 > 0 || s1Xs2Y % 2 > 0 || s1Ys2X % 2 > 0){
+                return -1;
+            }
+            
+            int swaps = (altpairs/2)*2 + (s1Xs2Y/2)*1 + (s1Ys2X/2)*1;
+            return swaps;
+        }
+        
+    };
+{% endblock solution_code %}

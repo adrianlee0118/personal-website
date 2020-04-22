@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s, a k duplicate removal consists of choosing k adjacent and equal letters from s and removing them 
+        causing the left and the right side of the deleted substring to concatenate together.
+    </p>
+    <p class="question">
+        We repeatedly make k duplicate removals on s until we no longer can.
+    </p>
+    <p>
+        Return the final string after all such duplicate removals have been made.
+    </p>
+    <p>
+        It is guaranteed that the answer is unique.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string removeDuplicates(string s, int k) {
+            
+            //because k >= 2
+            if(s.size() < 3) return s;
+            
+            //for positions in string up to size - k
+            for(int i = 0; i <= s.size()-k; i++){
+                bool equal = true;
+                
+                //check if the sequence of k letters from position is all the same
+                for(int j = i+1; j < i+k; j++){
+                    if(s[i] != s[j]){
+                        equal = false;
+                        break;
+                    }
+                }
+                
+                //if they are all the same, remove the group and read entire string, remove duplicates again
+                if(equal) {
+                    s.erase(i,k);
+                    return removeDuplicates(s,k);
+                }
+            }
+            //when there are no duplicates, return the original string and send it up the recursion
+            return s;
+        }
+    };
+{% endblock solution_code %}

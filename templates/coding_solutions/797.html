@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a directed, acyclic graph of N nodes.  Find all possible paths from node 0 to node N-1, and return them in any 
+        order.
+    </p>
+    <p class="question">
+        The graph is given as follows:  the nodes are 0, 1, ..., graph.length - 1.  graph[i] is a list of all nodes j for 
+        which the edge (i, j) exists.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+            vector<vector<int>> paths;
+            set<vector<int>> done;
+            vector<int> path;
+            path.push_back(0);
+            allPaths(graph,0,path,paths,done);
+            return paths;
+        }
+        
+        void allPaths(vector<vector<int>>& graph, int pos, vector<int>& path, vector<vector<int>>& paths, set<vector<int>>& done){
+            if (pos == graph.size()-1){
+                if (done.find(path) == done.end()){
+                    paths.push_back(path);
+                    done.insert(path);
+                }
+                return;
+            }
+            
+            for (int i = 0; i < graph[pos].size(); i++){
+                path.push_back(graph[pos][i]);
+                allPaths(graph,graph[pos][i],path,paths,done);
+                path.pop_back();
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We have a list of points on the plane.  Find the K closest points to the origin (0, 0).
+    </p>
+    <p class="question">
+        (Here, the distance between two points on a plane is the Euclidean distance.)
+    </p>
+    <p class="question">
+        You may return the answer in any order.  The answer is guaranteed to be unique (except for the order that it is in.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate through points, measure distance, sort and grab k closest points.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+            //Store squared distance from 0,0 for all points by position in points (use squred distance to avoid 
+            //rounding errors from sqrt operations)
+            vector<pair<int,int>> DistPos;
+            for (int i = 0; i < points.size(); i++){
+                DistPos.push_back(std::make_pair(pow(points[i][0],2)+pow(points[i][1],2),i));
+            }
+            
+            //Sort by distance
+            sort(DistPos.begin(),DistPos.end());
+            
+            //Get K points corresponding to K smallest distances from points vector directly, return
+            vector<vector<int>> ans;
+            for (int i = 0; i < K; i++){
+                ans.push_back(points[DistPos[i].second]);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

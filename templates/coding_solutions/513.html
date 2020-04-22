@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, find the leftmost value in the last row of the tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findBottomLeftValue(TreeNode* root) {
+            //Need to do a DFS but track left-rightness in addition to maximum depth at each leaf
+            vector<vector<int>> value_lr_depth;
+            DFS(root, 0, 1, value_lr_depth);
+            
+            //iterate twice through the vector: once to determine maximum depth and once to determine left-most
+            //leaf given that maximum depth and its value.
+            int maxdepth = 1;
+            for (auto a : value_lr_depth){
+                maxdepth = max(a[2],maxdepth);
+            }
+            int value = 0;
+            int leftmost = 100;   //assuming no trees with just a single branch to the right 100+ levels
+            for (auto a : value_lr_depth){
+                if (a[2] == maxdepth){
+                    if (a[1] < leftmost){
+                        leftmost = a[1];
+                        value = a[0];
+                    }
+                }
+            }
+            return value;
+        }
+        
+        //When invoked on a node, this will store value, left-rightedness (lr) and depth information in the record
+        //vector for all leaves in the tree below that point
+        void DFS(TreeNode* root, int lr, int depth, vector<vector<int>>& record){
+            if (!root){
+                return;
+            }
+            
+            if (!root->left && !root->right){
+                record.push_back({root->val, lr, depth});
+            }
+            
+            depth++;
+            if (root->left){
+                DFS(root->left, lr-1, depth, record);
+            }
+            if (root->right){
+                DFS(root->right, lr+1, depth, record);
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

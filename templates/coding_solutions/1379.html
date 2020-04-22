@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two binary trees original and cloned and given a reference to a node target in the original tree.
+    </p>
+    <p class="question">
+        The cloned tree is a copy of the original tree.
+    </p>
+    <p class="question">
+        Return a reference to the same node in the cloned tree.
+    </p>
+    <p class="question">
+        Note that you are not allowed to change any of the two trees or the target node and the answer must 
+        be a reference to a node in the cloned tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+            if (!cloned) return nullptr;
+            if (cloned->val == target->val) return cloned;
+            TreeNode* l = getTargetCopy(original, cloned->left, target);
+            TreeNode* r = getTargetCopy(original, cloned->right, target);
+            if (l != nullptr) return l;
+            else if (r != nullptr) return r;
+            else return nullptr;
+        }
+    };
+{% endblock solution_code %}

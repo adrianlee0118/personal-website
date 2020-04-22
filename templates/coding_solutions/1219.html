@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a gold mine grid of size m * n, each cell in this mine has an integer representing the amount of gold in that cell, 
+        0 if it is empty.
+    </p>
+    <p class="question">
+        Return the maximum amount of gold you can collect under the conditions:
+    </p>
+    <ul>
+        <li>Every time you are located in a cell you will collect all the gold in that cell.</li>
+        <li>From your position you can walk one step to the left, right, up or down.</li>
+        <li>You can't visit the same cell more than once.</li>
+        <li>Never visit a cell with 0 gold.</li>
+        <li>You can start and stop collecting gold from any position in the grid that has some gold.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a DFS backtrack solution.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        vector<int> ycoords = {1,-1,0,0};
+        vector<int> xcoords = {0,0,1,-1};
+        
+    public:
+        int getMaximumGold(vector<vector<int>>& grid) {
+            int max_gold = 0;
+            
+            //Launch DFS from all possible starting cells in the grid...
+            for (int m = 0; m < grid.size(); m++){
+                for (int n = 0; n < grid[0].size(); n++){
+                    traverse(grid,m,n,0,max_gold);
+                }
+            }
+            return max_gold;
+        }
+        
+        //Traversal of matrix with running gold total/maximum, try all steps around a given cell, setting the current cell's value to zero when in use and then resetting at the end as a backtrack
+        void traverse(vector<vector<int>>& grid, int y, int x, int curr_gold, int& max_gold){
+            if (grid[y][x] == 0) return;
+            int gold = grid[y][x];
+            max_gold = max(max_gold,curr_gold+gold);
+            grid[y][x] = 0;
+            for (int i = 0; i < 4; i++){
+                int newy = ycoords[i]+y;
+                int newx = xcoords[i]+x;
+                if (newy >= 0 && newy < grid.size() && newx >= 0 && newx < grid[0].size()){
+                    traverse(grid,newy,newx,curr_gold+gold,max_gold);
+                }
+            }
+            grid[y][x] = gold;         //backtrack
+            return;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary string S (a string consisting only of '0' and '1's) and a positive integer N, return true if and 
+        only if for every integer X from 1 to N, the binary representation of X is a substring of S.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Generate binary strings for a given integer N using helper function for all values i where 1 <= i <= N.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool queryString(string S, int N) {
+            
+            bool contains = true;
+            
+            for (int i = 1; i <= N; i++){
+                
+                string bin = "";
+                binary(i, bin);
+                if (S.find(bin) == string::npos){
+                    contains = false;
+                    break;
+                }
+            }
+            
+            return contains;
+        }
+    
+        void binary(int N, string& bin){
+            
+            if (N > 1){
+                binary(N/2, bin);
+            } 
+            
+            if (N % 2 > 0){
+                bin += '1';
+            } else {
+                bin += '0';
+            }
+        }
+    };
+{% endblock solution_code %}

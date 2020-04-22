@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given 3 positives numbers a, b and c. Return the minimum flips required in some bits of a and b to make ( a OR b == c ). 
+        (bitwise OR operation).
+    </p>
+    <p class="question">
+        Flip operation consists of change any single bit 1 to 0 or change the bit 0 to 1 in their binary representation.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate through the bits from smallest to biggest of all three numbers, counting chnaged bits and right shifting 
+        (dividing by 2) to get to the next iteration.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minFlips(int a, int b, int c) {
+            int flips = 0;
+            while(a || b || c){    //while one of the numbers is greater than 0
+                if(!(c & 1)){       //if the c bit is 0
+                    if(a & 1 && b & 1) flips+=2;     //change both bits to 0
+                    else if(a & 1 || b & 1) flips++;
+                } else {      /if the c bit is 1
+                    if(!(a & 1) && !(b & 1)) flips++;   //make sure one of the bits is 1
+                }
+                a >>= 1, b >>= 1, c >>= 1;    //divide all numbers by 2
+            }
+            return flips;
+        }
+    };
+{% endblock solution_code %}

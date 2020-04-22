@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each 
+        letter appears in at most one part, and return a list of integers representing the size of these parts.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> partitionLabels(string S) {
+            
+            vector<int> partitions;
+            vector<pair<int,int>> Positions;
+            set<char> done;
+            
+            //Store first and last positions of all unique letters, sort by first position
+            for (int i = 0; i < S.size(); i++){
+                if (done.find(S[i]) == done.end()){
+                    int first = i;
+                    int last = i;
+                    for (int j = i+1; j < S.size(); j++){
+                        if (S[j] == S[i]){
+                            last = j;
+                        }
+                    }
+                    Positions.push_back(make_pair(first,last));
+                    done.insert(S[i]);
+                }
+            }
+            sort(Positions.begin(), Positions.end(), [](auto &left, auto &right) { return left.first < right.first;});
+            
+            //Determine limiting ranges
+            int currfirst = Positions[0].first;
+            int currlast = Positions[0].second;
+            for (int k = 1; k < Positions.size(); k++){
+                if (Positions[k].first > currlast){
+                    partitions.push_back(currlast-currfirst+1);
+                    currfirst = Positions[k].first;
+                    currlast = Positions[k].second;
+                } else {
+                    if (Positions[k].second > currlast){
+                        currlast = Positions[k].second;
+                    }
+                }
+                if (k == Positions.size()-1) {
+                    partitions.push_back(currlast-currfirst+1);
+                }
+            }
+            
+            return partitions;
+        }
+    };
+{% endblock solution_code %}

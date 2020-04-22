@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a list of intervals, remove all intervals that are covered by another interval in the list. Interval [a,b) 
+        is covered by interval [c,d) if and only if c <= a and b <= d.
+    </p>
+    <p class="question">
+        After doing so, return the number of remaining intervals.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a boolean vector to keep track of intervals to be included in the final array. Iterating over all intervals, check if any 
+        already included intervals overlap with the current interval--exclude the smaller interval and include the bigger one. At the 
+        end, count the inclusions and return.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int removeCoveredIntervals(vector<vector<int>>& intervals) {
+            vector<bool> use(intervals.size(),false);
+            use[0] = true;
+            for (int i = 1; i < intervals.size(); i++){
+                bool absorbed = false;
+                for (int j = 0; j < i; j++){
+                    if (use[j]){
+                        if (intervals[i][0] >= intervals[j][0] && intervals[i][1] <= intervals[j][1]){
+                            absorbed = true;
+                            break;
+                        } else if (intervals[j][0] >= intervals[i][0] && intervals[j][1] <= intervals[i][1]){
+                            use[j] = false;
+                            use[i] = true;
+                            absorbed = true;
+                        }
+                    }
+                }
+                if (!absorbed) use[i] = true;
+            }
+            int count = 0;
+            for (int i = 0; i < use.size(); i++){
+                if (use[i]) count++;
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

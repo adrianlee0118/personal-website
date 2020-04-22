@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a collection of distinct integers, return all possible permutations.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> permute(vector<int>& nums) {
+            
+            vector<vector<int>> ans;
+            createPerms(ans, 0, nums);
+            return ans;
+        }
+        
+        void createPerms(vector<vector<int>>& ans, int index, vector<int>& nums){
+            
+            if (index == nums.size()){
+                ans.push_back(nums);
+                return;
+            }
+            
+            for (int i = index; i < nums.size(); i++){
+                swap(nums[index],nums[i]);
+                createPerms(ans, index+1, nums);
+                swap(nums[index],nums[i]);
+            }
+        }
+    };
+{% endblock solution_code %}

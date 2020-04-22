@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Alice and Bob continue their games with piles of stones. There are several stones arranged in a row, and each stone 
+        has an associated value which is an integer given in the array stoneValue.
+    </p>
+    <p class="question">
+        Alice and Bob take turns, with Alice starting first. On each player's turn, that player can take 1, 2 or 3 stones from 
+        the first remaining stones in the row.
+    </p>
+    <p class="question">
+        The score of each player is the sum of values of the stones taken. The score of each player is 0 initially.
+    </p>
+    <p class="question">
+        The objective of the game is to end with the highest score, and the winner is the player with the highest score and 
+        there could be a tie. The game continues until all the stones have been taken.
+    </p>
+    <p class="question">
+        Assume Alice and Bob play optimally.
+    </p>
+    <p class="question">
+        Return "Alice" if Alice will win, "Bob" if Bob will win or "Tie" if they end the game with the same score.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use the algorithm from Stone Game 2 to calculate player scores. Even with negative numbers in the stone values, 
+        arithmetic still allows us to use the scores with the total to determine the winner.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int dp[50001];     //total score possible for a player playing from position i
+        
+    public:
+        string stoneGameIII(vector<int>& stoneValue) {
+            if (stoneValue.empty()) return "Tie";
+            fill_n(dp, 50001, INT_MIN);
+            int total = accumulate(stoneValue.begin(),stoneValue.end(),0);  //Get total possible score
+            int fs = firstPlayerScore(stoneValue,0,total);                //Calculate first player's score
+            int ss = total - fs;                     //Work out second player's score
+            if (fs > ss) return "Alice";             //Return the winner
+            else if (fs == ss) return "Tie";
+            else return "Bob";
+        }
+        
+        //DFS to find the current player's score given some position in stoneValue and the total remaining scoring up for grabs
+        int firstPlayerScore(vector<int>& stoneValue, int pos, int total){
+            if (pos >= stoneValue.size()) return 0;
+            if (dp[pos] != INT_MIN) return dp[pos];
+            for (int i = 1, sum = 0; i < 4 && pos + i <= stoneValue.size(); i++){   //Iterating through the current player's choices of takes
+                sum += stoneValue[pos+i-1];
+                dp[pos] = max(dp[pos], total - firstPlayerScore(stoneValue,pos+i,total-sum));  //Score from this turn is current total minus next player's score from next round, maintain the max
+            }
+            return dp[pos];
+        }
+    };
+{% endblock solution_code %}

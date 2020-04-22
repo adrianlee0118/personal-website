@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary search tree, return a balanced binary search tree with the same node values.
+    </p>
+    <p class="question">
+        A binary search tree is balanced if and only if the depth of the two subtrees of every node never differ by more than 1.
+    </p>
+    <p class="question">
+        If there is more than one answer, return any of them.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <ol>
+        <li>
+            In-order traversal of original tree to store all nodes in sorted-by-value order
+        </li>
+        <li>
+            Recursively bisect the array of nodes to distribute nodes across branches and thus re-shape the tree with as flat a layout as possible--do this without creating new data by re-arranging the pointers on the existing nodes
+        </li>
+    </ol>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* balanceBST(TreeNode* root) {
+            vector<TreeNode*> values;
+            getAllValues(root,values);
+            return insertRange(0,values.size()-1,values);
+        }
+        
+        void getAllValues(TreeNode* root, vector<TreeNode*>& values){
+            if (!root) return;
+            getAllValues(root->left,values);
+            values.push_back(root);
+            getAllValues(root->right,values);
+            return;
+        }
+        
+        TreeNode* insertRange(int start, int end, vector<TreeNode*>& values){
+            if (start > end) return NULL;
+            
+            int middle = (start+end)/2;
+            TreeNode* root = values[middle];
+            root->left = insertRange(start,middle-1,values);
+            root->right = insertRange(middle+1,end,values);
+            return root;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,221 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers nums, sort the array in ascending order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Selection sort, bubble sort, insertion sort, merge sort, quick sort and heap sort implemented, use insertion sort if
+        array size is small.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+<!-- coding portion of solution-->
+//Sorting machine class
+class SortingAlgorithms{
+    public:
+    void selectionSort(vector<int>& a){
+        int min_index , i , j , n = a.size();
+        for (i = 0 ; i < n - 1 ; i++){
+            min_index = i;
+            for (j = i + 1 ; j < n ; j++){
+                if (a[j] < a[min_index]){
+                    min_index = j;
+                }
+            }
+            swap(a[i],a[min_index]);
+        }
+    }
+
+    void bubbleSort(vector<int>& a){
+
+        int i , j ;
+        int n = a.size();
+        bool isSorted = false;
+
+        for (i = 0 ; i < n - 1 ; i++){
+            isSorted = false;
+            for (j = 0; j < n - i - 1 ; j++){
+                if (a[j] > a[j + 1]){
+                    isSorted = true;
+                    swap(a[j],a[j + 1]);
+                }
+            }
+            if (!isSorted){
+                return;
+            }
+        }
+    }
+
+    void insertionSort(vector<int>& a){
+
+        int i , n = a.size() , key , hole;
+
+        for (i = 1 ; i < n ; i++){
+            
+            key = a[i];
+            hole = i - 1;
+
+            while (hole >= 0 && a[hole] > key){
+                a[hole + 1] = a[hole];
+                hole--;
+            }
+
+            
+            
+            a[hole + 1] = key;
+        }
+    }
+    
+    void mergeSort(vector<int>& a){
+        mergeSort(a,0,a.size() - 1);
+    }
+    
+    void mergeSort(vector<int>& a , int l , int r){
+        
+        if (l < r){
+            int m = l + (r - l)/2;
+            
+            mergeSort(a , l , m);
+            mergeSort(a , m + 1 ,r);
+            
+            merge(a , l , m , r);
+        }
+    }
+    
+    void quickSort(vector<int>& a){
+        quickSort(a , 0 , a.size() - 1);
+    }
+    
+    void quickSort(vector<int>& a , int low , int high){
+        
+        if (low < high){
+            
+            int pi = partition(a , low , high);
+            
+            quickSort(a , low , pi - 1);
+            quickSort(a , pi + 1 , high);
+        }
+    }
+
+    void heapSort(vector<int>& arr){
+
+        int n = arr.size();
+        for (int i = (n/2) - 1 ; i >= 0 ; i--){
+            heapify(arr,i,n);
+        }
+
+        for (int i = n - 1 ; i >= 0 ; i--){
+            swap(arr[0] , arr[i]);
+            heapify(arr , 0 , i);
+        }
+    }
+    
+    private:
+    //helper function for mergesort
+    void merge(vector<int>& a ,int start, int mid , int end){
+        
+        if (start == end){
+            return;
+        } 
+        int temp1[mid - start + 1] ;  //we should take upto [start ,... ,mid] because start ans mid can be 0 at the same time so length of array temp1 can be 0. But end and mid can never be zero at the same time 
+        int temp2[end - mid];
+        int k = 0;
+        for (int i = start ; i <= mid ; i++){
+            temp1[k++] = a[i];
+        }
+        k = 0;
+        for (int i = mid + 1 ; i <= end ; i++){
+            temp2[k++] = a[i];
+        }
+        
+        int i = 0; 
+        int j = 0;
+        int m = mid - start + 1;
+        int n = end - mid ;
+        k = start;
+        
+        while (i < m && j < n){
+            if (temp1[i] < temp2[j]){
+                a[k++] = temp1[i++];
+            }
+            else{
+                a[k++] = temp2[j++];
+            }
+        }
+        
+        while (i < m){
+            a[k++] = temp1[i++];
+        }
+        while (j < n){
+            a[k++] = temp2[j++];
+        }
+    }    
+
+    //helper function for quick sort
+    int partition(vector<int>& arr , int low , int high){
+        
+        
+        int& pivot = arr[high];
+        int i = low - 1;
+            
+        for (int j = low ; j <= high ; j++){
+                
+            if (arr[j] < pivot){
+                i++;
+                swap(arr[i],arr[j]);
+            }
+        }
+        i++;
+        swap(arr[i],pivot);
+        
+        return i;
+    }
+
+    //helper function for heap sort
+    void heapify(vector<int>& arr , int i , int n){
+
+        int largest = i;
+
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+
+        if (l < n && arr[l] > arr[i]){
+            largest = l;
+        }
+
+        if (r < n && arr[r] > arr[largest]){
+            largest = r;
+        }
+
+        if (largest != i){
+
+            swap(arr[i] , arr[largest]);
+            heapify(arr , largest , n);
+        }
+    }      
+};
+
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        SortingAlgorithms* sa = new SortingAlgorithms();
+        
+        if (nums.size() < 15){
+            sa->insertionSort(nums);
+        }
+        sa->quickSort(nums);
+        return nums;
+    }
+};
+{% endblock solution_code %}

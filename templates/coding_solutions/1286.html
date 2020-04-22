@@ -1,0 +1,61 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design an Iterator class, which has:
+    </p>
+    <ul>
+        <li>A constructor that takes a string characters of sorted distinct lowercase English letters and a number 
+            combinationLength as arguments.</li>
+        <li>A function next() that returns the next combination of length combinationLength in lexicographical order.</li>
+        <li>A function hasNext() that returns True if and only if there exists a next combination.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class CombinationIterator {
+    private:
+        void DFS(const string &s, int n, int len, int idx, string &path, vector<string> &res) {
+            if (path.size() == len) {
+                res.push_back(path);
+                return;
+            }
+            for (int i = idx; i < n; i++) {
+                path.push_back(s[i]);
+                DFS(s, n, len, i + 1, path, res);
+                path.pop_back();
+            }
+        }
+        vector<string> V_;
+        int idx_;
+        
+    public:
+        
+        CombinationIterator(string characters, int combinationLength) : idx_(0) {
+            string path;
+            DFS(characters, characters.size(), combinationLength, 0, path, V_);
+        }
+        
+        string next() {
+            return V_[idx_++];
+        }
+        
+        bool hasNext() {
+            return idx_ < V_.size();
+        }
+    
+    };
+{% endblock solution_code %}

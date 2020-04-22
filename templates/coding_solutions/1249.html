@@ -1,0 +1,81 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s of '(' , ')' and lowercase English characters. 
+    </p>
+    <p class="question">
+        Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting 
+        parentheses string is valid and return any valid string.
+    </p>
+    <p class="question">
+        Formally, a parentheses string is valid if and only if:
+    </p>
+    <ul>
+        <li>It is the empty string, contains only lowercase characters, or</li>
+        <li>It can be written as AB (A concatenated with B), where A and B are valid strings, or</li>
+        <li>It can be written as (A), where A is a valid string.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string minRemoveToMakeValid(string s) {
+            
+            string ans;
+            int val;
+            
+            //for all characters
+            for(auto x:s){
+                
+                //unaccounted open brackets indicated by positive value
+                if(x == '(') val++;
+                
+                //unaccounted closed brackets indicated by negative value (zero means all brackets accounted for)
+                else if(x == ')') val--;
+                
+                //val will be negative if we just encountered an unaccounted closed bracket
+                if(val < 0 and ( x == ')')){
+                    
+                    //immediately increment back to zero and DO NOT write the closed bracket to the final answer
+                    //i.e. it is removed from the original string
+                    val++;
+                    continue;
+                }
+                //in the alternate case, when we encounter a letter or open bracket (val will be >= 0), write
+                //to the string (unaccounted open brackets will be taken care of in the next step)
+                else ans += x;
+            }
+            
+            //going from back of the current answer to the front
+            int in = ans.size() - 1;
+            
+            //find all unaccounted open brackets as indicated by value of val
+            while(val > 0){
+                
+                //if we have an open bracket, erase it--going back to front these will be the unpartnered opens
+                if(ans[in] == '('){
+                    ans.erase(in,1);
+                    val--;
+                }
+                in--;
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

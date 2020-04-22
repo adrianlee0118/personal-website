@@ -1,0 +1,99 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Let's define a function countUniqueChars(s) that returns the number of unique characters on s, for example if 
+        s = "LEETCODE" then "L", "T","C","O","D" are the unique characters since they appear only once in s, therefore 
+        countUniqueChars(s) = 5.
+    </p>
+    <p class="question">
+        On this problem given a string s we need to return the sum of countUniqueChars(t) where t is a substring of s. 
+        Notice that some substrings can be repeated so on this case you have to count the repeated ones too.
+    </p>
+    <p class="question">
+        Since the answer can be very large, return the answer modulo 10 ^ 9 + 7.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Rather than iterating over all possible substrings, iterate over characters and count ranges of uniqueness. 
+        The main thing to recognize is that for a given letter in the string, there are three possible groups of substrings 
+        (using the T in the middle of the word TRANSPORTATION as an example):
+    </p>
+    <ol>
+        <li>Previous interval: substrings extending to the left of the current letter until another instance of that letter 
+            is encountered (the current letter is the right bound).</li>
+            <p style="padding-left: 20px;">
+                RANSPORT <br>
+                ANSPORT <br>
+                NSPORT <br>
+                SPORT <br>
+                PORT <br>
+                ORT <br>
+                RT <br>
+                T
+            </p>
+        <li>Following interval: substrings extending to the right of the current letter until another instance of that letter 
+            is encountered (the current letter is the left bound).</li>
+            <p style="padding-left: 20px;">
+                TA <br>
+                (T) - counted
+            </p>
+        <li>Overlap: substrings formed from taking every instance of 1. and extending it to the right by however many characters 
+            there are to the right before another instance of the letter is encountered (the current letter is somewhere in the 
+            middle).</li>
+            <p style="padding-left: 20px;">
+                RANSPORTA <br>
+                ANSPORTA <br>
+                NSPORTA <br>
+                SPORTA <br>
+                PORTA <br>
+                ORTA <br>
+                RTA <br>
+                TA <br>
+            </p>
+    </ol>
+    <p>
+        You can count all the substrings in 1,2 and 3 if you take (previous interval char)x(following interval char). For all 
+        unique characters in the string, iterating over the string, at any instance of a character count all substrings that 
+        pivot around the previous instance of that character.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution in C++-->
+    class Solution {
+    public:
+        int uniqueLetterString(string S) {
+            int mod = 1000000007;
+            unordered_set<char> letters;      //Get a list of all the letters in the string without duplicates for iteration
+            for (auto& s : S){
+                letters.insert(s);
+            }
+            int cnt = 0;
+            for (auto& ch : letters) {         //iterate over all unique characters
+                int cur = 1;                    //counts the number of characters traversed since (and including) last occurrence of ch, equal to the number of substrings extending right from the most recent ch
+                int prev = 0;                   //retains the last cur count (characters not equal to ch before the previous occurrence of the character ch), equal to the number of substrings extending left from the most recent ch
+                for (char c : S) {              //iterate through string
+                    if (c == ch) {
+                        cnt += prev * cur;      //prev = left-extending substrings, cur = right-extending substrings,  prev*cur-> for every left-extending substring, another group of substrings can be made by extending the left-extending substring to the right, with the size of the group equal to the number of letters in cur (these substrings would not have ch as a right bound anymore but somewhere in the middle)
+                        cnt %= mod;             //maintain modulo in the addition
+                        prev = cur;             //retain length of last interval
+                        cur = 0;
+                    }
+                    cur++;                     //increase character count for each traversal because: A) if this is the current ch, the ch by itself counts as a substring, B) if this is not the current ch, it will add to the substring count of both the preceding ch and the following ch if they exist
+                }
+                cnt += prev * cur;             //count substrings pivoting left and right around the last observed occurrence of ch
+                cnt %= mod;                   //maintain modulo in addition
+            }
+            return cnt;
+        }
+    };
+{% endblock solution_code %}

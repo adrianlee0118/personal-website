@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
+    </p>
+    <p class="question">
+        Return the length of the longest (contiguous) subarray that contains only 1s. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int longestOnes(vector<int>& A, int K) {
+            int lo = 0, hi = 0, maxSize = K;
+            
+            while (hi < A.size()) {
+                if (A[hi] == 0) {         // we see a 0, expand if K > 0.
+                    if (K > 0) {
+                        K--;
+                        hi++;
+                    }
+                    else {                // record max size and shift the window
+                        maxSize = max(maxSize, hi - lo);
+                        while (A[lo] == 1)
+                            lo++;
+                        // skip one more index and increment K
+                        lo++;
+                        K++;
+                    }
+                }
+                else {             // we see a 1, keep expanding the range
+                    hi++;
+                }
+            }
+            maxSize = max(maxSize, (int)A.size() - lo);
+            return maxSize;
+        }
+    };
+{% endblock solution_code %}

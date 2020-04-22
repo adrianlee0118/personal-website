@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a 2 dimensional array grid, each value grid[i][j] represents the height of a building located there. We are 
+        allowed to increase the height of any number of buildings, by any amount (the amounts can be different for different 
+        buildings). Height 0 is considered to be a building as well. 
+    </p>
+    <p class="question">
+        At the end, the "skyline" when viewed from all four directions of the grid, i.e. top, bottom, left, and right, must be 
+        the same as the skyline of the original grid. A city's skyline is the outer contour of the rectangles formed by all the 
+        buildings when viewed from a distance. See the following example.
+    </p>
+    <p class="question">
+        What is the maximum total sum that the height of the buildings can be increased?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+            
+            vector<int> maxforRow;
+            vector<int> maxforColumn;
+            
+            for (int i = 0; i < grid.size(); i++){
+                int maxHeightRow = grid[i][0];
+                int maxHeightColumn = grid[0][i];
+                for (int j = 1; j < grid.size(); j++){
+                    maxHeightRow = max(maxHeightRow,grid[i][j]);
+                    maxHeightColumn = max(maxHeightColumn,grid[j][i]);
+                }
+                maxforRow.push_back(maxHeightRow);
+                maxforColumn.push_back(maxHeightColumn);
+            }
+            
+            int sum = 0;
+            for (int i = 0; i < grid.size(); i++){
+                for (int j = 0; j < grid.size(); j++){
+                    sum += (min(maxforRow[i],maxforColumn[j])-grid[i][j]);
+                }
+            }
+            return sum;
+        }
+    };
+{% endblock solution_code %}

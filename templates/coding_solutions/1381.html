@@ -1,0 +1,78 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design a stack which supports the following operations.
+    </p>
+    <p class="question">
+        Implement the CustomStack class:
+    </p>
+    <ul>
+        <li>CustomStack(int maxSize) Initializes the object with maxSize which is the maximum number of elements 
+            in the stack or do nothing if the stack reached the maxSize.</li>
+        <li>void push(int x) Adds x to the top of the stack if the stack hasn't reached the maxSize.</li>
+        <li>int pop() Pops and returns the top of stack or -1 if the stack is empty.</li>
+        <li>void inc(int k, int val) Increments the bottom k elements of the stack by val. If there are less than 
+            k elements in the stack, just increment all the elements in the stack.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class CustomStack {
+    private:
+        int msize;
+        stack<int> contents;
+        
+    public:
+        CustomStack(int maxSize) {
+            this->msize = maxSize;
+        }
+        
+        void push(int x) {
+            if (contents.size() < msize){
+                contents.push(x);
+            }
+        }
+        
+        int pop() {
+            if (!contents.empty()){
+                int tmp = contents.top();
+                contents.pop();
+                return tmp;
+            } else {
+                return -1;
+            }
+        }
+        
+        void increment(int k, int val) {
+            stack<int> tmp;
+            while (!contents.empty()){
+                tmp.push(contents.top());
+                contents.pop();
+            }
+            int i = 0;
+            while (!tmp.empty()){
+                if (i < k){
+                    contents.push(tmp.top()+val);
+                } else {
+                    contents.push(tmp.top());
+                }
+                tmp.pop();
+                i++;
+            }
+        }
+    };
+{% endblock solution_code %}

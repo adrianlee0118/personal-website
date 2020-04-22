@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a set of distinct integers, nums, return all possible subsets (the power set).
+    </p>
+    <p class="question">
+        Note: The solution set must not contain duplicate subsets.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        //power set
+        vector<vector<int>> ans;
+        int n;
+        vector<int> path;
+        set<vector<int>> checker;
+        
+        vector<vector<int>> subsets(vector<int>& nums) {
+            n = nums.size();
+            dfs(nums , 0, checker);
+            return ans;
+        };
+        
+        void dfs(const vector<int>& nums, int idx, set<vector<int>>& checker){
+            if(idx == n){
+                if (checker.find(path) == checker.end()){
+                    ans.push_back(path);
+                }
+                return;
+            }
+            
+            //current not used
+            dfs(nums , idx + 1, checker);
+            
+            //use current then restore state
+            path.push_back(nums[idx]);
+            dfs(nums , idx + 1, checker);
+            path.pop_back();
+            return;
+        }
+    };
+{% endblock solution_code %}
