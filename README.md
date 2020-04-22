@@ -17,7 +17,8 @@ My personal website and blog, developed from scratch using Flask for Python and 
 ## Thanks to
   - The Flask micro web framework
   - Flask-Bootstrap
-  - The various stock images are from Google
+  - Leetcode for public coding challenges, which the coding_solutions section is made from
+  - Google for various stock images
   - Font Awesome is used for some of the social media icons
 
 The following persons:
