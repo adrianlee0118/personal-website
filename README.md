@@ -2,9 +2,9 @@
 My personal website and blog, developed from scratch using Flask for Python and Bootstrap.
 
 ## Directories
-*static: contains CSS styles, images used on pages, and third party scripts
-*templates: contains all html templates, subfolder coding_solutions contains all text for Leetcode solution pages
-*home directory: contains flask backend app.py and the associated db
+  - static: contains CSS styles, images used on pages, and third party scripts
+  - templates: contains all html templates, subfolder coding_solutions contains all text for Leetcode solution pages
+  - home directory: contains flask backend app.py and the associated db
 
 ## Forking the Site
 ..*change the images in the static folder but do not change the location, unless you change the url_for()'s in /home and /blog html pages as well
