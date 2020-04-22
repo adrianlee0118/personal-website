@@ -21,7 +21,7 @@ My personal website and blog, developed from scratch using Flask for Python and 
   - Font Awesome is used for some of the social media icons
 
 The following persons:
-  - My friend Matthew Lai for his invaluable insight and advice in writing Python,
+  - My friend Matthew Lai for his invaluable insight and advice in web development,
   - Lea Verou and the rest of the [Prism](https://prismjs.com/) team for the code block styles used in this site,
   - Stuart Langridge for [sorttable](http://www.kryogenix.org/code/browser/sorttable/) functions.
 
