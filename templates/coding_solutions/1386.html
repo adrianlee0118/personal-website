@@ -1,0 +1,64 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A cinema has n rows of seats, numbered from 1 to n and there are ten seats in each row, labelled from 1 to 10 as 
+        shown in the figure above.
+    </p>
+    <p class="question">
+        Given the array reservedSeats containing the numbers of seats already reserved, for example, reservedSeats[i] = [3,8] 
+        means the seat located in row 3 and labelled with 8 is already reserved. 
+    </p>
+    <p class="question">
+        Return the maximum number of four-person families you can allocate on the cinema seats. A four-person family occupies fours 
+        seats in one row, that are next to each other. Seats across an aisle (such as [3,3] and [3,4]) are not considered to be next 
+        to each other, however, It is permissible for the four-person family to be separated by an aisle, but in that case, exactly 
+        two people have to sit on each side of the aisle.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
+        
+            //Group reserved seats by row
+            unordered_map<int,set<int>> rowseating;
+            for (auto& r : reservedSeats){
+                if(r[1] >= 2 && r[1] <= 9){
+                    rowseating[r[0]].insert(r[1]);
+                }
+            }
+            
+            //Start count with empty rows *2, iterate through rows with reservations and count the family slots available
+            int count = (n-rowseating.size())*2;
+            for (auto& rs : rowseating){
+                if (rs.second.count(2)==0 && rs.second.count(3) == 0 && rs.second.count(4) == 0 && rs.second.count(5) == 0){
+                    if (rs.second.count(6)>0 || rs.second.count(7) > 0 || rs.second.count(8) > 0 || rs.second.count(9) > 0){
+                        count++;
+                    } else {
+                        count += 2;
+                    }
+                } else if (rs.second.count(6)==0 && rs.second.count(7)==0 && rs.second.count(8)==0 && rs.second.count(9)==0){
+                    count++;
+                } else if (rs.second.count(4)==0 && rs.second.count(5)==0 && rs.second.count(6)==0 && rs.second.count(7)==0){
+                    count++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

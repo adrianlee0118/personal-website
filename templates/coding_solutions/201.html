@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range, inclusive.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Bitwise solution. Two things to recognize: 
+    </p>
+    <ol>
+        <li>
+            For all bit positions, if a zero is encountered at any point during the successive bitwise AND 
+            operations, that bit will be zero in the end resultant AND product.
+        </li>
+        <li>
+            If a number n > m, in order to arrive at n by incrementing m (which we must do), because even and odd numbers
+            alternate, we WILL encounter a zero bit.
+        </li>
+    </ol>
+    <p>
+        Through a few simple examples we can observe that because of the two rules above, leading common bits of all numbers in a 
+        sequence will be retained in that sequence's final bitwise AND product. Leading common bits terminate at the first bit that is
+        not uniform across all numbers in the sequence.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int rangeBitwiseAnd(int m, int n) {
+            int count = 0;
+            while(m != n){   // Shift both numbers right (divide by 2) until all the leading bits are the same
+                m >>= 1;
+                n >>= 1;
+                count++;     // Count all the differing trailing bits
+            }
+            return m << count;  // Shift the remaining common leading bits to the left by the number of differing bits counted
+        }
+    };
+{% endblock solution_code %}

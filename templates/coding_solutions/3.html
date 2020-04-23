@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string, find the length of the longest substring without repeating characters.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int lengthOfLongestSubstring(string s) {
+            
+            //track the last position of characters (and their presence)
+            unordered_map<char,int> lastCharPos;
+            
+            //running maximum, current word length, start position
+            int maxlen{0}, currlen{0}, startpos{0};
+            
+            //Iterating through all letters
+            for (auto i = 0; i < s.size(); i++){
+                
+                //if the letter has not been encountered or was encountered before the start of the current word
+                if (lastCharPos.find(s[i]) == lastCharPos.end() or lastCharPos[s[i]] < startpos) 
+                    
+                    //continue parsing the current word
+                    currlen++;
+                
+                //if we have seen the letter before in the current word
+                else{
+                    
+                    //start a new word
+                    startpos = lastCharPos[s[i]]+1;
+                    
+                    //set the new word's length
+                    currlen = i-startpos+1; 
+                }
+                
+                //if max length exceeded, store it
+                maxlen = max(maxlen,currlen); 
+                
+                //store the last position of the current letter
+                lastCharPos[s[i]] = i; 
+            }
+            
+            return maxlen;
+        }
+    };
+{% endblock solution_code %}

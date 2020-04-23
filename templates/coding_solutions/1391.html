@@ -1,0 +1,109 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a m x n grid. Each cell of the grid represents a street. The street of grid[i][j] can be:
+    </p>
+    <ul>
+        <li>1 which means a street connecting the left cell and the right cell.</li>
+        <li>2 which means a street connecting the upper cell and the lower cell.</li>
+        <li>3 which means a street connecting the left cell and the lower cell.</li>
+        <li>4 which means a street connecting the right cell and the lower cell.</li>
+        <li>5 which means a street connecting the left cell and the upper cell.</li>
+        <li>6 which means a street connecting the right cell and the upper cell.</li>
+    </ul>
+    <p class="question">
+        You will initially start at the street of the upper-left cell (0,0). A valid path in the grid is a path which starts from the 
+        upper left cell (0,0) and ends at the bottom-right cell (m - 1, n - 1). The path should only follow the streets.
+    </p>
+    <p class="question">
+        Notice that you are not allowed to change any street.
+    </p>
+    <p class="question">
+        Return true if there is a valid path in the grid or false otherwise.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Driver code basically looks exactly the same as a standard recursion backtrack with one extra condition to check if the 
+        receiving square is viable given the current square at any step during the recursion. Hardcoded variables used to help 
+        dynamically assess the validity of receiving squares.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int m, n;
+        vector<int> xstep = {-1,1,0,0};      //0-3 index for possible 4-directional moves (0: left, 1: right, 2: up, 3: down)
+        vector<int> ystep = {0,0,-1,1};
+        
+        //index by 4 directional move, index by current square's number (0-indexing needs to be adjusted for 1-indexing), list of possible receiving destinations
+        vector<vector<vector<int>>> OKV  = {
+            {                                    //moves to the left
+                { 1, 4, 6 },                     //if original square is 1, destinations that are 1, 4 or 6 are OK
+                { },                             //if original square is 2, no possible destinations for this move
+                { 1, 4, 6 },                     //if the original square is 3, destinations that are 1, 4 or 6 are OK
+                { },                             //....you get the idea
+                { 1, 4, 6 },
+                { }
+            },
+            {                                    //moves to the right
+                { 1, 3, 5 },
+                { },
+                { },
+                { 1, 3, 5 },
+                { },
+                { 1, 3, 5 }
+            },
+            {                                    //moves up
+                { },
+                { 2, 3, 4 },
+                { },
+                { },
+                { 2, 3, 4 },
+                { 2, 3, 4 }
+            },
+            {                                    //moves down
+                { },
+                { 2, 5, 6 },
+                { 2, 5, 6 },
+                { 2, 5, 6 },
+                { },
+                { }
+            }
+        };
+        
+    public:
+        bool hasValidPath(vector<vector<int>>& grid) {
+            this->m = grid.size();
+            this->n = grid[0].size();
+            return DFS(grid,0,0);
+        }
+        
+        bool DFS(vector<vector<int>>& grid, int i, int j){
+            if (i == m-1 && j == n-1) return true;
+            int current = grid[i][j] - 1;
+            grid[i][j] = 0;
+            bool ans = false;
+            for (int k = 0; k < 4; k++){     //iterate through adjacent squares
+                if (i + ystep[k] >= 0 && i + ystep[k] < m && j + xstep[k] >= 0 && j + xstep[k] < n && grid[i+ystep[k]][j+xstep[k]] != 0){      //if square is untraversed and in bounds
+                    int dest = grid[i+ystep[k]][j+xstep[k]];
+                    if (count(OKV[k][current].begin(), OKV[k][current].end(), dest)){    //if receiving street is viable
+                        ans = DFS(grid,i+ystep[k],j+xstep[k]) || ans;                    //DFS: keep track of a true value
+                    }
+                }
+            }
+            grid[i][j] = current + 1;
+            return ans;
+        }
+    };
+{% endblock solution_code %}

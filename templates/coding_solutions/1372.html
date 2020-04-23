@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree root, a ZigZag path for a binary tree is defined as follow:
+    </p>
+    <ul>
+        <li>Choose any node in the binary tree and a direction (right or left).</li>
+        <li>If the current direction is right then move to the right child of the current node otherwise move to the left child.</li>
+        <li>Change the direction from right to left or right to left.</li>
+        <li>Repeat the second and third step until you can't move in the tree.</li>
+    </ul>
+    <p class="question">
+        Zigzag length is defined as the number of nodes visited - 1. (A single node has a length of 0).
+    </p>
+    <p class="question">
+        Return the longest ZigZag path contained in that tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        DFS function that tracks the depth at each node--if a branch continues an existing zigzag path, the depth is incremented; 
+        the other branch gets depth reset to zero.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int longestZigZag(TreeNode* root){
+            return max(traverse(root, root->left, 0), traverse(root, root->right, 0));
+        }
+        
+        int traverse(TreeNode* root, TreeNode* branch, int depth){
+            if (!branch) return depth;
+            if (branch == root->right) return max(traverse(branch,branch->left,depth+1), traverse(branch,branch->right,0));  //if currently on a right path the left traversal gets a depth add, right restarts depth
+            else return max(traverse(branch,branch->left,0), traverse(branch,branch->right, depth+1));
+        }
+    };
+{% endblock solution_code %}

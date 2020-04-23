@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a circle represented as (radius, x_center, y_center) and an axis-aligned rectangle represented as (x1, y1, x2, y2), 
+        where (x1, y1) are the coordinates of the bottom-left corner, and (x2, y2) are the coordinates of the top-right corner of 
+        the rectangle.
+    </p>
+    <p class="question">
+        Return True if the circle and rectangle are overlapped otherwise return False.
+    </p>
+    <p class="question">
+        In other words, check if there are any point (xi, yi) such that belongs to the circle and the rectangle at the same time.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Visualize the line between the circle's center and the rectangle's centroid.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool checkOverlap(int radius, int x_center, int y_center,    int x1, int y1, int x2, int y2) {
+            if ((x_center == x1 && y_center == y1) || (x_center == x2 && y_center == y2) || (x_center >= x1 && x_center <= x2 && y_center >= y1 && y_center <= y2)) return true;
+            
+            double sqctrx = (x2+x1)/2;   //get square's center coordinate
+            double sqctry = (y2+y1)/2;
+            double d = sqrt(pow((sqctrx-x_center),2)+pow((sqctry-y_center),2));        //direct distance between circle center and square center
+            double sqrd = sqrt(pow((x2-x1),2)+pow((y2-y1),2))/2;    //worst case distance from square center to edge is to a corner
+            return sqrd+radius >= d;                                //if square's edge distance and the circle's edge distance are greater than the euclidean distance between the centroids, overlap exists
+        }
+    };
+{% endblock solution_code %}

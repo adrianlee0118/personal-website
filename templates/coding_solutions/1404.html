@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a number s in their binary representation. Return the number of steps to reduce it to 1 under the following rules:
+    </p>
+    <ul>
+        <li>If the current number is even, you have to divide it by 2.</li>
+        <li>If the current number is odd, you have to add 1 to it.</li>
+    </ul>
+    <p class="question">
+        It's guaranteed that you can always reach to one for all testcases.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Rather than translating the binary string to an integer first, which may be difficult due to length, process the number bit 
+        by bit by iteratively addressing the bits from smallest to biggest--at any iteration it's like we have narrowed the number 
+        down to the prefix string of s up to that bit and we figure out what step(s) is/are needed to narrow it down to the next 
+        prefix based on whether the current number is even or odd (which we assess by looking at the bit and accounting for the 
+        remainder from previous smaller bits).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numSteps(string &s) {
+            int steps = 0, rem = 0;
+            for (auto i = s.size() - 1; i > 0; i--) {       //iteratively process s from smallest bit to largest
+                if (s[i] - '0' + rem == 1) {                //if the current digit is 1 and remainer is 0  or current is zero and remainder is 1 then the number is currently odd
+                    rem = 1;              //set remainder to 1 if not already--after the division we will have an odd number
+                    steps += 2;            //add two steps, must add 1 and divide by 2 to get to the next prefix string of s
+                } else steps++;            // if current digit is zero and no remainders, add one step because we simply divide by 2 to get to the next prefix string
+            }
+            return steps + rem;     //add the remainder--the iteration ends when we have 1. If it's 1 with remainder 1, we need one more divide operation to be left with just 1.
+        }
+    };
+{% endblock solution_code %}

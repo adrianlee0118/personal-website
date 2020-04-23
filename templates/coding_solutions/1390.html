@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array nums, return the sum of divisors of the integers in that array that have exactly four divisors.
+    </p>
+    <p class="question">
+        If there is no such integer in the array, return 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int sumFourDivisors(vector<int>& nums) {
+            int sum = 0;
+            for (auto& num : nums){
+                sum += getDivisorSum(num);
+            }
+            return sum;
+        }
+        
+        int getDivisorSum(int num){
+            int sum = 0;
+            int count = 0;
+            int sq = sqrt(num);
+            for (int i = 1; i <= sq; i++){
+                if (num % i == 0){
+                    sum += i;
+                    count++;
+                    if (i*i != num){
+                        sum += (num/i);
+                        count++;
+                    }
+                }
+                if (count > 4){
+                    break;
+                }
+            }
+            if (count == 4){
+                return sum;
+            } else {
+                return 0;
+            }
+        }
+    };
+{% endblock solution_code %}

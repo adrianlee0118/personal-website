@@ -1,0 +1,74 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree root and a linked list with head as the first node. 
+    </p>
+    <p class="question">
+        Return True if all the elements in the linked list starting from the head correspond to some downward path connected in the 
+        binary tree otherwise return False.
+    </p>
+    <p class="question">
+        In this context downward path means a path that starts at some node and goes downwards.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isSubPath(ListNode* head, TreeNode* root) {
+            if ((!root && head) || (root && !head)) return false;
+            bool matchfound = false;
+            traverse(head, root, matchfound);
+            return matchfound;
+        }
+        
+        void traverse(ListNode* head, TreeNode* root, bool& matchfound){
+            if (!root) return;
+            if (root->val == head->val){
+                check(head,root,matchfound);
+                if (matchfound == true){
+                    return;
+                }
+            }
+            if (root->left){
+                traverse(head,root->left, matchfound);
+            }
+            if (root->right){
+                traverse(head,root->right, matchfound);
+            }
+            return;
+        }
+        
+        void check(ListNode* head, TreeNode* root, bool& matchfound){
+            if (head->next == nullptr){
+                matchfound = true;
+                return;
+            }
+            if (root->left){
+                if (root->left->val == head->next->val){
+                    check(head->next,root->left,matchfound);
+                }
+            }
+            if (root->right){
+                if (root->right->val == head->next->val){
+                    check(head->next,root->right,matchfound);
+                }
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

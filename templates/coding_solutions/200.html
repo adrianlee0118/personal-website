@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is 
+        formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded 
+        by water.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int m, n;
+        vector<int> ystep = {-1,1,0,0};     //facilitate iteration in 4 directions around a square
+        vector<int> xstep = {0,0,-1,1};
+        
+    public:
+        int numIslands(vector<vector<char>>& grid) {
+            if (grid.empty()) return 0;          //edge case for empty grid
+            this->m = grid.size();
+            this->n = grid[0].size();
+            int count = 0;
+            for (int i = 0; i < m; i++)
+                for (int j = 0; j < n; j++)      //iterate over the entire grid
+                    if (grid[i][j] == '1'){
+                        count++;                 //if we found part of an island, count and DFS to paint he entire island with zeros
+                        paintIsland(grid,i,j);   //so that subsequent found islands will not be impacted by points already traversed
+                    }
+            return count;
+        }
+        
+        void paintIsland(vector<vector<char>>& grid, int i, int j){
+            grid[i][j] = '0';                  //paint the current land into water
+            for (int k = 0; k < 4; k++)        //iterate in 4 directions, if more land is found, DFS
+                if (i+ystep[k] >= 0 && i+ystep[k] < m && j + xstep[k] >= 0 && j + xstep[k] < n && grid[i+ystep[k]][j+xstep[k]] == '1')
+                    paintIsland(grid,i+ystep[k],j+xstep[k]);
+            return;
+        }
+    };
+{% endblock solution_code %}

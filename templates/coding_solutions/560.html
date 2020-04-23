@@ -1,0 +1,37 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Naive iteration sum. Speed could be improved by using a prefix sum instead.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int subarraySum(vector<int>& nums, int k) {
+            int count = 0;
+            for (int i = 0; i < nums.size(); i++){
+                int sum = 0;
+                for (int j = i; j < nums.size(); j++){
+                    sum += nums[j];
+                    if (sum == k) count ++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}
