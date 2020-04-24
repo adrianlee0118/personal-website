@@ -1,5 +1,6 @@
 ## About
 My personal website and blog, developed from scratch using Flask for Python and Bootstrap.
+www.adrianlee0118.com
 
 ## Directories
   - static: contains CSS styles, images used on pages, and third party scripts
@@ -20,6 +21,8 @@ My personal website and blog, developed from scratch using Flask for Python and 
   - Leetcode for public coding challenges, which the coding_solutions section is made from
   - Google for various stock images
   - Font Awesome is used for some of the social media icons
+  - Google Domains for domain name
+  - PythonAnywhere for hosting
 
 The following persons:
   - My friend Matthew Lai for his invaluable insight and advice in web development,
