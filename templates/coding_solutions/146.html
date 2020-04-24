@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get 
+        and put.
+    </p>
+    <p class="question">
+        get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+    </p>
+    <p class="question">
+        put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should 
+        invalidate the least recently used item before inserting a new item.
+    </p>
+    <p class="question">
+        The cache is initialized with a positive capacity.
+    </p>
+    <p class="question">
+        Follow up: Could you do both operations in O(1) time complexity?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class LRUCache {
+    private:
+        int cap;
+        unordered_map<int,list<pair<int,int>>::iterator> cache;      //store key, value pairs by key (key, (key, value))
+        list<pair<int,int>> q;                                       //a LRU queue for pair we have most recently interacted with
+        
+    public:
+        LRUCache(int capacity) {
+            this->cap = capacity;
+        }
+        
+        int get(int key) {
+            if (!cache.count(key))
+                return -1;
+            
+            int ans = (*cache[key]).second;
+            q.erase(cache[key]);                 //delete pair...
+            q.push_front(make_pair(key,ans));    //...reinsert pair at front...
+            cache[key] = q.begin();              //..update its position and return
+            return ans;
+        }
+        
+        void put(int key, int value) {
+            if (!cache.count(key)){                 //key not found
+                if (q.size() == cap){               //if we are full, delete LRU pair....
+                    int last = q.back().first;
+                    q.pop_back();
+                    cache.erase(last);             //...and erase its key from the cache
+                }
+            } else {                                //key found, just delete the pair first
+                q.erase(cache[key]);
+            }
+            q.push_front(make_pair(key,value));     //insert/re-insert pair
+            cache[key] = q.begin();                 //insert or update its position
+        }
+    };
+{% endblock solution_code %}
