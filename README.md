@@ -22,8 +22,6 @@ www.adrianlee0118.com
   - Leetcode for public coding challenges, which the coding_solutions section is made from
   - Google for various stock images
   - Font Awesome is used for some of the social media icons
-  - Google Domains for domain name
-  - PythonAnywhere for hosting
 
 The following persons:
   - My friend Matthew Lai for his invaluable insight and advice in web development,
@@ -31,7 +29,7 @@ The following persons:
   - Stuart Langridge for [sorttable](http://www.kryogenix.org/code/browser/sorttable/) functions.
 
 The following companies for hosting site's files:
-  - The pages are hosted in [Github](https://github.com/)
+  - The pages are hosted on [PythonAnywhere](https://www.pythonanywhere.com/)
   - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/)
   - And [Cloudflare's free CDN](https://www.cloudflare.com/en-ca/).
 
