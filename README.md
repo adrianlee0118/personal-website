@@ -1,6 +1,8 @@
 ## About
 My personal website and blog, developed from scratch using Flask for Python and Bootstrap.
 
+www.adrianlee0118.com
+
 ## Directories
   - static: contains CSS styles, images used on pages, and third party scripts
   - templates: contains all html templates, subfolder coding_solutions contains all text for Leetcode solution pages
@@ -27,7 +29,7 @@ The following persons:
   - Stuart Langridge for [sorttable](http://www.kryogenix.org/code/browser/sorttable/) functions.
 
 The following companies for hosting site's files:
-  - The pages are hosted in [Github](https://github.com/)
+  - The pages are hosted on [PythonAnywhere](https://www.pythonanywhere.com/)
   - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/)
   - And [Cloudflare's free CDN](https://www.cloudflare.com/en-ca/).
 
