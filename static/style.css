@@ -81,6 +81,7 @@ p {
 }
 
 .blog{
+    font-size: 20px;
     margin-right: 50px;
 }
 
@@ -199,6 +200,14 @@ img {
     float: right;
     padding: 2px;
     border: solid black 1px;
+}
+
+ol.blog {
+    font-size: 20px;
+}
+
+ul.blog {
+    font-size: 20px;
 }
 
 /* ---------------------------------------------------

@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of non-negative integers, you are initially positioned at the first index of the array.
+    </p>
+    <p class="question">
+        Each element in the array represents your maximum jump length at that position.
+    </p>
+    <p class="question">
+        Determine if you are able to reach the last index.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Recursion, setting unsuccessfully DFS'ed cells to zero to indicate no paths are available for future iterations (like a DP). 
+        This solution is probably on the verge of a TLE.
+    </p>
+    <p>
+        Unnecessary--can work this out by determining if any cell in the list enables a max jump >= last position of the array, as 
+        some people have shown.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    
+    public:
+        bool canJump(vector<int>& nums) {
+            return jump(nums,0);
+        }
+        
+        bool jump(vector<int>& nums, int pos){
+            if (pos >= nums.size()-1) return true;
+            if (nums[pos] == 0) return false;          //Not at the end and no possible movement (or this was a previously unsuccessfully tried cell)
+            for (int i = nums[pos]; i >= 1; i--)       //Try all the possible jumps; if there's a path to the end return true
+                if (jump(nums,pos+i)) return true;
+            nums[pos] = 0;                             //indicate none of the paths from this cell are viable if we didn't find a path
+            return false;
+        }
+    };
+{% endblock solution_code %}
