@@ -3,6 +3,8 @@ My personal website and blog, developed from scratch using Flask for Python and 
 
 www.adrianlee0118.com
 
+The domain name was acquired from [Google Domains](https://domains.google/intl/en_ca/?gclid=CjwKCAjwv4_1BRAhEiwAtMDLshCGIRtXhxjMYAGZMtjkiJWT8zS9QlbL2CFdWZo6SnZaFbpFof9sphoCnYcQAvD_BwE)
+
 ## Directories
   - static: contains CSS styles, images used on pages, and third party scripts
   - templates: contains all html templates, subfolder coding_solutions contains all text for Leetcode solution pages
@@ -30,7 +32,6 @@ The following persons:
 
 The following companies for hosting site's files:
   - The pages are hosted on [PythonAnywhere](https://www.pythonanywhere.com/)
-  - Domain is provided from [Google Domains](https://domains.google/intl/en_ca/?gclid=CjwKCAjwv4_1BRAhEiwAtMDLshCGIRtXhxjMYAGZMtjkiJWT8zS9QlbL2CFdWZo6SnZaFbpFof9sphoCnYcQAvD_BwE)
   - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/)
   - And [Cloudflare's free CDN](https://www.cloudflare.com/en-ca/).
 
