@@ -30,6 +30,7 @@ The following persons:
 
 The following companies for hosting site's files:
   - The pages are hosted on [PythonAnywhere](https://www.pythonanywhere.com/)
+  - Domain is provided from [Google Domains](https://domains.google/intl/en_ca/?gclid=CjwKCAjwv4_1BRAhEiwAtMDLshCGIRtXhxjMYAGZMtjkiJWT8zS9QlbL2CFdWZo6SnZaFbpFof9sphoCnYcQAvD_BwE)
   - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/)
   - And [Cloudflare's free CDN](https://www.cloudflare.com/en-ca/).
 
