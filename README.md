@@ -3,7 +3,7 @@ My personal website and blog, developed from scratch using Flask for Python and 
 
 www.adrianlee0118.com
 
-The domain name was acquired from [Google Domains](https://domains.google/intl/en_ca/?gclid=CjwKCAjwv4_1BRAhEiwAtMDLshCGIRtXhxjMYAGZMtjkiJWT8zS9QlbL2CFdWZo6SnZaFbpFof9sphoCnYcQAvD_BwE)
+The domain name was acquired from Google Domains.
 
 ## Directories
   - static: contains CSS styles, images used on pages, and third party scripts
