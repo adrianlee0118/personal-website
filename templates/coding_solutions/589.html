@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an n-ary tree, return the preorder traversal of its nodes' values.
+    </p>
+    <p class="question">
+        Nary-Tree input serialization is represented in their level order traversal, each group of children is 
+        separated by the null value (See examples).
+    </p>
+    <p class="question">
+        Follow Up: Recursive solution is trivial, could you do it iteratively?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> preorder(Node* root) {
+            vector<int> result;
+            dive(result, root);
+            return result;
+        }
+        
+        void dive (vector<int>& tab, Node* root){
+            if (root == NULL){
+                return;
+            } else {
+                tab.push_back(root->val);
+                for (auto i: root->children){
+                    if (i != NULL){  
+                        dive (tab,i);
+                    }
+                }
+            }
+            return;   
+        }
+    };
+{% endblock solution_code %}

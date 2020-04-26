@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string S of lowercase letters, a duplicate removal consists of choosing two adjacent and equal letters, and 
+        removing them.
+    </p>
+    <p class="question">
+        We repeatedly make duplicate removals on S until we no longer can.
+    </p>
+    <p class="question">
+        Return the final string after all such duplicate removals have been made.  It is guaranteed the answer is unique.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string removeDuplicates(string S) {
+            
+            if( S.length() == 1 ) {
+                return S;
+            }
+            
+            string stored = "";
+            
+            for (char c:S){
+                if (stored == ""){
+                    stored.push_back(c);
+                } else if (stored.back() == c){
+                    stored.pop_back();
+                } else {
+                    stored.push_back(c);
+                }
+            }
+            
+            return stored;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a array A of size 2N, there are N+1 unique elements, and exactly one of these elements is repeated N times.
+    </p>
+    <p class="question">
+        Return the element repeated N times.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int repeatedNTimes(vector<int>& A) {
+            
+            unordered_map<int,int> counts;
+            
+            for (auto a:A){
+                if (counts[a]++ == 2){
+                    return a;
+                } else {
+                    counts[a]++;
+                }
+            }
+            return -1;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a m * n matrix of distinct numbers, return all lucky numbers in the matrix in any order.
+    </p>
+    <p class="question">
+        A lucky number is an element of the matrix such that it is the minimum element in its row and maximum in its column.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> luckyNumbers (vector<vector<int>>& matrix) {
+            int m = matrix.size();
+            int n = matrix[0].size();
+            vector<int> maxcol;
+            vector<int> minrow;
+            
+            //Store column maximums
+            for (int j = 0; j < n; j++){
+                int c = matrix[0][j];
+                for (int i = 1; i < m; i++){
+                    c = max(matrix[i][j],c);
+                }
+                maxcol.push_back(c);
+            }
+            
+            //Store row minimums
+            for (int i = 0; i < m; i++){
+                minrow.push_back(*min_element(matrix[i].begin(),matrix[i].end()));
+            }
+            
+            //Iterate over entire matrix and identify all lucky numbers
+            vector<int> ans;
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < n; j++){
+                    if (matrix[i][j] == minrow[i] && matrix[i][j] == maxcol[j]){
+                        ans.push_back(matrix[i][j]);
+                    }
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,97 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A website domain like "discuss.leetcode.com" consists of various subdomains. At the top level, we have "com", at the next 
+        level, we have "leetcode.com", and at the lowest level, "discuss.leetcode.com". When we visit a domain like 
+        "discuss.leetcode.com", we will also visit the parent domains "leetcode.com" and "com" implicitly.
+    </p>
+    <p class="question">
+        Now, call a "count-paired domain" to be a count (representing the number of visits this domain received), followed by a 
+        space, followed by the address. An example of a count-paired domain might be "9001 discuss.leetcode.com".
+    </p>
+    <p class="question">
+        We are given a list cpdomains of count-paired domains. We would like a list of count-paired domains, (in the same format 
+        as the input, and in any order), that explicitly counts the number of visits to each subdomain.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a map to keep track of visits to all subdomains with string variable subdomain names subD as the keys. For all strings 
+        in the cpdomains vector, extract the subdomain portion of the string and add the numerical values to each of the extracted 
+        subdomains in the map.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> subdomainVisits(vector<string>& cpdomains) {
+            
+            vector<string> result;
+            map<string,int> visits;
+            
+            //for every subdomain encoded string
+            for (string s:cpdomains){
+                
+                //grab the number of visits
+                size_t pos = s.find(" ");
+                int num = stoi(s.substr(0,pos));
+                
+                //isolate just the subdomain portion of the string
+                string subD = s.substr(pos+1);
+                int marker = 0;
+                
+                //Add entire domain visits
+                visits.insert(make_pair(subD,0));
+                visits[subD]+=num;
+                
+                //going down the domain string, add all other listed subdomains....
+                while (marker < subD.size()){
+                    
+                    
+                    //when we see the '.', we cut the front of the string off and store visits plus it
+                    if (subD[marker] == '.'){
+                        
+                        subD = subD.substr(marker+1);
+                        
+                        //if the subdomain is already listed, add otherwise create and add
+                        if (visits.find(subD) != visits.end()){
+                            
+                            visits.insert(make_pair(subD, 0));
+                            visits[subD]+=num;
+                            
+                        } else {
+                            
+                            visits[subD]+=num;
+                        }
+                        
+                        marker = 0;
+    
+                    } else {
+                        
+                        marker++;
+                    }
+    
+                }
+                
+            }
+            
+            //Going through the whole map, store all results as strings in answer vector.
+            for(map<string,int>::const_iterator it = visits.begin(); it != visits.end(); it++){
+                
+                result.push_back(to_string(it->second)+" "+it->first);
+            }
+            
+            return result;
+        }
+    };
+{% endblock solution_code %}

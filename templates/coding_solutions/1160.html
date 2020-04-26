@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given an array of strings words and a string chars.
+    </p>
+    <p class="question">
+        A string is good if it can be formed by characters from chars (each character can only be used once).
+    </p>
+    <p class="question">
+        Return the sum of lengths of all good strings in words.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        For all strings, compare character by character to the string chars.
+    </p>
+    <ul>
+        <li>Use string.find(char) to assess presence of a given character in chars</li>
+        <li>Instead of using chars directly, use a copy of that string cut so that when characters are found they can be stricken 
+            from the string--this helps us account for duplicate letters in the word in question</li>
+    </ul>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int countCharacters(vector<string>& words, string chars) {
+            int count = 0;
+            for (string curr : words){
+                if (curr.size() <= chars.size()){
+                    int temp = 0;
+                    string cut = chars;
+                    for (char c: curr){
+                        if (cut.find(c) != string::npos){
+                            cut.replace(cut.find(c),1,"-");
+                            temp++;
+                        } else {
+                            temp = 0;
+                            break;
+                        }
+                    }
+                    count += temp;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

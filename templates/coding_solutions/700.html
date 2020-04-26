@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the root node of a binary search tree (BST) and a value. You need to find the node in the BST that the node's 
+        value equals the given value. Return the subtree rooted with that node. If such node doesn't exist, you should return NULL.
+    </p>
+    <p class="question">
+        Note that an empty tree is represented by NULL, therefore you would see the expected output (serialized tree format) as [], 
+        not null.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* searchBST(TreeNode* root, int val) {
+            if (root == NULL){
+                return NULL;
+            }
+            if(root->val ==val){
+                return root;
+            }
+            TreeNode* next;
+            if (root->val > val){
+                next = root->left;
+            } else {
+                next = root->right;
+            }
+            return searchBST(next,val);
+        }
+    };
+{% endblock solution_code %}

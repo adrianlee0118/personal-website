@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There is a robot starting at position (0, 0), the origin, on a 2D plane. Given a sequence of its moves, judge if this 
+        robot ends up at (0, 0) after it completes its moves.
+    </p>
+    <p class="question">
+        The move sequence is represented by a string, and the character moves[i] represents its ith move. Valid moves are R (right), 
+        L (left), U (up), and D (down). If the robot returns to the origin after it finishes all of its moves, return true. 
+        Otherwise, return false.
+    </p>
+    <p class="question">
+        Note: The way that the robot is "facing" is irrelevant. "R" will always make the robot move to the right once, "L" will 
+        always make it move left, etc. Also, assume that the magnitude of the robot's movement is the same for each move.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool judgeCircle(string moves) {
+            int xpos = 0;
+            int ypos = 0;
+            
+            for (int i = 0; i < moves.size(); i++){
+                
+                switch(moves[i]){
+                    case('U'): ypos+=1; break;
+                    case('D'): ypos-=1; break;
+                    case('L'): xpos-=1; break;
+                    case('R'): xpos+=1; break;
+                }
+                
+            }
+            
+            if (xpos == 0 && ypos == 0){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
+{% endblock solution_code %}

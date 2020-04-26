@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array A of non-negative integers, half of the integers in A are odd, and half of the integers are even.
+    </p>
+    <p class="question">
+        Sort the array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is even.
+    </p>
+    <p class="question">
+        You may return any answer array that satisfies this condition.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> sortArrayByParityII(vector<int>& A) {
+            
+            //Use two pointers to facilitate switches going down the array.
+            
+            int e = 0, o = 1;
+            vector<int> result(A.size());
+            
+            for (int i = 0; i < A.size(); i++){
+                
+                if (A[i] % 2 == 0){
+                    
+                    result[e] = A[i];
+                    e+=2;
+                    
+                } else {
+                    
+                    result[o] = A[i];
+                    o+=2;
+                    
+                }
+            }
+            
+            return result;
+        }
+    };
+{% endblock solution_code %}

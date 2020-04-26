@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Students are asked to stand in non-decreasing order of heights for an annual photo.
+    </p>
+    <p class="question">
+        Return the minimum number of students that must move in order for all students to be standing in non-decreasing order of 
+        height.
+    </p>
+    <p class="question">
+        Notice that when a group of students is selected they can reorder in any possible way between themselves and the non 
+        selected students remain on their seats.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int heightChecker(vector<int>& heights) {
+            
+            //examine each number to see if a swap with a later number is possible (2 moves)
+            int minpos = 0;
+            
+            //track out of place positions with a set because we need not double count 2 moves out of the
+            //same spot
+            set<int> error;
+            
+            for (int i = 0; i < heights.size()-1; i++){
+                
+                minpos = i;
+                
+                for (int j = i+1; j < heights.size(); j++){
+                    if (heights[minpos]>=heights[j]){    //get the minimum that is furthest back  
+                        minpos = j;
+                    }
+                }
+                
+                if (heights[minpos] < heights[i]){
+                    error.insert(i);
+                    error.insert(minpos);
+                    
+                    int temp = heights[i];
+                    heights[i] = heights[minpos];
+                    heights[minpos] = temp;
+                    
+                }
+            }
+            return error.size();
+        }
+    };
+{% endblock solution_code %}

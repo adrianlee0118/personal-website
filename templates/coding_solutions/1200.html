@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of distinct integers arr, find all pairs of elements with the minimum absolute difference of any two elements. 
+    </p>
+    <p class="question">
+        Return a list of pairs in ascending order(with respect to pairs), each pair [a, b] follows
+    </p>
+    <ul>
+        <li>a, b are from arr</li>
+        <li>a < b</li>
+        <li>b - a equals to the minimum absolute difference of any two elements in arr</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Sort vector (O(nlogn)) and then use loop iterations to A) Find the minimum absolute difference and B) Store all the viable 
+        pairs.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+            sort(arr.begin(),arr.end());
+            int MinDiff = 200000;
+            
+            for (int i = 1; i < arr.size(); i++){
+                MinDiff = min(MinDiff,arr[i]-arr[i-1]);
+            }
+            vector<vector<int>> pairs;
+            for (int i = 1; i < arr.size(); i++){
+                if (arr[i]-arr[i-1] == MinDiff){
+                    pairs.push_back({arr[i-1],arr[i]});
+                }
+            }
+            return pairs;
+        }
+    };
+{% endblock solution_code %}

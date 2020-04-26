@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a n-ary tree, find its maximum depth.
+    </p>
+    <p class="question">
+        The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+    </p>
+    <p class="question">
+        Nary-Tree input serialization is represented in their level order traversal, each group of children is separated 
+        by the null value (See examples).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int Max_Depth = 0;
+        
+        int maxDepth(Node* root) {
+            if (!root){
+                return 0;
+            }
+            
+            int curr_depth = 0;
+            CalculateAndCompareDepth(root,curr_depth);
+            return Max_Depth;
+        }
+        
+        void CalculateAndCompareDepth(Node* root, int curr_depth){
+            
+            if (root){
+                curr_depth++;
+                Max_Depth = max(Max_Depth, curr_depth);
+                
+                for (int i = 0; i < root->children.size(); i++){
+                    
+                    CalculateAndCompareDepth(root->children[i], curr_depth);
+                }
+            }
+        }
+    };
+{% endblock solution_code %}

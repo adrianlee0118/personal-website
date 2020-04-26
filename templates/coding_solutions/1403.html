@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array nums, obtain a subsequence of the array whose sum of elements is strictly greater than the sum of the 
+        non included elements in such subsequence. 
+    </p>
+    <p class="question">
+        If there are multiple solutions, return the subsequence with minimum size and if there still exist multiple solutions, return 
+        the subsequence with the maximum total sum of all its elements. A subsequence of an array can be obtained by erasing some 
+        (possibly zero) elements from the array. 
+    </p>
+    <p class="question">
+        Note that the solution with the given constraints is guaranteed to be unique. Also return the answer sorted in non-increasing 
+        order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Sort numbers to allow for partial iteration as opposed iterating over the entire set to find sub sequences. From greatest to 
+        least, accumulate a sum until that sum exceeds half of the total sum of the array, storing the sum at each iteration. Sort 
+        the found sums from greatest to least and return
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> minSubsequence(vector<int>& nums) {
+            sort(nums.begin(),nums.end());
+            int sum = accumulate(nums.begin(),nums.end(),0);
+            vector<int> ans;
+            while (accumulate(ans.begin(),ans.end(),0) <= sum/2){
+                ans.push_back(nums.back());
+                nums.pop_back();
+            }
+            sort(ans.begin(),ans.end(),greater<int>());
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of 2n integers, your task is to group these integers into n pairs of integer, say (a1, b1), (a2, b2), 
+        ..., (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possible.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int arrayPairSum(vector<int>& nums) {
+            //to get largest sum, the pairs we evaluate min from must devalue the potential sum to the
+            //lowest possible extent. Therefore as much as possible we must evaluate min between numbers
+            //that are similar in value--we do this by making a priority queue and evaluating min pairs from
+            //greatest to least. Using sort on the vector would reduce runtime for smaller datasets but
+            //potentially be problematic for larger ones.
+            priority_queue<int> num;
+            for (int i = 0; i < nums.size(); i++){
+                num.push(nums[i]);
+            }
+            
+            int sum = 0;
+            int temp1, temp2;
+            for (int j = 0; j < nums.size()/2; j++){
+                temp1 = num.top();
+                num.pop();
+                temp2 = num.top();
+                num.pop();
+                sum+=min(temp1,temp2);
+            }
+            return sum;
+        }
+    };
+{% endblock solution_code %}

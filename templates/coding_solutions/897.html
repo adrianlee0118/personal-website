@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the 
+        tree, and every node has no left child and only 1 right child.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Store TreeNode information while traversing binary tree in order. Extra memory used to store values during the 
+        traversal--could be outperformed from a memory standpoint by in-place solutions that only manipulate pointers.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* increasingBST(TreeNode* root) {
+            vector <int> repository;
+            inOrderTraversal(root,repository);
+            TreeNode* head = new TreeNode(repository[0]);
+            TreeNode* curr = head;
+            for(int i = 1; i < repository.size(); i++){
+                curr->right = new TreeNode(repository[i]);
+                curr->left = NULL;
+                curr = curr->right;
+            }
+            return head;
+        }
+        
+        void inOrderTraversal(TreeNode* node, vector<int> &repository){
+            if (!node){
+                return;
+            } else {
+                inOrderTraversal(node->left, repository);
+                repository.push_back(node->val);
+                inOrderTraversal(node->right, repository);
+            }
+        }
+    };
+{% endblock solution_code %}

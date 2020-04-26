@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given an array A of N lowercase letter strings, all of the same length.
+    </p>
+    <p class="question">
+        Now, we may choose any set of deletion indices, and for each string, we delete all the characters in those indices.
+    </p>
+    <p class="question">
+        For example, if we have an array A = ["abcdef","uvwxyz"] and deletion indices {0, 2, 3}, then the final array after deletions 
+        is ["bef", "vyz"], and the remaining columns of A are ["b","v"], ["e","y"], and ["f","z"].  (Formally, the c-th column is 
+        [A[0][c], A[1][c], ..., A[A.length-1][c]]).
+    </p>
+    <p class="question">
+        Suppose we chose a set of deletion indices D such that after deletions, each remaining column in A is in non-decreasing 
+        sorted order.
+    </p>
+    <p class="question">
+        Return the minimum possible value of D.length.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minDeletionSize(vector&lt;string&gt;& A) {
+            
+            if(A.size() == 0) return 0;
+            set&lt;int&gt; deleted;
+            int row = 0;
+            
+            //cycling through all columns
+            for(int col = 0; col &lt; A[0].size(); col++){
+                row = 0;
+                //at every row....
+                while(row &lt; A.size() - 1){
+                    
+                    //check if column-wise the order is decreasing
+                    //if decreasing and if this columnn has not yet been logged in deleted vector, insert
+                    if(A[row][col] &gt; A[row + 1][col] && deleted.find(col) == deleted.end()){
+                        deleted.insert(col);
+                    }
+                    row++;
+                }
+            }
+            
+            //return number of column deletions.
+            return deleted.size();
+        }
+    };
+{% endblock solution_code %}

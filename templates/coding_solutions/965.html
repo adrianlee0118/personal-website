@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A binary tree is univalued if every node in the tree has the same value.
+    </p>
+    <p class="question">
+        Return true if and only if the given tree is univalued.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Make code progress to increasingly deeper checks of the tree:
+    </p>
+    <ol>
+        <li>Check NPE at the root node</li>
+        <li>For each child node A) Check if the child node exists, B) Check whether 
+            its value is the same as the root's, C) Check if the branches constitute a unival tree</li>
+        <li>If any of the checks in 1-2 returns false, cut off protocol immediately by returning false, 
+            without diving deeper into the tree needlessly</li>
+    </ol>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isUnivalTree(TreeNode* root) {
+            if (!root){
+                return true;
+            }
+            if (root->left){
+                if (root->val != root->left->val || !isUnivalTree(root->left)){
+                    return false;
+                }
+            }
+            if (root->right){
+                if (root->val != root->right->val || !isUnivalTree(root->right)){
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

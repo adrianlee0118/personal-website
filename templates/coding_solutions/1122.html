@@ -1,0 +1,64 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two arrays arr1 and arr2, the elements of arr2 are distinct, and all elements in arr2 are also in arr1.
+    </p>
+    <p class="question">
+        Sort the elements of arr1 such that the relative ordering of items in arr1 are the same as in arr2.  Elements that don't appear in 
+        arr2 should be placed at the end of arr1 in ascending order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Break the answer vector into two parts: the first containing arr1 numbers that are present in arr2 arranged in arr2's 
+        relative order (step 2), and the second containing arr1 numbers NOT in arr2, ordered anscending (steps 1 and 3).
+    </p>
+    <ol>
+        <li>Iterate through arr1. Using vector iterator and find, determine if a given element of arr1 is present in arr2. If no, push to a Min priority queue (smallest numbers at the top).</li>
+        <li>Iterate through arr2. For each element of arr2, iterate through arr1. If the arr1 element equals the arr2 element, add it to the result vector.</li>
+        <li>Systematically pop and add all elements from the priority queue to the end of the result vector.</li>
+    </ol>
+    <p>
+        Speed could be improved if we avoided meaningless iteration in Step 2 through the nested loop (i.e. we pass elements of arr1 
+        multiple times without doing anything). If during Step 1, while adding numbers to the priority queue, we also used a Map to 
+        count instances of arr1 elements, we could access that data much quicker at the expense of using more memory.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+            vector<int> answer;
+            priority_queue<int, vector<int>, greater<int> > pq;
+            for (int i: arr1){
+                std::vector<int>::iterator it;
+                it = find (arr2.begin(), arr2.end(), i);
+                if (it == arr2.end()){
+                    pq.push(i);
+                }
+            }
+            for (int cursor : arr2){
+                for (int i: arr1){
+                    if (i == cursor){
+                        answer.push_back(i);
+                    }
+                }
+            }
+            while (!pq.empty()){
+                answer.push_back(pq.top());
+                pq.pop();
+            }
+            return answer;
+        }
+    };
+{% endblock solution_code %}

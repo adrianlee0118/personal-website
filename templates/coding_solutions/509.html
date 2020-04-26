@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the 
+        sum of the two preceding ones, starting from 0 and 1.
+    </p>
+    <p class="question">
+        Given N, calculate F(N).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use two variables to track the mathematical progression of the Fibonacci sequence to N.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int fib(int N) {
+            if (N == 0){
+                return 0;
+            } else if (N == 1){
+                return 1;
+            }
+            
+            int lastlastnum = 0;
+            int lastnum = 1;
+            for (int i = 2; i <= N; i++){
+                lastnum = lastlastnum+lastnum;
+                lastlastnum = lastnum-lastlastnum;
+            }
+            return lastnum;
+        }
+    };
+{% endblock solution_code %}

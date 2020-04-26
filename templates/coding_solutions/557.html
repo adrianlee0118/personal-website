@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string, you need to reverse the order of characters in each word within a sentence while still preserving 
+        whitespace and initial word order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate through string character by character and use a stack to keep track of the most recent non-white space characters, 
+        accessible in reverse. Produce reverse word by emptying stack whenever white space is encountered and when the end of the string is reached.
+    </p>
+    <p>
+        Not as space efficient as in-place solutions as a new string is concurrently built during the iteration. O(2n)
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string reverseWords(string s) {
+            string result = "";
+            stack<char> WordReverser;
+            
+            for (char c:s){
+                if(c==' '){
+                    while (!WordReverser.empty()){
+                        result+=WordReverser.top();
+                        WordReverser.pop();
+                    }
+                    result+=' ';
+                } else {
+                    WordReverser.push(c);
+                }
+                if (i == s.size()-1){
+                    while (!WordReverser.empty()){
+                        result+=WordReverser.top();
+                        WordReverser.pop();
+                    }
+                }
+            } 
+            return result;
+        }
+    };
+{% endblock solution_code %}

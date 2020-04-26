@@ -1,0 +1,63 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a function  f(x, y) and a value z, return all positive integer pairs x and y where f(x,y) == z.
+    </p>
+    <p class="question">
+        The function is constantly increasing, i.e.:
+    </p>
+    <ul>
+        <li>f(x, y) < f(x + 1, y)</li>
+        <li>f(x, y) < f(x, y + 1)</li>
+    </ul>
+    <p class="question">
+        The function interface is defined like this: 
+    </p>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+            interface CustomFunction {
+            public:
+                // Returns positive integer f(x, y) for any given positive integer x and y.
+                int f(int x, int y);
+            };
+        </code>
+    </pre>
+    <p class="question">
+        For custom testing purposes you're given an integer function_id and a target z as input, where 
+        function_id represent one function from an secret internal list, on the examples you'll know only two functions from the list.  
+    </p>
+    <p class="question">
+        You may return the solutions in any order.  
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> findSolution(CustomFunction& customfunction, int z) {
+            vector<vector<int>> answers;
+            for (int i = 1; i <= z; i++){
+                for (int j = 1; j <= z; j++){
+                    if (customfunction.f(i,j) == z){
+                        answers.push_back({i,j});
+                    }
+                }
+            }
+            return answers;
+        }
+    };
+{% endblock solution_code %}

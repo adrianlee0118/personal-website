@@ -1,0 +1,59 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array arr. You have to sort the integers in the array in ascending order by the number of 1's in their 
+        binary representation and in case of two or more integers have the same number of 1's you have to sort them in ascending order.
+    </p>
+    <p class="question">
+        Return the sorted array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> sortByBits(vector<int>& arr) {
+            
+            //Get all the onebit counts of all numbers and store together
+            vector<pair<int,int>> bitnum;
+            for (auto& a : arr){
+                bitnum.push_back(make_pair(getOneBits(a),a));   
+            }
+            
+            //lambda sort in ascending order by bitcount, if bitcount the same sort in ascending order by number value
+            sort(bitnum.begin(), bitnum.end(), [](auto& p1, auto& p2){
+                return p1.first < p2.first || (p1.first == p2.first && p1.second < p2.second);
+            });
+            
+            //populate the answer vector with the original numbers in the sorted order and return
+            vector<int> ans;
+            for (auto& b : bitnum){
+                ans.push_back(b.second);
+            }
+            return ans;
+        }
+        
+        int getOneBits(int num){
+            unsigned int count = 0; 
+            while (num) { 
+                count += num & 1; 
+                num >>= 1; 
+            } 
+            return count; 
+        }
+    };
+{% endblock solution_code %}

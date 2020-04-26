@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty, singly linked list with head node head, return a middle node of linked list.
+    </p>
+    <p class="question">
+        If there are two middle nodes, return the second middle node.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        To find the midpoint of the list, traverse the entire list once to determine its length, then 
+        traverse again up to the midpoint and return.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        ListNode* middleNode(ListNode* head) {
+            int mid = getLen(head, 0)/2;
+            while (mid > 0){
+                head = head->next;
+                mid--;
+            }
+            return head;
+        }
+        
+        int getLen(ListNode* head, int depth){
+            if (!head) return 0;
+            if (head->next) return getLen(head->next, depth+1);
+            else return depth+1;
+        }
+    };
+{% endblock solution_code %}

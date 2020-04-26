@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr, a lucky integer is an integer which has a frequency in the array equal to its value.
+    </p>
+    <p class="question">
+        Return a lucky integer in the array. If there are multiple lucky integers return the largest of them. If there is no 
+        lucky integer return -1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Sort and iterate back to front to find the biggest number that satisfies the condition. Can avoid iterating through 
+        the whole array by having data pre-sorted but some speed is sacrificed because of the sort.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findLucky(vector<int>& arr) {
+            sort(arr.begin(),arr.end());
+            int last = arr[arr.size()-1];
+            int count = 0;
+            for (int i = arr.size()-1; i >= 0; i--){
+                if (arr[i] == last) count++;
+                else {
+                    if (count == last){
+                        return last;
+                    } else {
+                        count = 1;
+                        last = arr[i];
+                    }
+                }
+            }
+            if (count == last) return last;
+            else return -1;
+        }
+    };
+{% endblock solution_code %}

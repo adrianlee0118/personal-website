@@ -1,0 +1,81 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        On a N * N grid, we place some 1 * 1 * 1 cubes that are axis-aligned with the x, y, and z axes.
+    </p>
+    <p class="question">
+        Each value v = grid[i][j] represents a tower of v cubes placed on top of grid cell (i, j).
+    </p>
+    <p class="question">
+        Now we view the projection of these cubes onto the xy, yz, and zx planes.
+    </p>
+    <p class="question">
+        A projection is like a shadow, that maps our 3 dimensional figure to a 2 dimensional plane.
+    </p>
+    <p class="question">
+        Here, we are viewing the "shadow" when looking at the cubes from the top, the front, and the side.
+    </p>
+    <p class="question">
+        Return the total area of all three projections.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int projectionArea(vector<vector<int>>& grid) {
+            int yx = 0;
+            int zx = 0;
+            int zy = 0;
+            
+            //For a given y, we must check the maximum v for all y (yz projection at that y)
+            //and for a given x, we must check the maximum v for all x (zx projection at that x)
+            
+            for (int i = 0; i < grid.size(); i++){
+                
+                int max_x = 0;
+                int max_y = 0;
+                
+                for (int j = 0; j < grid[0].size(); j++){
+                    
+                    //Instead of using one nested loop each to check max x for each y and then max y for 
+                    //each x, do both evaluations with one nested loop by reversing the coordinates
+                    //because one analysis is identical to the other, turned on its side.
+                    //i.e. the first iteration at i = 0 will find the max y for x = 0 and the max x for y = 
+                    //0
+                    
+                    if (grid[i][j] > max_y){
+                        max_y = grid[i][j];
+                    }
+                    
+                    if (grid[j][i] > max_x){
+                        max_x = grid[j][i];
+                    }
+                    
+                    if (grid[i][j] > 0){
+                        yx++;
+                    }
+                }
+                
+                zy+=max_y;
+                zx+=max_x;
+            }
+            
+            return yx+zx+zy;
+        }
+    };
+{% endblock solution_code %}

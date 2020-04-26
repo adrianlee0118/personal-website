@@ -1,0 +1,77 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a m * n matrix mat of ones (representing soldiers) and zeros (representing civilians), return the indexes of the k 
+        weakest rows in the matrix ordered from the weakest to the strongest.
+    </p>
+    <p class="question">
+        A row i is weaker than row j, if the number of soldiers in row i is less than the number of soldiers in row j, or they have 
+        the same number of soldiers but i is less than j. Soldiers are always stand in the frontier of a row, that is, always ones 
+        may appear first and then zeros.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+            
+            //Row index + count of 1s
+            vector<int> RowSoldier;
+            
+            //Keep track of smallest numbers and avoid duplicates
+            priority_queue<int, vector<int>, greater<int>> pq;
+            set<int> prevcounts;
+            
+            //Count all soldiers in each row, avoiding duplicate counts when inserting to priority queue
+            for (int i = 0; i < mat.size(); i++){
+                int j;
+                for (j = 0; j < mat[i].size(); j++){
+                    if (mat[i][j] == 0){
+                        break;
+                    }
+                }
+                RowSoldier.push_back(j);
+                if (prevcounts.find(j) == prevcounts.end()){
+                    pq.push(j);
+                    prevcounts.insert(j);
+                }
+            }
+            
+            //Retrieve k weakest
+            vector<int> ans;
+            int answercount = 0;
+            while (!pq.empty() && answercount < k){
+                
+                int count = pq.top();
+                pq.pop();
+
+                for (int l = 0; l < RowSoldier.size(); l++){
+                    if (RowSoldier[l] == count){
+                        ans.push_back(l);
+                        answercount++;
+                        if (answercount >= k){
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}
