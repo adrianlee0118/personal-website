@@ -1,0 +1,40 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer n, return any array containing n unique integers such that they add up to 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> sumZero(int n) {
+            vector<int> ans;
+            int curr = 1;
+            while (ans.size() < n){
+                if (n-ans.size() > 1){
+                    ans.push_back(curr);
+                    ans.push_back(-1*curr);
+                    curr++;
+                } else {
+                    ans.push_back(0);
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

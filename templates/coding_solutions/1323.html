@@ -1,0 +1,40 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a positive integer num consisting only of digits 6 and 9.
+    </p>
+    <p class="question">
+        Return the maximum number you can get by changing at most one digit (6 becomes 9, and 9 becomes 6).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maximum69Number (int num) {
+            
+            string number = to_string(num);
+            for (int i = 0; i < number.size(); i++){
+                if (number[i] == '6'){
+                    number[i] = '9';
+                    break;
+                }
+            }
+            return std::stoi(number);
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,36 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-negative integer num, return the number of steps to reduce it to zero. If the current number is even, you have to 
+        divide it by 2, otherwise, you have to subtract 1 from it.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numberOfSteps (int num) {
+            return getSteps(num,0);
+        }
+        
+        int getSteps(int num, int steps){
+            if (num == 0) return steps;
+            if (num % 2) return getSteps(num-1, steps+1);
+            else return getSteps(num/2, steps+1);
+        }
+    };
+{% endblock solution_code %}

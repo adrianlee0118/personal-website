@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        On a plane there are n points with integer coordinates points[i] = [xi, yi]. Your task is to find the minimum time in 
+        seconds to visit all points.
+    </p>
+    <p class="question">
+        You can move according to the next rules:
+    </p>
+    <ul>
+        <li>In one second always you can either move vertically, horizontally by one unit or diagonally (it means to move one 
+            unit vertically and one unit horizontally in one second).</li>
+        <li>You have to visit the points in the same order as they appear in the array.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        The main thing to recognize is that diagonals need not be calculated, since the time elapsed travelling one diagonal 
+        is the same as travelling one in the horizontal or vertical directions.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minTimeToVisitAllPoints(vector<vector<int>>& points) {
+            int time = 0;
+            int y = points[0][0];
+            int x = points[0][1];
+            for (int i = 1; i < points.size(); i++){
+                time += max(abs(points[i][0]-y),abs(points[i][1]-x));
+                y = points[i][0];
+                x = points[i][1];
+            }
+            return time;
+        }
+    };
+{% endblock solution_code %}

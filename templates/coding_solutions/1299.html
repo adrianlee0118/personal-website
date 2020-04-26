@@ -1,0 +1,38 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array arr, replace every element in that array with the greatest element among the elements to its right, and 
+        replace the last element with -1.
+    </p>
+    <p class="question">
+        After doing so, return the array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterating over array front to back, at each index use std::max_element on the range of the array to the right of the current 
+        index.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> replaceElements(vector<int>& arr) {
+            for (int i = 0; i < arr.size()-1; i++){
+                arr[i] = *max_element(arr.begin()+i+1, arr.end());
+            }
+            arr[arr.size()-1] = -1;
+            return arr;
+        }
+    };
+{% endblock solution_code %}

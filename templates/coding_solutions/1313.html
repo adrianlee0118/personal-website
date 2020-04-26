@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given a list nums of integers representing a list compressed with run-length encoding.
+    </p>
+    <p class="question">
+        Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are 
+        freq elements with value val concatenated in a sublist. Concatenate all the sublists from left to right to generate the 
+        decompressed list.
+    </p>
+    <p class="question">
+        Return the decompressed list.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> decompressRLElist(vector<int>& nums) {
+            
+            vector<int> ans;
+            for (int i = 1; i < nums.size(); i+=2){
+                for (int j = 0; j < nums[i-1]; j++){
+                    ans.push_back(nums[i]);
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

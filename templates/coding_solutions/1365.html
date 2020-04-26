@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each 
+        nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+    </p>
+    <p class="question">
+        Return the answer in an array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+            vector<int> ans;
+            for (int i = 0; i < nums.size(); i++){
+                int count = 0;
+                for (int j = 0; j < nums.size(); j++){
+                    if (j != i && nums[j] < nums[i]){
+                        count++;
+                    }
+                }
+                ans.push_back(count);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

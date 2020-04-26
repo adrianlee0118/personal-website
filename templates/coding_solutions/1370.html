@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s. You should re-order the string using the following algorithm:
+    </p>
+    <ol>
+        <li>Pick the smallest character from s and append it to the result.</li>
+        <li>Pick the smallest character from s which is greater than the last appended character to the result and append it.</li>
+        <li>Repeat step 2 until you cannot pick more characters.</li>
+        <li>Pick the largest character from s and append it to the result.</li>
+        <li>Pick the largest character from s which is smaller than the last appended character to the result and append it.</li>
+        <li>Repeat step 5 until you cannot pick more characters.</li>
+        <li>Repeat the steps from 1 to 6 until you pick all characters from s.</li>
+    </ol>
+    <p class="question">
+        In each step, If the smallest or the largest character appears more than once you can choose any 
+        occurrence and append it to the result.
+    </p>
+    <p class="question">
+        Return the result string after sorting s with this algorithm.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Count characters using an array instead of a map or vector to improve speed. At each step in the iteration go forwards and 
+        backwards through the alphabet to add letters until the whole string is built.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string sortString(string s) {
+            int letters[26];
+            fill_n(letters, 26, 0);
+            for (auto& c : s) letters[c-'a']++;
+            string ans = "";
+            while (ans.size() < s.size()){
+                for (int i = 0; i < 26; i++)
+                    if (letters[i] > 0){
+                        ans += (char)(i+'a');
+                        letters[i]--;
+                    }
+                for (int i = 25; i >= 0; i--)
+                    if (letters[i] > 0){
+                        ans += (char)(i+'a');
+                        letters[i]--;
+                    }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a valid (IPv4) IP address, return a defanged version of that IP address.
+    </p>
+    <p class="question">
+        A defanged IP address replaces every period "." with "[.]".
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string defangIPaddr(string address) {
+            stringstream rewrite;
+            
+            for (int i = 0; i < address.size(); i++){
+                if (address[i] == '.'){
+                    rewrite << "[.]";
+                } else {
+                    rewrite << address[i];
+                }
+            }
+            return rewrite.str();
+        }
+    };
+{% endblock solution_code %}

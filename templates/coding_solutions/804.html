@@ -1,0 +1,63 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes, as 
+        follows: "a" maps to ".-", "b" maps to "-...", "c" maps to "-.-.", and so on.
+    </p>
+    <p class="question">
+        For convenience, the full table for the 26 letters of the English alphabet is given below:
+    </p>
+    <p class="question">
+        [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-",
+        "..-","...-",".--","-..-","-.--","--.."]
+    </p>
+    <p class="question">
+        Now, given a list of words, each word can be written as a concatenation of the Morse code of each letter. For example, 
+        "cba" can be written as "-.-..--...", (which is the concatenation "-.-." + "-..." + ".-"). We'll call such a concatenation, 
+        the transformation of a word.
+    </p>
+    <p class="question">
+        Return the number of different transformations among all words we have.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int uniqueMorseRepresentations(vector<string>& words) {
+            
+            string morse[26] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+            
+            set<string> translation;
+            
+            for (int i = 0; i < words.size(); i++){          //for each word
+                
+                string temp = "";
+                
+                for (int j = 0; j < words[i].size(); j++){
+                    temp += morse[words[i][j]-'a'];           //write in morse, letter by letter
+                }
+                
+                translation.insert(temp);                        //store the translation
+            }
+            
+            int count = translation.size();
+            
+            return count;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,33 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string toLowerCase(string str) {
+            for (int i = 0; i < str.size(); i++){
+                if (str[i] >= 65 && str[i] <= 90)
+                str[i] = str[i] + 32;
+            }
+            return str;
+        }
+    };
+{% endblock solution_code %}

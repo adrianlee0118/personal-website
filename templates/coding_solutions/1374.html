@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer n, return a string with n characters such that each character in such string occurs an odd number of times.
+    </p>
+    <p class="question">
+        The returned string must contain only lowercase English letters. If there are multiples valid strings, return any of them.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string generateTheString(int n) {
+            
+            string ans = "";
+            
+            if (n % 2 != 0){
+                for (int i = 0; i < n; i++){
+                    ans += 'a';
+                }
+            } else {
+                for (int i = 0; i < n-1; i++){
+                    ans += 'a';
+                }
+                ans += 'b';
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

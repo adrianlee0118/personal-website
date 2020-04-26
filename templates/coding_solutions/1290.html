@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 
+        or 1. The linked list holds the binary representation of a number.
+    </p>
+    <p class="question">
+        Return the decimal value of the number in the linked list.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int getDecimalValue(ListNode* head) {
+        
+            string bin = "";
+            while (head){
+                bin += to_string(head->val);
+                head = head->next;
+            }
+            int power = 0;
+            int dec = 0;
+            for (int i = 0; i < bin.size(); i++){
+                if (bin[bin.size()-i-1] == '1'){
+                    dec += pow(2,power);
+                }
+                power++;
+            }
+            return dec;
+        }
+    };
+{% endblock solution_code %}

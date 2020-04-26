@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s formed by digits ('0' - '9') and '#' . We want to map s to English lowercase characters as follows:
+    </p>
+    <ul>
+        <li>Characters ('a' to 'i') are represented by ('1' to '9') respectively.</li>
+        <li>Characters ('j' to 'z') are represented by ('10#' to '26#') respectively. </li>
+    </ul>
+    <p class="question">
+        Return the string formed after mapping.
+    </p>
+    <p class="question">
+        It's guaranteed that a unique mapping will always exist.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate from back to front to identify the character '#' and parse accordingly. ASCII '0' starts at an integer value of 
+        48--use this with some char arithmetic to translate for the character from the code.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string freqAlphabets(string s) {
+            string ans = "";
+            for (int i = s.size()-1; i >= 0; i--){
+                char letter;
+                if (s[i] == '#'){
+                    letter = ((s[i-2]-48)*10+s[i-1]-48)+'a'-1;
+                    ans = letter + ans;
+                    i-=2;
+                } else {
+                    letter = (s[i]-48)+'a'-1;
+                    ans = letter + ans;
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

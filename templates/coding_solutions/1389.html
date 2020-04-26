@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+    </p>
+    <ul>
+        <li>Initially target array is empty.</li>
+        <li>From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.</li>
+        <li>Repeat the previous step until there are no elements to read in nums and index.</li>
+    </ul>
+    <p class="question">
+        Return the target array.
+    </p>
+    <p class="question">
+        It is guaranteed that the insertion operations will be valid.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> createTargetArray(vector<int>& nums, vector<int>& index) {
+            vector<int> target = {};
+            for (int i = 0; i < nums.size(); i++){
+                auto it = target.insert(target.begin() + index[i], nums[i]);
+            }
+            return target;
+        }
+    };
+{% endblock solution_code %}

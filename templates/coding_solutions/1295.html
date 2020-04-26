@@ -1,0 +1,36 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array nums of integers, return how many of them contain an even number of digits.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findNumbers(vector<int>& nums) {
+            
+            int count = 0;
+            for (auto n : nums){
+                if (to_string(n).size() % 2 == 0){
+                    count++;
+                }
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}

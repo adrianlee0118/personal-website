@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You're given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each 
+        character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.
+    </p>
+    <p class="question">
+        The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" 
+        is considered a different type of stone from "A".
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numJewelsInStones(string J, string S) {
+            int jewels = 0;
+            for (int i = 0; i < J.size(); i++){
+                char temp = J[i];
+                jewels+=count(S.begin(),S.end(),temp);
+            }
+            return jewels;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all 
+        the odd elements of A.
+    </p>
+    <p class="question">
+        You may return any answer array that satisfies this condition.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> sortArrayByParity(vector<int>& A) {
+            vector<int> arr;
+            
+            for (int i:A){
+                if (i % 2 == 0){
+                    arr.push_back(i);
+                }
+            }
+            
+            for (int j:A){
+                if (j % 2 != 0){
+                    arr.push_back(j);
+                }
+            }
+            
+            return arr;
+        }
+    };
+{% endblock solution_code %}
