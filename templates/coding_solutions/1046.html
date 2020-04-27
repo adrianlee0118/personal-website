@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We have a collection of stones, each stone has a positive integer weight.
+    </p>
+    <p class="question">
+        Each turn, we choose the two heaviest stones and smash them together.  Suppose the 
+        stones have weights x and y with x <= y.  The result of this smash is:
+    </p>
+    <ul>
+        <li>If x == y, both stones are totally destroyed;</li>
+        <li>If x != y, the stone of weight x is totally destroyed, and the stone of weight y has new weight y-x.</li>
+    </ul>
+    <p class="question">
+        At the end, there is at most 1 stone left.  Return the weight of this stone (or 0 if there are no stones left.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int lastStoneWeight(vector<int>& stones) {
+            priority_queue<int> pq;
+            for (auto& s : stones) pq.push(s);
+            while (pq.size() > 1){
+                int s1 = pq.top();
+                pq.pop();
+                int s2 = pq.top();
+                pq.pop();
+                if (s1 > s2){
+                    s1 -= s2;
+                    pq.push(s1);
+                }
+            }
+            if (pq.empty()) return 0;
+            else return pq.top();
+        }
+    };
+{% endblock solution_code %}

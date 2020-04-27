@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+    </p>
+    <p class="question">
+        (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
+    </p>
+    <p class="question">
+        You are given a target value to search. If found in the array return its index, otherwise return -1.
+    </p>
+    <p class="question">
+        You may assume no duplicate exists in the array.
+    </p>
+    <p class="question">
+        Your algorithm's runtime complexity must be in the order of O(log n).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a preliminary operation to determine the pivot index, which is found using a binary search. Then 
+        launch the binary search for the target within the appropriate range.
+    </p>
+    <p>
+        Trickiest part was accounting for all the possible edge cases.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int search(vector<int>& nums, int target) {
+            if (nums.size() == 0) return -1;                   //edge cases
+            if (nums.size() == 1) 
+                return nums[0] == target? 0:-1;
+            if (nums[nums.size()-1] > nums[0])                 //If there is no pivot, just binary search array as is
+                return binarySearch(nums,0,nums.size()-1,target);
+            
+            int idx = getPivot(nums,0,nums.size()-1);  //get the pivot index -- position of smallest number and perform binary search within appropriate range
+            if (target >= nums[idx] && target &lt;= nums[nums.size()-1])
+                return binarySearch(nums,idx,nums.size()-1,target);
+            else if (target >= nums[0] && target &lt;= nums[idx-1])
+                return binarySearch(nums,0,idx-1,target);
+            else 
+                return -1;   //the case where target does not fall into either range
+        }
+        
+        int binarySearch(vector&lt;int&gt;& nums, int start, int end, int target){
+            if (start > end) 
+                return -1;
+            int mid = start + (end-start)/2;
+            if (target == nums[mid])
+                return mid;
+            else if (target &gt; nums[mid])
+                return binarySearch(nums,mid+1,end,target);
+            else 
+                return binarySearch(nums,start,mid-1,target);
+        }
+        
+        int getPivot(vector&lt;int&gt;& nums, int start, int end){
+            int piv = end+(start-end)/2;
+            if(piv &lt; nums.size()-1 && nums[piv] &gt; nums[piv+1])
+                return piv+1;
+            else if(nums[start] &gt; nums[piv])
+                return getPivot(nums,start,piv-1);
+            else 
+                return getPivot(nums,piv+1,end);
+        }
+    };
+{% endblock solution_code %}

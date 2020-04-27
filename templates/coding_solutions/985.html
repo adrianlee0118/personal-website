@@ -1,0 +1,66 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We have an array A of integers, and an array queries of queries.
+    </p>
+    <p class="question">
+        For the i-th query val = queries[i][0], index = queries[i][1], we add val to A[index].  
+        Then, the answer to the i-th query is the sum of the even values of A.
+    </p>
+    <p class="question">
+        (Here, the given index = queries[i][1] is a 0-based index, and each query permanently modifies the array A.)
+    </p>
+    <p class="question">
+        Return the answer to all queries.  Your answer array should have answer[i] as the answer to the i-th query.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Get the sum of evens at the start of the activity and track changes to that sum during every query given the operation 
+        performed (i.e. odd+odd = even to be added, even+odd = odd and the initial even must be subtracted, odd + even is still odd 
+        and no change).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> sumEvenAfterQueries(vector<int>& A, vector<vector<int>>& queries) {
+            
+            vector<int> ans;
+            int evensum = 0;
+            for (auto elem : A){
+                if (elem % 2 == 0){
+                    evensum += elem;
+                }
+            }
+            
+            for (int i = 0; i < queries.size(); i++){
+                if (A[queries[i][1]] % 2 == 0){
+                    if( queries[i][0] % 2 == 0){
+                        evensum += queries[i][0];
+                    } else {
+                        evensum -= A[queries[i][1]];
+                    }
+                } else {
+                    if ( queries[i][0] % 2 != 0){
+                        evensum += A[queries[i][1]];
+                        evensum += queries[i][0];
+                    }
+                }
+                A[queries[i][1]] += queries[i][0];
+                ans.push_back(evensum);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are some chips, and the i-th chip is at position chips[i].
+    </p>
+    <p class="question">
+        You can perform any of the two following types of moves any number of times (possibly zero) on any chip:
+    </p>
+    <ul>
+        <li>Move the i-th chip by 2 units to the left or to the right with a cost of 0.</li>
+        <li>Move the i-th chip by 1 unit to the left or to the right with a cost of 1.</li>
+    </ul>
+    <p class="question">
+        There can be two or more chips at the same position initially.
+    </p>
+    <p class="question">
+        Return the minimum cost needed to move all the chips to the same position (any position).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Pivot about an average value between max and min of the array--calculate differences between all values and the average. 
+        If difference % 2 == 0, cost will be zero and if not then cost will be 1.
+    </p>
+    <p>
+        Could improve speed in worst cases if we calculate the highround only if (max + min) % 2 > 0
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minCostToMoveChips(vector<int>& chips) {
+            
+            int max = *max_element(chips.begin(), chips.end());
+            int min = *min_element(chips.begin(), chips.end());
+            int average = min+(max+min)/2;
+            
+            int points_lowround = 0;
+            for (int i = 0; i &lt; chips.size(); i++){
+                int diff = abs(chips[i]-average);
+                if (diff % 2 > 0){
+                    points_lowround++;
+                }
+            }
+            average++;
+            
+                //Note: will try pivoting around average and average+1 for rounding error in calculation (max+min)/2
+            int points_highround = 0;
+            for (int i = 0; i &lt; chips.size(); i++){
+                int diff = abs(chips[i]-average);
+                if (diff % 2 > 0){
+                    points_highround++;
+                }
+            }
+            
+            if (points_lowround &lt; points_highround){
+                return points_lowround;
+            } else {
+                return points_highround;
+            }
+        }
+    };
+{% endblock solution_code %}

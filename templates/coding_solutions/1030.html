@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given a matrix with R rows and C columns has cells with integer coordinates (r, c), where 0 &lt;= r &lt; R and 0 &lt;= c &lt; C.
+    </p>
+    <p class="question">
+        Additionally, we are given a cell in that matrix with coordinates (r0, c0).
+    </p>
+    <p class="question">
+        Return the coordinates of all cells in the matrix, sorted by their distance from (r0, c0) from smallest distance to largest 
+        distance.  Here, the distance between two cells (r1, c1) and (r2, c2) is the Manhattan distance, |r1 - r2| + |c1 - c2|.  
+        (You may return the answer in any order that satisfies this condition.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;vector&lt;int&gt;&gt; allCellsDistOrder(int R, int C, int r0, int c0) {
+            
+                vector&lt;vector&lt;int&gt;&gt; result;
+                multimap&lt;int, vector&lt;int&gt;&gt; map;
+    
+                for (int i = 0; i &lt; R; i++) {
+                    for (int j = 0; j &lt; C; j++) {
+                        map.insert({ abs(i - r0) + abs(j - c0), {i, j} });
+                    }
+                }
+    
+                for (auto& p : map) {
+                    result.push_back(p.second);
+                }
+                return result;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You're now a baseball game point recorder.
+    </p>
+    <p class="question">
+        Given a list of strings, each string can be one of the 4 following types:
+    </p>
+    <ol>
+        <li>Integer (one round's score): Directly represents the number of points you get in this round.</li>
+        <li>"+" (one round's score): Represents that the points you get in this round are the sum of the last two valid round's points.</li>
+        <li>"D" (one round's score): Represents that the points you get in this round are the doubled data of the last valid round's points.</li>
+        <li>"C" (an operation, which isn't a round's score): Represents the last valid round's points you get were invalid and should be removed.</li>
+    </ol>
+    <p class="question">
+        Each round's operation is permanent and could have an impact on the round before and the round after.
+    </p>
+    <p class="question">
+        You need to return the sum of the points you could get in all the rounds.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int calPoints(vector<string>& ops) {
+            stack<int> valid_round_scores;
+            int score = 0;
+            
+            for (int i = 0; i < ops.size(); i++){
+                int temp = 0;
+                if (ops[i] == "C"){
+                    temp = -1*valid_round_scores.top();
+                    valid_round_scores.pop();
+                } else if (ops[i] == "+"){
+                    int last = valid_round_scores.top();
+                    valid_round_scores.pop();
+                    int second_last = valid_round_scores.top();
+                    temp = last+second_last;
+                    valid_round_scores.push(last);
+                    valid_round_scores.push(temp);
+                } else if (ops[i] == "D"){
+                    temp = valid_round_scores.top()*2;
+                    valid_round_scores.push(temp);
+                } else {
+                    temp = stoi(ops[i]);
+                    valid_round_scores.push(temp);
+                }
+                score += temp;
+            }
+            
+            return score;
+        }
+        
+    };
+{% endblock solution_code %}

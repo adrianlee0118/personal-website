@@ -1,0 +1,68 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2. 
+        Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
+    </p>
+    <p class="question">
+        The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it 
+        does not exist, output -1 for this number.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+            
+            //For storing answers
+            vector<int> ans;
+            
+            //For all numbers in nums1
+            for (auto c : nums1){
+                
+                //Find position of the number in nums 2
+                vector<int>::iterator it = find(nums2.begin(), nums2.end(), c);
+                
+                //if the position happens to be the end, there are no next greaters
+                if (it == nums2.end()){
+                    ans.push_back(-1);
+                } 
+                //else, increment iterator until a greater element is found or end of nums2 reached
+                else {
+                    while (it != nums2.end()){
+                        
+                        //if greater found, add to answers
+                        if (*it > c){
+                            ans.push_back(*it);
+                            break;
+                        }
+                        it++;
+                    }
+                    
+                    //if no greater found, add a -1 accordingly
+                    if (it == nums2.end()){
+                        ans.push_back(-1);   
+                    }
+                }
+            }
+            
+            //retrieve answers
+            return ans;
+        }
+    };
+{% endblock solution_code %}

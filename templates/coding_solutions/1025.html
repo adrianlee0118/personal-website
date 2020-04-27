@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Alice and Bob take turns playing a game, with Alice starting first.
+    </p>
+    <p class="question">
+        Initially, there is a number N on the chalkboard.  On each player's turn, that player makes a move consisting of:
+    </p>
+    <ul>
+        <li>Choosing any x with 0 &lt; x &lt; N and N % x == 0.</li>
+        <li>Replacing the number N on the chalkboard with N - x.</li>
+    </ul>
+    <p class="question">
+        Also, if a player cannot make a move, they lose the game.
+    </p>
+    <p class="question">
+        Return True if and only if Alice wins the game, assuming both players play optimally.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool divisorGame(int N) {
+            if (N % 2 > 0){
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+{% endblock solution_code %}

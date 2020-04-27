@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in 
+        [L, R] (R >= L). You might need to change the root of the tree, so the result should return the new root of the trimmed 
+        binary search tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* trimBST(TreeNode* root, int L, int R) {
+            if(!root){
+                return NULL;
+            }
+            
+            //Post order traversal: look at tree from leaves upwards
+            root->left = trimBST(root->left, L, R);
+            root->right = trimBST(root->right, L, R);
+            
+            //if root > R, root and root->right (> root) can be discarded
+            //if root is a leaf, node will be null
+            if(root->val > R) {
+                root = root->left;   
+            }
+            //if root < L, root and root->left (< root) can be discarded
+            else if(root->val < L){
+                root = root->right;   
+            }
+    
+            return(root);
+        }
+    };
+{% endblock solution_code %}

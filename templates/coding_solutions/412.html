@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Write a program that outputs the string representation of numbers from 1 to n.
+    </p>
+    <p class="question">
+        But for multiples of three it should output “Fizz” instead of the number and for the multiples of five output “Buzz”. For 
+        numbers which are multiples of both three and five output “FizzBuzz”.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> fizzBuzz(int n) {
+            
+            vector<string> ans;
+            for (int i = 1; i <= n; i++){
+                
+                if (i % 5 == 0){
+                    if (i % 3 == 0){
+                        ans.push_back("FizzBuzz"); 
+                    } else {
+                        ans.push_back("Buzz");
+                    }
+                } else if (i % 3 == 0){
+                    ans.push_back("Fizz");
+                } else {
+                    ans.push_back(to_string(i));
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

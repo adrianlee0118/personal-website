@@ -1,0 +1,78 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given an array A of strings.
+    </p>
+    <p class="question">
+        A move onto S consists of swapping any two even indexed characters of S, or any two odd indexed characters of S.
+    </p>
+    <p class="question">
+        Two strings S and T are special-equivalent if after any number of moves onto S, S == T.
+    </p>
+    <p class="question">
+        For example, S = "zzxy" and T = "xyzz" are special-equivalent because we may make the moves "zzxy" -> "xzzy" -> "xyzz" 
+        that swap S[0] and S[2], then S[1] and S[3].
+    </p>
+    <p class="question">
+        Now, a group of special-equivalent strings from A is a non-empty subset of A such that:
+    </p>
+    <ol>
+        <li>Every pair of strings in the group are special equivalent, and;</li>
+        <li>The group is the largest size possible (ie., there isn't a string S not in the group such that S is special 
+            equivalent to every string in the group)</li>
+    </ol>
+    <p class="question">
+        Return the number of groups of special-equivalent strings from A.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numSpecialEquivGroups(vector<string>& A) {
+            //Generate string IDs for each string such that strings that are special equivalent
+            //will have the same such ID. Use a set to count the number of observed equivalency groups.
+            set<string> equivalencies;
+            
+            for (string C : A){
+                
+                //Equivalency ID: If we separate even number-position and odd-number position letters
+                //sort each group and then recombine the substrings, a unique identifier is created that
+                //can also be created from all special-equivalent strings. 
+                
+                string even = "";
+                string odd = "";
+                
+                for (int i = 0; i < C.size(); i++) {    
+                    
+                    if ( i % 2 == 0 ) {
+                        even += C[i];
+                    } else {
+                        odd += C[i];
+                    }
+                }
+                sort( even.begin() , even.end() );
+                sort( odd.begin() , odd.end() );
+                equivalencies.insert(even+odd);
+                
+            }
+            
+            //The number of equivalencies observed
+            return equivalencies.size();
+        }
+    };
+{% endblock solution_code %}

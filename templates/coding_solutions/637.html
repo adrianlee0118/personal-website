@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<double> averageOfLevels(TreeNode* root) {
+            
+            vector<double> averages;
+            queue<TreeNode*> BFS;
+            BFS.push(root);
+            
+            //While we still have nodes tor process--get a new level's nodes everytime we come back to the beginning of this loop
+            while (!BFS.empty()){
+                
+                int levelNodes = BFS.size();
+                double levelSum = 0;
+                
+                //For all the nodes on this level, add its value to the level total and store its children for next round's processing
+                for (int i = 0; i < levelNodes; i++){
+                    
+                    TreeNode* temp = BFS.front();
+                    BFS.pop();
+                    levelSum += temp->val;
+                    if (temp->left){
+                        BFS.push(temp->left);
+                    }
+                    if (temp->right){
+                        BFS.push(temp->right);
+                    }
+                }
+                
+                //Calculate level average after adding all values to the level sum
+                averages.push_back(levelSum/levelNodes);
+            }
+            
+            return averages;
+        }
+    };
+{% endblock solution_code %}

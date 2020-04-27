@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two integers L and R, find the count of numbers in the range [L, R] (inclusive) having a prime 
+        number of set bits in their binary representation.
+    </p>
+    <p class="question">
+        (Recall that the number of set bits an integer has is the number of 1s present when written in binary. 
+        For example, 21 written in binary is 10101 which has 3 set bits. Also, 1 is not a prime.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int countPrimeSetBits(int L, int R) {
+            
+            int count = 0;
+            for(int i = L; i <= R; i++){
+                int num_bits = bitset<32>(i).count();
+                if(isPrime(num_bits)){
+                    count++;
+                }
+            } 
+            return count;
+        }
+        
+        bool isPrime(int n){
+            
+            if(n == 0 || n == 1){
+                return false;
+            }
+            
+            for(int i = 2; i*i <= n; i++){
+                if(n % i == 0){
+                    return false;   
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

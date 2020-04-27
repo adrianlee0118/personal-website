@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same element.
+    </p>
+    <p class="question">
+        Now given an M x N matrix, return True if and only if the matrix is Toeplitz.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Same solution that many others have already done in various forms
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+            
+            //check all pivots from bottom left corner to top left corner
+            for (int i = matrix.size()-2; i >= 0; i--){
+                int num = matrix[i][0];
+                int x = i;
+                int y = 0;
+                while (x < matrix.size() && y < matrix[x].size()){
+                    if (matrix[x][y] != num){
+                        return false;
+                    }
+                    x++;
+                    y++;
+                }
+            }
+            
+            //check all pivots from top left corner to top right
+            for (int j = 1; j < matrix[0].size()-1; j++){
+                int num = matrix[0][j];
+                int x = 0;
+                int y = j;
+                while (x < matrix.size() && y < matrix[x].size()){
+                    if (matrix[x][y] != num){
+                        return false;
+                    }
+                    x++;
+                    y++;
+                }
+            }
+            
+            //if we got through all the diagonal checks without finding a conflict
+            return true;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,67 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Suppose we have a class:
+    </p>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+        public class Foo {
+            public void first() { print("first"); }
+            public void second() { print("second"); }
+            public void third() { print("third"); }
+        }
+        </code>
+    </pre>
+    <p class="question">
+        The same instance of Foo will be passed to three different threads. Thread A will call first(), thread B will call second(), 
+        and thread C will call third(). Design a mechanism and modify the program to ensure that second() is executed after first(), and third() is executed after second().
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Foo {
+    public:
+        promise&lt;bool&gt; f1,f2;
+        Foo() {
+            
+        }
+    
+        void first(function&lt;void()&gt; printFirst) {
+            
+            // printFirst() outputs "first". Do not change or remove this line.
+            printFirst();
+            f1.set_value(true);
+        }
+    
+        void second(function&lt;void()&gt; printSecond) {
+            
+            f1.get_future().wait();
+            
+            // printSecond() outputs "second". Do not change or remove this line.
+            printSecond();
+            f2.set_value(true);
+        }
+    
+        void third(function&lt;void()&gt; printThird) {
+            
+            f2.get_future().wait();
+            
+            // printThird() outputs "third". Do not change or remove this line.
+            printThird();
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,75 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a 2D grid of size m x n and an integer k. You need to shift the grid k times.
+    </p>
+    <p class="question">
+        In one shift operation:
+    </p>
+    <ul>
+        <li>Element at grid[i][j] moves to grid[i][j + 1].</li>
+        <li>Element at grid[i][n - 1] moves to grid[i + 1][0].</li>
+        <li>Element at grid[m - 1][n - 1] moves to grid[0][0].</li>
+    </ul>
+    <p class="question">
+        Return the 2D grid after applying shift operation k times.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
+            
+            //put values in order in a 1D vector
+            vector<int> order;
+            for (int i = 0; i < grid.size(); i++){
+                for (int j = 0; j < grid[0].size(); j++){
+                    order.push_back(grid[i][j]);
+                }
+            }
+            
+            //shift by K
+            if (k > order.size()){
+                k -= order.size();
+            }
+            for (int i = 0; i < k; i++){
+                shift(order);
+            }
+            
+            //put values back into the 2D vector and return
+            int cursor = 0;
+            for (int i = 0; i < grid.size(); i++){
+                for (int j = 0; j < grid[0].size(); j++){
+                    grid[i][j] = order[cursor];
+                    cursor++;
+                }
+            }
+            return grid;
+        }
+        
+        void shift(vector<int>& order){
+            int temp = order[order.size()-1], temp1;
+            for (int i = 0; i < order.size(); i++) { 
+                temp1 = order[i];
+                order[i] = temp;
+                temp = temp1;
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

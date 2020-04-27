@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Reverse a singly linked list.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        ListNode* reverseList(ListNode* head) {
+            //return itRev(head);
+            return recRev(head);
+        }
+        
+        //Reverse the linked list iteratively
+        ListNode* itRev(ListNode* head) {
+            ListNode* current = head; 
+            ListNode *prev = NULL, *next = NULL; 
+        
+            while (current != NULL) { 
+                next = current->next; 
+                current->next = prev; 
+                prev = current; 
+                current = next; 
+            } 
+            return prev;
+        }
+        
+        //Reverse the linked list recursively
+        ListNode* recRev(ListNode* head) {
+            if (head == NULL || head->next == NULL) return head;           //start building the new chain with head as the pivot
+            ListNode* rest = recRev(head->next);                           //the chain that is being built
+            head->next->next = head;                                       //head->next is the last entry in the new chain, we add the current node to the end of the chain
+            head->next = NULL;                                             //set the current node, the last in the new chain, to have next of null in case it's the last node
+            return rest;                                                   //return head
+        }
+    };
+{% endblock solution_code %}

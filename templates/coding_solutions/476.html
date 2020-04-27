@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary 
+        representation.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findComplement(int num) {
+            vector<int> cnt;
+            
+            while(num > 0){
+                int cur = num % 2;
+                num /= 2;
+                cnt.push_back(cur);
+            }
+            
+            int res=0;
+            for(int i = 0; i < cnt.size(); i++){
+                if (cnt[i] == 0){
+                    res += pow(2,i);
+                }
+            }
+            
+            return res;
+    
+    
+        }
+    };
+{% endblock solution_code %}

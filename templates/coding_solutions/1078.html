@@ -1,0 +1,65 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given words first and second, consider occurrences in some text of the form "first second third", 
+        where second comes immediately after first, and third comes immediately after second.
+    </p>
+    <p class="question">
+        For each such occurrence, add "third" to the answer, and return the answer.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Read word by word using stringsteam, and indicate sequence detection with booleans.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;string&gt; findOcurrences(string text, string first, string second) {
+            
+            vector&lt;string&gt; thirds;
+            istringstream iss(text);
+            bool firsted = false;
+            bool seconded = false;
+            
+            string word;
+            while(iss >> word) {
+                if (firsted && seconded){
+                    thirds.push_back(word);
+                    firsted = false;
+                    seconded = false;
+                }
+                
+                if (word == first){
+                    firsted = true;
+                    if (seconded == true){
+                        seconded = false;
+                    }
+                } else if (word == second){
+                    if (firsted == true){
+                        seconded = true;
+                    }
+                } else {
+                    if (firsted){
+                        firsted = false;
+                    }
+                    if (seconded){
+                        seconded = false;
+                    }
+                }
+            }
+            return thirds;
+        }
+    };
+{% endblock solution_code %}

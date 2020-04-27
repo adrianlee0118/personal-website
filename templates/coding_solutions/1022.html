@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, each node has value 0 or 1.  Each root-to-leaf path represents a binary number starting with the most 
+        significant bit.  For example, if the path is 0 -> 1 -> 1 -> 0 -> 1, then this could represent 01101 in binary, which is 13.
+    </p>
+    <p class="question">
+        For all leaves in the tree, consider the numbers represented by the path from the root to that leaf.
+    </p>
+    <p class="question">
+        Return the sum of these numbers.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int sumRootToLeaf(TreeNode* root) {
+            int sum = 0;
+            preOrderTraversal(root, 0, sum);   
+            return sum;
+        }
+        
+        void preOrderTraversal(TreeNode* root, int num, int& sum){
+            if (!root){
+                return;
+            } else if (!root->left && !root->right){
+                num*=2;
+                num+=root->val;
+                sum+=num;
+                return;
+            }
+            num*=2;
+            num+=root->val;
+            if (root->left){
+                preOrderTraversal(root->left, num, sum);
+            }
+            if (root->right){
+                preOrderTraversal(root->right, num, sum);   
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

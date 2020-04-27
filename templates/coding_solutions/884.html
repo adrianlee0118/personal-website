@@ -1,0 +1,75 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We are given two sentences A and B.  (A sentence is a string of space separated words.  Each word 
+        consists only of lowercase letters.)
+    </p>
+    <p class="question">
+        A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+    </p>
+    <p class="question">
+        Return a list of all uncommon words. 
+    </p>
+    <p class="question">
+        You may return the list in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> uncommonFromSentences(string A, string B) {
+            
+            //Use a map to count occurrences of words
+            map<string, int> strcount;
+            
+            //Read string A word by word
+            istringstream iss(A);
+            string word;
+            while(iss >> word) {
+                
+                //add the word to the map if not already counted, else count an existing word
+                if (strcount.find(word) == strcount.end()){
+                    strcount.insert(pair<string, int>(word,1));    
+                } else {
+                    strcount.at(word)++;
+                }
+            }
+            
+            //repeat the process with string A on string B
+            istringstream ist(B);
+            while(ist >> word){
+                if (strcount.find(word) == strcount.end()){
+                    strcount.insert(pair<string, int>(word,1));    
+                } else {
+                    strcount.at(word)++;
+                }
+            }
+            
+            //iterating through the map, count words that were only observed once between both strings
+            map<string, int>::iterator it;
+            vector<string> ans;;
+            for (it = strcount.begin(); it != strcount.end(); it++)
+            {
+                    if (it->second == 1){
+                        ans.push_back(it->first);
+                    }  
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

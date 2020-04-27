@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A sentence S is given, composed of words separated by spaces. Each word consists of lowercase and uppercase letters only.
+    </p>
+    <p class="question">
+        We would like to convert the sentence to "Goat Latin" (a made-up language similar to Pig Latin.)
+    </p>
+    <p class="question">
+        The rules of Goat Latin are as follows:
+    </p>
+    <ul>
+        <li>If a word begins with a vowel (a, e, i, o, or u), append "ma" to the end of the word.
+            For example, the word 'apple' becomes 'applema'.</li>
+        <li>If a word begins with a consonant (i.e. not a vowel), remove the first letter and append it to the end, then add "ma".
+            For example, the word "goat" becomes "oatgma".</li>
+        <li>Add one letter 'a' to the end of each word per its word index in the sentence, starting with 1.
+            For example, the first word gets "a" added to the end, the second word gets "aa" added to the end and so on.</li>
+    </ul>
+    <p class="question">
+        Return the final sentence representing the conversion from S to Goat Latin. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string toGoatLatin(string S) {
+            string vow = "aeiou";
+            
+            //split the string into string tokens
+            vector <string> tokens;
+            stringstream sep(S); 
+            string intermediate; 
+            while(getline(sep, intermediate, ' ')) { 
+                tokens.push_back(intermediate); 
+            }
+            
+            //iterating through all string tokens, modify according to goat latin params and append to ans string
+            string ans = "";
+            for (int i = 0; i < tokens.size(); i++){
+                if (tokens[i][0] == 'a' || tokens[i][0] == 'e' || tokens[i][0] == 'i' || tokens[i][0] == 'o' || tokens[i][0] == 'u' || tokens[i][0] == 'A' || tokens[i][0] == 'E' || tokens[i][0] == 'I' || tokens[i][0] == 'O' || tokens[i][0] == 'U'){
+                    ans += tokens[i];
+                } else {
+                    ans += tokens[i].substr(1);
+                    ans += tokens[i][0];
+                }
+                ans += "ma";
+                for (int j = 0; j <= i; j++){
+                    ans += 'a';
+                }
+                if (i != tokens.size()-1){
+                    ans += " ";
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

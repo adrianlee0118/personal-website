@@ -1,0 +1,62 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Consider all the leaves of a binary tree.  From left to right order, the values of those leaves form a leaf value sequence.
+    </p>
+    <p class="question">
+        Two binary trees are considered leaf-similar if their leaf value sequence is the same.
+    </p>
+    <p class="question">
+        Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use pre-order traversal to visit leaves left to right, use two vectors to store leaf orders and compare.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+            vector&lt;int&gt; root1val;
+            preOrderTraversal(root1,root1val);
+            vector&lt;int&gt; root2val;
+            preOrderTraversal(root2,root2val);
+            
+            for (int i = 0; i &lt; root1val.size(); i++){
+                if (root1val[i] != root2val[i]){
+                    return false;
+                }
+            }
+            return true;
+            
+        }
+        
+        void preOrderTraversal(TreeNode* node, vector&lt;int&gt;& record){
+            if (node!=NULL){
+                if (!node->left && !node->right){
+                    record.push_back(node->val);
+                    return;
+                }
+                if (node->left){
+                    preOrderTraversal(node->left, record);
+                }
+                if (node->right){
+                    preOrderTraversal(node->right, record);
+                }
+            }
+        }
+        
+    };
+{% endblock solution_code %}

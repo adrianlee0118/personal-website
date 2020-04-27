@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Invert a binary tree (swap branches at all nodes).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* invertTree(TreeNode* root) {
+            SwapBranches(root);
+            return root;
+        }
+        
+        //Post order traversal swap branch nodes from bottom of tree upwards
+        void SwapBranches(TreeNode* root){
+            if (!root){
+                return;
+            }
+            
+            if (root->left){
+                SwapBranches(root->left);
+            }
+            if (root->right){
+                SwapBranches(root->right);
+            }
+            
+            if (root->left || root->right){
+                TreeNode* temp = root->left;
+                root->left = root->right;
+                root->right = temp;
+            }
+            
+            return;
+        }
+    };
+{% endblock solution_code %}

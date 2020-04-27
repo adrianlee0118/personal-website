@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a List of words, return the words that can be typed using letters of the word alphabet on only one row of an American 
+        QWERTY keyboard.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Store keys by row for lookup. For every word, check that all characters occur on the same row by using the first letter's row as reference.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;string&gt; findWords(vector&lt;string&gt;& words) {
+            vector&lt;char&gt; row1_ascii = {'Q','W','E','R','T','Y','U','I','O','P','q','w','e','r','t',
+                                        'y','u','i','o','p'};
+            vector&lt;char&gt; row2_ascii = {'A','S','D','F','G','H','J','K','L','a','s','d','f','g','h','j','k',
+                                        'l'};
+            vector&lt;char&gt; row3_ascii = {'Z','X','C','V','B','N','M','z','x','c','v','b','n','m'};
+            
+            vector&lt;string&gt; onerowwords;
+            
+            for (string w : words){
+                
+                int row = 0;
+                bool samerow = true;
+                
+                if (find(row1_ascii.begin(),row1_ascii.end(),w[0]) != row1_ascii.end()){
+                    row = 1;
+                } else if (find(row2_ascii.begin(),row2_ascii.end(),w[0]) != row2_ascii.end()){
+                    row = 2;
+                } else {
+                    row = 3;
+                }
+                
+                for (int i = 1; i &lt; w.size(); i++){
+                    if ( row == 1 ){
+                        if (find(row1_ascii.begin(),row1_ascii.end(),w[i]) == row1_ascii.end()){
+                            samerow = false;
+                            break;
+                        }   
+                    } else if (row == 2 ){
+                        if (find(row2_ascii.begin(),row2_ascii.end(),w[i]) == row2_ascii.end()){
+                            samerow = false;
+                            break;
+                        }
+                    } else if (find(row3_ascii.begin(),row3_ascii.end(),w[i]) == row3_ascii.end()){
+                        samerow = false;
+                        break;
+                    }
+                }
+                
+                if (samerow == true){
+                    onerowwords.push_back(w);
+                }
+            }
+            
+            return onerowwords;
+        }
+    };
+{% endblock solution_code %}

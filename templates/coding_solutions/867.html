@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a matrix A, return the transpose of A.
+    </p>
+    <p class="question">
+        The transpose of a matrix is the matrix flipped over it's main diagonal, switching the row and column indices of the matrix.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> transpose(vector<vector<int>>& A) {
+            int sidex = A.size();
+            int sidey = A[0].size();
+            vector<vector<int>> result;
+            for (int h = 0; h < sidey; h++){
+                vector<int> temp;
+                result.push_back(temp);
+            }
+            
+            for (int i = 0; i < sidey; i++){
+                for (int j = 0; j < sidex; j++){
+                    result[i].push_back(A[j][i]);
+                }
+            }
+            return result;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,63 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given a map in form of a two-dimensional integer grid where 1 represents land and 0 represents water.
+    </p>
+    <p class="question">
+        Grid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, 
+        and there is exactly one island (i.e., one or more connected land cells).
+    </p>
+    <p class="question">
+        The island doesn't have "lakes" (water inside that isn't connected to the water around the island). One cell is a square 
+        with side length 1. The grid is rectangular, width and height don't exceed 100. Determine the perimeter of the island.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Iterate over all cells in the array and check adjacents if the cell represents land.
+    </p>
+    <p>
+        Speed could be improved by avoiding needless iterations over groups of zero cells.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int islandPerimeter(vector<vector<int>>& grid) {
+            int perimeter = 0;
+            int gridx = grid.size();
+            int gridy = grid[0].size();
+            for (int i = 0; i < gridx; i++){
+                for (int j = 0; j < gridy; j++){
+                    
+                    if (grid[i][j] == 1){
+                        if ((i-1 >= 0 && grid[i-1][j] == 0) || i-1 < 0 ){
+                            perimeter++;
+                        }
+                        if ((i+1 < gridx && grid[i+1][j] == 0) || i+1 == gridx ){
+                            perimeter++;
+                        }
+                        if ((j-1 >= 0 && grid[i][j-1] == 0) || j-1 < 0 ){
+                            perimeter++;
+                        }
+                        if ((j+1 < gridy && grid[i][j+1] == 0) || j+1 == gridy ){
+                            perimeter++;
+                        }
+                    }
+                }
+            }
+            
+            return perimeter;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers nums, you start with an initial positive value startValue.
+    </p>
+    <p class="question">
+        In each iteration, you calculate the step by step sum of startValue plus elements in nums (from left to right).
+    </p>
+    <p class="question">
+        Return the minimum positive value of startValue such that the step by step sum is never less than 1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Find the minimum cumulative differential going left to right--if this minimum is >= 0, any positive number will satisfy the 
+        requirements. If the differential is negative, need a number that is enough to compensate for the differential (mindiff*-1) 
+        plus one since we don't want the sum to drop below 1.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minStartValue(vector<int>& nums) {
+            int mindiff = INT_MAX;
+            int sum = 0;
+            for (int i = 0; i &lt; nums.size(); i++){
+                sum += nums[i];
+                mindiff = min(mindiff,sum);
+            }
+            if (mindiff >= 0) return 1;
+            else return mindiff*-1 + 1;
+        }
+    };
+{% endblock solution_code %}
