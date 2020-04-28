@@ -15,11 +15,12 @@
 {% block solution_exp %}
     <!-- verbal portion of solution (format with p tags)-->
     <p>
-        A bottom up DP where for each cell in the matrix we determine the dimension of the largest square that cell could be part of.
+        A bottom up DP where for each cell in the matrix we determine the dimension of the largest square that cell could be the bottom right corner of.
     </p>
     <p>
-        i.e., Iterating over the matrix, if '1', use adjacent cells to determine the biggest square that this cell could be a part of 
-        (looking upwards and to the left)--if any of the cells are zero, then the current cell will become a new 1x1 square 
+        i.e., Iterating over the matrix, if '1', use adjacent cells--above and to the left, and above-left only--to determine the 
+        biggest square that this cell could be the bottom right corner of (the direction of the bottom up DP is top left to bottom 
+        right)--if any of the cells are zero, then the current cell will become a new 1x1 square 
         dp[i][j] = 1. If they are all > 0, take the smallest (limiting) square dimension that is possible.
     </p>
 {% endblock solution_exp %}
