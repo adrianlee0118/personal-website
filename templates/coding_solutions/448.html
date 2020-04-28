@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+    </p>
+    <p class="question">
+        Find all the elements of [1, n] inclusive that do not appear in this array.
+    </p>
+    <p class="question">
+        Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> findDisappearedNumbers(vector<int>& nums) {
+            vector<int> missing;
+            unordered_set<int> set(nums.begin(), nums.end());
+            for (int i = 1; i <= nums.size(); i++){
+                if (set.count(i) == 0){
+                    missing.push_back(i);
+                }
+            }
+            return missing;
+        }
+    };
+{% endblock solution_code %}

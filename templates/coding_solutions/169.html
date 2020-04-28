@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+    </p>
+    <p class="question">
+        You may assume that the array is non-empty and the majority element always exist in the array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int majorityElement(vector&lt;int&gt;& nums) {
+            unordered_map&lt;int,int&gt; numcount;      //count occurrences of numbers in nums
+            for (auto& n : nums)
+                numcount[n]++;
+            int ans = -1;
+            for (auto& m : numcount)
+                if (m.second > nums.size()/2){
+                    ans = m.first;
+                    break;
+                } 
+            return ans;
+        }
+    };
+{% endblock solution_code %}

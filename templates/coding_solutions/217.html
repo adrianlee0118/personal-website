@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers, find if the array contains any duplicates.
+    </p>
+    <p class="question">
+        Your function should return true if any value appears at least twice in the array, and it should 
+        return false if every element is distinct.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool containsDuplicate(vector&lt;int&gt;& nums) {
+            sort(nums.begin(),nums.end());
+            for (int i = 1; i &lt; nums.size(); i++){
+                if (nums[i-1] == nums[i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
+{% endblock solution_code %}

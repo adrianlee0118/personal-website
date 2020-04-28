@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are 2N people a company is planning to interview. The cost of flying the i-th person to city 
+        A is costs[i][0], and the cost of flying the i-th person to city B is costs[i][1].
+    </p>
+    <p class="question">
+        Return the minimum cost to fly every person to a city such that exactly N people arrive in each city.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        typedef pair<int, int> pi; 
+    
+        int twoCitySchedCost(vector<vector<int>>& costs) {
+            
+            //Store cost difference mapped to position in decreasing order (people who have smallest cost increase of 
+            //going to city A as opposed to B will be at the top - the popping position)
+            priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+            for(int i = 0; i &lt; costs.size(); i++){
+                pq.push(make_pair(costs[i][0] - costs[i][1], i));
+            } 
+            
+            //For the last N people in that list, add their city A cost to city1 - these are the folks where going to
+            //city A creates the greatest cost savings
+            int A = 0, B = 0;
+            for(int i = 0; i &lt; costs.size() / 2; i++){
+                A += costs[pq.top().second][0];
+                pq.pop();
+            }
+            
+            //Add the remaining people (for whom going to city B is cheaper) to the city2 total
+            for(int i = 0; i &lt; costs.size() / 2; i++){
+                B += costs[pq.top().second][1];
+                pq.pop();
+            }
+            
+            return A + B;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array nums, write a function to move all 0's to the end of it while maintaining the 
+        relative order of the non-zero elements.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        void moveZeroes(vector<int>& nums) {
+            if (nums.size() == 1) return;
+            if (nums.size() == 2 && nums[1] == 0) return;
+            int left = 0;
+            int right = 1;
+            while (right &lt; nums.size()){
+                if (left == right){
+                    right++;
+                }
+                
+                if (nums[left] != 0){
+                    left++;
+                } else {
+                    if (nums[right] == 0){
+                        right++;
+                    } else {
+                        int temp = nums[right];
+                        nums[right] = 0;
+                        nums[left] = temp;
+                        left++;
+                        right++;
+                    }
+                }
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings s and t , write a function to determine if t is an anagram of s.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isAnagram(string s, string t) {
+            unordered_map&lt;char,int&gt; lettercount;
+            for (auto& c : s){
+                lettercount[c]++;
+            }
+            for (auto& c : t){
+                lettercount[c]--;
+                if (lettercount[c] &lt; 0) return false;
+            }
+            for (auto& m : lettercount){
+                if (m.second != 0){
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

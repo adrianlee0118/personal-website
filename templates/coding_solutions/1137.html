@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        The Tribonacci sequence Tn is defined as follows: 
+    </p>
+    <p class="question">
+        T<sub>0</sub> = 0, T<sub>1</sub> = 1, T<sub>2</sub> = 1, and T<sub>n</sub> +3 = T<sub>n</sub> + T<sub>n</sub>+1 + T<sub>n</sub>+2 for n >= 0.
+    </p>
+    <p class="question">
+        Given n, return the value of T<sub>n</sub>.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int tribonacci(int n) {
+            int x=0, y=1,z=1, len=2;
+            vector&lt;int&gt; tribs{0,1,1};
+            while(n > len){
+                tribs.push_back(x+y+z);
+                int old=x;
+                x=y;
+                y=z;
+                z=x+y+old;
+                len++;
+            }
+            return tribs[n];
+        }
+    };
+{% endblock solution_code %}

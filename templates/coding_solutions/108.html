@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+    </p>
+    <p class="question">
+        For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of 
+        the two subtrees of every node never differ by more than 1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        TreeNode* sortedArrayToBST(vector<int>& nums) {
+            return buildTree(nums,0,nums.size()-1);
+        }
+        
+        TreeNode* buildTree(vector<int>& nums, int start, int end){
+            if (start > end) return NULL;
+            int mid = start + (end-start)/2;
+            TreeNode* root = new TreeNode(nums[mid]);
+            root->left = buildTree(nums,start,mid-1);
+            root->right = buildTree(nums,mid+1,end);
+            return root;
+        }
+    };
+{% endblock solution_code %}

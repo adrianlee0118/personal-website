@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given alphanumeric string s. (Alphanumeric string is a string consisting of lowercase English letters and digits).
+    </p>
+    <p class="question">
+        You have to find a permutation of the string where no letter is followed by another letter and no digit is 
+        followed by another digit. That is, no two adjacent characters have the same type.
+    </p>
+    <p class="question">
+        Return the reformatted string or return an empty string if it is impossible to reformat the string.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string reformat(string s) {
+            
+            //Separate digits and letters
+            string digi = "";
+            string lett = "";
+            for (auto& c : s){
+                if (isdigit(c)) digi+=c;
+                else lett += c;
+            }
+            
+            //If difference in size of digi and letters exceeds 1, an alternating sequence is impossible
+            int a = digi.size();
+            int b = lett.size();
+            if (fabs(a - b) > 1) return "";
+            
+            //Build the answer string
+            string ans = "";
+            if (digi.size() &lt; lett.size()) swap(digi,lett);         //ensure digi is the larger string
+            for (int i = 0; i &lt; lett.size(); i++){                  //build section by section: longer string letter, shorter string letter
+                ans += digi[i];
+                ans += lett[i];
+            }
+            if (digi.size() > lett.size()) ans += digi[lett.size()]; //add remaining letter in longer string if there is one and return answer
+            return ans;
+        }
+    };
+{% endblock solution_code %}

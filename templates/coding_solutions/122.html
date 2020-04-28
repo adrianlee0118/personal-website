@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Say you have an array prices for which the ith element is the price of a given stock on day i.
+    </p>
+    <p class="question">
+        Design an algorithm to find the maximum profit. You may complete as many transactions as you like 
+        (i.e., buy one and sell one share of the stock multiple times).
+    </p>
+    <p class="question">
+        Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxProfit(vector&lt;int&gt;& prices) {
+            int n = prices.size();
+            int profit = 0;
+            for (int i = 0; i &lt; n; i++) {
+                int bgn = i, en = i;
+                while(i + 1 &lt; n && prices[i + 1] > prices[i]) {
+                    i++;
+                    en = i;
+                }
+                if (en - bgn > 0) {
+                    profit += prices[en] - prices[bgn];
+                }
+            }
+            return profit;
+        }
+    };
+{% endblock solution_code %}

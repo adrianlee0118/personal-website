@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Alice and Bob have candy bars of different sizes: A[i] is the size of the i-th bar of candy that Alice has, and B[j] is the 
+        size of the j-th bar of candy that Bob has.
+    </p>
+    <p class="question">
+        Since they are friends, they would like to exchange one candy bar each so that after the exchange, they both have the same 
+        total amount of candy.  (The total amount of candy a person has is the sum of the sizes of candy bars they have.)
+    </p>
+    <p class="question">
+        Return an integer array ans where ans[0] is the size of the candy bar that Alice must exchange, and ans[1] is the size of 
+        the candy bar that Bob must exchange.
+    </p>
+    <p class="question">
+        If there are multiple answers, you may return any one of them.  It is guaranteed an answer exists.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; fairCandySwap(vector&lt;int&gt;& A, vector&lt;int&gt;& B) {
+            vector&lt;int&gt; ans;
+            int ASum = accumulate(A.begin(),A.end(),0);
+            int BSum = accumulate(B.begin(),B.end(),0);
+            
+            bool found = false;
+            for (int i = 0; i &lt; A.size(); i++){
+                for (int j = 0; j &lt; B.size(); j++){
+                    if (ASum-A[i]+B[j] == BSum-B[j]+A[i]){
+                        ans.push_back(A[i]);
+                        ans.push_back(B[j]);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) break;
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

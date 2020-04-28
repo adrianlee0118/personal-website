@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        An array is monotonic if it is either monotone increasing or monotone decreasing.
+    </p>
+    <p class="question">
+        An array A is monotone increasing if for all i &lt;= j, A[i] &lt;= A[j].  An array A is monotone 
+        decreasing if for all i &lt;= j, A[i] >= A[j].
+    </p>
+    <p class="question">
+        Do the above modifications to the input array in place, do not return anything from your function.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isMonotonic(vector<int>& A) {
+            int incr = 0;
+            for (int i = 1; i &lt; A.size(); i++){
+                if (A[i-1] > A[i]) {
+                    if (incr == 0) incr = 2;
+                    if (incr == 1)  return false;
+                } else if (A[i-1] &lt; A[i]) {
+                    if (incr == 0)  incr = 1;
+                    if (incr == 2)  return false;
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

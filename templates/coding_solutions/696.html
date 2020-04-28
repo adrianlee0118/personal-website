@@ -1,0 +1,50 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Give a string s, count the number of non-empty (contiguous) substrings that have the same number of 
+        0's and 1's, and all the 0's and all the 1's in these substrings are grouped consecutively.
+    </p>
+    <p class="question">
+        Substrings that occur multiple times are counted the number of times they occur.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int countBinarySubstrings(string s) {
+            int count = 0;
+            int last = s[0];                                         //store the first grouping s[0] and its start position begin
+            int begin = 0;
+            int cur = 1;
+            while (s[cur] == last){                                  //move cursor cur to first 0/1 or 1/0 boundary
+                cur++;
+            }
+            while (cur &lt; s.size()){
+                int current = s[cur];                                    //store the next grouping s[cur] and its start position marker
+                int marker = cur;
+                while (s[cur] == current){                                //iterating over the whole group of same digits
+                    if (cur - marker + 1 &lt;= marker - begin) count++;      //if the preceding group's size matches this group's size, add another sequence
+                    cur++;
+                }
+                last = current;                                        //set preceding group to current group s[cur] and
+                begin = marker;                                        //start position to marker in preparation for next group of numbers
+            }
+            return count;
+        }
+    };
+{% endblock solution_code %}
