@@ -1,0 +1,55 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design a HashSet without using any built-in hash table libraries.
+    </p>
+    <p class="question">
+        To be specific, your design should include these functions:
+    </p>
+    <ul>
+        <li>add(value): Insert a value into the HashSet. </li>
+        <li>contains(value) : Return whether the value exists in the HashSet or not.</li>
+        <li>remove(value): Remove a value in the HashSet. If the value does not exist in the HashSet, do nothing.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Using boolean vector. Optimizes speed at the expense of memory (98% Speed, 67% Memory)
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class MyHashSet {
+    public:
+        vector&lt;bool&gt; contents = vector&lt;bool&gt;(1000001,false);
+        
+        /** Initialize your data structure here. */
+        MyHashSet() {
+            
+        }
+        
+        void add(int key) {
+            contents[key] = true;
+        }
+        
+        void remove(int key) {
+            if (contents[key] = true){
+                contents[key] = false;
+            }
+        }
+        
+        /** Returns true if this set contains the specified element */
+        bool contains(int key) {
+            return contents[key];
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,46 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a fixed length array arr of integers, duplicate each occurrence of zero, shifting the remaining elements to the right.
+    </p>
+    <p class="question">
+        Note that elements beyond the length of the original array are not written.
+    </p>
+    <p class="question">
+        Do the above modifications to the input array in place, do not return anything from your function.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        void duplicateZeros(vector&lt;int&gt;& arr) {
+            stack&lt;int&gt; nums;
+            for (int i = arr.size()-1; i >= 0; i--){
+                if (arr[i] == 0){
+                    nums.push(arr[i]);
+                }
+                nums.push(arr[i]);
+            }
+            for (int i = 0; i &lt; arr.size(); i++){
+                arr[i] = nums.top();
+                nums.pop();
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}

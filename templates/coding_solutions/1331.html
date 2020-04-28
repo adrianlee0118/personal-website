@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr, replace each element with its rank.
+    </p>
+    <p class="question">
+        The rank represents how large the element is. The rank has the following rules:
+    </p>
+    <ul>
+        <li>Rank is an integer starting from 1.</li>
+        <li>The larger the element, the larger the rank. If two elements are equal, their rank must be the same.</li>
+        <li>Rank should be as small as possible.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; arrayRankTransform(vector&lt;int&gt;& arr) {
+            
+            //Get array in sorted order
+            vector&lt;int&gt; dummy = arr;
+            sort(dummy.begin(),dummy.end());
+            
+            //Store number, rank without duplicates in a map
+            int i = 1;
+            unordered_map &lt;int,int&gt; NumRank;
+            for(auto d : dummy) {
+                if(NumRank.find(d) == NumRank.end()) NumRank[d] = i++; 
+            }
+            
+            //Populate vector with ranks of numbers inserted with reference to original ordering of numbers
+            i = 0;
+            for(auto a : arr) dummy[i++] = NumRank[a];
+            return dummy;
+        }
+    };
+{% endblock solution_code %}

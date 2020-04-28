@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array sorted in non-decreasing order, there is exactly one integer in the array that occurs more than 25% of 
+        the time.
+    </p>
+    <p class="question">
+        Return that integer.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findSpecialInteger(vector&lt;int&gt;& arr) {
+            if (arr.size() == 1){
+                return arr[0];
+            }
+            int count = 1;
+            int last = arr[0];
+            for (int i = 1; i &lt; arr.size(); i++){
+                if (arr[i] == last){
+                    count++;
+                    if (count > arr.size()/4){
+                        return arr[i];
+                    }
+                } else {
+                    last = arr[i];
+                    count = 1;
+                }
+            }
+            return -1;
+        }
+    };
+{% endblock solution_code %}

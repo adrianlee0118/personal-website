@@ -1,0 +1,61 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In MATLAB, there is a very useful function called 'reshape', which can reshape a matrix into a new one with different size 
+        but keep its original data.
+    </p>
+    <p class="question">
+        You're given a matrix represented by a two-dimensional array, and two positive integers r and c representing the row number 
+        and column number of the wanted reshaped matrix, respectively.
+    </p>
+    <p class="question">
+        The reshaped matrix need to be filled with all the elements of the original matrix in the same row-traversing order as they were.
+    </p>
+    <p class="question">
+        If the 'reshape' operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the 
+        original matrix.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+            if (r*c != nums.size()*nums[0].size()){
+                return nums;
+            }
+            
+            vector<int> order;
+            for (int i = 0; i < nums.size(); i++){
+                for (int j = 0; j < nums[0].size(); j++){
+                    order.push_back(nums[i][j]);
+                }
+            }
+            
+            vector<vector<int>> ans(r,vector<int>(c,0));
+            int cursor = 0;
+            for (int i = 0; i < r; i++){
+                for (int j = 0; j < c; j++){
+                    ans[i][j] = order[cursor];
+                    cursor++;
+                }
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string S, return the "reversed" string where all characters that are not a letter stay in the same place, and all 
+        letters reverse their positions.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string reverseOnlyLetters(string S) {
+            stack&lt;char&gt; letters;
+            for (int i = 0; i &lt; S.size(); i++){
+                if ((S[i] >= 65 && S[i] &lt;= 90) || (S[i] >= 97 && S[i] &lt;= 122)){
+                    letters.push(S[i]);
+                }
+            }
+            for (int i = 0; i &lt; S.size(); i++){
+                if ((S[i] >= 65 && S[i] &lt;= 90) || (S[i] >= 97 && S[i] &lt;= 122)){
+                    S[i] = letters.top();
+                    letters.pop();
+                }
+            }
+            return S;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of string words. Return all strings in words which is substring of another word in any order. 
+    </p>
+    <p class="question">
+        String words[i] is substring of words[j], if can be obtained removing some characters to left and/or right side of words[j]. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<string> stringMatching(vector<string>& words) {
+            vector<string> ans;
+            for (int i = 0; i < words.size(); i++){
+                for (int j = 0; j < words.size(); j++){
+                    if (j != i && words[j].find(words[i]) != -1){
+                        ans.push_back(words[i]);
+                        break;
+                    }
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

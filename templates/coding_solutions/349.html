@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two arrays, write a function to compute their intersection.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+            
+            //remove duplicates from nums1 by changing to set, clear nums1 and re-use as storage
+            set<int> s( nums1.begin(), nums1.end() );
+            nums1.clear();
+            
+            //populate nums1 with elements that are in the set as well as nums2, avoiding duplicates
+            for (auto& n : nums2){
+                if (s.count(n) && find(nums1.begin(),nums1.end(),n) == nums1.end()){
+                    nums1.push_back(n);
+                }
+            }
+            
+            return nums1;
+        }
+    };
+{% endblock solution_code %}
