@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their 
+        sum is equal to the given target.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Traverse tree and store values. At each node, check if we stored a value equal to k-(current val). If yes, cut the analysis off and return true.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool findTarget(TreeNode* root, int k) {
+            unordered_set<int> vals;
+            bool found = false;
+            traverseFind(root, k, vals, found);
+            return found;
+        }
+        
+        void traverseFind(TreeNode* root, int k, unordered_set<int>& vals, bool& found){
+            if (!root) return;
+            if (vals.count(k - (root->val))){
+                found = true;
+                return;
+            }
+            vals.insert(root->val);
+            traverseFind(root->left, k, vals, found);
+            traverseFind(root->right, k, vals, found);
+            return;
+        }
+    };
+{% endblock solution_code %}

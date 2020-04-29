@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        An image is represented by a 2-D array of integers, each integer representing the pixel value of the image (from 0 to 65535).
+    </p>
+    <p class="question">
+        Given a coordinate (sr, sc) representing the starting pixel (row and column) of the flood fill, and a pixel value newColor, 
+        "flood fill" the image.
+    </p>
+    <p class="question">
+        To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of 
+        the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color as 
+        the starting pixel), and so on. Replace the color of all of the aforementioned pixels with the newColor.
+    </p>
+    <p class="question">
+        At the end, return the modified image.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        vector&lt;int&gt; x = {-1,1,0,0};          //facilitate 4-directional adjacent cell iteration
+        vector&lt;int&gt; y = {0,0,-1,1};
+        
+    public:
+        vector&lt;vector&lt;int&gt;&gt; floodFill(vector&lt;vector&lt;int&gt;&gt;& image, int sr, int sc, int newColor) {
+            if (image[sr][sc] == newColor) return image;
+            int orig = image[sr][sc];
+            image[sr][sc] = newColor;
+            for (int i = 0; i &lt; 4; i++){ //iterating over cells, if they are in bounds and the same color ad the original, do a color changing DFS
+                if (sr+x[i] >= 0 && sr+x[i] &lt; image.size() && sc+y[i] >= 0 && sc+y[i] < image[0].size() && image[sr+x[i]][sc+y[i]] == orig){
+                    floodFill(image, sr+x[i], sc+y[i], newColor);
+                }
+            }
+            return image;
+        }
+    };
+{% endblock solution_code %}

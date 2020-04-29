@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a column title as appear in an Excel sheet, return its corresponding column number.
+    </p>
+    <p class="question">
+        For example:
+    </p>
+    <p>
+        A -> 1 <br>
+        B -> 2 <br>
+        C -> 3 <br>
+        ... <br>
+        Z -> 26 <br>
+        AA -> 27 <br>
+        AB -> 28 <br>
+        ...
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int titleToNumber(string s) {
+            if(s.empty()) return 0;
+            int i = 0;
+            long ans = 0;
+            while (i &lt; s.size()){
+                ans = ans*26+s[i]-'A'+1;
+                i++;
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

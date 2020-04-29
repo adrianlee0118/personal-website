@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        For strings S and T, we say "T divides S" if and only if S = T + ... + T  (T concatenated with itself 1 or more times)
+    </p>
+    <p class="question">
+        Return the largest string X such that X divides str1 and X divides str2.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string gcdOfStrings(string str1, string str2) {
+            if (str2.size() < str1.size()) swap(str1,str2);           //ensure str1 is the shorter string
+            int l1 = str1.size();
+            for (int i = l1; i > 0; i--){                             //for all substrings of str1 from longest to shortest that
+                if (l1 % i != 0) continue;                            //str1 is mathematically divisible by length
+                string x = str1.substr(0,i);
+                if (divides(x,str1) && divides(x,str2)) return x;     //check if str1 and str2 are both divisible by the substring, if yes return
+            }
+            return "";                     //return empty string if no solution was found
+        }
+    
+        //Check divisibility as per problem description
+        bool divides(string& x, string& s){
+            int l = x.size();
+            if (s.size() % l != 0) return false;
+            for (int i = 0; i <= s.size()-l; i+=l)
+                if (s.substr(i,l) != x) return false;
+            return true;
+        }
+    };
+{% endblock solution_code %}

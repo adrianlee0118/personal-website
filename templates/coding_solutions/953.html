@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order. The 
+        order of the alphabet is some permutation of lowercase letters.
+    </p>
+    <p class="question">
+        Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only 
+        if the given words are sorted lexicographicaly in this alien language.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isAlienSorted(vector&lt;string&gt;& words, string order) {
+            unordered_map&lt;char,int&gt; charrank;
+            for (int i = 0; i &lt; order.size(); i++){                       //establish tool for comparing character ranks
+                charrank[order[i]] = i;
+            }
+            for (int i = 0; i &lt; words.size()-1; i++){                      //iterating over all adjacent pairs in the sequence
+                for (int j = 0; j &lt; words[i].size(); j++){                 //compare pair of words letter by letter in order, use first word's length to account for lexicographic comparisons of different length words (if words have the same prefix, the longer word should be after the shorter one)
+                    if (words[i][j] == words[i+1][j]) continue;                              //if same letter, move to next
+                    else if (charrank[words[i][j]] &lt; charrank[words[i+1][j]]) break;         //if in ascending order, quit analysis
+                    else return false;                                                       //if not in ascending order, return flase
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

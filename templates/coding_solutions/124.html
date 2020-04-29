@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty binary tree, find the maximum path sum.
+    </p>
+    <p class="question">
+        For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the 
+        parent-child connections. The path must contain at least one node and does not need to go through the root.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxPathSum(TreeNode* root) {
+            int msum = INT_MIN;
+            recordMPSgetBranch(root,msum);
+            return msum;
+        }
+        
+        int recordMPSgetBranch(TreeNode* root, int& msum){
+            if (!root) return 0;
+            int l = recordMPSgetBranch(root->left, msum);      //Get the greatest non-negative sum on each branch
+            int r = recordMPSgetBranch(root->right, msum);
+            if (l &lt; 0) l = 0;
+            if (r &lt; 0) r = 0;
+            msum = max(msum, l+root->val+r);                   //record the maximum path sum at this node
+            return max(l+root->val, r+root->val);              //pass the maximum branch sum including this node up
+        }
+    };
+{% endblock solution_code %}

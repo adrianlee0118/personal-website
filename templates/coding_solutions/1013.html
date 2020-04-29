@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array A of integers, return true if and only if we can partition the array into three non-empty parts with 
+        equal sums.
+    </p>
+    <p class="question">
+        Formally, we can partition the array if we can find indexes i+1 &lt; j with (A[0] + A[1] + ... + A[i] == A[i+1] + 
+        A[i+2] + ... + A[j-1] == A[j] + A[j-1] + ... + A[A.length - 1])
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool canThreePartsEqualSum(vector&lt;int&gt;& A) {
+            
+            int Sum = accumulate(A.begin(),A.end(),0);
+            if (Sum % 3 != 0)                               //sum must be divisible by 3
+                return false;
+            
+            int psum = Sum / 3;                              //set partial sum
+            int count = 0;
+            int n = 0;
+            
+            for (int i = 0; i &lt; A.size(); i++) {    //iterate through array tracking running sum n
+                n += A[i];
+                if (n == psum) {                    //count when partial sum is accumulated, reset running sum n
+                    n = 0;
+                    count++;
+                    if (count == 3)              //If we count three sums
+                        return true;
+                }
+            }
+            return false;                        //If we didn't count 3
+        }
+    };
+{% endblock solution_code %}

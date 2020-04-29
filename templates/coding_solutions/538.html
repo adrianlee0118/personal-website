@@ -1,0 +1,38 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the 
+        original key plus sum of all keys greater than the original key in BST.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int sum = 0;
+        
+    public:
+        TreeNode* convertBST(TreeNode* root) {
+            if(!root) return nullptr;
+            convertBST(root->right);
+            root->val += sum;
+            sum = root->val;
+            convertBST(root->left);
+            return root;
+        }
+    };
+{% endblock solution_code %}
