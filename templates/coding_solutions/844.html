@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character.
+    </p>
+    <p class="question">
+        Note that after backspacing an empty text, the text will continue empty.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool backspaceCompare(string S, string T) {
+            string ref = "";
+            for (auto& s : S){
+                if (s == '#'){
+                    if (!ref.empty()) ref.pop_back();
+                } else ref.push_back(s);
+            }
+            string tref = "";
+            for (auto& t : T){
+                if (t == '#'){
+                    if (!tref.empty()) tref.pop_back();
+                } else tref.push_back(t);
+            }
+            return ref == tref;
+        }
+    };
+{% endblock solution_code %}

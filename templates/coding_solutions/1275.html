@@ -1,0 +1,72 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Tic-tac-toe is played by two players A and B on a 3 x 3 grid.
+    </p>
+    <p class="question">
+        Here are the rules of Tic-Tac-Toe:
+    </p>
+    <ul>
+        <li>Players take turns placing characters into empty squares (" ").</li>
+        <li>The first player A always places "X" characters, while the second player B always places "O" characters.</li>
+        <li>"X" and "O" characters are always placed into empty squares, never on filled ones.</li>
+        <li>The game ends when there are 3 of the same (non-empty) character filling any row, column, or diagonal.</li>
+        <li>The game also ends if all squares are non-empty.</li>
+        <li>No more moves can be played if the game is over.</li>
+    </ul>
+    <p class="question">
+        Given an array moves where each element is another array of size 2 corresponding to the row and column of the grid where they 
+        mark their respective character in the order in which A and B play.
+    </p>
+    <p class="question">
+        Return the winner of the game if it exists (A or B), in case the game ends in a draw return "Draw", if there are still 
+        movements to play return "Pending".
+    </p>
+    <p class="question">
+        You can assume that moves is valid (It follows the rules of Tic-Tac-Toe), the grid is initially empty and A will play first.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string tictactoe(vector&lt;vector&lt;int&gt;&gt;& moves) {
+            vector&lt;string&gt;grid (3,"===");                     //get the empty grid
+            string result = "Pending";
+            for (int i = 0 ; i &lt; moves.size(); i++){           //putting the X's and O's in
+                char mark = i % 2? 'O' : 'X';
+                grid[moves[i][0]][moves[i][1]] = mark;
+                if (i >= 4){                                 //when there are enough moves for a potential win, check the grid
+                    check(grid,result);
+                    if (result != "Pending") break;      //if we got a winning result, quit the iteration
+                }
+                if (i == 8 && result == "Pending") result = "Draw";       //if we have filled the grid and there's still no winner, call it a draw
+            }
+            return result;
+        }
+        
+        void check(vector&lt;string&gt;& grid, string& result){
+            if (grid[0] == "XXX" || grid[1] == "XXX" || grid[2] == "XXX" || (grid[0][0] == 'X' && grid[1][0] == 'X' && grid[2][0] == 'X') || (grid[0][1] == 'X' && grid[1][1] == 'X' && grid[2][1] == 'X') || (grid[0][2] == 'X' && grid[1][2] == 'X' && grid[2][2] == 'X') || (grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X') || (grid[0][2] == 'X' && grid[1][1] == 'X' && grid[2][0] == 'X')){
+                result = "A";
+                return;
+            } else if (grid[0] == "OOO" || grid[1] == "OOO" || grid[2] == "OOO" || (grid[0][0] == 'O' && grid[1][0] == 'O' && grid[2][0] == 'O') || (grid[0][1] == 'O' && grid[1][1] == 'O' && grid[2][1] == 'O') || (grid[0][2] == 'O' && grid[1][2] == 'O' && grid[2][2] == 'O') || (grid[0][0] == 'O' && grid[1][1] == 'O' && grid[2][2] == 'O') || (grid[0][2] == 'O' && grid[1][1] == 'O' && grid[2][0] == 'O')){
+                result = "B";
+                return;
+            } else return;
+        }
+    };
+{% endblock solution_code %}

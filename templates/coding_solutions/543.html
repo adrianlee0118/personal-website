@@ -1,0 +1,42 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length 
+        of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a DFS post order traversal to calculate the maximum depth of any branch. As the algorithm exits the recursion and the 
+        frame of reference moves back up the tree toward the root node, at any given node, use the depth of both branches to 
+        calculate the diameter of the subtree and retain the maximum calculated.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int diameterOfBinaryTree(TreeNode* root) {
+            int d = 0;           //diameter
+            DFS(root,d);
+            return d;
+        }
+        
+        int DFS(TreeNode* root, int& d){
+            if (!root) return 0;
+            int l = DFS(root->left,d);     //calculate depth of each branch
+            int r = DFS(root->right,d);
+            d = max(d, l+r);         //calculate d with the current node as the anchor, retain maximum
+            return max(l,r)+1;       //pass the max depth from this node up the tree to calculate d at parent nodes
+        }
+    };
+{% endblock solution_code %}

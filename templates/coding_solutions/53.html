@@ -1,0 +1,37 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum 
+        and return its sum.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxSubArray(vector&lt;int&gt;& nums) {
+            int maxi = INT_MIN;
+            int curmax = 0;
+            for (int i = 0; i &lt; nums.size(); i++){
+                curmax += nums[i];
+                maxi = max(maxi,curmax);
+                if (curmax &lt; 0) curmax = 0;
+            }
+            return maxi;
+        }
+    };
+{% endblock solution_code %}

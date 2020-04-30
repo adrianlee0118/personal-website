@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+    </p>
+    <ul>
+        <li>push(x) -- Push element x onto stack.</li>
+        <li>pop() -- Removes the element on top of the stack.</li>
+        <li>top() -- Get the top element.</li>
+        <li>getMin() -- Retrieve the minimum element in the stack.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class MinStack {
+    stack&lt;pair&lt;int,int&gt;&gt; sp;
+    public:
+        /** initialize your data structure here. */
+        MinStack() {
+            
+        }
+        
+        void push(int x) {
+            if(sp.empty())
+            sp.push({x,x});
+            else
+                sp.push({x,min(sp.top().second,x)});
+        }
+        
+        void pop() {
+            sp.pop();
+        }
+        
+        int top() {
+            return sp.top().first;
+        }
+        
+        int getMin() {
+            return sp.top().second;
+        }
+    };
+{% endblock solution_code %}

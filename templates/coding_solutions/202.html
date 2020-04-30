@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Write an algorithm to determine if a number n is "happy".
+    </p>
+    <p class="question">
+        A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the 
+        sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops 
+        endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.
+    </p>
+    <p class="question">
+        Return True if n is a happy number, and False if not.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isHappy(int n) {
+            set&lt;int&gt; record;
+            int num = n;
+            bool found = false;
+            while (!found){
+                int sum = 0;
+                while (num != 0){
+                    int digit = num % 10;
+                    num /= 10;
+                    sum += pow(digit,2);
+                }
+                num = sum;
+                if (record.count(num) > 0) break;
+                if (num == 1) found = true;
+                record.insert(num);
+            }
+            return found;
+        }
+    };
+{% endblock solution_code %}

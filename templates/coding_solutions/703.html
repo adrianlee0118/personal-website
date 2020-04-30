@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not 
+        the kth distinct element.
+    </p>
+    <p class="question">
+        Your KthLargest class will have a constructor which accepts an integer k and an integer array nums, which contains initial 
+        elements from the stream. For each call to the method KthLargest.add, return the element representing the kth largest element 
+        in the stream.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class KthLargest {
+    
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; biggestkelements;  //initialize priority queue where top element is the smallest (using greater<int>)
+    int kay;
+        
+    public:
+        KthLargest(int k, vector&lt;int&gt;& nums) {
+            for (auto &it:nums){                         //push all numbers from vector into the priority queue
+                biggestkelements.push(it);
+                if (biggestkelements.size() > k){     //maintaining queue size = k--the elements we care about
+                    biggestkelements.pop();
+                }
+            }
+            kay = k;
+        }
+        
+        int add(int val) {
+            biggestkelements.push(val);           //add element, switch with smallest current to maintain size k
+            if (biggestkelements.size() > kay){
+                biggestkelements.pop();
+            }
+            return biggestkelements.top();        //return the smallest, or kth biggest element
+        }
+    };
+{% endblock solution_code %}

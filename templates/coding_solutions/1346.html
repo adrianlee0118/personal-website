@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array arr of integers, check if there exists two integers N and M such that N is the double of M ( i.e. N = 2 * M).
+    </p>
+    <p class="question">
+        More formally check if there exists two indices i and j such that :
+    </p>
+    <ul>
+        <li>i != j</li>
+        <li>0 &lt;= i, j &lt; arr.length</li>
+        <li>arr[i] == 2 * arr[j]</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool checkIfExist(vector<int>& arr) {
+            sort(arr.begin(),arr.end());
+            for (int i = 0; i &lt; arr.size()-1; i++){
+                for (int j = i+1; j &lt; arr.size(); j++){
+                    if (arr[j] == 2*arr[i] || arr[i] == 2*arr[j]){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    };
+{% endblock solution_code %}
