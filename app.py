@@ -45,6 +45,11 @@ def projects():
     return render_template('projects.html', 
                             title="Projects")
 
+@app.route('/projects/quantum_dice')
+def quantum_dice():
+    return render_template('web_apps/quantum_dice_roller.html', 
+                            title="Quantum Dice Roller")
+
 @app.route('/coding_solutions')
 def coding_solutions():
     result = get_cs_db().execute('SELECT id,name,difficulty,type FROM cs_data ORDER BY id')

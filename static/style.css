@@ -64,9 +64,9 @@ ol {
 }
 
 .quote{
-    font-style:italic; 
-    font-size: larger; 
-    color:#A9A9A9; 
+    font-style:italic;
+    font-size: larger;
+    color:#A9A9A9;
     margin-left: 70px
 }
 
@@ -349,7 +349,7 @@ table.sortable {
 .sortable thead, tr {
     display:block;
 }
-  
+
 .sortable td, th {
     border: 1px solid #dddddd;
     text-align: left;
@@ -360,7 +360,7 @@ table.sortable {
 a:hover{
     color: darkblue ;
 }
-  
+
 tr:nth-child(even) {
     background-color: #dddddd;
 }
