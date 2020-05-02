@@ -8,6 +8,192 @@
     <!--Insert card for next blog post-->
     
     <div class="card">
+        <h2><a name="Randomness">Randomness</a></h2>
+        <h5>May 2, 2020</h5>
+        <div class="img">
+            <img src="{{ url_for('static', filename='third_party/images/pacific_rim_uprising.jpg') }}" alt="Pacific Rim Uprising">
+        </div>
+        <p class="blog">
+            In the past, I've had trouble fathoming the essence of meaning of when people say they're bad at coming up with ideas. To be
+            sure, everybody's got different talents, temperaments and upbringings but as humans don't we all experience moments of 
+            spontaneity, when our thoughts develop in unexpected and not-consciously-controlled ways?
+        </p>
+        <p class="blog">
+            Maybe it's more of a question of whether people remember instances of when they did/thought freely, and I know for sure that
+            putting your nose to the grindstone to purposefully make new ideas can be hard sometimes. That's why I tend to write random
+            thoughts down, even if it's the middle of the night and I'm lying in bed. You never know when something will come to your mind,
+            and ideas that seem crap initially might be one change shy of being in fact quite good.
+        </p>
+        <p class="blog">
+            I have the advantage of a random mind. The other night I watched a highly entertaining children's movie called Pacific Rim 
+            Uprising (2018), and at varying points over the course of the movie the following questions entered my head:
+        </p>
+        <ol class="blog">
+            <li>How did Dr. Geisler get the Kaiju brain into his penthouse apartment without anyone seeing?</li>
+            <li>If everybody's going to Mount Fuji, why didn't you create a rift (monster entry point) in Tokyo Bay, especially given
+                the established fact that there is a Shao drone production facility conveniently located in Tokyo?
+            </li>
+            <li>If the monsters were initially converging on Tokyo from three different directions, how did they all end up on the
+                same approach for the climactic tower defense style action sequence?
+            </li>
+            <li>If the goal is to get into the volcano, why didn't the bad aliens send any flying Kaiju?</li>
+        </ol>
+        <p class="blog">
+            And so on and so forth. Of course, these thoughts didn't stop me from having a good time and I still highly recommend the movie.
+        </p>
+        <p class="blog">
+            Writing stuff down has been great because the ideas usually end up being used in my conversations, apps or blog posts (like here) 
+            and it's all contributed I think to having a more interesting life and in general being able to find genuine interest in 
+            other people and things with great ease.
+        </p>
+        <p class="blog">
+            In contrast to (most) humans, it's a well known fact that computers have trouble doing things that are truly 
+            'random'. The prototypical example would be the <span><a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator"><u>pseudorandom number generator</u></a></span>. 
+            In order for a classical computer to perform a task, it must be given very specific instructions like, for example, some
+            combination of mathematical operations used to transform a number that is retrieved from a pre-existing array.
+            If there are specific instructions, it wouldn't be a stretch to see that knowledge of that underlying algorithm would 
+            enable an interested party to predict the 'random' result with some degree of success, thus meaning a sequence of those numbers
+            wouldn't actually be random.
+        </p>
+        <p class="blog">
+            As I mentioned in an earlier post, recently my friends and I started to play Dungeons and Dragons online to pass the
+            time on weekends of social isolation and throughout these sometimes emotional sessions there've been moments when we've
+            become untrusting of the website's <span><a href="https://wiki.roll20.net/QuantumRoll">electronic dice roll system</a></span>.
+            It's a pretty reasonable reaction I think when you roll enough natural 1's to have your team almost completely wiped 
+            out by wild pigs in a random field in the middle of the night.
+        </p>
+
+        <figure>
+            <img src="{{url_for('static', filename='third_party/images/pigs_dnd.png')}}" 
+                alt="Pigs"
+                style="height: 300px;
+                    width: 400px;
+                    margin-left: 350px;
+                    margin-bottom: 25px;" >
+            <figcaption style="margin-left: 50px;">
+                Pig (5e creature): Pigs are common farm animals that pose little threat to a well-armed party of 
+                adventurers. -taken from dandwiki.com </figcaption>
+        </figure>
+        <br>
+
+        
+        <p class="blog">
+            It turns out from Roll20 forums that we weren't the first ones to have questions about Roll20's dice system and as I 
+            dug deeper I found more technical stuff about Quantum Roll, the software the site uses to generate random numbers.
+            The explanation was a bit too black box for my liking, though, and that's how I ended up jumping down a deep Wikipedia
+            rabbit hole about <span><a href="https://en.wikipedia.org/wiki/Quantum_computing"><u>quantum computers</u></a></span>, a 
+            topic that was briefly mentioned on Quantum Roll's page. 
+        </p>
+        <p class="blog">
+            How do quantum computers facilitate randomness? Here's the oversimplified summary of what I read, and what I thought
+            it meant:
+        </p>
+        <ol class="blog">
+            <li>
+                Quantum computers utilize basic units of storage called qubits, which can exist at any point in time in a 
+                combination of states (superposition of base states within the single qubit) and exhibit quantum entanglement with 
+                other qubits (new states in a unified group of qubits so deeply intertwined they are taken as a new, unique, joint 
+                state). It's a highly variable system that behaves differently from a normal computer, where bits are independent 
+                and exist in one of two states, 1 or 0, and groups of bits are read one at a time.
+            </li>
+            <br>
+            <li>
+                When information is retrieved from a quantum computer, qubits (or groups of qubits) are measured, and when qubits 
+                are measured, they collapse randomly, unpredictably, into one of their base states with some consistent probability 
+                distribution (in theory). You won't know what a qubit's measurement is until you measure it, but you will know what 
+                the possibilities are and have an idea how often each possibility will show up (in the case of quantum 
+                entanglement on a group of qubits, based on how the quantum circuit has been built).
+            </li>
+            <br>
+            <li>
+                A quantum circuit can be created by connecting qubits together using structures called quantum gates (like logic 
+                gates in a classical computer) to simultaneously: 
+            </li>
+            <ul>
+                <li>
+                    represent a potentially more complex range of possible data - superposition allows for partial states whereas 
+                    classical bits can not; and
+                </li>
+                <li>
+                    be more computationally trivial to measure by virtue of measurement via the unified quantum entanglement state 
+                    (one look), as opposed to a classical computer going through the bits one by one to read all the information 
+                    (many looks plus thinking)
+                </li>
+            </ul>
+            <br>
+        </ol>
+        <p class="blog">
+            I'm not a physicist so the above interpretations of quantum bits and quantum entanglement in the context of quantum
+            computers should definitely be taken with that in mind. You can read more about 
+            <span><a href="https://en.wikipedia.org/wiki/Qubit"><u>qubits</u></a></span> and 
+            <span><a href="https://www.quantamagazine.org/how-to-turn-a-quantum-computer-into-the-ultimate-randomness-generator-20190619/"><u>quantum circuits</u></a></span> 
+            online. If any real physicist ever comes on here I hope they'll at least appreciate the fact I tried to tell other
+            people about quantum computers!
+        </p>
+        <p class="blog">
+            For me, based on what I read, using a classical computer as opposed to a quantum computer to represent data is like 
+            building a castle out of toy blocks as opposed to play-doh. The play-doh allows for non-standard shapes and the 
+            ability to produce structures identical to a toy block structure in less time. In the case of a quantum computer, 
+            though, the play-doh would also be ostensibly separable back into its original forms to show that you could construct 
+            and de-construct quantum circuits (i.e. like reverting a mass of play-doh to the different colors it was before you 
+            mixed it all).
+        </p>
+        <p class="blog">
+            I built a simple quantum circuit using remote computers at IBM through the 
+            <span><a href="https://www.ibm.com/quantum-computing/"><u>IBM Quantum Experience</u></a></span>:
+        </p>
+        <img src="{{url_for('static', filename='5GatesSuper.PNG')}}" 
+            alt="5 quantum gates on a circuit of 5 Qubits in superposition"
+            style="height: 300px;
+                width: 400px;
+                margin-left: 350px;
+                margin-bottom: 25px;" >
+        <br>
+        <p class="blog">
+            There are five quantum bits, which according to <span><a href="https://en.wikipedia.org/wiki/Binary_number"><u>binary representation</u></a></span> 
+            for classical computers allows for portrayal of a single number between 0 and 31 inclusive. The Hadamard quantum 
+            gates (H blocks) are positioned to enable the measurement of the number in question using 5 classical bits and 
+            creates a theoretical probability of 1/32 for each number because each of the five bits has a 50% chance of 
+            being 1 or 0, making any of the numbers between 00000 (= 0) or 11111(=31) equally probable.
+        </p>
+        <p class="blog">
+            After running the circuit with both quantum computers and a quantum assembly code simulator (classical computer
+            simulating a quantum computer), I did in fact get roughly even probability distributions:
+        </p>
+        <img src="{{url_for('static', filename='4096.PNG')}}" 
+            alt="QASM vs Quantum 4092 trials"
+            style="height: 400px;
+                width: 800px;
+                margin-left: 150px;
+                margin-bottom: 25px;" >
+        <br>
+        <img src="{{url_for('static', filename='8192.PNG')}}" 
+            alt="QASM vs Quantum 8192 trials"
+            style="height: 400px;
+                width: 800px;
+                margin-left: 150px;
+                margin-bottom: 25px;" >
+        <br>
+        <p class="blog">
+            The circuit was measured 4,096 times and then 8,192 on both the quantum and classical computer to observe the
+            effect of sample size on probability distribution. The quantum assembly code slightly outperforms the quantum
+            computer in terms of generating uniformity in both experiments and this may be due to quantum noise--quantum 
+            computers are still in their infancy and require a totally pristine environment to function ideally, conditions 
+            that are difficult and expensive to achieve and maintain. The quantum assembly run for 8192 trials is most uniform 
+            and also produces frequency distributions that are closest to the expected 1/32 = 3.125 %.
+        </p>
+        <p class="blog">
+            To top it all off, I took the pre-generated random sequence of numbers from the 8,192 trials with the quantum
+            computer and made a dice app that you can try <span><a href="{{ url_for('quantum_dice') }}"><u>here</u></a></span>.
+            Because it's a pre-generated sequence, the randomness will not hold if the app is used too often without me changing
+            the numbers to a new sequence. The pre-made sequence is used rather than pinging the remote quantum computers each 
+            time because doing so requires a time lag of several minutes in each instance. The dice is perfect for a one-off
+            event where no dice are available.
+        </p>
+    </div>
+    <br>
+
+    <div class="card">
         <h2><a name="Cold Sweat">Cold Sweat</a></h2>
         <h5>April 10, 2020</h5>
         <div class="img">

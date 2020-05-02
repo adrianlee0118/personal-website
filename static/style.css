@@ -204,11 +204,15 @@ img {
 
 ol.blog {
     font-size: 20px;
+    margin-left: 50px;
 }
 
 ul.blog {
     font-size: 20px;
+    margin-left: 50px;
 }
+
+
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
