@@ -40,15 +40,6 @@ ol {
     padding-bottom: 20px;
 }
 
-.card {
-    margin-right: 400px;
-}
-
-.card ul {
-    padding-left: 80px;
-    padding-right: 30px;
-}
-
 /* make resume headings bold */
 .res_heading{
     font-weight:550;
@@ -178,10 +169,11 @@ pre > code {
 
 /* div.img the block for setting images */
 .img {
-    height: 300px;
-    width: 600px;
+    width: 80%;
     margin-top: 20px;
-    margin-left: 50px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 50px;
 }
 
@@ -202,6 +194,13 @@ img {
     border: solid black 1px;
 }
 
+.sbs {
+    display: inline-block;
+    margin-left:auto;
+    margin-right:auto;
+    width: 40%;
+}
+
 ol.blog {
     font-size: 20px;
     margin-left: 50px;
@@ -212,7 +211,9 @@ ul.blog {
     margin-left: 50px;
 }
 
-
+#images {
+    text-align:center;
+}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE

@@ -66,11 +66,12 @@
         <figure>
             <img src="{{url_for('static', filename='third_party/images/pigs_dnd.png')}}" 
                 alt="Pigs"
-                style="height: 300px;
-                    width: 400px;
-                    margin-left: 350px;
+                style="display:block;
+                    width: 30%;
+                    margin-left: auto;
+                    margin-right: auto;
                     margin-bottom: 25px;" >
-            <figcaption style="margin-left: 50px;">
+            <figcaption style="text-align:center;">
                 Pig (5e creature): Pigs are common farm animals that pose little threat to a well-armed party of 
                 adventurers. -taken from dandwiki.com </figcaption>
         </figure>
@@ -144,9 +145,10 @@
         </p>
         <img src="{{url_for('static', filename='5GatesSuper.PNG')}}" 
             alt="5 quantum gates on a circuit of 5 Qubits in superposition"
-            style="height: 300px;
-                width: 400px;
-                margin-left: 350px;
+            style="display:block;
+                width: 40%;
+                margin-left: auto;
+                margin-right: auto;
                 margin-bottom: 25px;" >
         <br>
         <p class="blog">
@@ -162,16 +164,18 @@
         </p>
         <img src="{{url_for('static', filename='4096.PNG')}}" 
             alt="QASM vs Quantum 4092 trials"
-            style="height: 400px;
-                width: 800px;
-                margin-left: 150px;
+            style="display:block;
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
                 margin-bottom: 25px;" >
         <br>
         <img src="{{url_for('static', filename='8192.PNG')}}" 
             alt="QASM vs Quantum 8192 trials"
-            style="height: 400px;
-                width: 800px;
-                margin-left: 150px;
+            style="display:block;
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
                 margin-bottom: 25px;" >
         <br>
         <p class="blog">
@@ -263,9 +267,10 @@
         </p>
         <img src="{{url_for('static', filename='workout_dj.PNG')}}" 
             alt="workout_dj screenshot"
-            style="height: 550px;
-                width: 1000px;
-                margin-left: 50px;" >
+            style="display:block;
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;" >
         <br>
         <p class="blog">
             Latency is quite variable but it's not bad for a personal app and the voice commands are pretty nifty. The third party ad 
@@ -312,28 +317,22 @@
             I'm really excited about. There's lots of opportunity to build new and interesting things!
         </p>
 
-        <div style="margin-left: 300px">
+        <div>
             <img src="{{url_for('static', filename='dnd.jpg')}}" 
-                alt="workout_dj screenshot"
-                style="height: 300px;
-                    width: 450px;
-                    margin-left: 50px;" >
+                alt="dnd"
+                style="display:block;
+                    width: 40%;
+                    margin-left: auto;
+                    margin-right: auto;" >
         </div>
         <br>
 
-        <div style="margin-left:50px">
-            <img src="{{url_for('static', filename='jackbox.jpg')}}" 
-                alt="workout_dj screenshot"
-                style="height: 300px;
-                    width: 450px;
-                    margin-left: 50px;
-                    float: left;" >
-            <img src="{{url_for('static', filename='netflix_party.jpg')}}" 
-                alt="workout_dj screenshot"
-                style="height: 300px;
-                    width: 450px;
-                    margin-left: 50px; 
-                    float: left;" >
+        <div id="images">
+            <img class="sbs" src="{{url_for('static', filename='jackbox.jpg')}}" 
+                alt="jackbox"
+                 >
+            <img class="sbs" src="{{url_for('static', filename='netflix_party.jpg')}}" 
+                alt="netflix party" >
         </div>
         <br>
 
