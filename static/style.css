@@ -18,7 +18,7 @@ h2 {
 
 h3 {
     margin-left: 50px;
-    margin-right: 450px;
+    margin-right: 50px;
     font-size: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -66,19 +66,18 @@ p {
     font-size: 17px;
     line-height: 1.7em;
     margin-left: 50px;
-    margin-right: 450px;
+    margin-right: 50px;
     color: rgb(19, 18, 18);
     text-align: justify;
 }
 
 .blog{
     font-size: 20px;
-    margin-right: 50px;
 }
 
 /* p for main page */
 .mp {
-    margin-right: 730px;
+    margin-right: 400px;
     font-size: 20px;
     text-align: justify;
 }
@@ -90,6 +89,7 @@ p {
 /* right-aligned date spans for info page */
 span.res_date {
     float: right;
+    margin-right: 150px;
 }
 
 /* light-colored spans for company names on info page */
@@ -188,7 +188,7 @@ img {
     width:270px;
     height: 410px;
     margin-left: 30px;
-    margin-right: 400px;
+    margin-right: 50px;
     float: right;
     padding: 2px;
     border: solid black 1px;
