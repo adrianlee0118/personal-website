@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings: s1 and s2 with the same size, check if some permutation of string s1 can break some permutation of 
+        string s2 or vice-versa (in other words s2 can break s1).
+    </p>
+    <p class="question">
+        A string x can break string y (both of size n) if x[i] >= y[i] (in alphabetical order) for all i between 0 and n-1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use an array for hashing/letter counting for performance. The setup of the return statement in the driver function 
+        makes it such that XBreaksY is only run once if possible (the second flipped run only happens if the first one fails).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool checkIfCanBreak(string s1, string s2) {
+            return XBreaksY(s1,s2)? true:XBreaksY(s2,s1);
+        }
+        
+        bool XBreaksY(string x, string y){
+            int xletters[26] = {0};
+            for (auto& c : x)
+                xletters[c-'a']++;         //store all the letters available in x
+            for (auto& c : y){            //for each letter in y,
+                bool found = false;
+                for (int i = c-'a'; i &lt; 26; i++)    //check if we can find a letter from x that is >= than the currenty y letter, maintain counts of all available letter
+                    if (xletters[i] > 0){
+                        xletters[i]--;
+                        found = true;
+                        break;
+                    }
+                if (!found){         //we couldn't find a letter in s1 >= to the current letter in s2; else we continue the iteration
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

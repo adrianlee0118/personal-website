@@ -1,0 +1,78 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given an integer num. You will apply the following steps exactly two times:
+    </p>
+    <ul>
+        <li>Pick a digit x (0 &lt;= x &lt;= 9).</li>
+        <li>Pick another digit y (0 &lt;= y &lt;= 9). The digit y can be equal to x.</li>
+        <li>Replace all the occurrences of x in the decimal representation of num by y.</li>
+        <li>The new integer cannot have any leading zeros, also the new integer cannot be 0.</li>
+    </ul>
+    <p class="question">
+        Let a and b be the results of applying the operations to num the first and second times, respectively.
+    </p>
+    <p class="question">
+        Return the max difference between a and b.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use to_string() to get a string to facilitate iteration by digit. For the large string a, the idea is to change the 
+        greatest non-9 digit to a 9. For the small string b, the idea is to change the leading digit to 1 if it is greater 
+        than 1 (change to 1 not 0 because we can't have leading zeroes); it it is already 1, search for the next greatest 
+        non-1, non-zero character to change into a zero.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxDiff(int num) {
+    
+            //Determine a by changing greatest non-9 digit into a 9
+            string aa = to_string(num);
+            int xpos = 0;
+            while (aa[xpos] == '9')
+                xpos++;
+            char x = aa[xpos];
+            char y = '9';
+            for (auto& c : aa)
+                if (c == x)
+                    c = y;
+            int a = stoi(aa);
+            
+            //Determine b by changing greatest digit into a 1; if already 1, change next greatest non-zero digit to zero
+            string bb = to_string(num);
+            xpos = 0;
+            if (bb[xpos] != '1'){
+                char x = bb[xpos];
+                char y = '1';
+                for (auto& c : bb)
+                    if (c == x)
+                        c = y;
+            } else {
+                xpos++;
+                while (bb[xpos] == '1' || bb[xpos] == '0')    //we are skipping the 1s we already looked at as well as zeroes
+                    xpos++;
+                char x = bb[xpos];
+                char y = '0';
+                for (auto& c : bb)
+                    if (c == x)
+                        c = y;
+            }
+            int b = stoi(bb);
+            
+            return a-b;
+        }
+    };
+{% endblock solution_code %}
