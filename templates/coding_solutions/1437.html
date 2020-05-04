@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array nums of 0s and 1s and an integer k, return True if all 1's are at least k places away from each other, 
+        otherwise return False.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Traverse all the zeros at the front of the array--if this causes you to reach the end return true (no 1s in the array).
+    </p>
+    <p>
+        Whenever we encounter a one, check if the space counter has exceeded K, if not, reset space counter and traverse until 
+        the end of the array, repeating the process at each 1.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool kLengthApart(vector&lt;int&gt;& nums, int k) {
+            int mspace = INT_MAX;
+            int cursor = 0;
+            int space = INT_MAX;
+            while (cursor &lt; nums.size() && nums[cursor] == 0){
+                cursor++;
+            }
+            if (cursor == nums.size())
+                return true;
+            while (cursor &lt; nums.size()){
+                if (nums[cursor] == 0){
+                    cursor++;
+                    space++;
+                } else {
+                    mspace = min(mspace,space);
+                    if (mspace &lt; k) 
+                        return false;
+                    space = 0;
+                    cursor++;
+                }
+            }
+            return true;
+        }
+    };
+{% endblock solution_code %}

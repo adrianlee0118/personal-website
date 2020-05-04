@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers nums and an integer limit, return the size of the longest continuous subarray such that the 
+        absolute difference between any two elements is less than or equal to limit.
+    </p>
+    <p class="question">
+        In case there is no subarray satisfying the given condition return 0.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Two pointer solution, one at the start and one at the end of the range we are analyzing. If the difference between 
+        two adjacent numbers is less than limit, move end to extend the range. If the limit is exceeded, move start to shrink the range until the limit is satisfied again.
+    </p>
+    <p>
+        Use deques to keep track of the positions of global maximum and minimum as well as all other numbers in their order of 
+        priority while traversing the array with two pointers. By keeping track of the positions, when we shrink the range we 
+        can easily tell if one of the limiting numbers (the global min and max) has been removed and because of the order we 
+        can immediately access the next maximum or minimum to be used.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int longestSubarray(vector&lt;int&gt;& nums, int limit) {
+            int mlen = 0;
+            int start = 0; int end = 0;
+            
+            deque&lt;int&gt; minq;  //stores positions of numbers seen from smallest to greatest
+            deque&lt;int&gt; maxq;  //stores positions of numbers seen from greatest to smallest
+            
+            while (end &lt; nums.size()){
+                int cur = nums[end];
+                
+                while (!minq.empty() && nums[minq.back()] >= cur){
+                    minq.pop_back();       //replace greater numbers than current number with current number
+                }
+                minq.push_back(end);
+                
+                while (!maxq.empty() && nums[maxq.back()] &lt;= cur){
+                    maxq.pop_back();       //replace smaller numbers than current number with current number
+                }
+                maxq.push_back(end);
+                
+                //Grab the maximum and minimum in the range thus far and compare them
+                int minidx = minq.front();
+                int minval = nums[minidx];
+                
+                int maxidx = maxq.front();
+                int maxval = nums[maxidx];
+                
+                if (maxval - minval > limit){     //if limit is exceeded, move start up
+                    start++;
+                    if (start > minq.front()){   //remove current mins and maxes that have fallen outside the range
+                        minq.pop_front();
+                    } 
+                    if (start > maxq.front()){
+                        maxq.pop_front();
+                    }
+                } else {
+                    mlen = max(mlen,end-start+1);  //if limit not exceeded, store length and extend array length
+                    end++;
+                }   
+            }
+            return mlen;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,45 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an arbitrary ransom note string and another string containing letters from all the magazines, write a function 
+        that will return true if the ransom note can be constructed from the magazines ; otherwise, it will return false.
+    </p>
+    <p class="question">
+        Each letter in the magazine string can only be used once in your ransom note.
+    </p>
+    <p class="question">
+        Note: You may assume that both strings contain only lowercase letters.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Count all the available letters in the magazine, iterate over ransomNote letters, diminishing counts and assessing if
+        we ever have insufficient letters.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool canConstruct(string ransomNote, string magazine) {
+            int letters[26] = {0};
+            for (auto& c : magazine)
+                letters[c-'a']++;
+            for (auto& c : ransomNote)
+                if (letters[c-'a'] > 0)
+                    letters[c-'a']--;
+                else
+                    return false;
+            return true;
+        }
+    };
+{% endblock solution_code %}

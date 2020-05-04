@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given the array paths, where paths[i] = [cityA<sub>i</sub>, cityB<sub>i</sub>] means there exists a direct path 
+        going from cityA<sub>i</sub> to cityB<sub>i</sub>. Return the destination city, that is, the city without any path 
+        outgoing to another city.
+    </p>
+    <p class="question">
+        therefore, there will be exactly one destination city.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Map all origins to destinations. Iterate over destinations to determine the location that is not mapped to a destination.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string destCity(vector&lt;vector&lt;string&gt;&gt;& paths) {
+            unordered_map&lt;string,string&gt; dest;
+            for (auto& p : paths){
+                dest[p[0]] = p[1];
+            }
+            for (auto& p : paths){
+                if (dest.count(p[1]) == 0 ){
+                    return p[1];
+                }
+            }
+            return "";
+        }
+    };
+{% endblock solution_code %}
