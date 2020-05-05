@@ -9,7 +9,7 @@ function roll(dicesize) {
   var times = parseInt(document.getElementById("times").value);
   var timeword = "times";
   var resword = "results, including adjustments, are";
-  if (times == 1){
+  if (times == 1 || Number.isNaN(times)){
     timeword = "time";
     resword = "result, including adjustments, is";
   }
@@ -17,24 +17,23 @@ function roll(dicesize) {
   var bstr = `a bonus of +${bonus}`;
   if (bonus < 0){
     bstr = `a handicap of ${bonus}`;
-  } else if (bonus == 0){
+  } else if (bonus == 0 || Number.isNaN(bonus)){
     bstr = "no bonus";
   }
 
   if (Number.isNaN(times) || Number.isNaN(bonus)) {
-    result1 = "Please choose a dice roll quantity and bonus and roll again.";
-    result2 = ""
-  } else {
-    var res = [];
-    for (i = 0; i < times; i++){
-      increaseIndex();
-      var fract = (diceRolls[index]+1)/maxDiceRoll;
-      var normalizedRoll = Math.ceil(fract*dicesize);
-      res.push(normalizedRoll+bonus);
-    }
-    result1 = `You rolled a ${dicesize}-sided die ${times} ${timeword} with ${bstr}`
-    result2 = `The ${resword} ${res.toString()}`
+    times = 1;
+    bonus = 0;
   }
+  var res = [];
+  for (i = 0; i < times; i++){
+    increaseIndex();
+    var fract = (diceRolls[index]+1)/maxDiceRoll;
+    var normalizedRoll = Math.ceil(fract*dicesize);
+    res.push(normalizedRoll+bonus);
+  }
+  result1 = `You rolled a ${dicesize}-sided die ${times} ${timeword} with ${bstr}`
+  result2 = `The ${resword} ${res.toString()}`
   
   document.getElementById("result1").innerHTML = result1;
   document.getElementById("result2").innerHTML = result2;
