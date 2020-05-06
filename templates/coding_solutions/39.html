@@ -33,14 +33,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> combinationSum(vector<int>& candidates, int target){
-            vector<vector<int>> ans;                                       //Store solutions
-            vector<int> path;                                              //Build solutions
+        vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;& candidates, int target){
+            vector&lt;vector&lt;int&gt;&gt; ans;                                       //Store solutions
+            vector&lt;int&gt; path;                                              //Build solutions
             buildSums(candidates,ans,path,0,target);                       //Find and store all solutions
             return ans;
         }
         
-        void buildSums(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& path, int idx, int& target){
+        void buildSums(vector&lt;int&gt;& candidates, vector&lt;vector&lt;int&gt;&gt;& ans, vector&lt;int&gt;& path, int idx, int& target){
             if (!path.empty()){
                 if (accumulate(path.begin(),path.end(),0) == target){          //If we found a solution, store it
                     ans.push_back(path);
@@ -48,7 +48,7 @@
                 } else if (accumulate(path.begin(),path.end(),0) > target)  return;   //If sum > target no need to keep building the solution
             }
             
-            for (int i = idx; i < candidates.size(); i++){          //Recursion backtrack to build all possible solutions
+            for (int i = idx; i &lt; candidates.size(); i++){          //Recursion backtrack to build all possible solutions
                 path.push_back(candidates[i]);                       //Iteratin from idx forward ensures we won't find duplicate solutions
                 buildSums(candidates,ans,path,i,target);
                 path.pop_back();

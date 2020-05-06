@@ -37,8 +37,8 @@
     class LRUCache {
     private:
         int cap;
-        unordered_map<int,list<pair<int,int>>::iterator> cache;      //store key, value pairs by key (key, (key, value))
-        list<pair<int,int>> q;                                       //a LRU queue for pair we have most recently interacted with
+        unordered_map&lt;int,list&lt;pair&lt;int,int&gt;&gt;::iterator&gt; cache;      //store key, value pairs by key (key, (key, value))
+        list&lt;pair&lt;int,int&gt;&gt; q;                                       //a LRU queue for pair we have most recently interacted with
         
     public:
         LRUCache(int capacity) {

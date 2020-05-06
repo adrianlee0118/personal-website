@@ -26,7 +26,7 @@
     class BSTIterator {
     private:
         TreeNode* root;
-        vector<TreeNode*> inOrderList;
+        vector&lt;TreeNode*&gt; inOrderList;
         int current;
         
     public:
@@ -52,7 +52,7 @@
         
         /** @return whether we have a next smallest number */
         bool hasNext() {
-            if (current+1 < this->inOrderList.size()){
+            if (current+1 &lt; this->inOrderList.size()){
                 return true;
             }
             return false;

@@ -26,18 +26,18 @@
     class Solution {
     public:
         //power set
-        vector<vector<int>> ans;
+        vector&lt;vector&lt;int&gt;&gt; ans;
         int n;
-        vector<int> path;
-        set<vector<int>> checker;
+        vector&lt;int&gt; path;
+        set&lt;vector&lt;int&gt;&gt; checker;
         
-        vector<vector<int>> subsets(vector<int>& nums) {
+        vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;& nums) {
             n = nums.size();
             dfs(nums , 0, checker);
             return ans;
         };
         
-        void dfs(const vector<int>& nums, int idx, set<vector<int>>& checker){
+        void dfs(const vector&lt;int&gt;& nums, int idx, set&lt;vector&lt;int&gt;&gt;& checker){
             if(idx == n){
                 if (checker.find(path) == checker.end()){
                     ans.push_back(path);

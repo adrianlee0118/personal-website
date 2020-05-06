@@ -22,21 +22,21 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> permute(vector<int>& nums) {
+        vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;& nums) {
             
-            vector<vector<int>> ans;
+            vector&lt;vector&lt;int&gt;&gt; ans;
             createPerms(ans, 0, nums);
             return ans;
         }
         
-        void createPerms(vector<vector<int>>& ans, int index, vector<int>& nums){
+        void createPerms(vector&lt;vector&lt;int&gt;&gt;& ans, int index, vector&lt;int&gt;& nums){
             
             if (index == nums.size()){
                 ans.push_back(nums);
                 return;
             }
             
-            for (int i = index; i < nums.size(); i++){
+            for (int i = index; i &lt; nums.size(); i++){
                 swap(nums[index],nums[i]);
                 createPerms(ans, index+1, nums);
                 swap(nums[index],nums[i]);

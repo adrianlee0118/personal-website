@@ -8,7 +8,7 @@
 {% block question %}
     <!-- Problem statement (format with p tags)-->
     <p class="question">
-        Given a binary tree, return the preorder traversal of its nodes' values.
+        Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
     </p>
     <div class="line"></div>
 {% endblock question %}
@@ -22,18 +22,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector&lt;int&gt; preorderTraversal(TreeNode* root) {
-            vector&lt;int&gt; vals;
-            preOrderTraversal(vals,root);
-            return vals;
-        }
-        
-        void preOrderTraversal(vector&lt;int&gt;& vals, TreeNode* root){
-            if (!root) return;
-            vals.push_back(root->val);
-            preOrderTraversal(vals,root->left);
-            preOrderTraversal(vals,root->right);
-            return;
+        int firstUniqChar(string s) {
+            unordered_map&lt;char,int&gt; lettercount;
+            for (auto& c : s)
+                lettercount[c]++;
+            for (int i = 0; i &lt; s.size(); i++)
+                if (lettercount[s[i]] == 1)
+                    return i;
+            return -1;
         }
     };
 {% endblock solution_code %}

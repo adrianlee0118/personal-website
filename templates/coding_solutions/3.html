@@ -25,16 +25,16 @@
         int lengthOfLongestSubstring(string s) {
             
             //track the last position of characters (and their presence)
-            unordered_map<char,int> lastCharPos;
+            unordered_map&lt;char,int&gt; lastCharPos;
             
             //running maximum, current word length, start position
             int maxlen{0}, currlen{0}, startpos{0};
             
             //Iterating through all letters
-            for (auto i = 0; i < s.size(); i++){
+            for (auto i = 0; i &lt; s.size(); i++){
                 
                 //if the letter has not been encountered or was encountered before the start of the current word
-                if (lastCharPos.find(s[i]) == lastCharPos.end() or lastCharPos[s[i]] < startpos) 
+                if (lastCharPos.find(s[i]) == lastCharPos.end() or lastCharPos[s[i]] &lt; startpos) 
                     
                     //continue parsing the current word
                     currlen++;

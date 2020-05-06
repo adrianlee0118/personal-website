@@ -1,0 +1,51 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a 2D matrix of integers, nums, return all elements of nums in diagonal order from bottom-left to upper right over
+        all diagonals in the matrix.
+    </p>
+    <p class="question">
+        Rows in nums may be of different sizes.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; findDiagonalOrder(vector&lt;vector&lt;int&gt;&gt;& nums) {
+            
+            //Create vector for grouping numbers by diagonal (for any diagonal, i+j is constant)
+            vector&lt;vector&lt;int&gt;&gt; buckets; 
+            vector&lt;int&gt; ans; 
+            
+            //Iterating over the matrix
+            for (int i = 0; i &lt; nums.size(); i++)
+                for (int j = 0; j &lt; nums[i].size(); j++)
+                    if (buckets.size() &lt;= i + j)          //Create a new diagonal if needed
+                        buckets.push_back({nums[i][j]});
+                    else                                  //Use an existing diagonal
+                        buckets[i + j].push_back(nums[i][j]);
+            
+            //Store the numbers in order
+            for (int i = 0; i &lt; buckets.size(); i++)
+                for (int j = buckets[i].size() - 1; j >= 0; j--)  //Read answers in each diagonal in reverse because the 2D traversal stores them in upper-right to bottom-left order and we need the opposite
+                    ans.push_back(buckets[i][j]);
+            
+            return ans; 
+        }
+    };
+{% endblock solution_code %}

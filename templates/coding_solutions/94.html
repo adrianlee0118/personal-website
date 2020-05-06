@@ -22,13 +22,13 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> inorderTraversal(TreeNode* root) {
-            vector<int> record;
+        vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+            vector&lt;int&gt; record;
             inOrderTraversal(root, record);
             return record;
         }
         
-        void inOrderTraversal(TreeNode* root, vector<int>& record){
+        void inOrderTraversal(TreeNode* root, vector&lt;int&gt;& record){
             
             if (!root){
                 return;

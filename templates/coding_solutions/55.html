@@ -34,11 +34,11 @@
     class Solution {
     
     public:
-        bool canJump(vector<int>& nums) {
+        bool canJump(vector&lt;int&gt;& nums) {
             return jump(nums,0);
         }
         
-        bool jump(vector<int>& nums, int pos){
+        bool jump(vector&lt;int&gt;& nums, int pos){
             if (pos >= nums.size()-1) return true;
             if (nums[pos] == 0) return false;          //Not at the end and no possible movement (or this was a previously unsuccessfully tried cell)
             for (int i = nums[pos]; i >= 1; i--)       //Try all the possible jumps; if there's a path to the end return true

@@ -26,18 +26,18 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int minPathSum(vector<vector<int>>& grid) {
+        int minPathSum(vector&lt;vector&lt;int&gt;&gt;& grid) {
             if (grid.empty()) return 0;
             int m = grid.size();
             int n = grid[0].size();
             int dp[m][n];
             dp[0][0] = grid[0][0];
-            for (int j = 1; j < n; j++)             //populate first row: prefix sums left to right
+            for (int j = 1; j &lt; n; j++)             //populate first row: prefix sums left to right
                 dp[0][j] = grid[0][j]+dp[0][j-1];
-            for (int i = 1; i < m; i++)             //populate first column: prefix sums top to bottom
+            for (int i = 1; i &lt; m; i++)             //populate first column: prefix sums top to bottom
                 dp[i][0] = grid[i][0]+dp[i-1][0];
-            for (int i = 1; i < m; i++)             //calculate minimum cumulative sums at all other cells
-                for (int j = 1; j < n; j++)
+            for (int i = 1; i &lt; m; i++)             //calculate minimum cumulative sums at all other cells
+                for (int j = 1; j &lt; n; j++)
                     dp[i][j] = grid[i][j] + min(dp[i-1][j],dp[i][j-1]);
             return dp[m-1][n-1];           //return minimum cumulative sum to get to bottom right corner
         }

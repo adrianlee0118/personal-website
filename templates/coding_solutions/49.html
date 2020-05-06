@@ -23,10 +23,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<string>> groupAnagrams(vector<string>& strs) {
-            vector<vector<string>> anagrams;
-            vector<string> idx;
-            for (int i = 0; i < strs.size(); i++){
+        vector&lt;vector&lt;string&gt;&gt; groupAnagrams(vector&lt;string&gt;& strs) {
+            vector&lt;vector&lt;string&gt;&gt; anagrams;
+            vector&lt;string&gt; idx;
+            for (int i = 0; i &lt; strs.size(); i++){
                 string tmp = strs[i];
                 sort(tmp.begin(),tmp.end());
                 auto it = find(idx.begin(),idx.end(),tmp);

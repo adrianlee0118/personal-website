@@ -33,9 +33,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> generateParenthesis(int n) {
+        vector&lt;string&gt; generateParenthesis(int n) {
             
-            vector<string> perms;
+            vector&lt;string&gt; perms;
             string curr = "(";
             int open = n-1;
             int closed = n;
@@ -44,7 +44,7 @@
             return perms;
         }
         
-        void generatePerms(string curr, vector<string>& perms, int open, int closed, int isOpen){
+        void generatePerms(string curr, vector&lt;string&gt;& perms, int open, int closed, int isOpen){
             
             if (open == 0 && closed == 0){
                 perms.push_back(curr);

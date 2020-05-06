@@ -1,0 +1,78 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array orders, which represents the orders that customers have done in a restaurant. More specifically 
+        orders[i]=[customerName<sub>i</sub>,tableNumber<sub>i</sub>,foodItem<sub>i</sub>] where customerName<sub>i</sub> is 
+        the name of the customer, tableNumber<sub>i</sub> is the table customer sit at, and foodItem<sub>i</sub> is the item 
+        customer orders.
+    </p>
+    <p class="question">
+        Return the restaurant's “display table”. The “display table” is a table whose row entries denote how many of each food 
+        item each table ordered. The first column is the table number and the remaining columns correspond to each food item 
+        in alphabetical order. The first row should be a header whose first column is “Table”, followed by the names of the 
+        food items. Note that the customer names are not part of the table. Additionally, the rows should be sorted in 
+        numerically increasing order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;& orders) {
+            
+            //Get all food items in alphabetical order
+            vector&lt;string&gt; fooditems;
+            for (auto& o : orders)
+                if (find(begin(fooditems),end(fooditems),o[2]) == fooditems.end())
+                    fooditems.push_back(o[2]);
+            sort(begin(fooditems),end(fooditems));
+            
+            //Create row-indexing for food items while setting up headings for first row
+            unordered_map&lt;string,int&gt; foodxpos;
+            vector&lt;string&gt; headings;
+            headings.push_back("Table");
+            for (int i = 0; i &lt; fooditems.size(); i++){
+                headings.push_back(fooditems[i]);
+                foodxpos[fooditems[i]] = i+1;                        //food items are inserted after the table number, so +1
+            }
+                
+            //Set up answer vector with first row headings
+            vector&lt;vector&lt;string&gt;&gt; dt;
+            dt.push_back(headings);
+            
+            //Set up column indexing for tablenumbers and count foods by table number
+            unordered_map&lt;string,int&gt; tableNumPos;
+            for (auto& o : orders){
+                if (tableNumPos.count(o[1]) == 0){                //If we haven't seen the current table number
+                    vector&lt;string&gt; row(fooditems.size()+1,"0");   //Create a new row sized by the number of food items plus table number column
+                    row[0] = o[1];                                                     //Add the table number first
+                    row[foodxpos[o[2]]] = to_string(stoi(row[foodxpos[o[2]]])+1);      //Add the food by using food item row indexing, parsing to integer
+                    tableNumPos[o[1]] = dt.size();            //Add the new row with its indexing
+                    dt.push_back(row);
+                } else {
+                    dt[tableNumPos[o[1]]][foodxpos[o[2]]] = to_string( stoi(dt[tableNumPos[o[1]]][foodxpos[o[2]]]) + 1 );
+                }
+            }
+            
+            //Sort the non-heading rows numerically by table number and return answer
+            sort(begin(dt)+1, end(dt), [](auto& v1, auto& v2){
+                return stoi(v1[0]) &lt; stoi(v2[0]); 
+            });
+            return dt;
+        }
+    };
+{% endblock solution_code %}

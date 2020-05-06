@@ -1,0 +1,59 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are several cards arranged in a row, and each card has an associated number of points The points are given in 
+        the integer array cardPoints.
+    </p>
+    <p class="question">
+        In one step, you can take one card from the beginning or from the end of the row. You have to take exactly k cards.
+    </p>
+    <p class="question">
+        Your score is the sum of the points of the cards you have taken.
+    </p>
+    <p class="question">
+        Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        The maximum score will be the sum of some group of adjacent card(s) on the left end of the array and some group of 
+        adjacent card(s) on the right. Either group can have a size of zero.
+    </p>
+    <p>
+        Assess the sums of each group using prefix and suffix sums. Use a concurrent sliding window on both sides, where the 
+        total number of cards selected must equal k, to find the maximum sum.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxScore(vector&lt;int&gt;& cardPoints, int k) {
+            int n = cardPoints.size();
+            int prefix[n+1];
+            int suffix[n+1];
+            memset(prefix, 0, sizeof(prefix));
+            memset(suffix, 0, sizeof(suffix)); 
+            
+            for (int i = 1; i &lt; n+1; i++)
+                prefix[i] = prefix[i-1]+cardPoints[i-1];
+            for (int i = n-1; i >= 0; i--)
+                suffix[i] = suffix[i+1]+cardPoints[i];   //note: cardPoints has no offset, we put suffix[i+1] because suffix's size is different from cardPoints'
+            
+            int ans = 0;
+            for (int i = 0; i &lt;= k; i++)
+                ans = max(ans,prefix[i]+suffix[n-(k-i)]);
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}
