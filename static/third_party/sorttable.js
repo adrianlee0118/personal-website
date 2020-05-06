@@ -169,6 +169,9 @@ sorttable = {
     for (var i=0; i<table.tBodies[0].rows.length; i++) {
       text = sorttable.getInnerText(table.tBodies[0].rows[i].cells[column]);
       if (text != '') {
+        if (text == 'Easy' || text == 'Medium' || text == 'Hard'){
+          return sorttable.sort_emh;
+        }
         if (text.match(/^-?[£$¤]?[\d,.]+%?$/)) {
           return sorttable.sort_numeric;
         }
@@ -264,6 +267,22 @@ sorttable = {
     bb = parseFloat(b[0].replace(/[^0-9.-]/g,''));
     if (isNaN(bb)) bb = 0;
     return aa-bb;
+  },
+  sort_emh: function(a,b){
+    if (a[0] == b[0]) return 0;
+    if (a[0] == 'E' && (b[0] == 'M' || b[0] == 'H')){
+      return -1;
+    }
+    if (a[0] == 'M'){
+      if (b[0] == 'E'){
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    if (a[0] == 'H'){
+      return 1;
+    }
   },
   sort_alpha: function(a,b) {
     if (a[0]==b[0]) return 0;
