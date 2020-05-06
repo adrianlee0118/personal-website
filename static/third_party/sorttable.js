@@ -14,9 +14,21 @@
   Licenced as X11: http://www.kryogenix.org/code/browser/licence.html
   This basically means: do what you want with it.
 */
+/*
+  Edited May 6, 2020 by Adrian Lee https://www.adrianlee0118.com/
+
+  Changes: A sort_emh comparator function was added along with a companion data structure emh_priority. GuessType function was
+  modified so that the Easy-Medium-Hard column could be detected and processed with a specific sorting regime.
+
+  The changes enable a column in the table consisting of the fields "Easy", "Medium" and "Hard" to be sorted in order of
+  difficulty rather than alphabetically.
+*/
 
 
 var stIsIE = /*@cc_on!@*/false;
+var emh_priority = [
+  'E','M','H'
+]
 
 sorttable = {
   init: function() {
@@ -77,7 +89,6 @@ sorttable = {
     // work through each column and calculate its type
     headrow = table.tHead.rows[0].cells;
     for (var i=0; i<headrow.length; i++) {
-      // manually override the type with a sorttable_type attribute
       if (!headrow[i].className.match(/\bsorttable_nosort\b/)) { // skip this col
         mtch = headrow[i].className.match(/\bsorttable_([a-z0-9]+)\b/);
         if (mtch) { override = mtch[1]; }
@@ -269,16 +280,12 @@ sorttable = {
     return aa-bb;
   },
   sort_emh: function(a,b){
-    //a less than b
-    if ((a[0] == 'E' && (b[0] == 'M' || b[0] == 'H')) || a[0] == 'M' && b[0] == 'H') {
-      return -1;
-    }
-    //a greater than b
-    if ((a[0] == 'H' && (b[0] == 'E' || b[0] == 'M')) || a[0] == 'M' && b[0] == 'E') {
-      return 1;
-    }
-    // a must be equal to b
-    return 0;
+    var ia = emh_priority.indexOf(a[0][0]);
+    var ib = emh_priority.indexOf(b[0][0]);
+
+    if (ia == ib) return 0;
+    if (ia < ib) return -1;
+    return 1;
   },
   sort_alpha: function(a,b) {
     if (a[0]==b[0]) return 0;
