@@ -269,20 +269,16 @@ sorttable = {
     return aa-bb;
   },
   sort_emh: function(a,b){
-    if (a[0] == b[0]) return 0;
-    if (a[0] == 'E' && (b[0] == 'M' || b[0] == 'H')){
+    //a less than b
+    if ((a[0] == 'E' && (b[0] == 'M' || b[0] == 'H')) || a[0] == 'M' && b[0] == 'H') {
       return -1;
     }
-    if (a[0] == 'M'){
-      if (b[0] == 'E'){
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-    if (a[0] == 'H'){
+    //a greater than b
+    if ((a[0] == 'H' && (b[0] == 'E' || b[0] == 'M')) || a[0] == 'M' && b[0] == 'E') {
       return 1;
     }
+    // a must be equal to b
+    return 0;
   },
   sort_alpha: function(a,b) {
     if (a[0]==b[0]) return 0;
