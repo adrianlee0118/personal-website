@@ -22,10 +22,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector&lt;int&gt; intersection(vector&lt;int&gt;& nums1, vector&lt;int&gt;& nums2) {
             
             //remove duplicates from nums1 by changing to set, clear nums1 and re-use as storage
-            set<int> s( nums1.begin(), nums1.end() );
+            set&lt;int&gt; s( nums1.begin(), nums1.end() );
             nums1.clear();
             
             //populate nums1 with elements that are in the set as well as nums2, avoiding duplicates

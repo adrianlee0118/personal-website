@@ -22,32 +22,32 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector&lt;int&gt; topKFrequent(vector&lt;int&gt;& nums, int k) {
             
             if (k == nums.size()){
                 return nums;
             }
             
             //Count all elements
-            map<int,int> NumberCount;
+            map&lt;int,int&gt; NumberCount;
             for (auto n : nums){
                 NumberCount[n]++;
             }
             
             //Remove duplicate counts
-            set <int, greater<int>> counts; 
+            set &lt;int, greater&lt;int&gt;&gt; counts; 
             for(auto it = NumberCount.begin(); it != NumberCount.end(); it++){
                 counts.insert(it->second);
             }
             
             //Rank counts
-            priority_queue<int> CountRank;
+            priority_queue&lt;int&gt; CountRank;
             for (auto c : counts){
                 CountRank.push(c);
             }
             
             //Retrieve greatest k counts' reference numbers
-            vector<int> ans;
+            vector&lt;int&gt; ans;
             while (k > 0){
                 int currCount = CountRank.top();
                 CountRank.pop();

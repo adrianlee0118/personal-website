@@ -26,13 +26,13 @@
     class Solution {
     public:
         int kthSmallest(TreeNode* root, int k) {
-            vector<int> smallest;
+            vector&lt;int&gt; smallest;
             storeValues(root, smallest);
             sort(smallest.begin(),smallest.end());
             return smallest[k-1];
         }
         
-        void storeValues(TreeNode* root, vector<int>& smallest){
+        void storeValues(TreeNode* root, vector&lt;int&gt;& smallest){
             if (!root) return;
             smallest.push_back(root->val);
             storeValues(root->left, smallest);

@@ -44,7 +44,7 @@
                 n >>= 1;
                 count++;     // Count all the differing trailing bits
             }
-            return m << count;  // Shift the remaining common leading bits to the left by the number of differing bits counted
+            return m &lt;&lt; count;  // Shift the remaining common leading bits to the left by the number of differing bits counted
         }
     };
 {% endblock solution_code %}

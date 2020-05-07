@@ -29,7 +29,7 @@
     class Solution {
     public:
         char findTheDifference(string s, string t) {
-            unordered_map<char,int> lc;
+            unordered_map&lt;char,int&gt; lc;
             for (auto& c : s) lc[c]++;
             for (auto& c : t) lc[c]--;
             for (auto& p : lc) if (p.second != 0) return p.first;

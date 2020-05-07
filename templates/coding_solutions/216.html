@@ -31,19 +31,19 @@
     class Solution {
     private:
         int n;
-        vector<int> path;
+        vector&lt;int&gt; path;
         
     public:
-        vector<vector<int>> combinationSum3(int k, int n) {
+        vector&lt;vector&lt;int&gt;&gt; combinationSum3(int k, int n) {
             this->n = n;
-            vector<vector<int>> ans;
-            vector<bool> used(9, false);
+            vector&lt;vector&lt;int&gt;&gt; ans;
+            vector&lt;bool&gt; used(9, false);
             sumToN(ans,0,used,k);
             return ans;
         }
         
         //Recursively build combinations of numbers between 1-9 and store combos that sum to n and are of size k
-        void sumToN(vector<vector<int>>& ans,int idx,vector<bool>& used,int k){
+        void sumToN(vector&lt;vector&lt;int&gt;&gt;& ans,int idx,vector&lt;bool&gt;& used,int k){
             if (used[idx]){
                 return;
             }
@@ -55,7 +55,7 @@
             }
             
             //Recursion backtrack
-            for (int i = idx+1; i <= 9; i++){   //successively narrowing the range of analysis in one direction 
+            for (int i = idx + 1; i &lt;= 9; i++){   //successively narrowing the range of analysis in one direction 
                 path.push_back(i);              //as we go deeper into the recursion makes duplicates impossible
                 used[i-1] = true;               //so we don't check for duplicates before storing completed paths
                 sumToN(ans,i,used,k-1);

@@ -23,14 +23,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> singleNumber(vector<int>& nums) {
-            unordered_map<int, int> counts;
+        vector&lt;int&gt; singleNumber(vector&lt;int&gt;& nums) {
+            unordered_map&lt;int, int&gt; counts;
             for (auto c: nums){
                 counts[c]++;
             }
             
-            vector<int> ans;
-            for (unordered_map<int,int>::iterator it = counts.begin(); it != counts.end(); it++){
+            vector&lt;int&gt; ans;
+            for (unordered_map&lt;int, int&gt;::iterator it = counts.begin(); it != counts.end(); it++){
                 if (it->second == 1){
                     ans.push_back(it->first);
                 }
