@@ -23,17 +23,17 @@
     class Solution {
     public:
         int minimumDeleteSum(string s1, string s2) {
-            //vector<vector<int>> dp(s1.size()+1,vector<int>(s2.size()+1,0));
+            //vector&lt;vector&lt;int&gt;&gt; dp(s1.size()+1,vector&lt;int&gt;(s2.size()+1,0));
             int dp[s1.size()+1][s2.size()+1];            //DP matrix; count total cumulative ASCII deletions given some cut-off positions i in s1 and j in s2 to make those two substrings equal
             dp[0][0] = 0;
             
             //Set up foundation: the edges of DP represent comparisons of s1 or s2 with an empty string, total deletions would be all the ASCII value in the string
-            for (int i = 1; i < s1.size()+1; i++) dp[i][0] = dp[i-1][0] + s1[i-1];   //cumulative ASCII of s1 top to bottom in first column
-            for (int j = 1; j < s2.size()+1; j++) dp[0][j] = dp[0][j-1] + s2[j-1];   //cumulative ASCII of s2 left to right in first row
+            for (int i = 1; i &lt; s1.size()+1; i++) dp[i][0] = dp[i-1][0] + s1[i-1];   //cumulative ASCII of s1 top to bottom in first column
+            for (int j = 1; j &lt; s2.size()+1; j++) dp[0][j] = dp[0][j-1] + s2[j-1];   //cumulative ASCII of s2 left to right in first row
             
             //Iterate over the matrix, calculating ASCII deletions at all substring combinations
-            for (int i = 1; i < s1.size()+1; i++){
-                for (int j = 1; j < s2.size()+1; j++){
+            for (int i = 1; i &lt; s1.size()+1; i++){
+                for (int j = 1; j &lt; s2.size()+1; j++){
                     if (s1[i-1] == s2[j-1]) dp[i][j] = dp[i-1][j-1];                 //if end letters are the same, deletions from before both letters were added remains unchanged
                     else dp[i][j] = min(s1[i-1]+dp[i-1][j], s2[j-1]+dp[i][j-1]);     //if different, take the minimum cost of achieving equality through the path involving deletion of the current s1 character and of the path involving deletion of the s2 character (in both cases, the string of equality is different so we can just look at deleting one at a time)
                 }

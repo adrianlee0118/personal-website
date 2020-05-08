@@ -24,13 +24,13 @@
     class Solution {
     public:
         bool findTarget(TreeNode* root, int k) {
-            unordered_set<int> vals;
+            unordered_set&lt;int&gt; vals;
             bool found = false;
             traverseFind(root, k, vals, found);
             return found;
         }
         
-        void traverseFind(TreeNode* root, int k, unordered_set<int>& vals, bool& found){
+        void traverseFind(TreeNode* root, int k, unordered_set&lt;int&gt;& vals, bool& found){
             if (!root) return;
             if (vals.count(k - (root->val))){
                 found = true;

@@ -30,30 +30,28 @@
         int countSubstrings(string s) {
             
             int count = 0;
-            for (int i = 0; i < s.size(); i++){
+            for (int i = 0; i &lt; s.size(); i++){
                 
                 count++;
                 
                 int left = i-1;
                 int right = i;
-                while (left >= 0 && right < s.size()){
-                    if (s[left] == s[right]){
+                while (left >= 0 && right &lt; s.size()){
+                    if (s[left] == s[right])
                         count++;
-                    } else {
+                    else
                         break;
-                    }
                     left--;
                     right++;
                 }
                 
                 left = i-1;
                 right = i+1;
-                while (left >= 0 && right < s.size()){
-                    if (s[left] == s[right]){
+                while (left >= 0 && right &lt; s.size()){
+                    if (s[left] == s[right])
                         count++;
-                    } else {
+                    else
                         break;
-                    }
                     left--;
                     right++;
                 }

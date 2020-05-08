@@ -30,7 +30,7 @@
     <!-- coding portion of solution-->
     class MapSum {
     private:
-        unordered_map<string,int> map;
+        unordered_map&lt;string,int&gt; map;
         
     public:
         /** Initialize your data structure here. */
@@ -46,7 +46,7 @@
             int pl = prefix.size();
             int sum = 0;
             for (auto& m : map){
-                if (m.first.size() < pl) continue;
+                if (m.first.size() &lt; pl) continue;
                 if (m.first.substr(0,pl) == prefix) sum+=m.second;
             }
             return sum;

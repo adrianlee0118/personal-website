@@ -28,11 +28,11 @@
     <ol>
         <li>From left to right, count open parentheses and stars and subtract closes. We count the stars as well because we want to 
             check for the case when closed brackets encountered in this direction cannot be compensated for by all the opens and 
-            stars up to that point--i.e. if this count < 0, then we do not have a valid parentheses string regardless of what other 
+            stars up to that point--i.e. if this count &lt; 0, then we do not have a valid parentheses string regardless of what other 
             characters there are.</li>
         <li>From right to left, count closed parentheses and stars and subtract opens. We are doing the same thing from right to left 
             as in 1.; we want to check if going right to left we are ever in a situation where the number of open brackets exceed all 
-            the possible closed brackets (including stars). If we ever count more open brackets than closed + star (i.e. cnt < 0), 
+            the possible closed brackets (including stars). If we ever count more open brackets than closed + star (i.e. cnt &lt; 0), 
             the string is not valid no matter what characters are to the left.</li>
     </ol>
     <p>
@@ -47,13 +47,13 @@
         bool checkValidString(string s) {
             int n = s.length();
             int op = 0, cl = 0, st = 0;
-            for (int i = 0; i < n; i++){
+            for (int i = 0; i &lt; n; i++){
                 st += (s[i] == '*')? 1 : 0;                                 //count the stars
                 op += (s[i] == '*' || s[i] == '(')? 1 : -1;                 //count opens and *s from left to right, subtract closes
                 cl += (s[n - 1 - i] == '*' || s[n - 1 - i] == ')')? 1 : -1; //count closes and *s from right to left, subtract opens
-                if (op < 0 || cl < 0) return false;     //if at any point from left to right there are more closeds than possible opens (including *s) or if at any point from right to left there are more opens than there are possible closeds (including *s) we know not all the brackets will be accounted for
+                if (op &lt; 0 || cl &lt; 0) return false;     //if at any point from left to right there are more closeds than possible opens (including *s) or if at any point from right to left there are more opens than there are possible closeds (including *s) we know not all the brackets will be accounted for
             }
-            return op <= 2*st && cl <= 2*st;    //Make sure stars can account for the excess
+            return op &lt;= 2*st && cl &lt;= 2*st;    //Make sure stars can account for the excess
         }
     };
 {% endblock solution_code %}

@@ -31,11 +31,11 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> selfDividingNumbers(int left, int right) {
+        vector&lt;int&gt; selfDividingNumbers(int left, int right) {
             
-            vector<int> result;
+            vector&lt;int&gt; result;
                     
-            for (int i = left; i <= right; i++){
+            for (int i = left; i &lt;= right; i++){
                 
                 int current = i;
                 bool okay = true;
@@ -47,17 +47,13 @@
                     if (temp == 0 || i % temp != 0){ //if i not divisible by last digit or last digit is zero
                         okay = false;
                         break;
-                    } else {
+                    } else 
                         current/=10; 
-                    }
                 }
                 
-                if (okay == true){
+                if (okay == true)
                     result.push_back(i);
-                }
-                
             }
-            
             return result;
         }
     };

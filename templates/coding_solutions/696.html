@@ -31,9 +31,8 @@
             int last = s[0];                                         //store the first grouping s[0] and its start position begin
             int begin = 0;
             int cur = 1;
-            while (s[cur] == last){                                  //move cursor cur to first 0/1 or 1/0 boundary
+            while (s[cur] == last)                                   //move cursor cur to first 0/1 or 1/0 boundary
                 cur++;
-            }
             while (cur &lt; s.size()){
                 int current = s[cur];                                    //store the next grouping s[cur] and its start position marker
                 int marker = cur;

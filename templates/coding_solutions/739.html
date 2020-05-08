@@ -30,10 +30,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> dailyTemperatures(vector<int>& T) {
+        vector&lt;int&gt; dailyTemperatures(vector&lt;int&gt;& T) {
 
-            vector<int> result(T.size(), 0);
-            stack<int> tempStack;
+            vector&lt;int&gt; result(T.size(), 0);
+            stack&lt;int&gt; tempStack;
             
             //traverse the vector in the reverse order
             for(int i = T.size()-1; i >= 0; i--) {

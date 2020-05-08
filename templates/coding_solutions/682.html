@@ -37,11 +37,11 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int calPoints(vector<string>& ops) {
-            stack<int> valid_round_scores;
+        int calPoints(vector&lt;string&gt;& ops) {
+            stack&lt;int&gt; valid_round_scores;
             int score = 0;
             
-            for (int i = 0; i < ops.size(); i++){
+            for (int i = 0; i &lt; ops.size(); i++){
                 int temp = 0;
                 if (ops[i] == "C"){
                     temp = -1*valid_round_scores.top();

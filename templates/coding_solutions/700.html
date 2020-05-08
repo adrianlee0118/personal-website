@@ -28,18 +28,15 @@
     class Solution {
     public:
         TreeNode* searchBST(TreeNode* root, int val) {
-            if (root == NULL){
+            if (root == NULL)
                 return NULL;
-            }
-            if(root->val ==val){
+            if(root->val ==val)
                 return root;
-            }
             TreeNode* next;
-            if (root->val > val){
+            if (root->val > val)
                 next = root->left;
-            } else {
+            else
                 next = root->right;
-            }
             return searchBST(next,val);
         }
     };

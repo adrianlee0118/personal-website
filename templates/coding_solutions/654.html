@@ -30,36 +30,29 @@
     <!-- coding portion of solution in C++-->
     class Solution {
     public:
-        TreeNode* constructMaximumBinaryTree(vector<int>& A) {
-            stack<TreeNode*> s;
+        TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;& A) {
+            stack&lt;TreeNode*&gt; s;
             int maxn = 0;
             TreeNode *root = NULL;
             
             //for all letters
-            for(int i = 0; i < A.size(); i++)
-            {
+            for(int i = 0; i &lt; A.size(); i++) {
                 //make a new node
                 TreeNode* node = new TreeNode(A[i]);
                 
                 //if a new maximum has been found, set maximum and set root to current new node
                 if(A[i] > maxn)
-                {
                     maxn = A[i]; root = node;
-                }
                 
                 //If there are previous nodes
-                while(!s.empty())
-                {
+                while(!s.empty()){
                     //while lesser nodes are in the top of the stack assign to left node of current new node
                     //(the lesser node retains both of its left/right)
                     //when a greater node is reached, set to right of current node and break
-                    if(s.top()->val > A[i])
-                    {
+                    if(s.top()->val > A[i]) {
                         s.top()->right = node;
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         node->left = s.top();
                         s.pop();
                     }

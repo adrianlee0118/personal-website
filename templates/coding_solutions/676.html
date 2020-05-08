@@ -44,10 +44,10 @@
         }
     
         /** Build a dictionary through a list of words */
-        void buildDict(vector<string> dict) {
+        void buildDict(vector&lt;string&gt; dict) {
             for (auto& d : dict){                                           //for each word
                 TrieNode* current = head;                                   //establish cursor for Trie traversal
-                for (int i = 0; i < d.size(); i++){                         //iterate over all the letters
+                for (int i = 0; i &lt; d.size(); i++){                         //iterate over all the letters
                     if (current->children[d[i]-'a'] == nullptr){            //insert into tree at current node
                         current->children[d[i]-'a'] = new TrieNode;
                     }

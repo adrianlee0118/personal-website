@@ -22,10 +22,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<double> averageOfLevels(TreeNode* root) {
+        vector&lt;double&gt; averageOfLevels(TreeNode* root) {
             
-            vector<double> averages;
-            queue<TreeNode*> BFS;
+            vector&lt;double&gt; averages;
+            queue&lt;TreeNode*&gt; BFS;
             BFS.push(root);
             
             //While we still have nodes tor process--get a new level's nodes everytime we come back to the beginning of this loop
@@ -35,17 +35,15 @@
                 double levelSum = 0;
                 
                 //For all the nodes on this level, add its value to the level total and store its children for next round's processing
-                for (int i = 0; i < levelNodes; i++){
+                for (int i = 0; i &lt; levelNodes; i++){
                     
                     TreeNode* temp = BFS.front();
                     BFS.pop();
                     levelSum += temp->val;
-                    if (temp->left){
+                    if (temp->left)
                         BFS.push(temp->left);
-                    }
-                    if (temp->right){
+                    if (temp->right)
                         BFS.push(temp->right);
-                    }
                 }
                 
                 //Calculate level average after adding all values to the level sum

@@ -25,9 +25,8 @@
     class Solution {
     public:
         TreeNode* trimBST(TreeNode* root, int L, int R) {
-            if(!root){
+            if(!root)
                 return NULL;
-            }
             
             //Post order traversal: look at tree from leaves upwards
             root->left = trimBST(root->left, L, R);
@@ -38,8 +37,8 @@
             if(root->val > R) {
                 root = root->left;   
             }
-            //if root < L, root and root->left (< root) can be discarded
-            else if(root->val < L){
+            //if root &lt; L, root and root->left (&lt; root) can be discarded
+            else if(root->val &lt; L){
                 root = root->right;   
             }
     

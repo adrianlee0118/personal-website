@@ -36,22 +36,19 @@
             int xpos = 0;
             int ypos = 0;
             
-            for (int i = 0; i < moves.size(); i++){
-                
+            for (int i = 0; i &lt; moves.size(); i++){
                 switch(moves[i]){
                     case('U'): ypos+=1; break;
                     case('D'): ypos-=1; break;
                     case('L'): xpos-=1; break;
                     case('R'): xpos+=1; break;
                 }
-                
             }
             
-            if (xpos == 0 && ypos == 0){
+            if (xpos == 0 && ypos == 0)
                 return true;
-            } else {
+            else
                 return false;
-            }
         }
     };
 {% endblock solution_code %}

@@ -35,12 +35,10 @@
                 return newNode;
             }
             
-            if (val >= root->val){
+            if (val >= root->val)
                 root->right = insertIntoBST(root->right, val);
-            }
-            if (val < root->val){
+            if (val &lt; root->val)
                 root->left = insertIntoBST(root->left, val);
-            }
             
             return root;
         }

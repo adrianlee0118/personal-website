@@ -30,8 +30,8 @@
         int countPrimeSetBits(int L, int R) {
             
             int count = 0;
-            for(int i = L; i <= R; i++){
-                int num_bits = bitset<32>(i).count();
+            for(int i = L; i &lt;= R; i++){
+                int num_bits = bitset&lt;32&gt;(i).count();
                 if(isPrime(num_bits)){
                     count++;
                 }

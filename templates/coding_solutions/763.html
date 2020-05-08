@@ -23,18 +23,18 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> partitionLabels(string S) {
+        vector&lt;int&gt; partitionLabels(string S) {
             
-            vector<int> partitions;
-            vector<pair<int,int>> Positions;
-            set<char> done;
+            vector&lt;int&gt; partitions;
+            vector&lt;pair&lt;int,int&gt;&gt; Positions;
+            set&lt;char&gt; done;
             
             //Store first and last positions of all unique letters, sort by first position
-            for (int i = 0; i < S.size(); i++){
+            for (int i = 0; i &lt; S.size(); i++){
                 if (done.find(S[i]) == done.end()){
                     int first = i;
                     int last = i;
-                    for (int j = i+1; j < S.size(); j++){
+                    for (int j = i+1; j &lt; S.size(); j++){
                         if (S[j] == S[i]){
                             last = j;
                         }
@@ -48,19 +48,17 @@
             //Determine limiting ranges
             int currfirst = Positions[0].first;
             int currlast = Positions[0].second;
-            for (int k = 1; k < Positions.size(); k++){
+            for (int k = 1; k &lt; Positions.size(); k++){
                 if (Positions[k].first > currlast){
                     partitions.push_back(currlast-currfirst+1);
                     currfirst = Positions[k].first;
                     currlast = Positions[k].second;
                 } else {
-                    if (Positions[k].second > currlast){
+                    if (Positions[k].second > currlast)
                         currlast = Positions[k].second;
-                    }
                 }
-                if (k == Positions.size()-1) {
+                if (k == Positions.size()-1)
                     partitions.push_back(currlast-currfirst+1);
-                }
             }
             
             return partitions;

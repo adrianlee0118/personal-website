@@ -30,7 +30,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        string replaceWords(vector<string>& dict, string sentence) {
+        string replaceWords(vector&lt;string&gt;& dict, string sentence) {
             string ans = "";
             
             //Iterate through sentence word by word
@@ -44,12 +44,12 @@
             return ans;
         }
         
-        string replace(string& word, vector<string>& dict){
+        string replace(string& word, vector&lt;string&gt;& dict){
             string replacement = "";
             int minlen = 101;
             for (auto& d : dict){                  //iterating through dictionary
                 if (word.rfind(d,0) == 0){
-                    if (d.size() < minlen){        //if the given root exists at the beginning of the word
+                    if (d.size() &lt; minlen){        //if the given root exists at the beginning of the word
                         replacement = d;           //set a replacement
                         minlen = d.size();         //track the shortest replacement
                     }
