@@ -27,16 +27,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector&lt;int&gt; nextGreaterElement(vector&lt;int&gt;& nums1, vector&lt;int&gt;& nums2) {
             
             //For storing answers
-            vector<int> ans;
+            vector&lt;int&gt; ans;
             
             //For all numbers in nums1
             for (auto c : nums1){
                 
                 //Find position of the number in nums 2
-                vector<int>::iterator it = find(nums2.begin(), nums2.end(), c);
+                vector&lt;int&gt;::iterator it = find(nums2.begin(), nums2.end(), c);
                 
                 //if the position happens to be the end, there are no next greaters
                 if (it == nums2.end()){

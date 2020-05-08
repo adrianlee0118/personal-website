@@ -23,20 +23,20 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int arrayPairSum(vector<int>& nums) {
+        int arrayPairSum(vector&lt;int&gt;& nums) {
             //to get largest sum, the pairs we evaluate min from must devalue the potential sum to the
             //lowest possible extent. Therefore as much as possible we must evaluate min between numbers
             //that are similar in value--we do this by making a priority queue and evaluating min pairs from
             //greatest to least. Using sort on the vector would reduce runtime for smaller datasets but
             //potentially be problematic for larger ones.
-            priority_queue<int> num;
-            for (int i = 0; i < nums.size(); i++){
+            priority_queue&lt;int&gt; num;
+            for (int i = 0; i &lt; nums.size(); i++){
                 num.push(nums[i]);
             }
             
             int sum = 0;
             int temp1, temp2;
-            for (int j = 0; j < nums.size()/2; j++){
+            for (int j = 0; j &lt; nums.size()/2; j++){
                 temp1 = num.top();
                 num.pop();
                 temp2 = num.top();

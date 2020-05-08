@@ -29,13 +29,13 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> preorder(Node* root) {
-            vector<int> result;
+        vector&lt;int&gt; preorder(Node* root) {
+            vector&lt;int&gt; result;
             dive(result, root);
             return result;
         }
         
-        void dive (vector<int>& tab, Node* root){
+        void dive (vector&lt;int&gt;& tab, Node* root){
             if (root == NULL){
                 return;
             } else {

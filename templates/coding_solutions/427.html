@@ -73,14 +73,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        Node* construct(vector<vector<int>>& grid) {
+        Node* construct(vector&lt;vector&lt;int&gt;&gt;& grid) {
             return AddNodes(grid, grid.size(), 0, 0);
         }
         
         //Within a given grid, assessing the NxN area extending from a given topleft corner coordinate,
         //Determine if there is uniformity; if not, create node with child nodes that are created via the same
         //method in recursion
-        Node* AddNodes(vector<vector<int>>& grid, int N, int topleftx, int toplefty){
+        Node* AddNodes(vector&lt;vector&lt;int&gt;&gt;& grid, int N, int topleftx, int toplefty){
             
             if (N == 0){
                 return NULL;
@@ -91,8 +91,8 @@
             //Check plot for uniformity
             bool allsame = true;
             int initial_value = grid[topleftx][toplefty];
-            for (int i = topleftx; i < topleftx+N; i++){
-                for (int j = toplefty; j < toplefty+N; j++){
+            for (int i = topleftx; i &lt; topleftx+N; i++){
+                for (int j = toplefty; j &lt; toplefty+N; j++){
                     if (grid[i][j] != initial_value){
                         allsame = false;
                         break;

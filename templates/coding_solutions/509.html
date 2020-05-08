@@ -27,15 +27,14 @@
     class Solution {
     public:
         int fib(int N) {
-            if (N == 0){
+            if (N == 0)
                 return 0;
-            } else if (N == 1){
+            else if (N == 1)
                 return 1;
-            }
             
             int lastlastnum = 0;
             int lastnum = 1;
-            for (int i = 2; i <= N; i++){
+            for (int i = 2; i &lt;= N; i++){
                 lastnum = lastlastnum+lastnum;
                 lastlastnum = lastnum-lastlastnum;
             }

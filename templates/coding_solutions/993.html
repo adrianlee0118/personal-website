@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
+    </p>
+    <p class="question">
+        Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
+    </p>
+    <p class="question">
+        We are given the root of a binary tree with unique values, and the values x and y of two different nodes in the tree.
+    </p>
+    <p class="question">
+        Return true if and only if the nodes corresponding to the values x and y are cousins.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isCousins(TreeNode* root, int x, int y) {
+            vector&lt;int&gt; xdepthParent = depthParent(root,x,0);
+            vector&lt;int&gt; ydepthParent = depthParent(root,y,0);
+            if (xdepthParent.size() == 0 || ydepthParent.size() == 0)
+                return false;
+            return (xdepthParent[0] == ydepthParent[0] && xdepthParent[1] != ydepthParent[1])? true : false;
+        }
+        
+        vector&lt;int&gt; depthParent(TreeNode* root, int target, int depth){
+            if (!root) return {};
+            if (root->left)
+                if (root->left->val == target)
+                    return {depth+1,root->val};
+            if (root->right)
+                if (root->right->val == target)
+                    return {depth+1,root->val};
+            vector&lt;int&gt; l = depthParent(root->left, target, depth+1);
+            if (l.size() > 0) return l;
+            vector&lt;int&gt; r = depthParent(root->right, target, depth+1);
+            if (r.size() > 0) return r;
+            else return l;
+        }
+    };
+{% endblock solution_code %}

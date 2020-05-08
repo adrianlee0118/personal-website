@@ -1,0 +1,82 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        A happy string is a string that:
+    </p>
+    <ul>
+        <li>consists only of letters of the set ['a', 'b', 'c'].</li>
+        <li>s[i] != s[i + 1] for all values of i from 1 to s.length - 1 (string is 1-indexed).</li>
+    </ul>
+    <p class="question">
+        For example, strings "abc", "ac", "b" and "abcbabcbcb" are all happy strings and strings "aa", "baa" and "ababbc" are 
+        not happy strings.
+    </p>
+    <p class="question">
+        Given two integers n and k, consider a list of all happy strings of length n sorted in lexicographical order.
+    </p>
+    <p class="question">
+        Return the kth string of this list or return an empty string if there are less than k happy strings of length n.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string getHappyString(int n, int k) {
+            
+            //Check if the number of digits n can produce a number as big as k (number of happy strings with any given first letter will not exceed 2^(n-1) because after the first letter for each subsequent letter there are two choices--if k is bigger than the total number of happy strings available 3*(2^(n-1)) then there's no answer)
+            if (k > 3*(pow(2,n-1)))
+                return "";
+            
+            //We choose the first letter in the sequence by recognizing that the number of happy strings that share the same first letter is equal to 2^(n-1) because after the first letter for each subsequent letter there are 2 choices (no adjacent repeats)
+            //Because the sequence of happy strings is alphabetical, k falling in the first bucket gives us 'a' for the first character, the second bucket 'b' and the last 'c'
+            string ans = "";
+            int p = n-1;
+            int bucket = pow(2,p);
+            if (double(k)/bucket &lt;= 1)
+                ans += 'a';
+            else if (double(k)/bucket &lt;= 2)
+                ans += 'b';
+            else 
+                ans += 'c';
+            p--;
+            
+            //Find all subsequent letters by assessing where k falls in the alternating sequence of buckets for the available letter choice at each position
+            char first, second;
+            while (p >= 0){
+                
+                //Set the available choices based on the current last letter in alphabetical order
+                if (ans.back() == 'a')
+                    first = 'b', second = 'c';
+                else if (ans.back() == 'b')
+                    first = 'a', second = 'c';
+                else first = 'a', second = 'b';
+                
+                //Determine where k falls in the alternating bucket sequence (after the original sequence (first, second) we go back to first)
+                bucket = pow(2,p);
+                double step = double(k)/bucket;
+                int whichbucket = int(ceil(step));
+                if (whichbucket % 2 == 0)
+                    ans += second;
+                else ans += first;
+                
+                p--;
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

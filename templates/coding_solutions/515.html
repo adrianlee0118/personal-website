@@ -22,31 +22,27 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> largestValues(TreeNode* root) {
+        vector&lt;int&gt; largestValues(TreeNode* root) {
             
-            vector<int> LevelMax;
+            vector&lt;int&gt; LevelMax;
             DFS(root, 0, LevelMax);
             return LevelMax;
         }
         
-        void DFS (TreeNode* root, int level, vector<int>& LevelMax){
+        void DFS (TreeNode* root, int level, vector&lt;int&gt;& LevelMax){
             
-            if (!root) {
+            if (!root)
                 return;
-            }
             
-            if (LevelMax.size() < level+1){
+            if (LevelMax.size() &lt; level+1)
                 LevelMax.push_back(root->val);
-            } else {
+            else
                 LevelMax[level] = max(LevelMax[level], root->val);
-            }
             
-            if (root->left){
+            if (root->left)
                 DFS (root->left, level+1, LevelMax);    
-            }
-            if (root->right){
+            if (root->right)
                 DFS (root->right, level+1, LevelMax);
-            }
             
             return;
         }

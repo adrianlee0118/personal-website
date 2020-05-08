@@ -32,9 +32,8 @@
         int Max_Depth = 0;
         
         int maxDepth(Node* root) {
-            if (!root){
+            if (!root)
                 return 0;
-            }
             
             int curr_depth = 0;
             CalculateAndCompareDepth(root,curr_depth);
@@ -47,10 +46,8 @@
                 curr_depth++;
                 Max_Depth = max(Max_Depth, curr_depth);
                 
-                for (int i = 0; i < root->children.size(); i++){
-                    
+                for (int i = 0; i &lt; root->children.size(); i++)
                     CalculateAndCompareDepth(root->children[i], curr_depth);
-                }
             }
         }
     };

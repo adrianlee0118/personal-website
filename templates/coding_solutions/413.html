@@ -44,9 +44,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numberOfArithmeticSlices(vector<int>& A) {
+        int numberOfArithmeticSlices(vector&lt;int&gt;& A) {
             
-            if (A.size() < 3){
+            if (A.size() &lt; 3){
                 return 0;
             }
             if (A.size() == 3 && A[2]-A[1] == A[1]-A[0]){
@@ -57,12 +57,12 @@
             int lastdiff = A[1]-A[0];
             int seq = 1;
             
-            for (int i = 2; i < A.size(); i++){
+            for (int i = 2; i &lt; A.size(); i++){
                 if (A[i]-A[i-1] != lastdiff){
                     if (seq >= 2){
                         count += 1;
                         int plus = 2;
-                        for (int k = 0; k < seq-2; k++){
+                        for (int k = 0; k &lt; seq-2; k++){
                             count += plus;
                             plus++;
                         }
@@ -75,7 +75,7 @@
                         if (seq >= 2){
                             count += 1;
                             int plus = 2;
-                            for (int k = 0; k < seq-2; k++){
+                            for (int k = 0; k &lt; seq-2; k++){
                                 count += plus;
                                 plus++;
                             }

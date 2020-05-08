@@ -29,15 +29,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int arrayNesting(vector<int>& nums) {
+        int arrayNesting(vector&lt;int&gt;& nums) {
             int maxlen = 0;
-            for (int i = 0; i < nums.size(); i++){
+            for (int i = 0; i &lt; nums.size(); i++){
                 jump(nums,i,0,maxlen);
             }
             return maxlen;
         }
         
-        void jump(vector<int>& nums, int pos, int pathlen, int& maxlen){
+        void jump(vector&lt;int&gt;& nums, int pos, int pathlen, int& maxlen){
             if (nums[pos] != -1){
                 int og = nums[pos];
                 nums[pos] = -1;

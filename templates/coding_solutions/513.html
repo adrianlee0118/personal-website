@@ -24,7 +24,7 @@
     public:
         int findBottomLeftValue(TreeNode* root) {
             //Need to do a DFS but track left-rightness in addition to maximum depth at each leaf
-            vector<vector<int>> value_lr_depth;
+            vector&lt;vector&lt;int&gt;&gt; value_lr_depth;
             DFS(root, 0, 1, value_lr_depth);
             
             //iterate twice through the vector: once to determine maximum depth and once to determine left-most
@@ -37,7 +37,7 @@
             int leftmost = 100;   //assuming no trees with just a single branch to the right 100+ levels
             for (auto a : value_lr_depth){
                 if (a[2] == maxdepth){
-                    if (a[1] < leftmost){
+                    if (a[1] &lt; leftmost){
                         leftmost = a[1];
                         value = a[0];
                     }
@@ -48,7 +48,7 @@
         
         //When invoked on a node, this will store value, left-rightedness (lr) and depth information in the record
         //vector for all leaves in the tree below that point
-        void DFS(TreeNode* root, int lr, int depth, vector<vector<int>>& record){
+        void DFS(TreeNode* root, int lr, int depth, vector&lt;vector&lt;int&gt;&gt;& record){
             if (!root){
                 return;
             }

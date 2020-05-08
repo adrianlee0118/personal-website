@@ -27,15 +27,15 @@
     /* DFS */
     class Solution {
     public:
-        vector<vector<int>> levelOrder(Node* root) {
-            vector<vector<int>> ans;
+        vector&lt;vector&lt;int&gt;&gt; levelOrder(Node* root) {
+            vector&lt;vector&lt;int&gt;&gt; ans;
             DFS(root,ans, 0);
             return ans;
         }
         
-        void DFS(Node* root, vector<vector<int>>& ans, int depth){
+        void DFS(Node* root, vector&lt;vector&lt;int&gt;&gt;& ans, int depth){
             if (!root) return;
-            if (ans.empty() || ans.size() <= depth) ans.push_back({});
+            if (ans.empty() || ans.size() &lt;= depth) ans.push_back({});
             ans[depth].push_back(root->val);
             for (auto& c : root->children){
                 DFS(c,ans,depth+1);

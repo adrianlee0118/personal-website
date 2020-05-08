@@ -25,12 +25,12 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> findFrequentTreeSum(TreeNode* root) {
-            unordered_map<int,int> sumCount;
+        vector&lt;int&gt; findFrequentTreeSum(TreeNode* root) {
+            unordered_map&lt;int,int&gt; sumCount;
             int maxFreq = 0;
             postOrderSubSum(root,sumCount,maxFreq);
             
-            vector<int> ans;
+            vector&lt;int&gt; ans;
             for (auto& sc : sumCount){
                 if (sc.second == maxFreq) ans.push_back(sc.first);
             }
@@ -38,7 +38,7 @@
         }
         
         //Stores and counts subtree sums at all nodes, stores greatest observed frequency
-        int postOrderSubSum(TreeNode* root, unordered_map<int,int>& sumCount, int& maxFreq){
+        int postOrderSubSum(TreeNode* root, unordered_map&lt;int,int&gt;& sumCount, int& maxFreq){
             if (!root) return 0;
             int sum = root->val + postOrderSubSum(root->left,sumCount,maxFreq) + postOrderSubSum(root->right,sumCount,maxFreq);
             sumCount[sum]++;

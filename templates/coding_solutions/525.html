@@ -22,12 +22,12 @@
     <!-- coding portion of solution-->
     class Solution{
     public:
-        int findMaxLength(vector<int> &nums){
-            unordered_map<int, int> SumPos;        //track cumulative sums by position
+        int findMaxLength(vector&lt;int&gt; &nums){
+            unordered_map&lt;int, int&gt; SumPos;        //track cumulative sums by position
             SumPos[0] = -1;                        //cumulative sum of zero at position -1         
     
             int mlen = 0, sum = 0;                    //sum is running accumulation of 1s and -1s (add -1 to indicate a zero)
-            for (int i = 0; i < nums.size(); i++){
+            for (int i = 0; i &lt; nums.size(); i++){
                 sum += nums[i] ? 1 : -1;
                 if (SumPos.find(sum) != SumPos.end())       //if same running sum previously encountered, since that point we know we have added an equal number of 1s and -1s; i.e., the span between that point and now is a subarray of interest
                     mlen = max(mlen, i - SumPos[sum]);      //record the maximum length

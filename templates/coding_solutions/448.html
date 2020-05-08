@@ -28,10 +28,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> findDisappearedNumbers(vector<int>& nums) {
-            vector<int> missing;
-            unordered_set<int> set(nums.begin(), nums.end());
-            for (int i = 1; i <= nums.size(); i++){
+        vector&lt;int&gt; findDisappearedNumbers(vector&lt;int&gt;& nums) {
+            vector&lt;int&gt; missing;
+            unordered_set&lt;int&gt; set(nums.begin(), nums.end());
+            for (int i = 1; i &lt;= nums.size(); i++){
                 if (set.count(i) == 0){
                     missing.push_back(i);
                 }

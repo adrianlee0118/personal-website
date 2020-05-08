@@ -25,17 +25,17 @@
         string frequencySort(string s) {
             
             //Count
-            map<char,int> CharCount;
+            map&lt;char,int&gt; CharCount;
             for (char c: s){
                 CharCount[c]++;
             }
             
             //Remove count duplicates and sort
-            set<int> Counts;
-            for (map<char,int>::iterator it = CharCount.begin(); it != CharCount.end(); it++){
+            set&lt;int&gt; Counts;
+            for (map&lt;char,int&gt;::iterator it = CharCount.begin(); it != CharCount.end(); it++){
                 Counts.insert(it->second);
             }
-            priority_queue<int> OrderedCounts;
+            priority_queue&lt;int&gt; OrderedCounts;
             for (auto a : Counts){
                 OrderedCounts.push(a);
             }
@@ -45,9 +45,9 @@
             while (!OrderedCounts.empty()){
                 int currCount = OrderedCounts.top();
                 OrderedCounts.pop();
-                for (map<char,int>::iterator it = CharCount.begin(); it != CharCount.end(); it++){
+                for (map&lt;char,int&gt;::iterator it = CharCount.begin(); it != CharCount.end(); it++){
                     if (it->second == currCount){ 
-                        for (int k = 0; k < currCount; k++){
+                        for (int k = 0; k &lt; currCount; k++){
                             ans+=it->first;
                         }
                     }

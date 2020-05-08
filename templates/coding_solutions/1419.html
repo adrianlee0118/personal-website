@@ -1,0 +1,74 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the string croakOfFrogs, which represents a combination of the string "croak" from different frogs, that is, 
+        multiple frogs can croak at the same time, so multiple “croak” are mixed. Return the minimum number of different 
+        frogs to finish all the croak in the given string.
+    </p>
+    <p class="question">
+        A valid "croak" means a frog is printing 5 letters ‘c’, ’r’, ’o’, ’a’, ’k’ sequentially. The frogs have to print all 
+        five letters to finish a croak. If the given string is not a combination of valid "croak" return -1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minNumberOfFrogs(string croakOfFrogs) {
+            //Check if there are enough letters for one complete croak
+            if (croakOfFrogs.size() &lt; 5)
+                return -1;
+    
+            //Iterate through croaks and track the number of frogs needed, set conditions to detect letters read out of sequence
+            int frogs = 0;
+            int mfrogs = 0;
+            unordered_map&lt;char,int&gt; letters;
+            for (auto& c : croakOfFrogs){
+                if (c == 'c'){
+                    frogs++;
+                    mfrogs = max(mfrogs,frogs);
+                }
+                letters[c]++;
+                if (c == 'r' && letters['c'] &lt; letters['r'])
+                    return -1;
+                if (c == 'o' && (letters['c'] &lt; letters['o'] || letters['r'] &lt; letters['o']))
+                    return -1;
+                if (c == 'a' && (letters['c'] &lt; letters['a'] || letters['r'] &lt; letters['a'] || letters['o'] &lt; letters['a']))
+                    return -1;
+                if (c == 'k'){
+                    if (letters['c'] &lt; letters['k'] || letters['r'] &lt; letters['k'] || letters['o'] &lt; letters['k'] || letters['a'] &lt; letters['k'])
+                        return -1;
+                    else {
+                        frogs--;
+                        letters['c']--;
+                        letters['r']--;
+                        letters['o']--;
+                        letters['a']--;
+                        letters['k']--;
+                    }
+                }
+            }
+            
+            //Check for remainder letters that are not part of a complete sequence
+            for (auto& l : letters)
+                if (l.second > 0)
+                    return -1;
+            
+            return mfrogs;
+        }
+    };
+{% endblock solution_code %}

@@ -31,20 +31,20 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int findCircleNum(vector<vector<int>>& M) {
+        int findCircleNum(vector&lt;vector&lt;int&gt;&gt;& M) {
             int n = M.size();
             int count = n;                              //Start with assumption all people are in their own individual groups, reduce as joins are performed
-            vector<int> parent(n);
-            vector<int> rank(n);                            //Initial relative ranks of trees (which one is closer to the root) are zero
-            for (int i = 0; i < n; i++) parent[i] = i;      //Initial parents are the people themselves--they are in groups by themselves
-            for (int i = 0; i < n-1; i++)                   //for all edges in the friends graph
-                for (int j = i+1; j < n; j++)
+            vector&lt;int&gt; parent(n);
+            vector&lt;int&gt; rank(n);                            //Initial relative ranks of trees (which one is closer to the root) are zero
+            for (int i = 0; i &lt; n; i++) parent[i] = i;      //Initial parents are the people themselves--they are in groups by themselves
+            for (int i = 0; i &lt; n-1; i++)                   //for all edges in the friends graph
+                for (int j = i+1; j &lt; n; j++)
                     if (M[i][j]) Union(parent,rank,i,j,count);    //if friends, establish parents of both people and join the subsets of both partners if necessary
             return count;
         }
     
         //Returns the root parent for the subset of person i
-        int Find(vector<int>& parent, int i) {
+        int Find(vector&lt;int&gt;& parent, int i) {
             while (parent[i] != i){                              //While we are not at a root parent (this condition only true when a person has no parent friendships)
                 parent[i] = parent[parent[i]];                   //Re-assign parent to a parent further up the tree
                 i = parent[i];                                   //move the current reference to the new parent
@@ -53,7 +53,7 @@
         }
     
         //Finds the root parents for subsets of person i and person j, joins groups if the two subsets are not the same--called when we know there is a friend relationship
-        void Union(vector<int>& parent, vector<int>& rank, int i, int j, int& count){
+        void Union(vector&lt;int&gt;& parent, vector&lt;int&gt;& rank, int i, int j, int& count){
             int pi = Find(parent,i);             //Determine the subsets of both friends
             int pj = Find(parent,j);
             if (pi != pj){                       //If these two are not already in the same friend group, join

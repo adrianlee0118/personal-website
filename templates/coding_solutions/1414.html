@@ -1,0 +1,73 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the number k, return the minimum number of Fibonacci numbers whose sum is equal to k, whether a Fibonacci number 
+        could be used multiple times.
+    </p>
+    <p class="question">
+        The Fibonacci numbers are defined as:
+    </p>
+    <ul>
+        <li>F<sub>1</sub> = 1</li>
+        <li>F<sub>2</sub> = 1</li>
+        <li>F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub> , for n > 2.</li>
+    </ul>
+    <p class="question">
+        It is guaranteed that for the given constraints we can always find such fibonacci numbers that sum k.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Generate sequence of Fibonacci numbers within range of interest (less than or equal to k). Iterate from largest to 
+        smallest, utilizing Fibonacci numbers to reduce k until we get to zero.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findMinFibonacciNumbers(int k) {
+            vector&lt;int&gt; FibSeq;
+            makeFSeq(k,FibSeq);          //Generate the Fibonacci numbers
+            if (FibSeq.back() == k)      //If we have a Fibonacci number == k, return 1
+                return 1;
+            else
+                FibSeq.pop_back();       //Get rid of the Fibonacci number that is > k
+            int count = 0;
+            int rem = k;
+            for (int i = FibSeq.size()-1; i >= 0; i--){   //For all Fibonacci numbers less than k from greatest to smallest
+                if (FibSeq[i] &lt;= rem){                    //Subtract numbers from value k until we reach zero
+                    count++;
+                    rem -= FibSeq[i];
+                }
+                if (rem == 0) 
+                    break;
+            }
+            return count;              //Return the count of Fibonacci numbers we used
+        }
+        
+        //Generate a sequence of Fibonacci numbers less than or equal to k
+        void makeFSeq(int k, vector&lt;int&gt;& FibSeq){
+            int first = 1;
+            int second = 1;
+            FibSeq.push_back(first);
+            FibSeq.push_back(second);
+            while (second &lt; k){
+                int next = first+second;
+                first = second;
+                second = next;
+                FibSeq.push_back(second);
+            }
+            return;
+        }
+    };
+{% endblock solution_code %}
