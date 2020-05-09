@@ -29,7 +29,7 @@
     public:
         int numJewelsInStones(string J, string S) {
             int jewels = 0;
-            for (int i = 0; i < J.size(); i++){
+            for (int i = 0; i &lt; J.size(); i++){
                 char temp = J[i];
                 jewels+=count(S.begin(),S.end(),temp);
             }

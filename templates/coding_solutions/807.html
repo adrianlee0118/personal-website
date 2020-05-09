@@ -32,15 +32,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int maxIncreaseKeepingSkyline(vector&lt;vector&lt;int&gt;&gt;& grid) {
             
-            vector<int> maxforRow;
-            vector<int> maxforColumn;
+            vector&lt;int&gt; maxforRow;
+            vector&lt;int&gt; maxforColumn;
             
-            for (int i = 0; i < grid.size(); i++){
+            for (int i = 0; i &lt; grid.size(); i++){
                 int maxHeightRow = grid[i][0];
                 int maxHeightColumn = grid[0][i];
-                for (int j = 1; j < grid.size(); j++){
+                for (int j = 1; j &lt; grid.size(); j++){
                     maxHeightRow = max(maxHeightRow,grid[i][j]);
                     maxHeightColumn = max(maxHeightColumn,grid[j][i]);
                 }
@@ -49,8 +49,8 @@
             }
             
             int sum = 0;
-            for (int i = 0; i < grid.size(); i++){
-                for (int j = 0; j < grid.size(); j++){
+            for (int i = 0; i &lt; grid.size(); i++){
+                for (int j = 0; j &lt; grid.size(); j++){
                     sum += (min(maxforRow[i],maxforColumn[j])-grid[i][j]);
                 }
             }

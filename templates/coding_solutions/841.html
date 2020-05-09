@@ -36,9 +36,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool canVisitAllRooms(vector<vector<int>>& rooms) {
-            vector<bool> visited(rooms.size(),false);
-            queue<int> keys;
+        bool canVisitAllRooms(vector&lt;vector&lt;int&gt;&gt;& rooms) {
+            vector&lt;bool&gt; visited(rooms.size(),false);
+            queue&lt;int&gt; keys;
             
             //visit the first room and acquire keys
             visited[0] = true;
@@ -50,13 +50,11 @@
             while (!keys.empty()){
                 if (!visited[keys.front()]){
                     visited[keys.front()] = true;
-                    for (auto& k : rooms[keys.front()]){
+                    for (auto& k : rooms[keys.front()])
                         keys.push(k);
-                    }
                     keys.pop();
-                } else {
+                } else
                     keys.pop();           //just throw out the key if we already visited the room once
-                }
             }
             
             //check if all rooms have been visited

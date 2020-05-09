@@ -32,7 +32,7 @@
     public:
         string customSortString(string S, string T) {
             string ans = "";
-            unordered_map<char,int> letters;
+            unordered_map&lt;char,int&gt; letters;
             for (auto c : T){
                 letters[c]++;
             }

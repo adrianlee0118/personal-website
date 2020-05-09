@@ -27,16 +27,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-            vector<vector<int>> paths;
-            set<vector<int>> done;
-            vector<int> path;
+        vector&lt;vector&lt;int&gt;&gt; allPathsSourceTarget(vector&lt;vector&lt;int&gt;&gt;& graph) {
+            vector&lt;vector&lt;int&gt;&gt; paths;
+            set&lt;vector&lt;int&gt;&gt; done;
+            vector&lt;int&gt; path;
             path.push_back(0);
             allPaths(graph,0,path,paths,done);
             return paths;
         }
         
-        void allPaths(vector<vector<int>>& graph, int pos, vector<int>& path, vector<vector<int>>& paths, set<vector<int>>& done){
+        void allPaths(vector&lt;vector&lt;int&gt;&gt;& graph, int pos, vector&lt;int&gt;& path, vector&lt;vector&lt;int&gt;&gt;& paths, set&lt;vector&lt;int&gt;&gt;& done){
             if (pos == graph.size()-1){
                 if (done.find(path) == done.end()){
                     paths.push_back(path);
@@ -45,7 +45,7 @@
                 return;
             }
             
-            for (int i = 0; i < graph[pos].size(); i++){
+            for (int i = 0; i &lt; graph[pos].size(); i++){
                 path.push_back(graph[pos][i]);
                 allPaths(graph,graph[pos][i],path,paths,done);
                 path.pop_back();

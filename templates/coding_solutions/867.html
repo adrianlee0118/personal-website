@@ -25,20 +25,18 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> transpose(vector<vector<int>>& A) {
+        vector&lt;vector&lt;int&gt;&gt; transpose(vector&lt;vector&lt;int&gt;&gt;& A) {
             int sidex = A.size();
             int sidey = A[0].size();
-            vector<vector<int>> result;
-            for (int h = 0; h < sidey; h++){
-                vector<int> temp;
+            vector&lt;vector&lt;int&gt;&gt; result;
+            for (int h = 0; h &lt; sidey; h++){
+                vector&lt;int&gt; temp;
                 result.push_back(temp);
             }
             
-            for (int i = 0; i < sidey; i++){
-                for (int j = 0; j < sidex; j++){
+            for (int i = 0; i &lt; sidey; i++)
+                for (int j = 0; j &lt; sidex; j++)
                     result[i].push_back(A[j][i]);
-                }
-            }
             return result;
         }
     };

@@ -33,7 +33,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int matrixScore(vector<vector<int>>& A) {
+        int matrixScore(vector&lt;vector&lt;int&gt;&gt;& A) {
             
             //Premise: The row flips control the calculation. If the first bit of a row is not one, the row must be
             //flipped to achieve that one because it will always significantly improve the sum. the column flips do not
@@ -47,23 +47,20 @@
             memset(rowflip,-1,sizeof(rowflip));
             
             //for all rows, store 1 if there is a zero in the first position
-            for(int i = 0; i < row ; i++)
-            {
-                if(A[i][0]==0) rowflip[i]=1;
+            for(int i = 0; i &lt; row ; i++){
+                if(A[i][0] == 0) rowflip[i]=1;
             }
             
             int ans = 0, p = 1, count = 0;
             
             //for all columns starting from the end going down to zero
-            for(int j = col - 1; j >= 0; j--)
-            {   
+            for(int j = col - 1; j >= 0; j--){   
                 count = 0;     //count all the one bits
                 
                 //scan all values in column, if the first number in the row is zero, count the bit if it is zero (if the 
                 //first number is zero, we will definitely flip the row, so zeroes will become ones)
                 //if the first number in the row was not zero, count the bit as is (row will not be flipped)
-                for(int i = 0; i < row; i++)
-                {
+                for(int i = 0; i &lt; row; i++){
                     if(rowflip[i]==1) count += (A[i][j]^1);
                     else count += A[i][j];
                 }

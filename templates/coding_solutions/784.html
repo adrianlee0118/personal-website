@@ -23,27 +23,25 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> letterCasePermutation(string S) {
-            vector<string> ans;
+        vector&lt;string&gt; letterCasePermutation(string S) {
+            vector&lt;string&gt; ans;
             ans.push_back(S);
             DownStreamSwap(S, 0, ans);
-            return ans;
-            
+            return ans; 
         }
         
         //Given a alphabetic char, change its case
         char SwitchCase(char c){
-            if (c >= 65 && c <= 90){
+            if (c >= 65 && c &lt;= 90)
                 return c+32;
-            } else {
+            else
                 return c-32;
-            }
         }
         
         //Get all downstream swaps from position j
-        void DownStreamSwap(string& S, int j, vector<string>& ans){
+        void DownStreamSwap(string& S, int j, vector&lt;string&gt;& ans){
             
-            for (int i = j; i < S.length(); i++){
+            for (int i = j; i &lt; S.length(); i++){
                 if (isalpha(S[i])){
                     string temp = S;
                     temp[i] = SwitchCase(S[i]);

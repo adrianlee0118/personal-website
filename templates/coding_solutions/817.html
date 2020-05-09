@@ -43,9 +43,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numComponents(ListNode* head, vector<int>& G) {
+        int numComponents(ListNode* head, vector&lt;int&gt;& G) {
             int count = 0;
-            unordered_set<int> nums(G.begin(), G.end());
+            unordered_set&lt;int&gt; nums(G.begin(), G.end());
             while(head) {
                 if(nums.count(head->val) && (!head->next || (nums.count(head->next->val) == 0))) count++;
                 head = head->next;

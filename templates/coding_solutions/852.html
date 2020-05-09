@@ -12,10 +12,10 @@
     </p>
     <ul>
         <li>A.length >= 3</li>
-        <li>There exists some 0 < i < A.length - 1 such that A[0] < A[1] < ... A[i-1] < A[i] > A[i+1] > ... > A[A.length - 1]</li>
+        <li>There exists some 0 &lt; i &lt; A.length - 1 such that A[0] &lt; A[1] &lt; ... A[i-1] &lt; A[i] > A[i+1] > ... > A[A.length - 1]</li>
     </ul>
     <p class="question">
-        Given an array that is definitely a mountain, return any i such that A[0] < A[1] < ... A[i-1] < A[i] > A[i+1] > ... > A[A.length - 1].
+        Given an array that is definitely a mountain, return any i such that A[0] &lt; A[1] &lt; ... A[i-1] &lt; A[i] > A[i+1] > ... > A[A.length - 1].
     </p>
     <div class="line"></div>
 {% endblock question %}
@@ -29,8 +29,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int peakIndexInMountainArray(vector<int>& A) {
-            for (int i = 0; i < A.size()-1; i++){
+        int peakIndexInMountainArray(vector&lt;int&gt;& A) {
+            for (int i = 0; i &lt; A.size()-1; i++){
                 if (A[i]>A[i+1]){
                     return i;
                 }

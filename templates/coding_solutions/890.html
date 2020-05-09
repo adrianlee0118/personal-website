@@ -36,8 +36,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
-            vector<string> ans;
+        vector&lt;string&gt; findAndReplacePattern(vector&lt;string&gt;& words, string pattern) {
+            vector&lt;string&gt; ans;
             string encoded_pattern = encode(pattern);
             for (auto s : words){
                 if (encode(s) == encoded_pattern){
@@ -49,10 +49,10 @@
         
         //Create a unique number code for string based on order and frequency in which distinct letters are encountered
         string encode(string word){
-            unordered_map<char,int> map;
+            unordered_map&lt;char,int&gt; map;
             int label = 1;
             string ans = "";
-            for (int i = 0; i < word.size(); i++){
+            for (int i = 0; i &lt; word.size(); i++){
                 if (map.find(word[i]) == map.end()){
                     map[word[i]] = label;
                     label++;

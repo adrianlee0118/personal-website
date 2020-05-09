@@ -34,11 +34,9 @@
             vector&lt;int&gt; root2val;
             preOrderTraversal(root2,root2val);
             
-            for (int i = 0; i &lt; root1val.size(); i++){
-                if (root1val[i] != root2val[i]){
+            for (int i = 0; i &lt; root1val.size(); i++)
+                if (root1val[i] != root2val[i])
                     return false;
-                }
-            }
             return true;
             
         }
@@ -49,12 +47,10 @@
                     record.push_back(node->val);
                     return;
                 }
-                if (node->left){
+                if (node->left)
                     preOrderTraversal(node->left, record);
-                }
-                if (node->right){
+                if (node->right)
                     preOrderTraversal(node->right, record);
-                }
             }
         }
         

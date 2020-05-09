@@ -35,7 +35,7 @@
         TreeNode* subtreeWithAllDeepest(TreeNode* root) {
         
             //Map all nodes to their depth with zero indexing
-            unordered_map<TreeNode*,int> NodeDepth;
+            unordered_map&lt;TreeNode*,int&gt; NodeDepth;
             PreOrderDFS(root, 0, NodeDepth);
             
             //Determine maximum depth and count nodes at that depth
@@ -45,9 +45,8 @@
                 if (x.second > maxDepth){
                     maxDepth = x.second;
                     deepCount = 1;
-                } else if (x.second == maxDepth){
+                } else if (x.second == maxDepth)
                     deepCount++;
-                }
             }
             
             //Recursion to determine lowest node that is a parent of all deep nodes
@@ -60,9 +59,8 @@
         //PostOrderTraversal that stops going back up the tree when a parent for all deep cells is found
         int LCA(TreeNode* root, int& maxDepth, int& deepCount, TreeNode** answer, int depth){
             
-            if (!root){
+            if (!root)
                 return 0;
-            }
             
             //For the edge case where size of tree = 1
             if (depth == maxDepth && deepCount == 1){
@@ -70,36 +68,30 @@
                 return 0;
             }
             
-            if (depth == maxDepth){
+            if (depth == maxDepth)
                 return 1;
-            }
             
             //Count downstream nodes that are at maxDepth
             int downstream_count = LCA(root->left,maxDepth,deepCount,answer,depth+1) + LCA(root->right,maxDepth,deepCount,answer,depth+1);
             
             //The very first time we encounter the full count of deepest nodes (that is, as early as possible during
             //the recursion rebound back up through the tree), set the LCA to that node
-            if (*answer == NULL && downstream_count == deepCount){
+            if (*answer == NULL && downstream_count == deepCount)
                 *answer = root;
-            }
             return downstream_count;
         }
         
         //Traversal of the array that stores depths
-        void PreOrderDFS(TreeNode* root, int depth, unordered_map<TreeNode*,int>& NodeDepth){
+        void PreOrderDFS(TreeNode* root, int depth, unordered_map&lt;TreeNode*,int&gt;& NodeDepth){
             
-            if (!root){
+            if (!root)
                 return;
-            }
-            
             NodeDepth[root] = depth;
             
-            if (root->left){
+            if (root->left)
                 PreOrderDFS(root->left, depth+1, NodeDepth);
-            }
-            if (root->right){
+            if (root->right)
                 PreOrderDFS(root->right, depth+1, NodeDepth);
-            }
             return;
         }
         

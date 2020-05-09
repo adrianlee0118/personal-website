@@ -34,15 +34,12 @@
         
         TreeNode* removeZeroOnlys(TreeNode* root){
             if (!root) return NULL;
-            if (root->left){
+            if (root->left)
                 root->left = removeZeroOnlys(root->left);
-            }
-            if (root->right){
+            if (root->right)
                 root->right = removeZeroOnlys(root->right);
-            }
-            if (!root->left && !root->right && root->val == 0){
+            if (!root->left && !root->right && root->val == 0)
                 return NULL;
-            }
             return root;
         }
     };

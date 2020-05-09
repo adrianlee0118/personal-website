@@ -34,10 +34,10 @@
     <!-- coding portion of solution-->
     class Solution {
     private:
-        vector<vector<int>> maxturnscore;       //memoization tool, must have start and end info, the bounds of array
+        vector&lt;vector&lt;int&gt;&gt; maxturnscore;       //memoization tool, must have start and end info, the bounds of array
     public:
-        bool stoneGame(vector<int>& piles) {
-            maxturnscore = vector<vector<int>>(piles.size()+1,vector<int>(piles.size()+1,-1));
+        bool stoneGame(vector&lt;int&gt;& piles) {
+            maxturnscore = vector&lt;vector&lt;int&gt;&gt;(piles.size()+1,vector&lt;int&gt;(piles.size()+1,-1));
             int total = accumulate(piles.begin(),piles.end(),0);
             int alexscore = maxscore(piles,0,piles.size()-1);
             if (alexscore > total-alexscore) return true;
@@ -45,7 +45,7 @@
         }
         
         //Calculate maximum number of stones that can be scored given any range of stone piles denoted by start, end
-        int maxscore(vector<int>& piles, int start, int end){
+        int maxscore(vector&lt;int&gt;& piles, int start, int end){
             if (start >= end) return 0;
             if (maxturnscore[start][end] != -1) return maxturnscore[start][end];
             

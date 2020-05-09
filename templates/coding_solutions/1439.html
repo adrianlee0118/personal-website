@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given an m * n matrix, mat, and an integer k, which has its rows sorted in non-decreasing order.
+    </p>
+    <p class="question">
+        You are allowed to choose exactly 1 element from each row to form an array. Return the Kth smallest array sum among 
+        all possible arrays.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int kthSmallest(vector&lt;vector&lt;int&gt;&gt;& mat, int k) {
+            
+            //Start with base sums, all numbers in the first row
+            vector&lt;int&gt; sums = mat[0];
+            
+            //Iterating over the remaining rows
+            for(int i = 1; i &lt; mat.size(); i++) {
+                
+                //Store all the sums that result because of the new row and sort least to greatest
+                vector&lt;int&gt; newsums;
+                for(int j = 0; j &lt; mat[i].size(); j++) 
+                    for(auto& s : sums)
+                        newsums.push_back(mat[i][j] + s);
+                sort(begin(newsums),end(newsums));
+                
+                //The current newsums are still running sums because iteration over all the rows is not complete
+                //Discard all of the sums in the ordering that are after position k--as we keep adding row values they will get bigger and remain obsolete
+                //Later row additions will make some of the current relevant new sums obsolete in a later iteration
+                int sums_needed = min(k,int(newsums.size()));
+                sums.resize(sums_needed);
+                for(int l = 0; l &lt; sums_needed ; l++)
+                    sums[l] = newsums[l];
+            }
+            
+            //We are left with the final k sums sorted least to greatest
+            return sums.back();
+        }
+    };
+{% endblock solution_code %}

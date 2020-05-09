@@ -39,8 +39,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> spiralMatrixIII(int R, int C, int r0, int c0) {
-            vector<vector<int>> points;
+        vector&lt;vector&lt;int&gt;&gt; spiralMatrixIII(int R, int C, int r0, int c0) {
+            vector&lt;vector&lt;int&gt;&gt; points;
             int countdown = R*C;       //track how many squares have been counted
             int r = r0, c = c0;        //track current coordinate
             int diff = 1;              //the bound of the coordinate oscillation
@@ -53,13 +53,12 @@
                 
                 //going right along the top edge of the current lap
                 if (!rightdone && !downdone && !leftdone && !updone){
-                    if (r < 0){
+                    if (r &lt; 0){
                         c = c0+diff;
                         r = 0;
                     } else {
-                        while (c < c0+diff){
-                            cout << "Checking " << r << ", " << c << endl;
-                            if (r >= 0 && r < R && c >= 0 && c < C){
+                        while (c &lt; c0+diff){
+                            if (r >= 0 && r &lt; R && c >= 0 && c &lt; C){
                                 points.push_back({r,c});
                                 countdown--;
                             }
@@ -74,9 +73,8 @@
                         r = r0+diff;
                         c = C-1;
                     } else {
-                        while (r < r0+diff){
-                            cout << "Checking " << r << ", " << c << endl;
-                            if (r >= 0 && r < R && c >= 0 && c < C){
+                        while (r &lt; r0+diff){
+                            if (r >= 0 && r &lt; R && c >= 0 && c &lt; C){
                                 points.push_back({r,c});
                                 countdown--;
                             }
@@ -92,8 +90,7 @@
                         c = c0-diff;
                     } else {
                         while (c > c0-diff){
-                            cout << "Checking " << r << ", " << c << endl;
-                            if (r >= 0 && r < R && c >= 0 && c < C){
+                            if (r >= 0 && r &lt; R && c >= 0 && c &lt; C){
                                 points.push_back({r,c});
                                 countdown--;
                             }
@@ -104,13 +101,12 @@
                 
                 //going up along the left edge of the current lap
                 } else if (rightdone && downdone && leftdone && !updone){
-                    if (c < 0){
+                    if (c &lt; 0){
                         r = r0-diff;
                         c = 0;
                     } else {
                         while (r > r0-diff){
-                            cout << "Checking " << r << ", " << c << endl;
-                            if (r >= 0 && r < R && c >= 0 && c < C){
+                            if (r >= 0 && r &lt; R && c >= 0 && c &lt; C){
                                 points.push_back({r,c});
                                 countdown--;
                             }

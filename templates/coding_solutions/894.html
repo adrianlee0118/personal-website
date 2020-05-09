@@ -32,30 +32,29 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<TreeNode*> allPossibleFBT(int N) {
+        vector&lt;TreeNode*&gt; allPossibleFBT(int N) {
             
-            if (N == 0 || N % 2 == 0){
+            if (N == 0 || N % 2 == 0)
                 return {};
-            }
             return allBranches(1,N);
         }
         
         //For some range of cells (possibly the whole array), create a list of root nodes joined to all possible distributions 
         //of cells across both branches.
-        vector<TreeNode*> allBranches(int start, int end){
+        vector&lt;TreeNode*&gt; allBranches(int start, int end){
         
             if (start == end){
                 return {new TreeNode(0)};
             }
-            vector<TreeNode*> ans;
+            vector&lt;TreeNode*&gt; ans;
             
             //Divide available nodes in range between both branches in all possible ways by trying all possible partitions 
             //of the range of nodes, stepping up 2 with each iteration because increments to each side are by 2 to fulfill the
             //full binary tree condition, add all the arrangements generated to the answer.
             
-            for (int i = start+1; i <= end; i+=2){          
-                vector<TreeNode*> left = allBranches(start,i-1);   //The separator i's node is not included in 
-                vector<TreeNode*> right = allBranches(i+1,end);   //the recursion ranges because it is the 
+            for (int i = start+1; i &lt;= end; i+=2){          
+                vector&lt;TreeNode*&gt; left = allBranches(start,i-1);   //The separator i's node is not included in 
+                vector&lt;TreeNode*&gt; right = allBranches(i+1,end);   //the recursion ranges because it is the 
                 for (auto& l : left){                             //current root.
                     for (auto& r : right){
                         TreeNode* root = new TreeNode(0);

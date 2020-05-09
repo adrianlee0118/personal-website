@@ -73,7 +73,7 @@
     public:
         int uniqueLetterString(string S) {
             int mod = 1000000007;
-            unordered_set<char> letters;      //Get a list of all the letters in the string without duplicates for iteration
+            unordered_set&lt;char&gt; letters;      //Get a list of all the letters in the string without duplicates for iteration
             for (auto& s : S){
                 letters.insert(s);
             }

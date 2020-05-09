@@ -32,10 +32,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> uncommonFromSentences(string A, string B) {
+        vector&lt;string&gt; uncommonFromSentences(string A, string B) {
             
             //Use a map to count occurrences of words
-            map<string, int> strcount;
+            map&lt;string, int&gt; strcount;
             
             //Read string A word by word
             istringstream iss(A);
@@ -43,31 +43,27 @@
             while(iss >> word) {
                 
                 //add the word to the map if not already counted, else count an existing word
-                if (strcount.find(word) == strcount.end()){
-                    strcount.insert(pair<string, int>(word,1));    
-                } else {
+                if (strcount.find(word) == strcount.end())
+                    strcount.insert(pair&lt;string, int&gt;(word,1));    
+                else
                     strcount.at(word)++;
-                }
             }
             
             //repeat the process with string A on string B
             istringstream ist(B);
             while(ist >> word){
-                if (strcount.find(word) == strcount.end()){
-                    strcount.insert(pair<string, int>(word,1));    
-                } else {
+                if (strcount.find(word) == strcount.end())
+                    strcount.insert(pair&lt;string, int&gt;(word,1));    
+                else 
                     strcount.at(word)++;
-                }
             }
             
             //iterating through the map, count words that were only observed once between both strings
-            map<string, int>::iterator it;
-            vector<string> ans;;
-            for (it = strcount.begin(); it != strcount.end(); it++)
-            {
-                    if (it->second == 1){
-                        ans.push_back(it->first);
-                    }  
+            map&lt;string, int&gt;::iterator it;
+            vector&lt;string&gt; ans;;
+            for (it = strcount.begin(); it != strcount.end(); it++){
+                if (it->second == 1)
+                    ans.push_back(it->first);
             }
             return ans;
         }

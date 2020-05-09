@@ -25,21 +25,19 @@
     <!-- coding portion of solution-->
     class Solution { 
     public:
-        TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+        TreeNode* constructFromPrePost(vector&lt;int&gt;& pre, vector&lt;int&gt;& post) {
             return construct(pre,post,0,pre.size()-1,0,post.size()-1);
         }
         
-        TreeNode* construct(vector<int>& pre, vector<int>& post, int preleft, int preright, int postleft, int postright)    {
+        TreeNode* construct(vector&lt;int&gt;& pre, vector&lt;int&gt;& post, int preleft, int preright, int postleft, int postright)    {
             if (preleft > preright){ return nullptr; }                       //something went wrong
             if (preleft == preright){ return new TreeNode(pre[preleft]); }   //we are at a leaf, only one in range
             TreeNode* root = new TreeNode(pre[preleft]);
     
             int pos = 0;
-            for (int i = postleft; i <= postright; i++){
-                if (post[i] == pre[preleft+1]){
+            for (int i = postleft; i &lt;= postright; i++)
+                if (post[i] == pre[preleft+1])
                     pos = i;
-                }
-            }
             int partition = pos+1;          //left bound of next node in post
             partition -= postleft;                        //adjust for offset so that partition is strictly a difference
         

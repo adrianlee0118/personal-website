@@ -34,10 +34,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> subdomainVisits(vector<string>& cpdomains) {
+        vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;& cpdomains) {
             
-            vector<string> result;
-            map<string,int> visits;
+            vector&lt;string&gt; result;
+            map&lt;string,int&gt; visits;
             
             //for every subdomain encoded string
             for (string s:cpdomains){
@@ -52,44 +52,32 @@
                 
                 //Add entire domain visits
                 visits.insert(make_pair(subD,0));
-                visits[subD]+=num;
+                visits[subD] += num;
                 
                 //going down the domain string, add all other listed subdomains....
-                while (marker < subD.size()){
-                    
+                while (marker &lt; subD.size()){
                     
                     //when we see the '.', we cut the front of the string off and store visits plus it
                     if (subD[marker] == '.'){
-                        
                         subD = subD.substr(marker+1);
                         
                         //if the subdomain is already listed, add otherwise create and add
                         if (visits.find(subD) != visits.end()){
-                            
                             visits.insert(make_pair(subD, 0));
+                            visits[subD] += num;
+                        } else
                             visits[subD]+=num;
-                            
-                        } else {
-                            
-                            visits[subD]+=num;
-                        }
-                        
                         marker = 0;
     
-                    } else {
-                        
+                    } else 
                         marker++;
-                    }
-    
                 }
                 
             }
             
             //Going through the whole map, store all results as strings in answer vector.
-            for(map<string,int>::const_iterator it = visits.begin(); it != visits.end(); it++){
-                
+            for(map<string,int>::const_iterator it = visits.begin(); it != visits.end(); it++)
                 result.push_back(to_string(it->second)+" "+it->first);
-            }
             
             return result;
         }
