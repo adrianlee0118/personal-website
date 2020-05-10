@@ -39,9 +39,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        vector&lt;int&gt; deckRevealedIncreasing(vector&lt;int&gt;& deck) {
             sort(deck.begin(),deck.end());
-            queue<int> riggeddeck;
+            queue&lt;int&gt; riggeddeck;
             
             //Create ordering within queue back to front
             while (deck.size() > 1){
@@ -54,7 +54,7 @@
             riggeddeck.push(deck.back());
             
             //Store in a new vector in reverse and return
-            vector<int> finaldeck;
+            vector&lt;int&gt; finaldeck;
             while (!riggeddeck.empty()){
                 finaldeck.push_back(riggeddeck.front());
                 riggeddeck.pop();

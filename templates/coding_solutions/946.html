@@ -23,35 +23,33 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        bool validateStackSequences(vector&lt;int&gt;& pushed, vector&lt;int&gt;& popped) {
             
             //Sequences can not be valid if there are more popped elements than pushed elements, since we start empty
-            if (pushed.size() < popped.size()){
+            if (pushed.size() &lt; popped.size())
                 return false;
-            }
             
-            stack<int> overflow;
+            stack&lt;int&gt; overflow;
             return nextStepsPossible(pushed, popped, 0, 0, overflow);
             
         }
         
         //Given any subsequences of pushed and popped (from pushpos to end and poppos to end, 
         //respectively) determine if the two vectors satisfy the push-pop scheme described.
-        bool nextStepsPossible(vector<int>& pushed, vector<int>&popped, int pushpos, int poppos, stack<int>& overflow) {
+        bool nextStepsPossible(vector&lt;int&gt;& pushed, vector&lt;int&gt;&popped, int pushpos, int poppos, stack&lt;int&gt;& overflow) {
             
             if (pushpos == pushed.size()){
-                if (poppos == popped.size()){
+                if (poppos == popped.size())
                     return true;
-                } else if (popped[poppos] != overflow.top()){
+                else if (popped[poppos] != overflow.top())
                     return false;
-                } else {
+                else {
                     overflow.pop();
                     return nextStepsPossible(pushed, popped, pushpos, poppos+1, overflow);
                 }
             }
-            if (poppos == popped.size()){
+            if (poppos == popped.size())
                 return true;
-            }
     
             if (pushed[pushpos] != popped[poppos]){
                 if (!overflow.empty() && overflow.top() == popped[poppos]){
@@ -61,9 +59,8 @@
                     overflow.push(pushed[pushpos]);
                     return nextStepsPossible(pushed,popped,pushpos+1,poppos, overflow);
                 }
-            } else {
+            } else
                 return nextStepsPossible(pushed,popped,pushpos+1,poppos+1,overflow);
-            }
         }
     };
 {% endblock solution_code %}

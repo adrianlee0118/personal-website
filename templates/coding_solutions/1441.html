@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array target and an integer n. In each iteration, you will read a number from  list = {1,2,3..., n}.
+    </p>
+    <p class="question">
+        Build the target array using the following operations:
+    </p>
+    <ul>
+        <li>Push: Read a new element from the beginning list, and push it in the array.</li>
+        <li>Pop: delete the last element of the array.</li>
+        <li>If the target array is already built, stop reading more elements.</li>
+    </ul>
+    <p class="question">
+        You are guaranteed that the target array is strictly increasing, only containing numbers between 1 to n inclusive.
+    </p>
+    <p class="question">
+        Return the operations to build the target array.
+    </p>
+    <p class="question">
+        You are guaranteed that the answer is unique.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Maintain a pointer on the target array, iterate in increasing order concurrently with iterating 1 to n. Place numbers
+        that are in target with "Push". If they aren't in target, just "Push" and then immediately "Pop".
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;string&gt; buildArray(vector&lt;int&gt;& target, int n) {
+            vector&lt;string&gt; ans;
+            int idx = 0;
+            for (int i = 1; i &lt;= n; i++){
+                if (idx == target.size())
+                    break;
+                if (i == target[idx]){
+                    ans.push_back("Push");
+                    idx++;
+                } else {
+                    ans.push_back("Push");
+                    ans.push_back("Pop");
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

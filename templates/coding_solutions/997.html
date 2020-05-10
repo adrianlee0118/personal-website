@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town 
+        judge.
+    </p>
+    <p class="question">
+        If the town judge exists, then:
+    </p>
+    <ol>
+        <li>The town judge trusts nobody.</li>
+        <li>Everybody (except for the town judge) trusts the town judge.</li>
+        <li>There is exactly one person that satisfies properties 1 and 2.</li>
+    </ol>
+    <p class="question">
+        You are given trust, an array of pairs trust[i] = [a, b] representing that the person labelled a trusts the person 
+        labelled b.
+    </p>
+    <p class="question">
+        If the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Score all people in the town, +1 for people who trust them. When a person trusts someone, reduce their score by -1.
+        If a person trusts no one and everyone trusts them, their score will be equal to N-1.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findJudge(int N, vector&lt;vector&lt;int&gt;&gt;& trust) {
+            if (trust.empty())
+                return N;
+            
+            vector&lt;int&gt; trusts(N + 1, 0);
+            for(auto& t : trust){
+                trusts[t[0]]--;
+                trusts[t[1]]++;
+            }
+            
+            vector&lt;int&gt;::iterator pos = find(begin(trusts),end(trusts),N-1);
+            return (pos == trusts.end())? -1 : distance(begin(trusts),pos);
+        }
+    };
+{% endblock solution_code %}

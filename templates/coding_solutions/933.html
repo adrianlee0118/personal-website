@@ -34,23 +34,22 @@
     <!-- coding portion of solution-->
     class RecentCounter {
     public:
-        vector<int> ping_record;
+        vector&lt;int&gt; ping_record;
         
         RecentCounter() {
             
         }
         
         int ping(int t) {
-            
             //if there are no existing pings, push the ping
-            if (ping_record.size()==0) {
+            if (ping_record.size()==0)
                 ping_record.push_back(t);
-            } else {
+            else {
                 
                 //there is some arbitrary time scale that starts from 0.
                 //All pings occur some time int t after the 0.
                 //We must make sure that all pings are at maximum within 3000 of each other.
-                //i.e. MAX-MIN <= 3000
+                //i.e. MAX-MIN &lt;= 3000
                 auto it = ping_record.begin();
                 while(t-*it>3000) {
                     ping_record.erase(it);
@@ -60,8 +59,6 @@
                 ping_record.push_back(t);
             }
             return ping_record.size();
-            
-            //NOTE: This problem would probably be easier to solve with a priority queue.
         }
     };
 {% endblock solution_code %}

@@ -1,0 +1,107 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr.
+    </p>
+    <p class="question">
+        We want to select three indices i, j and k where (0 &lt;= i &lt; j &lt;= k &lt; arr.length).
+    </p>
+    <p class="question">
+        Let's define a and b as follows:
+    </p>
+    <ul>
+        <li>a = arr[i] ^ arr[i + 1] ^ ... ^ arr[j - 1]</li>
+        <li>b = arr[j] ^ arr[j + 1] ^ ... ^ arr[k]</li>
+    </ul>
+    <p class="question">
+        Note that ^ denotes the bitwise-xor operation.
+    </p>
+    <p class="question">
+        Return the number of triplets (i, j and k) Where a == b.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Calculate the total cumulative XOR while iterating over the array. Use a Trie to record all values of the cumulative XOR.
+    </p>
+    <p>
+        Two things to recognize:
+    </p>
+    <ol>
+        <li>Any number XOR'ed with itself is zero</li>
+        <li>If a string of numbers between position i and k XOR'ed in sequence equals zero, then any sequence of XORs from i 
+            to some index j (j between i and k) will produce a cumulative XOR equal to the XOR from j to k in order to satisfy 
+            1.</li>
+    </ol>
+    <p>
+        While iterating, when we encounter a previously seen XOR value, then we know the XORs between that previous value and 
+        the current value are zero and a set of triplets exists for every position between the previous index and the current 
+        index (between i and k, putting the j at every possible position).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        struct TrieNode{
+            TrieNode* children[2];       //Trie where every path from root to leaves is a cumulative XOR value that has been seen earlier in the array
+            int idx_sum;
+            int idx_quant;
+            
+            TrieNode(){
+                this->children[0] = nullptr; 
+                this->children[1] = nullptr;
+                this->idx_sum = 0;
+                this->idx_quant = 0;
+            }
+        };
+        
+        int countTriplets(vector&lt;int&gt;& arr) {
+            
+            //Establish cumulative xor, triplet counter and Trie root (the beginning of our XOR value tracking system)
+            int total_xor = 0;
+            int triplets = 0;
+            TrieNode* root = new TrieNode();
+            
+            //Iterate over all nodes and XOR together
+            for (int i = 0; i &lt; arr.size(); i++){
+                insert(root, total_xor, i);                   //At each node, insert the cumulative XOR into Trie if not present
+                total_xor ^= arr[i];                          //Increment cumulative XOR
+                triplets += found(root, total_xor, i);        //Add triplets if XOR has been seen previously (ranges between past XOR and current equal XOR)
+            }
+            return triplets;
+        }
+        
+        void insert(TrieNode* node, int xor_val, int idx){
+            for (int i = 31; i >= 0; i--){                    //Iterating over all numbers 11111 to 00000 (writing into Trie from left to right of binary number)
+                int bit = (xor_val >> i) & 1;                 //Get the current bit in xor_val
+                if (node->children[bit] == nullptr)           //If the current bit is not part of an existing path in Trie, add it
+                    node->children[bit] = new TrieNode();
+                node = node->children[bit];                 //Move to the node that was just created to continue growing the Trie as needed
+            }
+            
+            node->idx_sum += idx;         //At the leaf of the path representing this binary number, set the index and number of indices
+            node->idx_quant++;
+            return;
+        }
+        
+        int found(TrieNode* node, int xor_val, int idx){
+            for (int i = 31; i >= 0; i--){                  //Iterating over all the bits
+                int bit = (xor_val >> i) & 1;               //Get the current bit
+                if (node->children[bit] == nullptr)         //If the xor_val is not part of an existing path we didn't find it, return 0
+                    return 0;
+                node = node->children[bit];                 //Continue traversing the Trie (if the bit exists)
+            }
+            return (node->idx_quant * idx) - node->idx_sum;;    //triplets are equal to difference between current idx and past idx(s) because if i-k produces cumulative XOR of 0, any j between i and k will work
+        }
+    };
+{% endblock solution_code %}

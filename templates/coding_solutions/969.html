@@ -29,20 +29,18 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> pancakeSort(vector<int>& A) {
+        vector&lt;int&gt; pancakeSort(vector&lt;int&gt;& A) {
             
-            vector<int> kvals;
-            
-            if (isSorted(A)){
+            vector&lt;int&gt; kvals;
+            if (isSorted(A))
                 return kvals;
-            }
             
             int lastpos = A.size()-1;
             int currtarget;
             
             //for all targets from greatest to least, if already in position, continue, else flip to front and then back
             //store the k values for flipping to the front and then to the back
-            for (int i = 0; i < A.size(); i++){
+            for (int i = 0; i &lt; A.size(); i++){
                 currtarget = *max_element(A.begin(),A.begin()+lastpos+1);
                 if (A[lastpos] == currtarget){
                     lastpos--;
@@ -55,26 +53,21 @@
                     lastpos--;                            //reduce size of unsorted range
                 }
             }
-    
             return kvals;
         }
         
-        bool isSorted(vector<int> A){
-            for (int i = 1; i < A.size(); i++){
-                if (A[i-1] >= A[i]){
+        bool isSorted(vector&lt;int&gt; A){
+            for (int i = 1; i &lt; A.size(); i++)
+                if (A[i-1] >= A[i])
                     return false;
-                }
-            }
             return true;
         }
         
         //find in range
-        int findInRange(vector<int>& A, int item, int start, int end){
-            for (int i = start; i <= end; i++){
-                if (A[i] == item){
+        int findInRange(vector&lt;int&gt;& A, int item, int start, int end){
+            for (int i = start; i &lt;= end; i++)
+                if (A[i] == item)
                     return i;
-                }
-            }
             return -1;
         }
     };

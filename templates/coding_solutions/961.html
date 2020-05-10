@@ -25,16 +25,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int repeatedNTimes(vector<int>& A) {
+        int repeatedNTimes(vector&lt;int&gt;& A) {
             
-            unordered_map<int,int> counts;
-            
-            for (auto a:A){
-                if (counts[a]++ == 2){
+            unordered_map&lt;int,int&gt; counts;
+            for (auto& a : A){
+                if (counts[a]++ == 2)
                     return a;
-                } else {
+                else
                     counts[a]++;
-                }
             }
             return -1;
         }
