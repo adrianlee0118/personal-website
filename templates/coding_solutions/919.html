@@ -44,7 +44,7 @@
         }
         
         int insert(int v) {
-            queue <TreeNode*> q; 
+            queue &lt;TreeNode*&gt; q; 
             q.push(this->root);
             while(!q.empty()){                  //iterate over nodes in level order to ensure level-by-level filling
                 TreeNode* curr = q.front();      

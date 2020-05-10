@@ -24,44 +24,40 @@
 //Sorting machine class
 class SortingAlgorithms{
     public:
-    void selectionSort(vector<int>& a){
+    void selectionSort(vector&lt;int&gt;& a){
         int min_index , i , j , n = a.size();
-        for (i = 0 ; i < n - 1 ; i++){
+        for (i = 0 ; i &lt; n - 1 ; i++){
             min_index = i;
-            for (j = i + 1 ; j < n ; j++){
-                if (a[j] < a[min_index]){
+            for (j = i + 1 ; j &lt; n ; j++)
+                if (a[j] &lt; a[min_index])
                     min_index = j;
-                }
-            }
             swap(a[i],a[min_index]);
         }
     }
 
-    void bubbleSort(vector<int>& a){
+    void bubbleSort(vector&lt;int&gt;& a){
 
         int i , j ;
         int n = a.size();
         bool isSorted = false;
 
-        for (i = 0 ; i < n - 1 ; i++){
+        for (i = 0 ; i &lt; n - 1 ; i++){
             isSorted = false;
-            for (j = 0; j < n - i - 1 ; j++){
+            for (j = 0; j &lt; n - i - 1 ; j++)
                 if (a[j] > a[j + 1]){
                     isSorted = true;
                     swap(a[j],a[j + 1]);
                 }
-            }
-            if (!isSorted){
+            if (!isSorted)
                 return;
-            }
         }
     }
 
-    void insertionSort(vector<int>& a){
+    void insertionSort(vector&lt;int&gt;& a){
 
         int i , n = a.size() , key , hole;
 
-        for (i = 1 ; i < n ; i++){
+        for (i = 1 ; i &lt; n ; i++){
             
             key = a[i];
             hole = i - 1;
@@ -71,19 +67,17 @@ class SortingAlgorithms{
                 hole--;
             }
 
-            
-            
             a[hole + 1] = key;
         }
     }
     
-    void mergeSort(vector<int>& a){
+    void mergeSort(vector&lt;int&gt;& a){
         mergeSort(a,0,a.size() - 1);
     }
     
-    void mergeSort(vector<int>& a , int l , int r){
+    void mergeSort(vector&lt;int&gt;& a , int l , int r){
         
-        if (l < r){
+        if (l &lt; r){
             int m = l + (r - l)/2;
             
             mergeSort(a , l , m);
@@ -93,27 +87,25 @@ class SortingAlgorithms{
         }
     }
     
-    void quickSort(vector<int>& a){
+    void quickSort(vector&lt;int&gt;& a){
         quickSort(a , 0 , a.size() - 1);
     }
     
-    void quickSort(vector<int>& a , int low , int high){
+    void quickSort(vector&lt;int&gt;& a , int low , int high){
         
-        if (low < high){
+        if (low &lt; high){
             
             int pi = partition(a , low , high);
-            
             quickSort(a , low , pi - 1);
             quickSort(a , pi + 1 , high);
         }
     }
 
-    void heapSort(vector<int>& arr){
+    void heapSort(vector&lt;int&gt;& arr){
 
         int n = arr.size();
-        for (int i = (n/2) - 1 ; i >= 0 ; i--){
+        for (int i = (n/2) - 1 ; i >= 0 ; i--)
             heapify(arr,i,n);
-        }
 
         for (int i = n - 1 ; i >= 0 ; i--){
             swap(arr[0] , arr[i]);
@@ -123,21 +115,18 @@ class SortingAlgorithms{
     
     private:
     //helper function for mergesort
-    void merge(vector<int>& a ,int start, int mid , int end){
+    void merge(vector&lt;int&gt;& a ,int start, int mid , int end){
         
-        if (start == end){
+        if (start == end)
             return;
-        } 
         int temp1[mid - start + 1] ;  //we should take upto [start ,... ,mid] because start ans mid can be 0 at the same time so length of array temp1 can be 0. But end and mid can never be zero at the same time 
         int temp2[end - mid];
         int k = 0;
-        for (int i = start ; i <= mid ; i++){
+        for (int i = start ; i &lt;= mid ; i++)
             temp1[k++] = a[i];
-        }
         k = 0;
-        for (int i = mid + 1 ; i <= end ; i++){
+        for (int i = mid + 1 ; i &lt;= end ; i++)
             temp2[k++] = a[i];
-        }
         
         int i = 0; 
         int j = 0;
@@ -145,37 +134,30 @@ class SortingAlgorithms{
         int n = end - mid ;
         k = start;
         
-        while (i < m && j < n){
-            if (temp1[i] < temp2[j]){
+        while (i &lt; m && j &lt; n){
+            if (temp1[i] &lt; temp2[j])
                 a[k++] = temp1[i++];
-            }
-            else{
+            else
                 a[k++] = temp2[j++];
-            }
         }
         
-        while (i < m){
+        while (i &lt; m)
             a[k++] = temp1[i++];
-        }
-        while (j < n){
+        while (j &lt; n)
             a[k++] = temp2[j++];
-        }
     }    
 
     //helper function for quick sort
-    int partition(vector<int>& arr , int low , int high){
-        
+    int partition(vector&lt;int&gt;& arr , int low , int high){
         
         int& pivot = arr[high];
         int i = low - 1;
             
-        for (int j = low ; j <= high ; j++){
-                
-            if (arr[j] < pivot){
+        for (int j = low ; j &lt;= high ; j++)
+            if (arr[j] &lt; pivot){
                 i++;
                 swap(arr[i],arr[j]);
             }
-        }
         i++;
         swap(arr[i],pivot);
         
@@ -183,23 +165,20 @@ class SortingAlgorithms{
     }
 
     //helper function for heap sort
-    void heapify(vector<int>& arr , int i , int n){
+    void heapify(vector&lt;int&gt;& arr , int i , int n){
 
         int largest = i;
 
         int l = 2*i + 1;
         int r = 2*i + 2;
 
-        if (l < n && arr[l] > arr[i]){
+        if (l &lt; n && arr[l] > arr[i])
             largest = l;
-        }
 
-        if (r < n && arr[r] > arr[largest]){
+        if (r &lt; n && arr[r] > arr[largest])
             largest = r;
-        }
 
         if (largest != i){
-
             swap(arr[i] , arr[largest]);
             heapify(arr , largest , n);
         }
@@ -208,12 +187,11 @@ class SortingAlgorithms{
 
 class Solution {
 public:
-    vector<int> sortArray(vector<int>& nums) {
+    vector&lt;int&gt; sortArray(vector&lt;int&gt;& nums) {
         SortingAlgorithms* sa = new SortingAlgorithms();
         
-        if (nums.size() < 15){
+        if (nums.size() &lt; 15)
             sa->insertionSort(nums);
-        }
         sa->quickSort(nums);
         return nums;
     }

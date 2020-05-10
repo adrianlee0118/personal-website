@@ -32,7 +32,7 @@
     <!-- coding portion of solution-->
     class StockSpanner {
     private:
-    vector<pair<int, int>> priceSpan;          //accumulates leading spans of major numbers
+    vector&lt;pair&lt;int, int&gt;&gt; priceSpan;          //accumulates leading spans of major numbers
         
     public:
         StockSpanner() {
@@ -41,7 +41,7 @@
         
         int next(int price) {
             int span = 1;                                                        //default span, if number is smaller than previous
-            while (!priceSpan.empty() && priceSpan.back().first <= price) {      //accumulate previous smaller number spans into current number's span
+            while (!priceSpan.empty() && priceSpan.back().first &lt;= price) {      //accumulate previous smaller number spans into current number's span
                 span += priceSpan.back().second;
                 priceSpan.pop_back();
             }

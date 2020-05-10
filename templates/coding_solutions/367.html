@@ -8,36 +8,36 @@
 {% block question %}
     <!-- Problem statement (format with p tags)-->
     <p class="question">
-        Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all 
-        the odd elements of A.
+        Given a positive integer num, write a function which returns True if num is a perfect square else False.
     </p>
     <p class="question">
-        You may return any answer array that satisfies this condition.
+        Note: Do not use any built-in library function such as sqrt.
     </p>
     <div class="line"></div>
 {% endblock question %}
 {% block solution_exp %}
     <!-- verbal portion of solution (format with p tags)-->
     <p>
-        
+       
     </p>
 {% endblock solution_exp %}
 {% block solution_code %}
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector&lt;int&gt; sortArrayByParity(vector&lt;int&gt;& A) {
-            vector&lt;int&gt; arr;
-            
-            for (int i:A)
-                if (i % 2 == 0)
-                    arr.push_back(i);
-            
-            for (int j:A)
-                if (j % 2 != 0)
-                    arr.push_back(j);
-            
-            return arr;
+        bool isPerfectSquare(int num) {
+            int start = 1;
+            int end = num;
+            while( start &lt;= end ) {
+                long mid = start + (end-start)/2;
+                if( mid*mid == num ) 
+                    return true;
+                else if( mid*mid > num ) 
+                    end = mid - 1;
+                else 
+                    start = mid + 1;
+            }
+            return false;
         }
     };
 {% endblock solution_code %}

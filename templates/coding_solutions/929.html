@@ -44,8 +44,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numUniqueEmails(vector<string>& emails) {
-            unordered_set<string> result;
+        int numUniqueEmails(vector&lt;string&gt;& emails) {
+            unordered_set&lt;string&gt; result;
             
             for (const string& email: emails) {
                 size_t pos = email.find('@');
@@ -53,11 +53,9 @@
                 string domainName {email.substr(pos + 1)};
                 
                 pos = localName.find("+");
-                if (pos != std::string::npos) {  //if plus is found
+                if (pos != std::string::npos)    //if plus is found
                     localName.erase(pos);        //erase from pos onwards
-                }
                 
-    
                 pos = localName.find(".");
                 while (pos != std::string::npos) {      //while periods are being found
                     localName.erase(pos, 1);            //erase them

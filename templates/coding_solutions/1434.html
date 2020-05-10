@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given the array paths, where paths[i] = [cityA<sub>i</sub>, cityB<sub>i</sub>] means there exists a direct path 
+        going from cityA<sub>i</sub> to cityB<sub>i</sub>. Return the destination city, that is, the city without any path 
+        outgoing to another city.
+    </p>
+    <p class="question">
+        therefore, there will be exactly one destination city.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+       
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numberWays(vector&lt;vector&lt;int&gt;&gt;& hats) {
+            int n = hats.size();
+            int m = 1000000007;
+            
+            //Store and index all preferences: keys are hats attached to the group of people that like that hat (require indices 0-40)
+            vector&lt;vector&lt;int&gt;&gt; preferences(41);
+            for(int i = 0; i &lt; n; i++)
+                for(auto& h : hats[i])
+                    preferences[h].push_back(i);
+    
+            //DP vector: index is some bit pattern representing people that are wearing hats (1) and those who aren't (0) by position, and value is the number of different ways that the available numbered hats can adorn the hat-wearing people in the bit pattern (given their preferences)
+            //DP vector sized to 10 bits at maximum because we want to ensure we have enough bits to do a mask (n <= 10 in problem)
+            vector&lt;int&gt; dp(1 &lt;&lt; n);
+            dp[0] = 1;
+            
+            //For each hat ID iterate over all dp entries from greatest to smallest (all people wearing hats ((1&lt;&lt;3)-1 = 1000-1 = 111 = 7 for n = 3) to none (000 = 0))
+            //This ensures that arrangements where there are more hat wearers will have their hat sequences built from similar arrangements with less hat wearers (bottom-up DP)
+            for(int i = 1; i &lt;= 40; i++)
+                for(int j = dp.size()-2; j >= 0; j--)
+                    for(auto& personID : preferences[i])     //For all people who prefer the current hat
+                        if((j & (1 &lt;&lt; personID)) == 0){      //if the current person in the current set is not wearing any hat
+                            dp[j | (1 &lt;&lt; personID)] += dp[j];  //the current set with the current person bit toggled to wearing a hat (the current hat i) gets an increment equal to the current set without that person wearing any hat (adding one more way of wearing hats to the number of ways of wearing hats when everyone except the current person is wearing hats)
+                            dp[j | (1 &lt;&lt; personID)] %= m;  
+                        }
+        
+            return dp.back();   // last answer is accumulation of ways to wear all the hats for n persons (1 &lt;&lt; n) - 1 equals to some binary number that is all 1s
+        }
+    };
+{% endblock solution_code %}
