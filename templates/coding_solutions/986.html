@@ -31,24 +31,22 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> intervalIntersection(vector<vector<int>>& A, vector<vector<int>>& B) {
-            vector<vector<int>> ans;
+        vector&lt;vector&lt;int&gt;&gt; intervalIntersection(vector&lt;vector&lt;int&gt;&gt;& A, vector&lt;vector&lt;int&gt;&gt;& B) {
+            vector&lt;vector&lt;int&gt;&gt; ans;
             int asect = 0, bsect = 0;
-            while (asect < A.size() && bsect < B.size()){
+            while (asect &lt; A.size() && bsect &lt; B.size()){
                 int start = max(A[asect][0],B[bsect][0]);
                 int end = min(A[asect][1],B[bsect][1]);
                 
                 //add the interval
-                if (start <= end){
+                if (start &lt;= end)
                     ans.push_back({start,end});
-                }
                 
                 //step forward on A or B, whichever is less
-                if (end == A[asect][1]){
+                if (end == A[asect][1])
                     asect++;
-                } else {
+                else 
                     bsect++;
-                }
             }
             return ans;
         }

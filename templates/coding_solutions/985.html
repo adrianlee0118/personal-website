@@ -34,23 +34,20 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> sumEvenAfterQueries(vector<int>& A, vector<vector<int>>& queries) {
+        vector&lt;int&gt; sumEvenAfterQueries(vector&lt;int&gt;& A, vector&lt;vector&lt;int&gt;&gt;& queries) {
             
-            vector<int> ans;
+            vector&lt;int&gt; ans;
             int evensum = 0;
-            for (auto elem : A){
-                if (elem % 2 == 0){
+            for (auto elem : A)
+                if (elem % 2 == 0)
                     evensum += elem;
-                }
-            }
             
-            for (int i = 0; i < queries.size(); i++){
+            for (int i = 0; i &lt; queries.size(); i++){
                 if (A[queries[i][1]] % 2 == 0){
-                    if( queries[i][0] % 2 == 0){
+                    if( queries[i][0] % 2 == 0)
                         evensum += queries[i][0];
-                    } else {
+                    else
                         evensum -= A[queries[i][1]];
-                    }
                 } else {
                     if ( queries[i][0] % 2 != 0){
                         evensum += A[queries[i][1]];

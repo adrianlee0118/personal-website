@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a rectangular pizza represented as a rows x cols matrix containing the following characters: 'A' (an apple) and 
+        '.' (empty cell) and given the integer k. You have to cut the pizza into k pieces using k-1 cuts. 
+    </p>
+    <p class="question">
+        For each cut you choose the direction: vertical or horizontal, then you choose a cut position at the cell boundary and 
+        cut the pizza into two pieces. If you cut the pizza vertically, give the left part of the pizza to a person. If you 
+        cut the pizza horizontally, give the upper part of the pizza to a person. Give the last piece of pizza to the last 
+        person.
+    </p>
+    <p class="question">
+        Return the number of ways of cutting the pizza such that each piece contains at least one apple. Since the answer can 
+        be a huge number, return this modulo 10^9 + 7.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int mod = 1000000007;
+        int m, n;
+        
+    public:
+        int ways(vector&lt;string&lt;& pizza, int k) {
+            this->m = pizza.size(); 
+            this->n = pizza[0].size();
+            
+            //3D DP vector: For some numbered cut &lt;= k, at some point i &lt; m, j &lt; n, count the number of valid cut sequences there are
+            vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp = vector(k, vector(m, vector(n, -1)));
+            
+            //Suffix Sum: for a given point i, j, counts the total number of apples that are below and to the right (not including apples in that row or column or on that space) because when we cut, we remove the top or left pieces from analysis
+            vector&lt;vector&lt;int&gt;&gt; SufSum = vector(m+1, vector(n+1, 0));
+            for (int i = m - 1; i >= 0; i--)
+                for (int j = n - 1; j >= 0; j--)
+                    SufSum[i][j] = SufSum[i][j+1] + SufSum[i+1][j] + (pizza[i][j] == 'A') - SufSum[i+1][j+1];   //Add left and bottom SufSum plus current apple if there is one, subtract double-count of apples once
+            
+            // DFS to find all cut sequences, using DP to reduce calculations if possible
+            return DFS(k-1, 0, 0, dp, SufSum);
+        }
+        
+        int DFS(int k, int i, int j, vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;& dp, vector&lt;vector&lt;int&gt;&gt;& SufSum) {
+            if (SufSum[i][j] == 0)   // No more apples in the remaining pizza, no need for further analysis
+                return 0;
+            if (k == 0)              // Current cut sequence is validated (k cuts, everytime all the remaining pieces had apples), add 1 way
+                return 1;
+            
+            if (dp[k][i][j] != -1)     //If we already determined the number of valid cuts from this point given the current number of cuts remaining
+                return dp[k][i][j];
+            
+            // Iterate over all possible next cuts from the pizza in its current state in the current sequence--all possible horizontals and then all possible verticals--add ways if we found valid cut sequences
+            int ans = 0;
+            for (int hcut = i + 1; hcut &lt; m; hcut++) 
+                if (SufSum[i][j] - SufSum[hcut][j] > 0)       // If we still have apples above this cut, proceed
+                    ans = (ans + DFS(k - 1, hcut, j, dp, SufSum)) % mod;
+            for (int vcut = j + 1; vcut &lt; n; vcut++) 
+                if (SufSum[i][j] - SufSum[i][vcut] > 0)       // If we have apples to the left of this cut, proceed
+                    ans = (ans + DFS(k - 1, i, vcut, dp, SufSum)) % mod;
+            
+            // Store ways in the dp and return
+            return dp[k][i][j] = ans;
+        }
+    };
+{% endblock solution_code %}

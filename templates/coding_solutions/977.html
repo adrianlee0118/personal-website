@@ -23,8 +23,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> sortedSquares(vector<int>& A) {
-            for (int i = 0; i < A.size(); i++){
+        vector&lt;int&gt; sortedSquares(vector&lt;int&gt;& A) {
+            for (int i = 0; i &lt; A.size(); i++){
                 A[i] = A[i]*A[i];
             }
             sort(A.begin(),A.end());

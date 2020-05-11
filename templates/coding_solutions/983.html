@@ -38,24 +38,21 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int mincostTickets(vector&lt;int&gt;& days, vector&lt;int&gt;& costs) {
             
             //Memoize answers: for any position, what is the minimum cost
-            vector<int> PosCost(days.size()+1, -1);
-            
+            vector&lt;int&gt; PosCost(days.size()+1, -1);
             return minCost(days, 0, costs, PosCost);
         }
         
-        int minCost(vector<int>& days, int pos, vector<int>& costs, vector<int>& PosCost){
+        int minCost(vector&lt;int&gt;& days, int pos, vector&lt;int&gt;& costs, vector&lt;int&gt;& PosCost){
             
             //All days covered, kill the recursion
-            if (pos >= days.size()){
+            if (pos >= days.size())
                 return 0;
-            }
             //Skip the calculation if we already did it before
-            if (PosCost[pos] != -1){
+            if (PosCost[pos] != -1)
                 return PosCost[pos];
-            }
             
             //One day pass path
             int OneDay = costs[0] + minCost(days, pos+1, costs, PosCost);
@@ -63,9 +60,8 @@
             //Seven day pass path
             int increment = 0;
             int initial = days[pos];
-            while ( pos + increment < days.size()-1 && days[pos+increment+1] - initial < 7 ){
+            while ( pos + increment &lt; days.size()-1 && days[pos+increment+1] - initial &lt; 7 )
                 increment++;
-            }
             int SevenDay = costs[1] + minCost(days, pos+increment+1, costs, PosCost);
             int cost = min(OneDay,SevenDay);
             
@@ -73,9 +69,8 @@
             //Thirty Days path
             increment = 0;
             initial = days[pos];
-            while ( pos + increment < days.size()-1 && days[pos+increment+1] - initial < 30 ){
+            while ( pos + increment &lt; days.size()-1 && days[pos+increment+1] - initial &lt; 30 )
                 increment++;
-            }
             int ThirtyDay = costs[2] + minCost(days, pos+increment+1, costs, PosCost);
             
             //return the minimum of all the paths

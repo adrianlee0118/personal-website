@@ -27,7 +27,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> commonChars(vector<string>& A) {
+        vector&lt;string&gt; commonChars(vector&lt;string&gt;& A) {
             
             //1. cycle through each word and count the letters arranged sequentially in a 2D array
             //2. maintain a count of the minimum occurrence of each letter across all words using an extra          
@@ -37,35 +37,28 @@
             
             int letter_count[A.size()+1][26] = {{0}};    //all words in A + 1 counting row, 26 letters
             
-            for (int h = 0; h < 26; h++){
-                letter_count[A.size()][h] = 101;        //set default max value of counter row to be                                                           //superceded by the letters we count
-            }
-            
-            for (int i = 0; i < A.size(); i ++){
+            for (int h = 0; h &lt; 26; h++)
+                letter_count[A.size()][h] = 101;        //set default max value of counter row to be superceded by the letters we count
+
+            for (int i = 0; i &lt; A.size(); i ++){
                 
-                for (int j = 0; j < A[i].size(); j++){
-                    
+                for (int j = 0; j &lt; A[i].size(); j++)
                     letter_count[i][A[i][j]-'a']++;        //count letters and store wrt each word
-                }
                 
-                for (int k = 0; k < 26; k++){    //keep track of new minimum counts of a letter in any word
-                    if (letter_count[i][k] < letter_count[A.size()][k]){
+                for (int k = 0; k &lt; 26; k++)             //keep track of new minimum counts of a letter in any word
+                    if (letter_count[i][k] &lt; letter_count[A.size()][k])
                         letter_count[A.size()][k] = letter_count[i][k];
-                    }
-                }
             }
             
-            vector<string> charlist;
+            vector&lt;string&gt; charlist;
             string c;
             
-            for (int l = 0; l < 26; l++){                       //for each letter in the count row
-                
-                for (int m = 0; m < letter_count[A.size()][l]; m++){   //push a quantity of that letter 
+            for (int l = 0; l &lt; 26; l++)                       //for each letter in the count row
+                for (int m = 0; m &lt; letter_count[A.size()][l]; m++){   //push a quantity of that letter 
                                                                         //equal to the min counted instances
                     c = 'a'+l;
                     charlist.push_back(c);
                 }
-            }
             
             return charlist;
         }

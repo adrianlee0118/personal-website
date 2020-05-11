@@ -28,11 +28,11 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        vector&lt;vector&lt;int&gt;&gt; kClosest(vector&lt;vector&lt;int&gt;&gt;& points, int K) {
             //Store squared distance from 0,0 for all points by position in points (use squred distance to avoid 
             //rounding errors from sqrt operations)
-            vector<pair<int,int>> DistPos;
-            for (int i = 0; i < points.size(); i++){
+            vector&lt;pair&lt;int,int&gt;&gt; DistPos;
+            for (int i = 0; i &lt; points.size(); i++){
                 DistPos.push_back(std::make_pair(pow(points[i][0],2)+pow(points[i][1],2),i));
             }
             
@@ -40,8 +40,8 @@
             sort(DistPos.begin(),DistPos.end());
             
             //Get K points corresponding to K smallest distances from points vector directly, return
-            vector<vector<int>> ans;
-            for (int i = 0; i < K; i++){
+            vector&lt;vector&lt;int&gt;&gt; ans;
+            for (int i = 0; i &lt; K; i++){
                 ans.push_back(points[DistPos[i].second]);
             }
             return ans;

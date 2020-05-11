@@ -40,7 +40,7 @@
             countMoves(root->left, move);
             countMoves(root->right, move);
             if (root->left){
-                while (root->left->val < 1){
+                while (root->left->val &lt; 1){
                     root->val--;
                     root->left->val++;
                     move++;
@@ -52,7 +52,7 @@
                 }
             }
             if (root->right){
-                while (root->right->val < 1){
+                while (root->right->val &lt; 1){
                     root->val--;
                     root->right->val++;
                     move++;

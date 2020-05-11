@@ -33,53 +33,46 @@
 {% block solution_code %}
 class Solution {
 private:
-    vector<int> y = {1,-1,0,0};
-    vector<int> x = {0,0,1,-1};
+    vector&lt;int&gt; y = {1,-1,0,0};
+    vector&lt;int&gt; x = {0,0,1,-1};
     
 public:
-    int uniquePathsIII(vector<vector<int>>& grid) {
+    int uniquePathsIII(vector&lt;vector&lt;int&gt;&gt;& grid) {
         int count = 0;
         //iterate over all possible starting cells, launch recursion if start found
-        for (int i = 0; i < grid.size(); i++){
-            for (int j = 0; j < grid[0].size(); j++){
+        for (int i = 0; i &lt; grid.size(); i++)
+            for (int j = 0; j &lt; grid[0].size(); j++)
                 if (grid[i][j] == 1){
                     launchPath(grid,i,j,count);
                     break;                        //we found the 1; no need for further analysis
                 }
-            }
-        } 
         return count;
     }
     
     //Recursively traverse all available adjacent cells of a given cell, if 2 is found add to count if matrix
     //has been completely traversed
-    void launchPath(vector<vector<int>>& grid, int i, int j, int& count){
+    void launchPath(vector&lt;vector&lt;int&gt;&gt;& grid, int i, int j, int& count){
         if (grid[i][j] == 2){
             grid[i][j] = -1;
-            if (checkCover(grid)){
+            if (checkCover(grid))
                 count++;
-            }
             grid[i][j] = 2;
             return;
         }
         
         grid[i][j] = -1;
-        for (int k = 0; k < 4; k++){
-            if (i+y[k] >= 0 && i+y[k] < grid.size() && j+x[k] >= 0 && j+x[k] < grid[0].size() && grid[i+y[k]][j+x[k]] != -1){
+        for (int k = 0; k &lt; 4; k++)
+            if (i+y[k] >= 0 && i+y[k] &lt; grid.size() && j+x[k] >= 0 && j+x[k] &lt; grid[0].size() && grid[i+y[k]][j+x[k]] != -1)
                 launchPath(grid,i+y[k],j+x[k],count);
-            }
-        }
         grid[i][j] = 0;            //backtrack
         return;
     }
     
     //check row by row if all entries in the entire matrix are exactly -1
-    bool checkCover(vector<vector<int>>& grid){
-        for (int i = 0; i < grid.size(); i++){
-            if ( std::accumulate(grid[i].begin(),grid[i].end(),0) != -1*grid[0].size() ){
+    bool checkCover(vector&lt;vector&lt;int&gt;&gt;& grid){
+        for (int i = 0; i &lt; grid.size(); i++)
+            if ( std::accumulate(grid[i].begin(),grid[i].end(),0) != -1*grid[0].size())
                 return false;
-            }
-        }
         return true;
     }
 };

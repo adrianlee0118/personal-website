@@ -25,14 +25,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int largestPerimeter(vector<int>& A) {
+        int largestPerimeter(vector&lt;int&gt;& A) {
             int N = A.size();
             if (N &lt; 3) {
                 return 0;
             }
             
             // sort A, decreasing
-            sort(A.begin(), A.end(), greater<int>());
+            sort(A.begin(), A.end(), greater&lt;int&gt;());
             
             // loop from 0 to N-3, only need to consider the combination A[i], A[i+1], A[i+2] for each i
             for (int i(0); i &lt; N - 2; ++i) {
