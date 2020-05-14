@@ -26,8 +26,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        void diff(TreeNode* node, int minnum, int maxnum, int &maxdiff)
-        {
+        void diff(TreeNode* node, int minnum, int maxnum, int &maxdiff){
             if(node == nullptr) return;
             minnum = min(node->val, minnum);
             maxnum = max(node->val, maxnum);
@@ -36,6 +35,7 @@
             diff(node->right, minnum, maxnum, maxdiff);
             
         }
+        
         int maxAncestorDiff(TreeNode* root) {
             int maxDiff = INT_MIN;
             diff(root, INT_MAX, INT_MIN, maxDiff);

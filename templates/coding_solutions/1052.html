@@ -35,32 +35,27 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int X) {
+        int maxSatisfied(vector&lt;int&gt;& customers, vector&lt;int&gt;& grumpy, int X) {
             
             //Get the current total of satisfied customers
             int satisfied = 0;
-            for (int i = 0; i < customers.size(); i++){
-                if (grumpy[i] == 0){
+            for (int i = 0; i &lt; customers.size(); i++)
+                if (grumpy[i] == 0)
                     satisfied += customers[i];
-                }
-            }
             
             //Cumulative sum of grumpy customers at each position in customers array
-            vector<int>prefix (customers.size()+1,0);
-            for (int i = 1; i <= customers.size(); i++){
-                if (grumpy[i-1] == 1){
+            vector&lt;int&gt;prefix (customers.size()+1,0);
+            for (int i = 1; i &lt;= customers.size(); i++){
+                if (grumpy[i-1] == 1)
                     prefix[i] = customers[i-1]+prefix[i-1];
-                } else {
+                else
                     prefix[i] = prefix[i-1];   
-                }
             }
             
             //get the maximum possible capture of grumpy customers in a subarray of length X
             int maxchange = 0;
-            for (int i = X; i < prefix.size(); i++){
+            for (int i = X; i &lt; prefix.size(); i++)
                 maxchange = max(maxchange,prefix[i]-prefix[i-X]); 
-            }
-            
             return satisfied+maxchange;
         }
     };

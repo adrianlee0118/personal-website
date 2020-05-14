@@ -44,14 +44,12 @@
                 sum+=num;
                 return;
             }
-            num*=2;
-            num+=root->val;
-            if (root->left){
+            num *= 2;
+            num += root->val;
+            if (root->left)
                 preOrderTraversal(root->left, num, sum);
-            }
-            if (root->right){
+            if (root->right)
                 preOrderTraversal(root->right, num, sum);   
-            }
             return;
         }
     };

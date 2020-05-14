@@ -26,16 +26,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int longestArithSeqLength(vector<int>& A) {
-            if (A.size() == 1){
+        int longestArithSeqLength(vector&lt;int&gt;& A) {
+            if (A.size() == 1)
                 return 1;
-            }
             int n = A.size();
             int maxlen = 1;
-            unordered_map<int,unordered_map<int,int>> dp;      //map: sequences ending in position number, difference, sequence length
+            unordered_map&lt;int,unordered_map&lt;int,int&gt;&gt; dp;      //map: sequences ending in position number, difference, sequence length
             
-            for(int i = 0; i < n; i++){                     //at all possible endpoints
-                for(int j = 0; j < i; j++){                 //iterate over all subarray numbers
+            for(int i = 0; i &lt; n; i++){                     //at all possible endpoints
+                for(int j = 0; j &lt; i; j++){                 //iterate over all subarray numbers
                     int diff = A[i]-A[j];
                     dp[i][diff] = dp[j][diff]+1;    //if the current number at j is part of an arithmetic sequence with the same difference as the difference between i and j (i.e., we counted it in the map and value != 0) take the existing sequence length and increment by 1
                     maxlen = max(maxlen,dp[i][diff]);        //modify maximum accordingly

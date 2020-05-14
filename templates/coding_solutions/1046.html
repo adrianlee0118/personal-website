@@ -33,8 +33,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int lastStoneWeight(vector<int>& stones) {
-            priority_queue<int> pq;
+        int lastStoneWeight(vector&lt;int&gt;& stones) {
+            priority_queue&lt;int&gt; pq;
             for (auto& s : stones) pq.push(s);
             while (pq.size() > 1){
                 int s1 = pq.top();

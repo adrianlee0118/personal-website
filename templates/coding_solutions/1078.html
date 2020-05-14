@@ -43,20 +43,16 @@
                 
                 if (word == first){
                     firsted = true;
-                    if (seconded == true){
+                    if (seconded == true)
                         seconded = false;
-                    }
                 } else if (word == second){
-                    if (firsted == true){
+                    if (firsted == true)
                         seconded = true;
-                    }
                 } else {
-                    if (firsted){
+                    if (firsted)
                         firsted = false;
-                    }
-                    if (seconded){
+                    if (seconded)
                         seconded = false;
-                    }
                 }
             }
             return thirds;

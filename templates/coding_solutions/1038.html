@@ -34,17 +34,16 @@
         TreeNode* bstToGst(TreeNode* root) {
             
             //Record all values in the tree
-            vector<int> storekeys;
+            vector&lt;int&gt; storekeys;
             StoreKeys(root,storekeys);
             
             //Generate sums and map
             sort(storekeys.begin(),storekeys.end());
-            unordered_map<int,int> ValueAdd;
-            for (int i = 0; i < storekeys.size()-1; i++){
+            unordered_map&lt;int,int&gt; ValueAdd;
+            for (int i = 0; i &lt; storekeys.size()-1; i++){
                 int sum = 0;
-                for (int j = i+1; j < storekeys.size(); j++){
+                for (int j = i+1; j &lt; storekeys.size(); j++)
                     sum += storekeys[j];
-                }
                 ValueAdd[storekeys[i]] = sum;
             }
             
@@ -53,11 +52,9 @@
             return root;
         }
         
-        void StoreKeys(TreeNode* root, vector<int>& storekeys){
-            if (!root){
+        void StoreKeys(TreeNode* root, vector&lt;int&gt;& storekeys){
+            if (!root)
                 return;
-            }
-            
             storekeys.push_back(root->val);
             
             StoreKeys(root->left,storekeys);
@@ -65,11 +62,9 @@
             return;
         }
         
-        void AddSums(TreeNode* root, unordered_map<int,int>& ValueAdd){
-            if (!root){
+        void AddSums(TreeNode* root, unordered_map&lt;int,int&gt;& ValueAdd){
+            if (!root)
                 return;
-            }
-            
             root->val += ValueAdd[root->val];
             
             AddSums(root->left, ValueAdd);

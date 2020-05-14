@@ -28,24 +28,23 @@
     <!-- coding portion of solution-->
     class Solution {
     private:
-        vector<int> y = {1,-1,0,0};        //Facilitate 4-directional iteration
-        vector<int> x = {0,0,1,-1};
+        vector&lt;int&gt; y = {1,-1,0,0};        //Facilitate 4-directional iteration
+        vector&lt;int&gt; x = {0,0,1,-1};
         int m, n;
         
     public:
-        int numEnclaves(vector<vector<int>>& A) {
+        int numEnclaves(vector&lt;vector&lt;int&gt;&gt;& A) {
             m = A.size();
             n = A[0].size();
-            vector<vector<bool>> visited(m,vector<bool>(n,false));
+            vector&lt;vector&lt;bool&gt;&gt; visited(m,vector&lt;bool&gt;(n,false));
             int cnt = 0;
-            for (int i = 1; i < m-1; i++){
-                for (int j = 1; j < n-1; j++){        //Iterate over interior cells - exterior cells will not be part of an enclave as defined in the problem
+            for (int i = 1; i &lt; m-1; i++){
+                for (int j = 1; j &lt; n-1; j++){        //Iterate over interior cells - exterior cells will not be part of an enclave as defined in the problem
                     if (A[i][j] == 1 && !visited[i][j]){
-                        bool isIsland = true;                                    //Count the size of the landmass, add to cnt if it's an island
+                        bool isIsland = true;            //Count the size of the landmass, add to cnt if it's an island
                         int newIsland = countIslandSize(A,visited,i,j,isIsland);
-                        if (isIsland){
+                        if (isIsland)
                             cnt += newIsland;
-                        }
                     }      
                 }
             }
@@ -53,13 +52,13 @@
         }
         
         //Count the size of a connected landmass extending from i,j maintaining a boolean to indicate if it is an enclave that doesn't touch the edges of the grid
-        int countIslandSize(vector<vector<int>>& A, vector<vector<bool>>& visited, int i, int j, bool& isIsland){
+        int countIslandSize(vector&lt;vector&lt;int&gt;&gt;& A, vector&lt;vector&lt;bool&gt;&gt;& visited, int i, int j, bool& isIsland){
             int size = 1;
             visited[i][j] = true;
-            for (int k = 0; k < 4; k++){
+            for (int k = 0; k &lt; 4; k++){
                 int ii = i + y[k];
                 int jj = j + x[k];
-                if (ii < 0 || ii >= m || jj < 0 || jj >= n){
+                if (ii &lt; 0 || ii >= m || jj &lt; 0 || jj >= n){
                     isIsland = false;
                 } else if (A[ii][jj] == 1 && !visited[ii][jj]){
                     int adj = countIslandSize(A,visited,ii,jj, isIsland);

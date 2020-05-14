@@ -26,16 +26,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        typedef pair<int, int> pi; 
+        typedef pair&lt;int, int&gt; pi; 
     
-        int twoCitySchedCost(vector<vector<int>>& costs) {
+        int twoCitySchedCost(vector&lt;vector&lt;int&gt;&gt;& costs) {
             
             //Store cost difference mapped to position in decreasing order (people who have smallest cost increase of 
             //going to city A as opposed to B will be at the top - the popping position)
-            priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-            for(int i = 0; i &lt; costs.size(); i++){
+            priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; pq;
+            for(int i = 0; i &lt; costs.size(); i++)
                 pq.push(make_pair(costs[i][0] - costs[i][1], i));
-            } 
             
             //For the last N people in that list, add their city A cost to city1 - these are the folks where going to
             //city A creates the greatest cost savings

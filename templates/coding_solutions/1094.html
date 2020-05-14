@@ -31,11 +31,11 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool carPooling(vector<vector<int>>& trips, int capacity) {
+        bool carPooling(vector&lt;vector&lt;int&gt;&gt;& trips, int capacity) {
             
             //index passenger demand by start and end locations, sort by location
-            vector<vector<int>> pickups;
-            vector<vector<int>> dropoffs;
+            vector&lt;vector&lt;int&gt;&gt; pickups;
+            vector&lt;vector&lt;int&gt;&gt; dropoffs;
             for (auto& t : trips){
                 pickups.push_back({t[1],t[0]});
                 dropoffs.push_back({t[2],t[0]});
@@ -47,8 +47,8 @@
             //Iterate through trips in physical order of traversal, if we ever have a pickup where there isn't enough space, return false
             int pick_idx = 0;
             int drop_idx = 0;
-            while (pick_idx < pickups.size() && drop_idx < dropoffs.size()){
-                if (pickups[pick_idx][0] < dropoffs[drop_idx][0]){
+            while (pick_idx &lt; pickups.size() && drop_idx &lt; dropoffs.size()){
+                if (pickups[pick_idx][0] &lt; dropoffs[drop_idx][0]){
                     if (pickups[pick_idx][1] > capacity){
                         return false;
                     } else {

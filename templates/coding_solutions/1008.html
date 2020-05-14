@@ -28,29 +28,26 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        TreeNode* bstFromPreorder(vector<int>& preorder) {
+        TreeNode* bstFromPreorder(vector&lt;int&gt;& preorder) {
             
             TreeNode* root = new TreeNode(preorder[0]);
-            for (int i = 1; i < preorder.size(); i++){
+            for (int i = 1; i &lt; preorder.size(); i++)
                 insert(root,preorder[i]);
-            }
             return root;
         }
         
         void insert(TreeNode* root, int val){
             if (!root) return;
-            if (val < root->val){
-                if (root->left){
+            if (val &lt; root->val){
+                if (root->left)
                     insert(root->left, val);
-                } else {
+                else 
                     root->left = new TreeNode(val);
-                }
             } else {
-                if (root->right){
+                if (root->right)
                     insert(root->right, val);
-                } else {
+                else
                     root->right = new TreeNode(val);
-                }
             }
             return;
         }

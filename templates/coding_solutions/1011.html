@@ -36,7 +36,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int shipWithinDays(vector<int>& weights, int D) {
+        int shipWithinDays(vector&lt;int&gt;& weights, int D) {
             
             int minc = 0;
             int total = 0;
@@ -47,7 +47,7 @@
                 total += w;                  //Get total weight of entire shipment (1 day delivery)
             }
             
-            while(minc < total) {                      //Increase minc until we reach total or until shipping within D days
+            while(minc &lt; total) {                      //Increase minc until we reach total or until shipping within D days
                 int cap = minc + (total-minc)/2;       //The final cap will be somewhere between the current cap and the total;
                 int days = 1;                         //binary search starting at average between cap and total, move up or down 
                 int currWeight = 0;                   //as necessary

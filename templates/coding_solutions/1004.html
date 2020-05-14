@@ -25,10 +25,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int longestOnes(vector<int>& A, int K) {
+        int longestOnes(vector&lt;int&gt;& A, int K) {
             int lo = 0, hi = 0, maxSize = K;
             
-            while (hi < A.size()) {
+            while (hi &lt; A.size()) {
                 if (A[hi] == 0) {         // we see a 0, expand if K > 0.
                     if (K > 0) {
                         K--;

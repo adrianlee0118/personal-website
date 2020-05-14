@@ -33,8 +33,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> nextLargerNodes(ListNode* head) {
-            vector<int> answer;
+        vector&lt;int&gt; nextLargerNodes(ListNode* head) {
+            vector&lt;int&gt; answer;
             while (head != nullptr){
                 answer.push_back(next_larger(head));
                 head = head->next;
@@ -45,11 +45,10 @@
         int next_larger(ListNode* node){
             int num = node->val;
             while (node != nullptr){
-                if (node->val > num){
+                if (node->val > num)
                     return node->val;
-                } else {
+                else
                     node = node->next;
-                }
             }
             return 0;
         }

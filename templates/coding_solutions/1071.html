@@ -26,7 +26,7 @@
     class Solution {
     public:
         string gcdOfStrings(string str1, string str2) {
-            if (str2.size() < str1.size()) swap(str1,str2);           //ensure str1 is the shorter string
+            if (str2.size() &lt; str1.size()) swap(str1,str2);           //ensure str1 is the shorter string
             int l1 = str1.size();
             for (int i = l1; i > 0; i--){                             //for all substrings of str1 from longest to shortest that
                 if (l1 % i != 0) continue;                            //str1 is mathematically divisible by length
@@ -40,7 +40,7 @@
         bool divides(string& x, string& s){
             int l = x.size();
             if (s.size() % l != 0) return false;
-            for (int i = 0; i <= s.size()-l; i+=l)
+            for (int i = 0; i &lt;= s.size()-l; i+=l)
                 if (s.substr(i,l) != x) return false;
             return true;
         }

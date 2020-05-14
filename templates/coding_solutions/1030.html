@@ -35,15 +35,12 @@
                 vector&lt;vector&lt;int&gt;&gt; result;
                 multimap&lt;int, vector&lt;int&gt;&gt; map;
     
-                for (int i = 0; i &lt; R; i++) {
-                    for (int j = 0; j &lt; C; j++) {
+                for (int i = 0; i &lt; R; i++)
+                    for (int j = 0; j &lt; C; j++) 
                         map.insert({ abs(i - r0) + abs(j - c0), {i, j} });
-                    }
-                }
     
-                for (auto& p : map) {
+                for (auto& p : map) 
                     result.push_back(p.second);
-                }
                 return result;
         }
     };

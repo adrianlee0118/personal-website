@@ -38,8 +38,7 @@
                 N /= -2; 
         
                 // if remainder is -1, add abs(base) to it and add 1 to n 
-                if (remainder < 0) 
-                { 
+                if (remainder &lt; 0) { 
                     remainder += 2;    //remainder -1 -> 1
                     N += 1; 
                 } 
@@ -47,7 +46,6 @@
                 // convert remainder to string add into the result 
                 converted = to_string(remainder) + converted; 
             } 
-        
             return converted; 
         }
     };

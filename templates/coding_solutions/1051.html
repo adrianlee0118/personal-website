@@ -30,33 +30,29 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int heightChecker(vector<int>& heights) {
+        int heightChecker(vector&lt;int&gt;& heights) {
             
             //examine each number to see if a swap with a later number is possible (2 moves)
             int minpos = 0;
             
             //track out of place positions with a set because we need not double count 2 moves out of the
             //same spot
-            set<int> error;
+            set&lt;int&gt; error;
             
-            for (int i = 0; i < heights.size()-1; i++){
+            for (int i = 0; i &lt; heights.size()-1; i++){
                 
                 minpos = i;
-                
-                for (int j = i+1; j < heights.size(); j++){
-                    if (heights[minpos]>=heights[j]){    //get the minimum that is furthest back  
+                for (int j = i+1; j &lt; heights.size(); j++)
+                    if (heights[minpos]>=heights[j])          //get the minimum that is furthest back  
                         minpos = j;
-                    }
-                }
                 
-                if (heights[minpos] < heights[i]){
+                if (heights[minpos] &lt; heights[i]){
                     error.insert(i);
                     error.insert(minpos);
                     
                     int temp = heights[i];
                     heights[i] = heights[minpos];
                     heights[minpos] = temp;
-                    
                 }
             }
             return error.size();

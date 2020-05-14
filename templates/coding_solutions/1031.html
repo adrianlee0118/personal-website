@@ -16,8 +16,8 @@
         Formally, return the largest V for which V = (A[i] + A[i+1] + ... + A[i+L-1]) + (A[j] + A[j+1] + ... + A[j+M-1]) and either:
     </p>
     <ul>
-        <li>0 <= i < i + L - 1 < j < j + M - 1 < A.length, or</li>
-        <li>0 <= j < j + M - 1 < i < i + L - 1 < A.length.</li>
+        <li>0 &lt;= i &lt; i + L - 1 &lt; j &lt; j + M - 1 &lt; A.length, or</li>
+        <li>0 &lt;= j &lt; j + M - 1 &lt; i &lt; i + L - 1 &lt; A.length.</li>
     </ul>
     <div class="line"></div>
 {% endblock question %}
@@ -33,33 +33,29 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int maxSumTwoNoOverlap(vector<int>& A, int L, int M) {
+        int maxSumTwoNoOverlap(vector&lt;int&gt;& A, int L, int M) {
             
-            vector<int> prefixSum(A.size()+1, 0);         //at position i, sum of all numbers before i
+            vector&lt;int&gt; prefixSum(A.size()+1, 0);         //at position i, sum of all numbers before i
             int max = -1;
             
-            for (int i = 1; i < prefixSum.size(); ++i) {  //precalculate prefix sums, to speed up sliding
-                prefixSum[i] = prefixSum[i-1]+A[i-1];     //window calcs
-            }
+            for (int i = 1; i &lt; prefixSum.size(); ++i)   //precalculate prefix sums, to speed up sliding
+                prefixSum[i] = prefixSum[i-1]+A[i-1];       //window calcs
             
-            for (int i = L; i < prefixSum.size(); ++i) {   //Iterating over all possible L subarrays
+            for (int i = L; i &lt; prefixSum.size(); ++i) {   //Iterating over all possible L subarrays
                 int lSum = prefixSum[i]-prefixSum[i-L];    //Get the LSum
                 
-                for (int j = M; j < i-L; ++j) {            //Iterate over all possible M's before the current L
+                for (int j = M; j &lt; i-L; ++j) {            //Iterate over all possible M's before the current L
                     int mSum = prefixSum[j]-prefixSum[j-M];
-                    if (lSum + mSum > max) {               //If we found a new max L+M, store it
+                    if (lSum + mSum > max)                 //If we found a new max L+M, store it
                         max = lSum + mSum;
-                    }
                 }
                 
-                for (int j = i + M; j < prefixSum.size(); ++j) { //Iterate over all possible M's after the L
+                for (int j = i + M; j &lt; prefixSum.size(); ++j) { //Iterate over all possible M's after the L
                     int mSum = prefixSum[j] - prefixSum[j-M];
-                    if (lSum + mSum > max) {              //If we found a new max L+M, store it
+                    if (lSum + mSum > max)                //If we found a new max L+M, store it
                         max = lSum + mSum;
-                    }
                 }
             }
-            
             return max;                         //return the max
         }
     };

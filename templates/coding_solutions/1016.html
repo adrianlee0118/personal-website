@@ -26,8 +26,7 @@
         bool queryString(string S, int N) {
             
             bool contains = true;
-            
-            for (int i = 1; i <= N; i++){
+            for (int i = 1; i &lt;= N; i++){
                 
                 string bin = "";
                 binary(i, bin);
@@ -36,21 +35,18 @@
                     break;
                 }
             }
-            
             return contains;
         }
     
         void binary(int N, string& bin){
             
-            if (N > 1){
+            if (N > 1)
                 binary(N/2, bin);
-            } 
             
-            if (N % 2 > 0){
+            if (N % 2 > 0)
                 bin += '1';
-            } else {
+            else
                 bin += '0';
-            }
         }
     };
 {% endblock solution_code %}

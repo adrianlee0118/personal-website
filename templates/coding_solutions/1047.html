@@ -31,22 +31,18 @@
     public:
         string removeDuplicates(string S) {
             
-            if( S.length() == 1 ) {
+            if( S.length() == 1 )
                 return S;
-            }
-            
             string stored = "";
             
             for (char c:S){
-                if (stored == ""){
+                if (stored == "")
                     stored.push_back(c);
-                } else if (stored.back() == c){
+                else if (stored.back() == c)
                     stored.pop_back();
-                } else {
+                else
                     stored.push_back(c);
-                }
             }
-            
             return stored;
         }
     };

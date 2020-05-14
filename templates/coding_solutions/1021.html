@@ -41,19 +41,15 @@
             int depth = 0;
             
             for (char c : S) {
-                if (c == '(') {
+                if (c == '(')
                     depth++;
-                }   
 
-                if (depth >= 2) {   //while we are inside one open bracket, write all the brackets read
+                if (depth >= 2)   //while we are inside one open bracket, write all the brackets read
                     result += c;
-                }
                     
-                if (c == ')') {   //keep track of what level we are at, if we get out to less than one layer
+                if (c == ')')     //keep track of what level we are at, if we get out to less than one layer
                     depth--;
-                }
             }
-            
             return result;
         }
     };

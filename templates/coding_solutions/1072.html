@@ -30,34 +30,27 @@
     //number of uniform patterns possible given some number of flips.
     class Solution{
     public:  
-        int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+        int maxEqualRowsAfterFlips(vector&lt;vector&lt;int&gt;&gt;& matrix) {
             
-            unordered_map<string, int> row_patterns;
-            
-            for (int i = 0; i < matrix.size(); i++){
+            unordered_map&lt;string, int&gt; row_patterns;
+            for (int i = 0; i &lt; matrix.size(); i++){
                 
                 string ones(matrix[0].size(), '0');
                 string zeroes(matrix[0].size(), '0');
-                
-                for (int j = 0; j < matrix[0].size(); j++){
-                    
-                    if (matrix[i][j] == 1){
+                for (int j = 0; j &lt; matrix[0].size(); j++){
+                    if (matrix[i][j] == 1)
                         ones[j] = '1'; 
-                    } else {
+                    else
                         zeroes[j] = '1';
-                    }
                 }
-                
                 row_patterns[ones]++;
                 row_patterns[zeroes]++;
             }
             
             int max = 0;
-            for (auto it = row_patterns.begin(); it != row_patterns.end(); it++ ){
-                if (it->second > max){
+            for (auto it = row_patterns.begin(); it != row_patterns.end(); it++ )
+                if (it->second > max)
                     max = it->second;
-                }
-            }
             return max;
         }
     };

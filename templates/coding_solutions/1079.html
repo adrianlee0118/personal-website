@@ -30,30 +30,26 @@
             //and then all available remaining characters given all possible first character choices and so on.
             //Using the map ensures that no paths in the DFS traversal will be visited twice (i.e. no duplicate
             //strings will be generated.)
-            unordered_map<char,int> Chars;
-            for (auto ch : tiles){
+            unordered_map&lt;char,int&gt; Chars;
+            for (auto ch : tiles)
                 Chars[ch]++;
-            }
             int count = 0;
-            for (int i = 1; i <= tiles.size(); i++){
+            for (int i = 1; i &lt;= tiles.size(); i++)
                 count += DFS(Chars, i);
-            }
             return count;
         }
         
-        int DFS(unordered_map<char,int>& Chars, int tilesToUse) {
-            if (tilesToUse == 0){
-                return 1;    //add one to count if we used all the tiles
-            }
+        int DFS(unordered_map&lt;char,int&gt;& Chars, int tilesToUse) {
+            if (tilesToUse == 0)
+                return 1;         //add one to count if we used all the tiles
             
             int count = 0;
-            for (auto& it : Chars){
+            for (auto& it : Chars)
                 if (it.second > 0){
                     it.second--;
                     count += DFS(Chars,tilesToUse-1);
                     it.second++;
                 }
-            }
             return count;
         }
     };
