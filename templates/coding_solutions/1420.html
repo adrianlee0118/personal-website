@@ -1,0 +1,90 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given three integers n, m and k. Consider the following algorithm to find the maximum element of an array of positive 
+        integers:
+    </p>
+    <p class="question">
+        You should build the array arr which has the following properties:
+    </p>
+    <pre class="line-numbers">
+        <code class="language-cpp">
+            maximum_value = -1
+            maximum_index = -1
+            search_cost = 0
+            n = arr.length
+            for (i = 0; i &lt; n; i++){
+                if (maximum_value &lt; arr[i]){
+                    maximum_value = arr[i]
+                    maximum_index = i
+                    search_cost = search_cost + 1
+                }
+            }
+        </code>
+    </pre>
+    <ul>
+        <li>arr has exactly n integers.</li>
+        <li>1 &lt;= arr[i] &lt;= m where (0 &lt;= i &lt; n).</li>
+        <li>algorithm to arr, the value search_cost is equal to k.</li>
+    </ul>
+    <p class="question">
+        Return the number of ways to build the array arr under the mentioned conditions. As the answer may grow large, the 
+        answer must be computed modulo 10^9 + 7.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int mod = 1000000007;
+        
+    public:
+        int numOfArrays(int arrSize, int maxVal, int maxCost) {
+            // Build a DP from the bottom up: Number of ways to build a sequence for all values of array size, cost and maximum value until we reach the desired n, m and k values i.e. dp[arrSizeSoFar][costSoFar][maxValSoFar]
+            long long dp[arrSize+1][maxCost+1][maxVal+1];
+            memset(dp,0,sizeof(dp));
+            
+            // Set base values: for each array of size 1 and max val 1 there's just 1 way of making it
+            for(int v = 1; v &lt;= maxVal; v++)      
+                dp[1][1][v] = 1;
+    
+            // Emulate building sequences: add a new num to the existing sequence and check the cost given varying conditions
+            for(int s = 2; s &lt;= arrSize; s++)                    // for each size; start from the next row after the initial state
+                for(int c = 1; c &lt;= maxCost && c &lt;= s; c++)      // for each cost so far; optimization: cost &lt;= arrSizeSoFar
+                    for(int mv = 1; mv &lt;= maxVal; mv++) {        // for each maxVal so far
+                        
+                        // For the case where the cost and thus the maximum value of the array have not changed due to the size addition, in the new slot in the sequence any of the numbers from 1 to mv can be placed without changing cost so add previous*mv sequences. We do a += instead of = because dp[s][c][mv]'s value might not be zero, having been incremented at a previous iteration 
+                        dp[s][c][mv] += dp[s-1][c][mv]*mv, dp[s][c][mv] %= mod; 
+                        
+                        // If the array at a smaller size and lower cost is zero, subsequent costs and sizes  will also have zero possible arrangments : the situation where perhaps a high number has shown up too early (i.e mv is too high for the given s and c)
+                        if(dp[s-1][c-1][mv] == 0) 
+                            continue;
+                        
+                        // For all possible increases of maximum until maxValue for the current size and cost, calculate ways: the situation where size and cost go up concurrently
+                        for(int v = mv + 1; v &lt;= maxVal; v++)   //For all possible values of the new number that result in a cost increase
+                            dp[s][c][v] += dp[s-1][c-1][mv], dp[s][c][v] %= mod;   //Add one permutation--add 1x number of existing permutations because there's just one way to tack on one specific number to the existing sequence
+                    }
+            
+            long long ans = 0;
+            // Add up all the permutations at the given maximum cost and array size for all possible maximum values
+            for(int v = 1; v &lt;= maxVal; v++)
+                ans += dp[arrSize][maxCost][v], ans %= mod;
+            
+            return ans;        
+        }
+    };
+{% endblock solution_code %}

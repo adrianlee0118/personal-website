@@ -1,0 +1,51 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array queries of positive integers between 1 and m, you have to process all queries[i] (from i = 0 to 
+        i = queries.length-1) according to the following rules:
+    </p>
+    <ul>
+        <li>In the beginning, you have the permutation P=[1,2,3,...,m].</li>
+        <li>For the current i, find the position of queries[i] in the permutation P (indexing from 0) and then move this at 
+            the beginning of the permutation P. Notice that the position of queries[i] in P is the result for queries[i].</li>
+    </ul>
+    <p class="question">
+        Return an array containing the result for the given queries.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use a vector idxtracker to store indices indexed by value of the permutation P. Instead of a re-generating P when 
+        processing each query, we just update the indices stored in idxtracker using a simple algorithm.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; processQueries(vector&lt;int&gt;& queries, int m) {
+            vector&lt;int&gt; idxtracker;     //idx[i] = Position (idx) of number i
+            vector&lt;int&gt; ans;            //Answer vector
+            for(int i = 0; i &lt; m; i++)     //Input all starting positions 
+                idxtracker.push_back(i);
+            for(auto& q : queries) {          //Iterating over all queries
+                int qidx = idxtracker[q-1];   //Get current index of current query number (query numbers are 1-indexed so -1) and add to answer
+                ans.push_back(qidx);
+                for(auto& idt : idxtracker)   //for all numbers from 0 to m
+                    if(idt &lt; qidx)         //if the number's index is less than the current number index, increment the index (because these numbers experience a shift of 1)
+                        idt++;
+                idxtracker[q - 1] = 0;   //set index of current query number to zero and continue processing queries with updated indices
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

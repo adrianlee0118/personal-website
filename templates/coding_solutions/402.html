@@ -1,0 +1,79 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is 
+        the smallest possible.
+    </p>
+    <p class="question">
+        Note:
+    </p>
+    <ul>
+        <li>The length of num is less than 10002 and will be ≥ k.</li>
+        <li>The given num does not contain any leading zero.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        The stack operations themselves draw influence from some of the other posts on here. The stacks are used to execute 
+        deletions based on the two rules:
+    </p>
+    <ol>
+        <li>Iterating left to right, at any given digit, if the digit immediately to the left is greater than the current 
+            digit and we have not exhausted the deletion quota, we delete the left digit--this is like minimizing the value of 
+            each decimal place going from the largest decimal place to the smallest decimal place. We do this left deletion at 
+            any given digit during the iteration until the left digit becomes a smaller digit or we run out of deletions.</li>
+        <li>After iteratively minimizing all the decimal places from greatest to smallest (1.), if we didn't run out of 
+            deletions, we delete digits from the "small end" of the number string--this reduces the number to the greatest 
+            extent because each digit removal reduces the answer by a factor of 10.</li>
+    </ol>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string removeKdigits(string num, int k) {
+            if(num.size() == k)
+                return "0";
+            
+            // Add digits to the stack; iterating left to right, for any given digit, remove digits immediately preceding the digit that are greater than it (tantamount to replacing the same decimal place with a smaller number) if we have not exceeded the removal count before adding the digit itself
+            stack&lt;char&gt; LtoRTopDigi;
+            for(auto& digit : num){
+                while(k && !LtoRTopDigi.empty() && LtoRTopDigi.top() > digit){
+                    LtoRTopDigi.pop();
+                    k--;
+                } 
+                LtoRTopDigi.push(digit);
+            }
+            
+            // If we haven't used up all of the allowed removals, remove trailing digits because they decrease the remaining number by a factor of 10
+            while(k--)
+                    LtoRTopDigi.pop();
+            
+            // Use another stack to reverse the order and remove leading zeroes
+            stack&lt;char&gt; RtoLTopDigi;
+            while(!LtoRTopDigi.empty()){
+                RtoLTopDigi.push(LtoRTopDigi.top());
+                LtoRTopDigi.pop();
+            }
+            while(RtoLTopDigi.top() == '0' && RtoLTopDigi.size() != 1)
+                RtoLTopDigi.pop();
+            
+            // Build the answer and return it
+            num = "";
+            while(!RtoLTopDigi.empty()){
+                num.push_back(RtoLTopDigi.top());
+                RtoLTopDigi.pop();
+            }
+            return num;
+        }
+    };
+{% endblock solution_code %}
