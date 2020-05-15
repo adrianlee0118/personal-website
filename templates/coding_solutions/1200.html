@@ -15,7 +15,7 @@
     </p>
     <ul>
         <li>a, b are from arr</li>
-        <li>a < b</li>
+        <li>a &lt; b</li>
         <li>b - a equals to the minimum absolute difference of any two elements in arr</li>
     </ul>
     <div class="line"></div>
@@ -31,19 +31,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        vector&lt;vector&lt;int&gt;&gt; minimumAbsDifference(vector&lt;int&gt;& arr) {
             sort(arr.begin(),arr.end());
             int MinDiff = 200000;
             
-            for (int i = 1; i < arr.size(); i++){
+            for (int i = 1; i &lt; arr.size(); i++)
                 MinDiff = min(MinDiff,arr[i]-arr[i-1]);
-            }
-            vector<vector<int>> pairs;
-            for (int i = 1; i < arr.size(); i++){
-                if (arr[i]-arr[i-1] == MinDiff){
+            vector&lt;vector&lt;int&gt;&gt; pairs;
+            for (int i = 1; i &lt; arr.size(); i++)
+                if (arr[i]-arr[i-1] == MinDiff)
                     pairs.push_back({arr[i-1],arr[i]});
-                }
-            }
             return pairs;
         }
     };

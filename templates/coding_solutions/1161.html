@@ -26,11 +26,11 @@
     class Solution {
     public:
         int maxLevelSum(TreeNode* root) {
-            unordered_map<int,int> levelsum;
+            unordered_map&lt;int,int&gt; levelsum;
             getLevelSums(root, 1, levelsum);
             int themax = 0;
             int mlevel = INT_MAX;
-            for (unordered_map<int,int>::iterator it = levelsum.begin(); it != levelsum.end(); it++){
+            for (unordered_map&lt;int,int&gt;::iterator it = levelsum.begin(); it != levelsum.end(); it++){
                 if (it->second > themax){
                     mlevel = it->first;
                     themax = it->second;
@@ -39,7 +39,7 @@
             return mlevel;
         }
         
-        void getLevelSums(TreeNode* root, int level, unordered_map<int,int>& levelsum){
+        void getLevelSums(TreeNode* root, int level, unordered_map&lt;int,int&gt;& levelsum){
             if (!root){return;}
             levelsum[level]+=root->val;
             getLevelSums(root->left,level+1,levelsum);

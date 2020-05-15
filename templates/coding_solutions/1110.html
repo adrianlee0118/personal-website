@@ -28,31 +28,26 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
-            vector<TreeNode*> twigs;
-            set<int> del(to_delete.begin(),to_delete.end());
+        vector&lt;TreeNode*&gt; delNodes(TreeNode* root, vector&lt;int&gt;& to_delete) {
+            vector&lt;TreeNode*&gt; twigs;
+            set&lt;int&gt; del(to_delete.begin(),to_delete.end());
             magicBrushFire(root,twigs,del);
             if (root){twigs.push_back(root);}
             return twigs;
         }
         
-        void magicBrushFire(TreeNode*& root, vector<TreeNode*>& twigs, set<int>& del){
-            if (!root){
+        void magicBrushFire(TreeNode*& root, vector&lt;TreeNode*&gt;& twigs, set&lt;int&gt;& del){
+            if (!root)
                 return;
-            }
-            if (root->left){
+            if (root->left)
                 magicBrushFire(root->left,twigs,del);
-            }
-            if (root->right){
+            if (root->right)
                 magicBrushFire(root->right,twigs,del);
-            }
             if (del.count(root->val)){
-                if (root->left){
+                if (root->left)
                     twigs.push_back(root->left);
-                }
-                if (root->right){
+                if (root->right)
                     twigs.push_back(root->right);
-                }
                 root = NULL;
                 delete root;
             }

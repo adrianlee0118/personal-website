@@ -34,7 +34,7 @@
     public:
         string reverseParentheses(string s) {
             
-            stack<char> bracketedletters;
+            stack&lt;char&gt; bracketedletters;
             string ans = "";
             
             for (char c : s){
@@ -44,7 +44,6 @@
                 } else if (c == '(' || c != ')'){
                     bracketedletters.push(c);
                 } else {
-                    
                     string temp = "";
                     while (!bracketedletters.empty()){
                         if (bracketedletters.top() == '('){
@@ -55,19 +54,14 @@
                             bracketedletters.pop(); 
                         }
                     }
-                    
-                    if (!bracketedletters.empty()){
-                        for (char a : temp){
+                    if (!bracketedletters.empty())
+                        for (char& a : temp)
                             bracketedletters.push(a);
-                        }
-                    } else {
+                    else
                         ans.append(temp);
-                    }
                 }
             }
-            
             return ans;
-            
         }
     };
 {% endblock solution_code %}

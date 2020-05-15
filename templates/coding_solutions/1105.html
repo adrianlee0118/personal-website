@@ -47,10 +47,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int minHeightShelves(vector<vector<int>>& books, int shelf_width) {
-            vector<int>dp(books.size() + 1, INT_MAX);          //where dp[i] equals minimum height of shelf at the ith book (containing books from 0 to i-1)
+        int minHeightShelves(vector&lt;vector&lt;int&gt;&gt;& books, int shelf_width) {
+            vector&lt;int&gt;dp(books.size() + 1, INT_MAX);          //where dp[i] equals minimum height of shelf at the ith book (containing books from 0 to i-1)
             dp[0] = 0;
-            for(int i = 1; i <= books.size(); i++) {        //for all positions i
+            for(int i = 1; i &lt;= books.size(); i++) {        //for all positions i
                 int height = 0, width = 0;
                 for(int j = i - 1; j >= 0; j--) {           //iterating through all books from i-1 to 0
                     width += books[j][0];                   //add books from last to first to a single shelf, break when shelf width exceeded as we will need a new shelf

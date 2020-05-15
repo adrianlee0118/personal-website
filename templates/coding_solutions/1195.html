@@ -65,10 +65,10 @@
             this->curr = 1;
         }
         
-        template<class T, class K>
+        template&lt;class T, class K&gt;
         void threadFn(T check, K print) {
-            while(curr <= n) {
-                unique_lock<mutex> lock(mx);
+            while(curr &lt;= n) {
+                unique_lock&lt;mutex&gt; lock(mx);
                 cv.wait(lock, [&](){ return check() || curr > n; });                    
                 if (curr > n)
                     return;
@@ -79,34 +79,33 @@
         }
         
         // printFizz() outputs "fizz".
-        void fizz(function<void()> printFizz) {
-            auto check = [&](){ return curr%3==0 && curr%5!=0; };
+        void fizz(function&lt;void()&gt; printFizz) {
+            auto check = [&](){ return curr%3==0 && curr % 5 != 0; };
             auto print = [&](){ printFizz(); };
             threadFn(check, print);
         }
     
         // printBuzz() outputs "buzz".
-        void buzz(function<void()> printBuzz) {
+        void buzz(function&lt;void()&gt; printBuzz) {
             auto check = [&](){ return curr%3!=0 && curr%5==0; };
             auto print = [&](){ printBuzz(); };
             threadFn(check, print);
         }
     
         // printFizzBuzz() outputs "fizzbuzz".
-        void fizzbuzz(function<void()> printFizzBuzz) {
+        void fizzbuzz(function&lt;void()&gt; printFizzBuzz) {
             auto check = [&](){ return curr%3==0 && curr%5==0; };
             auto print = [&](){ printFizzBuzz(); };
             threadFn(check, print);
         }
     
         // printNumber(x) outputs "x", where x is an integer.
-        void number(function<void(int)> printNumber) {
+        void number(function&lt;void()&gt; printNumber) {
             auto check = [&](){ return curr%3!=0 && curr%5!=0; };
-            auto print = [&](){ printNumber(curr); };
-            {
-                unique_lock<mutex> lock(mx);
+            auto print = [&](){ printNumber(curr); };{
+                unique_lock&lt;mutex&gt; lock(mx);
                 print();
-                ++curr;
+                curr++;
             }
             cv.notify_all();
             threadFn(check, print);

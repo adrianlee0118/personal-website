@@ -38,23 +38,22 @@
     <!-- coding portion of solution-->
     class Solution {
         private:
-        vector<vector<int>> cache;
+        vector&lt;vector&lt;int&gt;&gt; cache;
     
         public:    
-        int maximum(vector<int>& piles, int start, int M, int total) {
+        int maximum(vector&lt;int&gt;& piles, int start, int M, int total) {
             if (start >= piles.size()) return 0;
             if (cache[start][M] != -1) return cache[start][M];
             int result = INT_MIN;
-            for (int X = 1, sum = 0; X <= 2 * M && X + start <= piles.size(); X++) {
+            for (int X = 1, sum = 0; X &lt;= 2 * M && X + start &lt;= piles.size(); X++) {
                 sum += piles[start + X - 1];
                 result = max(result, total - maximum(piles, start + X, max(M, X), total - sum));
             }
-            
             return cache[start][M] = result;
         }
         
-        int stoneGameII(vector<int>& piles) {
-            cache = vector<vector<int>>(piles.size() , vector<int>(piles.size() , -1));
+        int stoneGameII(vector&lt;int&gt;& piles) {
+            cache = vector&lt;vector&lt;int&gt;&gt;(piles.size() , vector&lt;int&gt;(piles.size() , -1));
             return maximum(piles, 0, 1, accumulate(piles.begin(), piles.end(), 0));
         }
     

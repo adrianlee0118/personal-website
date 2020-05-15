@@ -37,8 +37,8 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> distributeCandies(int candies, int num_people) {
-            vector<int> distr(num_people, 0);
+        vector&lt;int&gt; distributeCandies(int candies, int num_people) {
+            vector&lt;int&gt; distr(num_people, 0);
             int pos = 0;
             int amount = 1;
             while (candies > 0){
@@ -48,15 +48,14 @@
                     amount++;
                 } else {
                     amount = candies;
-                    distr[pos]+=amount;
+                    distr[pos] += amount;
                     candies-=amount;
                 }
                 
-                if (pos < distr.size()-1){
+                if (pos &lt; distr.size()-1)
                     pos++;
-                } else {
-                    pos=0;
-                }
+                else
+                    pos = 0;
             }
             return distr;
         }

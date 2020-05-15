@@ -44,9 +44,8 @@
                 d1 = destination;
                 d2 = start;
             }
-            for (int i = d1; i &lt; d2; i++){
+            for (int i = d1; i &lt; d2; i++)
                 dist += distance[i];
-            }
             
             //return the minimum of the list-pass distance or its complement in the loop (within the loop, whichever direction's distance is shortest)
             return min(dist,total-dist);

@@ -37,23 +37,19 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
-            vector<int> answer;
-            priority_queue<int, vector<int>, greater<int> > pq;
-            for (int i: arr1){
-                std::vector<int>::iterator it;
+        vector&lt;int&gt; relativeSortArray(vector&lt;int&gt;& arr1, vector&lt;int&gt;& arr2) {
+            vector&lt;int&gt; answer;
+            priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;
+            for (int& i: arr1){
+                std::vector&lt;int&gt;::iterator it;
                 it = find (arr2.begin(), arr2.end(), i);
-                if (it == arr2.end()){
+                if (it == arr2.end())
                     pq.push(i);
-                }
             }
-            for (int cursor : arr2){
-                for (int i: arr1){
-                    if (i == cursor){
+            for (int& cursor : arr2)
+                for (int& i: arr1)
+                    if (i == cursor)
                         answer.push_back(i);
-                    }
-                }
-            }
             while (!pq.empty()){
                 answer.push_back(pq.top());
                 pq.pop();

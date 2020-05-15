@@ -37,29 +37,25 @@
         TreeNode* lcaDeepestLeaves(TreeNode* root) {
             
             //map depths to all nodes
-            unordered_map<TreeNode*,int> NodeDepth;
+            unordered_map&lt;TreeNode*,int&gt; NodeDepth;
             int maxDepth = 0;
             getMaxDepthAndDeepest(root,0,maxDepth,NodeDepth);
             
             //determine maximum depth and deepest nodes
-            vector<TreeNode*> Deepest;
-            for (auto t : NodeDepth){
-                if (t.second == maxDepth){
+            vector&lt;TreeNode*&gt; Deepest;
+            for (auto t : NodeDepth)
+                if (t.second == maxDepth)
                     Deepest.push_back(t.first);
-                }
-            }
             
             //recursively find LCA
             TreeNode* ans = Deepest[0];
-            for (int i = 1; i < Deepest.size(); i++){
+            for (int i = 1; i &lt; Deepest.size(); i++)
                 ans = LCA(root,ans,Deepest[i]);
-            }
             return ans;
-            
         }
         
         //PreOrderTraversal that maps depths to all nodes
-        void getMaxDepthAndDeepest(TreeNode* root, int depth, int& maxDepth, unordered_map<TreeNode*,int>& NodeDepth){
+        void getMaxDepthAndDeepest(TreeNode* root, int depth, int& maxDepth, unordered_map&lt;TreeNode*,int&gt;& NodeDepth){
             
             if (!root){return;}
             maxDepth = max(depth,maxDepth);

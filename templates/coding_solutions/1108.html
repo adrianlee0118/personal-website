@@ -28,12 +28,11 @@
         string defangIPaddr(string address) {
             stringstream rewrite;
             
-            for (int i = 0; i < address.size(); i++){
-                if (address[i] == '.'){
-                    rewrite << "[.]";
-                } else {
-                    rewrite << address[i];
-                }
+            for (int i = 0; i &lt; address.size(); i++){
+                if (address[i] == '.')
+                    rewrite &lt;&lt; "[.]";
+                else
+                    rewrite &lt;&lt; address[i];
             }
             return rewrite.str();
         }
