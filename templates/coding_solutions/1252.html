@@ -26,45 +26,39 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int oddCells(int n, int m, vector<vector<int>>& indices) {
+        int oddCells(int n, int m, vector&lt;vector&lt;int&gt;&gt;& indices) {
             
             int matrix[n][m];
-            for (int i = 0; i < n; i++){
-                for (int j = 0; j < m; j++){
+            for (int i = 0; i &lt; n; i++)
+                for (int j = 0; j &lt; m; j++)
                     matrix[i][j] = 0;
-                }
-            }
             
             int row, col, odd = 0;
-            for (int i = 0; i < indices.size(); i++){   //for all row and column increments
+            for (int i = 0; i &lt; indices.size(); i++){   //for all row and column increments
                 row = indices[i][0];
                 col = indices[i][1];
                 
                 //increment the row
-                for (int j = 0; j < m; j++){
+                for (int j = 0; j &lt; m; j++){
                     matrix[row][j]++;
                     
-                    if (matrix[row][j] % 2 != 0){     //if new number is odd, count odd 
+                    if (matrix[row][j] % 2 != 0)     //if new number is odd, count odd 
                         odd++;
-                    } else {
+                    else
                         odd--;                       //if it's even reduce the odd count
-                    }
                     
                 }
                 
                 //increment the column
-                for (int k = 0; k < n; k++){
+                for (int k = 0; k &lt; n; k++){
                     matrix[k][col]++;
                     
-                    if (matrix[k][col] % 2 != 0){
+                    if (matrix[k][col] % 2 != 0)
                         odd++;
-                    } else {
+                    else
                         odd--;
-                    }
-                    
                 }
             }
-            
             return odd;
         }
     };

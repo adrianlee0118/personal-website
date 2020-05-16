@@ -28,47 +28,39 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {
-            vector<vector<int>> yes;
-            vector<int> top, bottom, left, right, topleft, topright, bottomleft, bottomright;
-            for (auto q : queens){
+        vector&lt;vector&lt;int&gt;&gt; queensAttacktheKing(vector&lt;vector&lt;int&gt;&gt;& queens, vector&lt;int&gt;& king) {
+            vector&lt;vector&lt;int&gt;&gt; yes;
+            vector&lt;int&gt; top, bottom, left, right, topleft, topright, bottomleft, bottomright;
+            for (auto& q : queens){
                 if (q[0] == king[0]) {
-                    if (q[1] < king[1]){
-                        if (left.empty() || left[1] < q[1]){
+                    if (q[1] &lt; king[1]){
+                        if (left.empty() || left[1] &lt; q[1])
                             left = q;
-                        }
                     } else {
-                        if (right.empty() || right[1] > q[1]){
+                        if (right.empty() || right[1] > q[1])
                             right = q;
-                        }
                     }
                 } else if (q[1] == king[1]) {
-                    if (q[0] < king[0]){
-                        if (top.empty() || top[0] < q[0]){
+                    if (q[0] &lt; king[0]){
+                        if (top.empty() || top[0] &lt; q[0])
                             top = q;
-                        }
                     } else {
-                        if (bottom.empty() || bottom[0] > q[0]){
+                        if (bottom.empty() || bottom[0] > q[0])
                             bottom = q;
-                        }
                     }
                 } else if (abs(q[0]-king[0]) == abs(q[1]-king[1])) {
-                    if (q[0] < king[0] && q[1] < king[1]){
-                        if (topleft.empty() || (topleft[0] < q[0] && topleft[1] < q[1])){
+                    if (q[0] &lt; king[0] && q[1] &lt; king[1]){
+                        if (topleft.empty() || (topleft[0] &lt; q[0] && topleft[1] &lt; q[1]))
                             topleft = q;
-                        }
-                    } else if (q[0] > king[0] && q[1] < king[1]) {
-                        if (bottomleft.empty() || (bottomleft[0] > q[0] && bottomleft[1] < q[1])){
+                    } else if (q[0] > king[0] && q[1] &lt; king[1]) {
+                        if (bottomleft.empty() || (bottomleft[0] > q[0] && bottomleft[1] &lt; q[1]))
                             bottomleft = q;
-                        }
-                    } else if (q[0] < king[0] && q[1] > king[1]) {
-                        if (topright.empty() || (topright[0] < q[0] && topright[1] > q[1])){
+                    } else if (q[0] &lt; king[0] && q[1] > king[1]) {
+                        if (topright.empty() || (topright[0] &lt; q[0] && topright[1] > q[1]))
                             topright = q;
-                        }
                     } else if (q[0] > king[0] && q[1] > king[1]){
-                        if (bottomright.empty() || (bottomright[0] > q[0] && bottomright[1] > q[1])){
+                        if (bottomright.empty() || (bottomright[0] > q[0] && bottomright[1] > q[1]))
                             bottomright = q;
-                        }
                     }
                 }
             }

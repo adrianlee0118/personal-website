@@ -25,10 +25,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numberOfSubarrays(vector<int>& nums, int k) {
+        int numberOfSubarrays(vector&lt;int&gt;& nums, int k) {
             int total = 0;
             int j = 0, odd = 0, count = 0;           //j left bound, odds in current span, count arrays in current span
-            for (int i = 0; i < nums.size(); i++) {  //incrementally expanding current subarray to right,
+            for (int i = 0; i &lt; nums.size(); i++) {  //incrementally expanding current subarray to right,
                 if (nums[i] & 1) {
                     odd++;
                     if (odd >= k) {                       //count odds until we get count = k
@@ -36,7 +36,7 @@
                         while (!(nums[j++] & 1)) count++; //move left bound to exclude one odd number, counting the subarrays formed as we move
                         total += count;               //add count of previous span to total
                     }
-                } else if (odd >= k) total += count; //if we encounter an even number it doubles the current subarray count
+                } else if (odd >= k) total += count;    //if we encounter an even number it doubles the current subarray count
             }
             return total;
         }

@@ -36,12 +36,11 @@
             int s1Ys2X = 0;
             
             //Count all disparity configurations
-            for (int i = 0; i < s1.size(); i++){ 
-                if (s1[i] == 'x' && s2[i] == 'y'){
+            for (int i = 0; i &lt; s1.size(); i++){ 
+                if (s1[i] == 'x' && s2[i] == 'y')
                     s1Xs2Y++;
-                } else if (s1[i] == 'y' && s2[i] == 'x'){
+                else if (s1[i] == 'y' && s2[i] == 'x')
                     s1Ys2X++;
-                }
             }
             
             //Pair as many x,y and y,x as possible and check if the remaining numbers of x,y and of y,x are pairable
@@ -50,12 +49,10 @@
                 altpairs = s1Xs2Y+s1Ys2X;
                 s1Xs2Y -= altpairs;
                 s1Ys2X -= altpairs;
-            } else {
+            } else 
                 altpairs = 0;
-            }
-            if (altpairs % 2 > 0 || s1Xs2Y % 2 > 0 || s1Ys2X % 2 > 0){
+            if (altpairs % 2 > 0 || s1Xs2Y % 2 > 0 || s1Ys2X % 2 > 0)
                 return -1;
-            }
             
             int swaps = (altpairs/2)*2 + (s1Xs2Y/2)*1 + (s1Ys2X/2)*1;
             return swaps;

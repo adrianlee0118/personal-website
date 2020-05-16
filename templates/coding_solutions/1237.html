@@ -14,8 +14,8 @@
         The function is constantly increasing, i.e.:
     </p>
     <ul>
-        <li>f(x, y) < f(x + 1, y)</li>
-        <li>f(x, y) < f(x, y + 1)</li>
+        <li>f(x, y) &lt; f(x + 1, y)</li>
+        <li>f(x, y) &lt; f(x, y + 1)</li>
     </ul>
     <p class="question">
         The function interface is defined like this: 
@@ -48,15 +48,12 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> findSolution(CustomFunction& customfunction, int z) {
-            vector<vector<int>> answers;
-            for (int i = 1; i <= z; i++){
-                for (int j = 1; j <= z; j++){
-                    if (customfunction.f(i,j) == z){
+        vector&lt;vector&lt;int&gt;&gt; findSolution(CustomFunction& customfunction, int z) {
+            vector&lt;vector&lt;int&gt;&gt; answers;
+            for (int i = 1; i &lt;= z; i++)
+                for (int j = 1; j &lt;= z; j++)
+                    if (customfunction.f(i,j) == z)
                         answers.push_back({i,j});
-                    }
-                }
-            }
             return answers;
         }
     };

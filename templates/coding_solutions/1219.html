@@ -33,34 +33,31 @@
     <!-- coding portion of solution-->
     class Solution {
     private:
-        vector<int> ycoords = {1,-1,0,0};
-        vector<int> xcoords = {0,0,1,-1};
+        vector&lt;int&gt; ycoords = {1,-1,0,0};
+        vector&lt;int&gt; xcoords = {0,0,1,-1};
         
     public:
-        int getMaximumGold(vector<vector<int>>& grid) {
+        int getMaximumGold(vector&lt;vector&lt;int&gt;&gt;& grid) {
             int max_gold = 0;
             
             //Launch DFS from all possible starting cells in the grid...
-            for (int m = 0; m < grid.size(); m++){
-                for (int n = 0; n < grid[0].size(); n++){
+            for (int m = 0; m &lt; grid.size(); m++)
+                for (int n = 0; n &lt; grid[0].size(); n++)
                     traverse(grid,m,n,0,max_gold);
-                }
-            }
             return max_gold;
         }
         
         //Traversal of matrix with running gold total/maximum, try all steps around a given cell, setting the current cell's value to zero when in use and then resetting at the end as a backtrack
-        void traverse(vector<vector<int>>& grid, int y, int x, int curr_gold, int& max_gold){
+        void traverse(vector&lt;vector&lt;int&gt;&gt;& grid, int y, int x, int curr_gold, int& max_gold){
             if (grid[y][x] == 0) return;
             int gold = grid[y][x];
             max_gold = max(max_gold,curr_gold+gold);
             grid[y][x] = 0;
-            for (int i = 0; i < 4; i++){
+            for (int i = 0; i &lt; 4; i++){
                 int newy = ycoords[i]+y;
                 int newx = xcoords[i]+x;
-                if (newy >= 0 && newy < grid.size() && newx >= 0 && newx < grid[0].size()){
+                if (newy >= 0 && newy &lt; grid.size() && newx >= 0 && newx &lt; grid[0].size())
                     traverse(grid,newy,newx,curr_gold+gold,max_gold);
-                }
             }
             grid[y][x] = gold;         //backtrack
             return;

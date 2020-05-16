@@ -39,7 +39,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int minCostToMoveChips(vector<int>& chips) {
+        int minCostToMoveChips(vector&lt;int&gt;& chips) {
             
             int max = *max_element(chips.begin(), chips.end());
             int min = *min_element(chips.begin(), chips.end());
@@ -48,9 +48,8 @@
             int points_lowround = 0;
             for (int i = 0; i &lt; chips.size(); i++){
                 int diff = abs(chips[i]-average);
-                if (diff % 2 > 0){
+                if (diff % 2 > 0)
                     points_lowround++;
-                }
             }
             average++;
             
@@ -58,16 +57,11 @@
             int points_highround = 0;
             for (int i = 0; i &lt; chips.size(); i++){
                 int diff = abs(chips[i]-average);
-                if (diff % 2 > 0){
+                if (diff % 2 > 0)
                     points_highround++;
-                }
             }
             
-            if (points_lowround &lt; points_highround){
-                return points_lowround;
-            } else {
-                return points_highround;
-            }
+            return (points_lowround &lt; points_highround)? points_lowround : points_highround;
         }
     };
 {% endblock solution_code %}

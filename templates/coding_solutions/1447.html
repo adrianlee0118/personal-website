@@ -1,0 +1,40 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer n, return a list of all simplified fractions between 0 and 1 (exclusive) such that the denominator is 
+        less-than-or-equal-to n. The fractions can be in any order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;string&gt; simplifiedFractions(int n) {
+            vector&lt;string&gt; ans;
+            set&lt;double&gt; vals;                      //Track decimal form values of all fractions encountered--eliminates need to factorize
+            for (int den = 2; den &lt;= n; den++)        //Iterate through denominators from smallest to greatest to ensure simplified forms of fractions are encountered first
+                for (int num = 1; num &lt; den; num++){
+                    double d = (double) num/(double) den;
+                    if (vals.count(d) == 0){
+                        ans.push_back(to_string(num)+"/"+to_string(den));     //Store fractions if the decimal form value has not been encountered
+                        vals.insert(d);
+                    }
+                }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

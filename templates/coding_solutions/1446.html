@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s, the power of the string is the maximum length of a non-empty substring that contains only one unique 
+        character.
+    </p>
+    <p class="question">
+        Return the power of the string.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Maintain tracking of previous letter while iterating through array. If current char is the same as previous, increment count else reset count to zero.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxPower(string s) {
+            char prev = '-';
+            int count = 0;
+            int mcount = 0;
+            for (auto& c : s){
+                count = (c == prev)? count+1 : 1;   //Count if a repeat, otherwise reset count
+                mcount = max(mcount,count);         //Keep track of the biggest count
+                prev = c;
+            }
+            return mcount;
+        }
+    };
+{% endblock solution_code %}

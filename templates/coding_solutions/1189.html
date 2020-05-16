@@ -30,26 +30,22 @@
             //Count all the letters in text that are used in the word balloon
             unordered_map&lt;char,int&gt; lettercount;
             string word = "balon";
-            for (char c : text){
-                if (word.find(c) != string::npos){
+            for (char c : text)
+                if (word.find(c) != string::npos)
                     lettercount[c]++;
-                }
-            }
             
             //Kill the algorithm if we didn't count enough letters
-            if (lettercount.size() != word.size()){
+            if (lettercount.size() != word.size())
                 return 0;
-            }
             
             //Count complete sets of "balloon" by taking the minimum of all the letter counts (/2 for o and l because we
             //need 2 for each instance of "balloon")
             int wordcount = INT_MAX;
             for (unordered_map&lt;char,int&gt;::iterator it = lettercount.begin(); it != lettercount.end(); it++){
-                if (it->first == 'o' || it->first == 'l'){
+                if (it->first == 'o' || it->first == 'l')
                     wordcount = min(wordcount,it->second/2);
-                } else {
+                else
                     wordcount = min(wordcount,it->second);
-                }
             }
             return wordcount;
         }

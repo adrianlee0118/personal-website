@@ -23,15 +23,13 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool uniqueOccurrences(vector<int>& arr) {
-            unordered_map<int,int> numcount;
-            for (auto& n : arr){
+        bool uniqueOccurrences(vector&lt;int&gt;& arr) {
+            unordered_map&lt;int,int&gt; numcount;
+            for (auto& n : arr)
                 numcount[n]++;
-            }
-            set<int> uniquecounts;
-            for (unordered_map<int,int>::iterator it = numcount.begin(); it != numcount.end(); it++){
+            set&lt;int&gt; uniquecounts;
+            for (unordered_map&lt;int,int&gt;::iterator it = numcount.begin(); it != numcount.end(); it++)
                 uniquecounts.insert(it->second);
-            }
             return (uniquecounts.size() == numcount.size());
         }
     };

@@ -35,19 +35,19 @@
         string removeDuplicates(string s, int k) {
             
             //because k >= 2
-            if(s.size() < 3) return s;
+            if(s.size() &lt; 3) 
+                return s;
             
             //for positions in string up to size - k
-            for(int i = 0; i <= s.size()-k; i++){
+            for(int i = 0; i &lt;= s.size()-k; i++){
                 bool equal = true;
                 
                 //check if the sequence of k letters from position is all the same
-                for(int j = i+1; j < i+k; j++){
+                for(int j = i+1; j &lt; i+k; j++)
                     if(s[i] != s[j]){
                         equal = false;
                         break;
                     }
-                }
                 
                 //if they are all the same, remove the group and read entire string, remove duplicates again
                 if(equal) {

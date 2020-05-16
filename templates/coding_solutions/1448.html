@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a 
+        value greater than X.
+    </p>
+    <p class="question">
+        Return the number of good nodes in the binary tree.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int goodNodes(TreeNode* root) {
+            int count = 0;
+            getGoodNodes(root, INT_MIN, count);
+            return count;
+        }
+        
+        //DFS in tree, track maximum along any path and add node to good node count if the node's value has not been exceeded by maximum
+        void getGoodNodes(TreeNode* root, int maxi, int& count){
+            if (!root)
+                return;
+            if (maxi &lt;= root->val){
+                count++;
+                maxi = root->val;
+            }
+            getGoodNodes(root->left, maxi, count);
+            getGoodNodes(root->right, maxi, count);
+            return;
+        }
+    };
+{% endblock solution_code %}

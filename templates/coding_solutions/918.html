@@ -1,0 +1,59 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a circular array C of integers represented by A, find the maximum possible sum of a non-empty subarray of C.
+    </p>
+    <p class="question">
+        Here, a circular array means the end of the array connects to the beginning of the array.  (Formally, C[i] = A[i] 
+        when 0 &lt;= i &lt; A.length, and C[i+A.length] = C[i] when i >= 0.)
+    </p>
+    <p class="question">
+        Also, a subarray may only include each element of the fixed buffer A at most once.  (Formally, for a subarray 
+        C[i], C[i+1], ..., C[j], there does not exist i &lt;= k1, k2 &lt;= j with k1 % A.length = k2 % A.length.)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        To find the maximum subarray sum of the circular array, we must take the total sum of all numbers in the entire array 
+        (positive and negative) and reduce it by the minimum subarray sum. We need to compare this subarray sum to the maximum 
+        subarray sum we get from treating A as a linear array and performing Kadane's algorithm.
+    </p>
+    <p>
+        To calculate the minimum subarray sum for reducing the total, we do not need to account for the circularity of the array 
+        because the case where the minimum subarray sum crosses the "end" interface from position n-1 back to 0 is accounted for when 
+        applying Kadane's algorithm under the original linear array assumption.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxSubarraySumCircular(vector&lt;int&gt;& A) {
+            int localmax = 0;          //"local": accessories for employing Kadane's algorithm, the running maximum or minimum--localmax resets if the next number is negative and localmin resets if the next number is positive
+            int localmin = 0;
+            int globalmax = INT_MIN;   // The maximum subarray sum we obtain from applying Kadane's algorithm for one pass of the linear array
+            int globalmin = INT_MAX;   // The minimum subarray sum we obtain from applying Kadane's algorithm for one pass of the linear array
+            int total = 0;
+            for(auto& i: A){              //Iterating over all letters track local max and min and store the global values
+                localmax = max(localmax + i, i);
+                globalmax = max(globalmax, localmax);
+                localmin = min(localmin + i, i);
+                globalmin = min(globalmin, localmin);
+                total += i;
+            }
+            
+            // If the maximum subarray sum from one pass was negative, this means all the numbers are negative (we went down to array size 1 and still got negative), we just return that max
+            // If the maximum subarray sum from one pass is positive, we compare the one pass value to the total minus the minimum subarray sum. By subtracting the minimum subarray from total, we are getting the array sum of circular array A without the influence of the stretch of numbers that exhibits the most negative influences on the sum--which would be the maximum subarray sum of the circular array A
+            return globalmax &lt; 0 ? globalmax : max(globalmax, total - globalmin);
+        }
+    };
+{% endblock solution_code %}

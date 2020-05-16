@@ -34,13 +34,12 @@
             int rcount = 0;
             int balcount = 0;
             
-            for (int i = 0; i < s.size(); i++){
+            for (int i = 0; i &lt; s.size(); i++){
                 
-                if (s[i] == 'R'){
+                if (s[i] == 'R')
                     rcount++;
-                } else {
+                else 
                     lcount++;
-                }
                 
                 if (rcount == lcount){
                     rcount = 0;
