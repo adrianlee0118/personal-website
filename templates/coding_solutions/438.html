@@ -1,0 +1,64 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+    </p>
+    <p class="question">
+        Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+    </p>
+    <p class="question">
+        The order of output does not matter.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; findAnagrams(string s, string p) {
+            
+            //Check for special cases
+            if (s.size() == 0 || p.size() == 0)
+                return {};
+            
+            //Set up map for counting letters and answer vector
+            int letters[26] = {0};
+            for (auto& c : p)
+                letters[c-'a']++;
+            vector&lt;int&gt; ans;
+            
+            //Iterate over the string s
+            int start = 0;
+            int end = 0;
+            while (end &lt; s.size()){
+                if (letters[s[end]-'a'] > 0){      //If a letter in p is encountered, start stretching the window open
+                    letters[s[end]-'a']--;
+                    end++;
+                    if (end-start == p.size())     //If the window's size matches p, add the start position of the window to ans
+                        ans.push_back(start);
+                } else if (start == end){          //If it's not a letter from p and the window is shut, move the potential start point for the window to the next letter
+                    start++;
+                    end++;
+                } else {               //If we have an open window but the next letter is not in p, we don't have an anagram, move the left bound over
+                    letters[s[start]-'a']++;
+                    start++;
+                }
+            }
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

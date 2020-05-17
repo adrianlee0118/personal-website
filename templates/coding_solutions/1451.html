@@ -1,0 +1,77 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a sentence text (A sentence is a string of space-separated words) in the following format:
+    </p>
+    <ul>
+        <li>First letter is in upper case.</li>
+        <li>Each word in text are separated by a single space.</li>
+    </ul>
+    <p class="question">
+        Your task is to rearrange the words in text such that all words are rearranged in an increasing order of their lengths. If 
+        two words have the same length, arrange them in their original order.
+    </p>
+    <p class="question">
+        Return the new text following the format shown above.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string arrangeWords(string text) {
+            
+            // Parse and store all words from the sentence by word length in order
+            unordered_map&lt;int,vector&lt;string&gt;&gt; lengthwords;
+            string word = "";
+            int mlen = 0;
+            for (auto& c : text){
+                if (c != ' ')
+                    word += c;
+                else
+                    if (word.size() > 0){
+                        lengthwords[word.size()].push_back(word);
+                        mlen = (word.size() > mlen)? word.size() : mlen;
+                        word = "";
+                    }
+            }
+            mlen = (word.size() > mlen)? word.size() : mlen;         //Perform the actions above for the last leftover word
+            lengthwords[word.size()].push_back(word);
+            
+            // Iterate over lengths from smallest to greatest, add words in order they were encountered
+            string ans = "";
+            for (int i = 1; i &lt;= mlen; i++)
+                if (!lengthwords[i].empty())
+                    for (auto& w : lengthwords[i]){
+                        if (ans != "" && w[0]-'a' &lt; 0){
+                            string addword = w;
+                            addword[0] = tolower(addword[0]);
+                            ans += (addword+' ');
+                        } else if (ans == "" && w[0]-'a' >= 0){
+                            string addword = w;
+                            addword[0] = toupper(addword[0]);
+                            ans += (addword+' ');
+                        } else
+                            ans += (w+" ");   
+                    }
+            
+            // Remove the last extra space and return ans
+            ans.pop_back();
+            return ans;
+        }
+    };
+{% endblock solution_code %}
