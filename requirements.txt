@@ -3,6 +3,7 @@ autopep8==1.5.1
 click==7.1.1
 colorama==0.4.3
 Flask==1.1.2
+Flask-yarn==1.0
 isort==4.3.21
 itsdangerous==1.1.0
 Jinja2==2.11.1

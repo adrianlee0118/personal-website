@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block style %}
+  <!-- Tic Tac Toe Styles -->
+  <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='tic_tac_toe/index.css') }}"
+    />
+{% endblock style %}
+{% block content %}
+  <h1>Two Player Tic Tac Toe Game built in React JS</h1>
+  <p class='mp2'>
+      Grab a friend and play tic tac toe! To undo a step just click the most recent button that appears.
+  </p>
+  <div id="ttt_container"></div>
+{% endblock content %}
+{% block script %}
+  <!-- React Scripts -->
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Custom React Component -->
+  <script src="{{ url_for('static', filename='tic_tac_toe/tic_tac_toe.js') }}"></script>
+{% endblock script %}

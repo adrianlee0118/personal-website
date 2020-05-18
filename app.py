@@ -50,6 +50,11 @@ def quantum_dice():
     return render_template('web_apps/quantum_dice_roller.html', 
                             title="Quantum Dice Roller")
 
+@app.route('/projects/tic_tac_toe')
+def tic_tac_toe():
+    return render_template('web_apps/tic_tac_toe.html', 
+                            title="Tic Tac Toe in React")
+
 @app.route('/coding_solutions')
 def coding_solutions():
     result = get_cs_db().execute('SELECT id,name,difficulty,type FROM cs_data ORDER BY id')
