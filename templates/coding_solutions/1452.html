@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array favoriteCompanies where favoriteCompanies[i] is the list of favorites companies for the ith person 
+        (indexed from 0).
+    </p>
+    <p class="question">
+        Return the indices of people whose list of favorite companies is not a subset of any other list of favorites 
+        companies. You must return the indices in increasing order.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Utilize includes function from STL to find subsets. Store answers by index in the original array.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;& favoriteCompanies) {
+            
+            //Sort all the vectors to facilitate use of the includes function
+            for (auto& fc : favoriteCompanies)
+                sort(fc.begin(),fc.end());
+            
+            //Set up answer with base value
+            vector&lt;int&gt; ans;
+            ans.push_back(0);
+            
+            //Iterate over all favoriteCompany sets and replace existing sets with encountered supersets or skip encountered subsets
+            for (int i = 1; i &lt; favoriteCompanies.size(); i++){
+                bool setted = false;
+                for (int j = 0; j &lt; ans.size(); j++){
+                    if (ans[j] == 101){
+                        continue;
+                    } else if(includes(favoriteCompanies[ans[j]].begin(), favoriteCompanies[ans[j]].end(), favoriteCompanies[i].begin(), favoriteCompanies[i].end())) {
+                        setted = true;
+                        break;
+                    } else if (includes(favoriteCompanies[i].begin(), favoriteCompanies[i].end(), favoriteCompanies[ans[j]].begin(), favoriteCompanies[ans[j]].end())){
+                        if (setted){          //If the subset replacement has already occurred, we set to 101 to be removed later
+                            ans[j] = 101;
+                        } else {
+                            ans[j] = i;
+                            setted = true;
+                        }
+                    }
+                }
+                if (!setted)
+                    ans.push_back(i);   
+            }
+            
+            //Sort answer and remove all disqualified entries (set to 101 because they are a subset of a new set)
+            sort(begin(ans),end(ans));
+            while (ans.back() == 101)
+                ans.pop_back();
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}

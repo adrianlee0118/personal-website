@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. In other words, one of 
+        the first string's permutations is the substring of the second string.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool checkInclusion(string s1, string s2) {
+            
+            // Account for special cases
+            if (s1.size() == 0 || s2.size() &lt; s1.size())
+                return false;
+            
+            // Set up letter count mapping
+            int letters[26] = {0};
+            for (auto& c : s1)
+                letters[c-'a']++;
+            
+            // Iterate through s2
+            int start = 0;
+            int end = 0;
+            while (end &lt; s2.size()){
+                if (letters[s2[end]-'a'] > 0){
+                    letters[s2[end]-'a']--;
+                    end++;
+                    if (end-start == s1.size())
+                        return true;
+                } else if (start == end){
+                    start++;
+                    end++;
+                } else {
+                    letters[s2[start]-'a']++;
+                    start++;
+                }
+            }
+            return false;
+        }
+    };
+{% endblock solution_code %}
