@@ -30,41 +30,37 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+        int maxScoreWords(vector&lt;string&gt;& words, vector&lt;char&gt;& letters, vector&lt;int&gt;& score) {
             
             //put letters and scores into a map to make for easier access
-            unordered_map<char,int> charscore;
-            for (auto& l : letters){
+            unordered_map&lt;char,int&gt; charscore;
+            for (auto& l : letters)
                 charscore[l] = score[l-'a'];
-            }
             
             //iterate over all words and score, index by word
-            unordered_map<string,int> scores;
-            for (int i = 0; i < words.size(); i++){ 
+            unordered_map&lt;string, int&gt; scores;
+            for (int i = 0; i &lt; words.size(); i++){ 
                 int sum = 0;
-                for (auto& c : words[i]){
+                for (auto& c : words[i])
                     sum += charscore[c];
-                }
                 scores[words[i]] = sum;
             }
             
             ///DFS to find group scores, keep track of maximum score
             int maxscore = 0;
-            vector<string> validset;
+            vector&lt;string&gt; validset;
             string available(letters.begin(), letters.end());
-            for (int i = 0; i < words.size(); i++){ 
+            for (int i = 0; i &lt; words.size(); i++)
                 DFS(validset, words, scores, i, available, maxscore);
-            }
             return maxscore;
         }
         
         //DFS backtrack to find all possible group scores whose total letters fit within the available group of letters
-        void DFS(vector<string>& validset, vector<string>& words, unordered_map<string, int>& scores, int pos, string& available, int& maxscore){
+        void DFS(vector&lt;string&gt;& validset, vector&lt;string&gt;& words, unordered_map&lt;string, int&gt;& scores, int pos, string& available, int& maxscore){
             if (pos == words.size() || available == "" ){
                 int score = 0;
-                for (auto& v : validset){
+                for (auto& v : validset)
                     score+=scores[v];
-                }
                 maxscore = max(maxscore,score);
                 return;
             }

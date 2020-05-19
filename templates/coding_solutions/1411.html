@@ -1,0 +1,72 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have a grid of size n x 3 and you want to paint each cell of the grid with exactly one of the three colours: Red, 
+        Yellow or Green while making sure that no two adjacent cells have the same colour (i.e no two cells that share vertical 
+        or horizontal sides have the same colour).
+    </p>
+    <p class="question">
+        You are given n the number of rows of the grid.
+    </p>
+    <p class="question">
+        Return the number of ways you can paint this grid. As the answer may grow large, the answer must be computed modulo 10^9 + 7.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        As illustrated in the base example, the first row of three (n = 1) gives a set of 12 possible arrangments. Patterns of 3 
+        can be separated into two cases:
+    </p>
+    <ol>
+        <li>Two of the colors are the same and the third is different, located in the middle (i.e. "121")</li>
+        <li>All three colors are different (i.e. "123")</li>
+    </ol>
+    <p>
+        Of the original set, 6/12 patterns belong to group 1 and the other 6 belong to group 2. After some sample pattern drawing, we can see that:
+    </p>
+    <ol>
+        <li>For each subsequent row of 3 (+1 to the n total), if the previous row is from category 1, we can match this to three possible category 1 and two possible category 2 patterns.
+            <br>i.e. "121" -> [212, 213, 232, 312, 313] all viable</li>
+        <li>For each subsequent row of 3, if the previous row is from category 2, we can match this with two possible category 1 and two possible category 2 patterns.
+            <br>i.e. "123" -> [212, 231, 312, 232] all viable</li>
+    </ol>
+    <p>
+        Use these two rules to build the DP.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int mod = 1000000007;
+        
+    public:
+        int numOfWays(int n) {
+            if(n == 0)
+                return 0;
+            
+            unsigned int last123 = 6;
+            unsigned int last121 = 6;
+            unsigned int cur123 = 6;
+            unsigned int cur121 = 6;
+            
+            //Iterating over the remaining rows
+            for(int i = 2; i &lt;= n; i++) {
+                cur121 = ((last121 % mod)*3) % mod + ((last123 % mod)*2) % mod;
+                cur123 = ((last121 % mod)*2) % mod + ((last123 % mod)*2) % mod;
+                last121 = cur121 % mod;
+                last123 = cur123 % mod;
+            }
+            return (last121 + last123) % mod;
+        }
+    };
+{% endblock solution_code %}

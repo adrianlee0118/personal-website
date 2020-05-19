@@ -22,21 +22,21 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int countSquares(vector<vector<int>>& a) {
+        int countSquares(vector&lt;vector&lt;int&gt;&gt;& a) {
             int n = a.size();
             int m = a[0].size();
             
-            vector<vector<int>>dp(n, vector<int>(m,0));
-            for(int i=0; i<m; i++)
+            vector&lt;vector&lt;int&gt;&gt;dp(n, vector&lt;int&gt;(m,0));
+            for(int i=0; i &lt; m; i++)
                 dp[0][i] = a[0][i];
             
-            for(int i = 0; i < n; i++)
+            for(int i = 0; i &lt; n; i++)
                 dp[i][0] = a[i][0];
             
             //after setting up base values in top row and left column, make each square represent how many matrices
             //there are in the matrix formed by the current cell as a bottom right corner
-            for(int i=1; i<n; i++){
-                for(int j=1; j<m; j++){
+            for(int i = 1; i &lt; n; i++){
+                for(int j = 1; j &lt; m; j++){
                     dp[i][j] = a[i][j];
 
                     // left, topleft, top and current are all > 0, then current is minimum value of those three plus curr
@@ -47,7 +47,7 @@
             
             int ans = 0;
             //add up all the values in each row
-            for(int i = 0; i < n; i++)
+            for(int i = 0; i &lt; n; i++)
                 ans = ans + accumulate(dp[i].begin(), dp[i].end(), 0);
             return ans;
         }

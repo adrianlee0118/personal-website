@@ -33,38 +33,33 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
+        vector&lt;vector&lt;int&gt;&gt; shiftGrid(vector&lt;vector&lt;int&gt;&gt;& grid, int k) {
             
             //put values in order in a 1D vector
-            vector<int> order;
-            for (int i = 0; i < grid.size(); i++){
-                for (int j = 0; j < grid[0].size(); j++){
+            vector&lt;int&gt; order;
+            for (int i = 0; i &lt; grid.size(); i++)
+                for (int j = 0; j &lt; grid[0].size(); j++)
                     order.push_back(grid[i][j]);
-                }
-            }
             
             //shift by K
-            if (k > order.size()){
+            if (k > order.size())
                 k -= order.size();
-            }
-            for (int i = 0; i < k; i++){
+            for (int i = 0; i &lt; k; i++)
                 shift(order);
-            }
             
             //put values back into the 2D vector and return
             int cursor = 0;
-            for (int i = 0; i < grid.size(); i++){
-                for (int j = 0; j < grid[0].size(); j++){
+            for (int i = 0; i &lt; grid.size(); i++)
+                for (int j = 0; j &lt; grid[0].size(); j++){
                     grid[i][j] = order[cursor];
                     cursor++;
                 }
-            }
             return grid;
         }
         
-        void shift(vector<int>& order){
+        void shift(vector&lt;int&gt;& order){
             int temp = order[order.size()-1], temp1;
-            for (int i = 0; i < order.size(); i++) { 
+            for (int i = 0; i &lt; order.size(); i++) { 
                 temp1 = order[i];
                 order[i] = temp;
                 temp = temp1;

@@ -32,11 +32,11 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int minTimeToVisitAllPoints(vector<vector<int>>& points) {
+        int minTimeToVisitAllPoints(vector&lt;vector&lt;int&gt;&gt;& points) {
             int time = 0;
             int y = points[0][0];
             int x = points[0][1];
-            for (int i = 1; i < points.size(); i++){
+            for (int i = 1; i &lt; points.size(); i++){
                 time += max(abs(points[i][0]-y),abs(points[i][1]-x));
                 y = points[i][0];
                 x = points[i][1];

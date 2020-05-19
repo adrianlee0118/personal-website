@@ -26,66 +26,54 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int closedIsland(vector<vector<int>>& grid) {
+        int closedIsland(vector&lt;vector&lt;int&gt;&gt;& grid) {
             
             //In a grid where the side length is 2 or less, no surrounded islands are possible
-            if (grid.size() <= 2 || grid[0].size() <= 2){
+            if (grid.size() &lt;= 2 || grid[0].size() &lt;= 2)
                 return 0;
-            }
             
             int islandcount = 0;
             
             //inspect the central part of the grid and identify/count islands
-            for (int i = 1; i < grid.size()-1; i++){
-                for (int j = 1; j < grid[0].size()-1; j++){
-                    if (grid[i][j] == 0 && isIsland(grid,i,j)){
+            for (int i = 1; i &lt; grid.size()-1; i++)
+                for (int j = 1; j &lt; grid[0].size()-1; j++)
+                    if (grid[i][j] == 0 && isIsland(grid,i,j))
                         islandcount++;
-                    }
-                }
-            }
         
             return islandcount;
         }
         
         //given a cell, determine if the connected land mass it is a part of constitutes a surrounded island
-        bool isIsland(vector<vector<int>>& grid, int coordx, int coordy){
+        bool isIsland(vector&lt;vector&lt;int&gt;&gt;& grid, int coordx, int coordy){
             
-            vector<int> adjcoords = {coordx-1, coordx+1, coordy-1, coordy+1};
+            vector&lt;int&gt; adjcoords = {coordx-1, coordx+1, coordy-1, coordy+1};
             grid[coordx][coordy] = 1;
             
             //return false if we are on the edge already
-            if (adjcoords[0] < 0 || adjcoords[2] < 0 || adjcoords[1] >= grid.size() || adjcoords[3] >= grid[0].size())         {
+            if (adjcoords[0] &lt; 0 || adjcoords[2] &lt; 0 || adjcoords[1] >= grid.size() || adjcoords[3] >= grid[0].size())
                 return false;    
-            }
             
             //check adjacent cells to see if the current cell is enclosed by water
-            if (grid[adjcoords[0]][coordy] && grid[adjcoords[1]][coordy] && grid[coordx][adjcoords[2]] && grid[coordx][adjcoords[3]]){
+            if (grid[adjcoords[0]][coordy] && grid[adjcoords[1]][coordy] && grid[coordx][adjcoords[2]] && grid[coordx][adjcoords[3]])
                 return true;
-            }
             
             //If there is some land around, check them for being surrounded by water or being on edge
-            vector<bool> surrounding;
-            if (grid[adjcoords[0]][coordy] == 0){
+            vector&lt;bool&gt; surrounding;
+            if (grid[adjcoords[0]][coordy] == 0)
                 surrounding.push_back(isIsland(grid,adjcoords[0],coordy));
-            }
-            if (grid[adjcoords[1]][coordy] == 0){
+            if (grid[adjcoords[1]][coordy] == 0)
                 surrounding.push_back(isIsland(grid,adjcoords[1],coordy));
-            }
-            if (grid[coordx][adjcoords[2]] == 0){
+            if (grid[coordx][adjcoords[2]] == 0)
                 surrounding.push_back(isIsland(grid,coordx,adjcoords[2]));
-            }
-            if (grid[coordx][adjcoords[3]] == 0){
+            if (grid[coordx][adjcoords[3]] == 0)
                 surrounding.push_back(isIsland(grid,coordx,adjcoords[3]));
-            }
             
             //If the island condition still holds on all connected cells (adjacents and by extension via recursion 
             //adjacents of adjacents and so forth), then the current cell is in fact a surrounded island
             bool allIsland = true;
-            for (auto a: surrounding){
-                if (!a){
+            for (auto a: surrounding)
+                if (!a)
                     allIsland = false;
-                }
-            }
                                         
             return allIsland;
         }

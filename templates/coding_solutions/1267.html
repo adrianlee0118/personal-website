@@ -27,17 +27,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int countServers(vector<vector<int>>& grid) {
+        int countServers(vector&lt;vector&lt;int&gt;&gt;& grid) {
             
             int count = 0;
-            for (int i = 0; i < grid.size(); i++){
-                for (int j = 0; j < grid[0].size(); j++){
+            for (int i = 0; i &lt; grid.size(); i++){
+                for (int j = 0; j &lt; grid[0].size(); j++){
                     if (grid[i][j] == 1){
                         bool comm = false;
-                        for (int k = 0; k < grid.size(); k++){
-                            if (k == i){
+                        for (int k = 0; k &lt; grid.size(); k++){
+                            if (k == i)
                                 continue;
-                            }
                             if (grid[k][j] == 1){
                                 count++;
                                 comm = true;
@@ -46,10 +45,9 @@
                         }
                         
                         if (!comm){
-                            for (int l = 0; l < grid[0].size(); l++){
-                                if (l == j){
+                            for (int l = 0; l &lt; grid[0].size(); l++){
+                                if (l == j)
                                     continue;
-                                }
                                 if (grid[i][l] == 1){
                                     count++;
                                     break;
@@ -59,7 +57,6 @@
                     }
                 }
             }
-            
             return count;
         }
     };

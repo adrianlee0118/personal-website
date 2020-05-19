@@ -27,43 +27,38 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        vector&lt;vector&lt;string&gt;&gt; suggestedProducts(vector&lt;string&gt;& products, string searchWord) {
             
-            vector<vector<string>> ans;
+            vector&lt;vector&lt;string&gt;&gt; ans;
             
             //For all partial forms of searchWord from first letter
-            for (int i = 1; i <= searchWord.size(); i++){
+            for (int i = 1; i &lt;= searchWord.size(); i++){
                 
-                vector<string> temp;
+                vector&lt;string&gt; temp;
                 
                 //Track lexicographic minimum words using priority queue
-                priority_queue <string> pq; 
+                priority_queue &lt;string&gt; pq; 
                 string currstr = searchWord.substr(0,i);
                 
                 //Determine viable words in products
-                for (auto s : products){
-                    
+                for (auto& s : products){
                     bool stringOK = true;
-                    for (int j = 0; j < currstr.size(); j++){
+                    for (int j = 0; j &lt; currstr.size(); j++)
                         if (s[j] != currstr[j]){
                             stringOK = false;
                             break;
                         }
-                    }
                     
                     //store in queue if viable
-                    if (stringOK){
+                    if (stringOK)
                         pq.push(s);
-                    }
-                    
                 }
                 
                 //Write three lexicographically smallest words to answer in lexicographic smallest to biggest
-                stack<string> overflow;
+                stack&lt;string&gt; overflow;
                 while (!pq.empty()){
-                    if (pq.size() <= 3){
+                    if (pq.size() &lt;= 3)
                         overflow.push(pq.top());
-                    }
                     pq.pop();
                 }
                 while (!overflow.empty()){
