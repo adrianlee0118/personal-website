@@ -40,16 +40,13 @@
             if (!root) return;
             if (root->val == head->val){
                 check(head,root,matchfound);
-                if (matchfound == true){
+                if (matchfound == true)
                     return;
-                }
             }
-            if (root->left){
+            if (root->left)
                 traverse(head,root->left, matchfound);
-            }
-            if (root->right){
+            if (root->right)
                 traverse(head,root->right, matchfound);
-            }
             return;
         }
         
@@ -58,16 +55,12 @@
                 matchfound = true;
                 return;
             }
-            if (root->left){
-                if (root->left->val == head->next->val){
+            if (root->left)
+                if (root->left->val == head->next->val)
                     check(head->next,root->left,matchfound);
-                }
-            }
-            if (root->right){
-                if (root->right->val == head->next->val){
+            if (root->right)
+                if (root->right->val == head->next->val)
                     check(head->next,root->right,matchfound);
-                }
-            }
             return;
         }
     };

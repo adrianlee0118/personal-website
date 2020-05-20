@@ -33,12 +33,12 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
+        int maxNumberOfFamilies(int n, vector&lt;vector&lt;int&gt;&gt;& reservedSeats) {
         
             //Group reserved seats by row
-            unordered_map<int,set<int>> rowseating;
+            unordered_map&lt;int,set&lt;int&gt;&gt; rowseating;
             for (auto& r : reservedSeats){
-                if(r[1] >= 2 && r[1] <= 9){
+                if(r[1] >= 2 && r[1] &lt;= 9){
                     rowseating[r[0]].insert(r[1]);
                 }
             }
@@ -47,16 +47,14 @@
             int count = (n-rowseating.size())*2;
             for (auto& rs : rowseating){
                 if (rs.second.count(2)==0 && rs.second.count(3) == 0 && rs.second.count(4) == 0 && rs.second.count(5) == 0){
-                    if (rs.second.count(6)>0 || rs.second.count(7) > 0 || rs.second.count(8) > 0 || rs.second.count(9) > 0){
+                    if (rs.second.count(6)>0 || rs.second.count(7) > 0 || rs.second.count(8) > 0 || rs.second.count(9) > 0)
                         count++;
-                    } else {
+                    else
                         count += 2;
-                    }
-                } else if (rs.second.count(6)==0 && rs.second.count(7)==0 && rs.second.count(8)==0 && rs.second.count(9)==0){
+                } else if (rs.second.count(6)==0 && rs.second.count(7)==0 && rs.second.count(8)==0 && rs.second.count(9) == 0)
                     count++;
-                } else if (rs.second.count(4)==0 && rs.second.count(5)==0 && rs.second.count(6)==0 && rs.second.count(7)==0){
+                else if (rs.second.count(4)==0 && rs.second.count(5)==0 && rs.second.count(6)==0 && rs.second.count(7) == 0)
                     count++;
-                }
             }
             return count;
         }

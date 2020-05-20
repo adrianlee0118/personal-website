@@ -25,7 +25,7 @@
         Return the k-th integer in the range [lo, hi] sorted by the power value.
     </p>
     <p class="question">
-        Notice that for any integer x (lo <= x <= hi) it is guaranteed that x will transform into 1 using these steps and 
+        Notice that for any integer x (lo &lt;= x &lt;= hi) it is guaranteed that x will transform into 1 using these steps and 
         that the power of x is will fit in 32 bit signed integer.
     </p>
     <div class="line"></div>
@@ -41,10 +41,9 @@
     class Solution {
     public:
         int getKth(int lo, int hi, int k) {
-            vector<vector<int>> stepsNum;
-            for (int i = lo; i <= hi; i++){
+            vector&lt;vector&lt;int&gt;&gt; stepsNum;
+            for (int i = lo; i &lt;= hi; i++)
                 stepsNum.push_back({getSteps(i),i});
-            }
             sort(stepsNum.begin(),stepsNum.end());
             return stepsNum[k-1][1];
         }
@@ -52,11 +51,10 @@
         int getSteps(int i){
             int steps =  0;
             while (i != 1){
-                if (i % 2 == 0){
+                if (i % 2 == 0)
                     i /= 2;
-                } else {
+                else
                     i = 3*i+1;
-                }
                 steps++;
             }
             return steps;

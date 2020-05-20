@@ -44,8 +44,8 @@
     <!-- coding portion of solution-->
     class UndergroundSystem {
     private:
-        unordered_map<int,pair<string,int>> ongoing;                  //ID, (startstation, starttime)
-        unordered_map<string,vector<pair<string,int>>> trips;        //startstation, (endstation, time)
+        unordered_map&lt;int,pair&lt;string,int&gt;&gt; ongoing;                  //ID, (startstation, starttime)
+        unordered_map&lt;string,vector&lt;pair&lt;string,int&gt;&gt;&gt; trips;        //startstation, (endstation, time)
         
     public:
         UndergroundSystem() {

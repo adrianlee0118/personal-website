@@ -44,8 +44,8 @@
             fill_n(letters, 26, 0);
             for (auto& c : s) letters[c-'a']++;
             string ans = "";
-            while (ans.size() < s.size()){
-                for (int i = 0; i < 26; i++)
+            while (ans.size() &lt; s.size()){
+                for (int i = 0; i &lt; 26; i++)
                     if (letters[i] > 0){
                         ans += (char)(i+'a');
                         letters[i]--;

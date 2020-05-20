@@ -30,14 +30,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numTimesAllBlue(vector<int>& light) {
+        int numTimesAllBlue(vector&lt;int&gt;& light) {
             int count = 0;
             int rightmost = 0;
             int on = 0;
             for (auto& l : light){
-                if (l > rightmost) rightmost = l;
+                if (l > rightmost) 
+                    rightmost = l;
                 on++;
-                if (rightmost == on) count++;
+                if (rightmost == on) 
+                    count++;
             }
             return count;
         }

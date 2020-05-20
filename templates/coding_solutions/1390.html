@@ -25,7 +25,7 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int sumFourDivisors(vector<int>& nums) {
+        int sumFourDivisors(vector&lt;int&gt;& nums) {
             int sum = 0;
             for (auto& num : nums){
                 sum += getDivisorSum(num);
@@ -37,7 +37,7 @@
             int sum = 0;
             int count = 0;
             int sq = sqrt(num);
-            for (int i = 1; i <= sq; i++){
+            for (int i = 1; i &lt;= sq; i++){
                 if (num % i == 0){
                     sum += i;
                     count++;
@@ -46,15 +46,13 @@
                         count++;
                     }
                 }
-                if (count > 4){
+                if (count > 4)
                     break;
-                }
             }
-            if (count == 4){
+            if (count == 4)
                 return sum;
-            } else {
+            else
                 return 0;
-            }
         }
     };
 {% endblock solution_code %}

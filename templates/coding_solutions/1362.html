@@ -25,24 +25,21 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> closestDivisors(int num) {
-            vector<int> num1 = factor(num + 1);
-            vector<int> num2 = factor(num + 2);
-            if (abs(num1[0] - num1[1]) < abs(num2[0] - num2[1])) {     //return the set that exhibits the smallest difference
+        vector&lt;int&gt; closestDivisors(int num) {
+            vector&lt;int&gt; num1 = factor(num + 1);
+            vector&lt;int&gt; num2 = factor(num + 2);
+            if (abs(num1[0] - num1[1]) &lt; abs(num2[0] - num2[1]))     //return the set that exhibits the smallest difference
                 return num1;
-            } else {
+            else
                 return num2;
-            }
         }
         
         //returns common factors of n closest to or equal to n's square root
-        vector<int> factor(int n) {
+        vector&lt;int&gt; factor(int n) {
             int factor1;
-            for (factor1 = sqrt(n); factor1 >= 1; factor1--) {    //for numbers between 1 and sqrt(n)
-                if (n % factor1 == 0) {                           //if we found a factor, stop iteration
+            for (factor1 = sqrt(n); factor1 >= 1; factor1--)    //for numbers between 1 and sqrt(n)
+                if (n % factor1 == 0)                           //if we found a factor, stop iteration
                     break;
-                }
-            }
             int factor2 = n / factor1;
             return {factor1, factor2};                            //return pair of factors
         }

@@ -26,9 +26,9 @@
     class Solution {
     public:
         int countLargestGroup(int n) {
-            unordered_map<int,int> sumCount;
+            unordered_map&lt;int,int&gt; sumCount;
             int maxi = 0;
-            for (int i = 1; i <= n; i++){
+            for (int i = 1; i &lt;= n; i++){
                 int sum = 0;
                 int n = i;
                 while (n > 0){
@@ -36,10 +36,13 @@
                     n /= 10;
                 }
                 sumCount[sum]++;
-                if (sumCount[sum] > maxi) maxi = sumNum[sum];
+                if (sumCount[sum] > maxi) 
+                    maxi = sumNum[sum];
             }
             int count = 0;
-            for (auto& m : sumCount) if (m.second == maxi) count++;
+            for (auto& m : sumCount) 
+                if (m.second == maxi) 
+                    count++;
             return count;
         }
     };

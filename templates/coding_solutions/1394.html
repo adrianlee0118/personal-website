@@ -27,22 +27,24 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int findLucky(vector<int>& arr) {
+        int findLucky(vector&lt;int&gt;& arr) {
             sort(arr.begin(),arr.end());
             int last = arr[arr.size()-1];
             int count = 0;
             for (int i = arr.size()-1; i >= 0; i--){
-                if (arr[i] == last) count++;
+                if (arr[i] == last) 
+                    count++;
                 else {
-                    if (count == last){
+                    if (count == last)
                         return last;
-                    } else {
+                    else {
                         count = 1;
                         last = arr[i];
                     }
                 }
             }
-            if (count == last) return last;
+            if (count == last) 
+                return last;
             else return -1;
         }
     };

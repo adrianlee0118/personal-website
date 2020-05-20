@@ -34,12 +34,12 @@
     class Solution {
     public:
         TreeNode* balanceBST(TreeNode* root) {
-            vector<TreeNode*> values;
+            vector&lt;TreeNode*&gt; values;
             getAllValues(root,values);
             return insertRange(0,values.size()-1,values);
         }
         
-        void getAllValues(TreeNode* root, vector<TreeNode*>& values){
+        void getAllValues(TreeNode* root, vector&lt;TreeNode*&gt;& values){
             if (!root) return;
             getAllValues(root->left,values);
             values.push_back(root);
@@ -47,7 +47,7 @@
             return;
         }
         
-        TreeNode* insertRange(int start, int end, vector<TreeNode*>& values){
+        TreeNode* insertRange(int start, int end, vector&lt;TreeNode*&gt;& values){
             if (start > end) return NULL;
             
             int middle = (start+end)/2;

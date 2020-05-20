@@ -44,7 +44,7 @@
             int oddcnt = 0;
             for (auto& v : charCount)
                 if (v % 2) oddcnt++;
-            return oddcnt <= k;
+            return oddcnt &lt;= k;
         }
     };
 {% endblock solution_code %}

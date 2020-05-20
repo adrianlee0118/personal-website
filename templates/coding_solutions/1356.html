@@ -26,24 +26,22 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> sortByBits(vector<int>& arr) {
+        vector&lt;int&gt; sortByBits(vector&lt;int&gt;& arr) {
             
             //Get all the onebit counts of all numbers and store together
-            vector<pair<int,int>> bitnum;
-            for (auto& a : arr){
+            vector&lt;pair&lt;int,int&gt;&gt; bitnum;
+            for (auto& a : arr)
                 bitnum.push_back(make_pair(getOneBits(a),a));   
-            }
             
             //lambda sort in ascending order by bitcount, if bitcount the same sort in ascending order by number value
             sort(bitnum.begin(), bitnum.end(), [](auto& p1, auto& p2){
-                return p1.first < p2.first || (p1.first == p2.first && p1.second < p2.second);
+                return p1.first &lt; p2.first || (p1.first == p2.first && p1.second < p2.second);
             });
             
             //populate the answer vector with the original numbers in the sorted order and return
-            vector<int> ans;
-            for (auto& b : bitnum){
+            vector&lt;int&gt; ans;
+            for (auto& b : bitnum)
                 ans.push_back(b.second);
-            }
             return ans;
         }
         

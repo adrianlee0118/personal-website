@@ -29,22 +29,22 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
-            vector<int> possibleRoot(n, 1);                    //find the tree's root
-            for (int i = 0; i < n; i++) {                           //if a root is a child of another root, it's not the main root
+        bool validateBinaryTreeNodes(int n, vector&lt;int&gt;& leftChild, vector&lt;int&gt;& rightChild) {
+            vector&lt;int&gt; possibleRoot(n, 1);                    //find the tree's root
+            for (int i = 0; i &lt; n; i++) {                           //if a root is a child of another root, it's not the main root
                 if (leftChild[i] >= 0) possibleRoot[leftChild[i]] = 0;
                 if (rightChild[i] >= 0) possibleRoot[rightChild[i]] = 0;
             }
             if (accumulate(begin(possibleRoot),end(possibleRoot),0) != 1) return false;    //if more than one root or no roots (case where there is a cycle) return false
             int root = -1;
-            for (int i = 0; i < n; i++) {      //get the root
+            for (int i = 0; i &lt; n; i++) {      //get the root
                 if (possibleRoot[i] == 1) {
                     root = i;
                     break;
                 }
             }
-            vector<int> LVis(n, 0);
-            vector<int> RVis(n, 0);
+            vector&lt;int&gt; LVis(n, 0);
+            vector&lt;int&gt; RVis(n, 0);
             bool check = DFS(LVis,RVis,leftChild,rightChild,root);          //do the DFS; if we visited all the nodes doing that then all the nodes are part of one tree
             if (check && accumulate(LVis.begin(),LVis.end(),0) == n && accumulate(RVis.begin(),RVis.end(),0) == n)
                 return true;
@@ -52,7 +52,7 @@
         }
         
         //DFS to visit all the nodes in pre-order, returns false if a node is detected that is a child of more than one node
-        bool DFS(vector<int>& LVis, vector<int>& RVis, vector<int>& leftChild, vector<int>& rightChild, int node){
+        bool DFS(vector&lt;int&gt;& LVis, vector&lt;int&gt;& RVis, vector&lt;int&gt;& leftChild, vector&lt;int&gt;& rightChild, int node){
             if (LVis[node] || RVis[node]) return false;
             LVis[node] = 1;
             RVis[node] = 1;

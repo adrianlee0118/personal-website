@@ -15,8 +15,8 @@
     </p>
     <ul>
         <li>Choose 3 soldiers with index (i, j, k) with rating (rating[i], rating[j], rating[k]).</li>
-        <li>A team is valid if:  (rating[i] < rating[j] < rating[k]) or (rating[i] > rating[j] > rating[k]) 
-            where (0 <= i < j < k < n).</li>
+        <li>A team is valid if:  (rating[i] &lt; rating[j] &lt; rating[k]) or (rating[i] > rating[j] > rating[k]) 
+            where (0 &lt;= i &lt; j &lt; k &lt; n).</li>
     </ul>
     <p class="question">
         Return the number of teams you can form given the conditions. (soldiers can be part of multiple teams).
@@ -33,14 +33,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numTeams(vector<int>& rating) {
+        int numTeams(vector&lt;int&gt;& rating) {
             int count = 0;
-            vector<int> team;
+            vector&lt;int&gt; team;
             getTeams(rating,team,0,count);
             return count;
         }
         
-        void getTeams(vector<int>& rating, vector<int>& team, int idx, int& count){
+        void getTeams(vector&lt;int&gt;& rating, vector&lt;int&gt;& team, int idx, int& count){
             if (team.size() == 3){
                 count++;
                 return;
@@ -56,7 +56,7 @@
                         team.pop_back();
                     }
                 } else {
-                    if (team[1] - rating[idx] < 0){
+                    if (team[1] - rating[idx] &lt; 0){
                         team.push_back(rating[idx]);
                         getTeams(rating,team,idx+1,count);
                         team.pop_back();

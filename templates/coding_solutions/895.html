@@ -1,0 +1,75 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Implement FreqStack, a class which simulates the operation of a stack-like data structure.
+    </p>
+    <p class="question">
+        FreqStack has two functions:
+    </p>
+    <ul>
+        <li>push(int x), which pushes an integer x onto the stack.</li>
+        <li>
+            pop(), which removes and returns the most frequent element in the stack.
+            <ul>
+                <li>If there is a tie for most frequent element, the element closest to the top of the stack is removed and 
+                    returned.</li>
+            </ul>
+        </li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use unordered_maps to get:
+    </p>
+    <ol>
+        <li>frequencies mapped to all numbers of that frequency (stored in a stack because we only need the most recent elements)</li>
+        <li>numbers mapped to their respective frequency, so that we can retrieve frequencies by number values</li>
+    </ol>
+    <p>
+        Unordered_maps were used for performance purposes. The rest of the explanation is below.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class FreqStack {
+    private:
+        unordered_map&lt;int,stack&lt;int&gt;&gt; freq;  //Numbers grouped by frequency
+        unordered_map&lt;int,int&gt; numFreq;     //Frequencies indexed by number
+        int mFreq;
+        
+    public:
+        FreqStack() {
+            this->mFreq = 0;
+        }
+        
+        void push(int x) {
+            if(numFreq.count(x) == 0){     //If x is a new number
+                numFreq[x] = 1;
+                freq[1].push(x);
+                mFreq = (mFreq == 0)? 1 : mFreq;
+            } else {                           //x has been encountered before
+                numFreq[x]++;
+                freq[numFreq[x]].push(x);  //No need to waste time removing x from previous freq group--we are only interested in most recent entries into the maximum frequency group
+                mFreq = max(mFreq,numFreq[x]);
+            }
+        }
+        
+        int pop() {
+            int val = freq[mFreq].top();   //grab the most recent number that has attained mFreq
+            freq[mFreq].pop();             //get rid of the frequency group where frequency == mFreq
+            numFreq[val]--;                 //decrement the count of this number to indicate it's gone from the stack--didn't check for zero count because that would be the case where mFreq == 0, and pop will never be called when the stack is empty 
+            if(freq[mFreq].empty())      //If there are no more numbers in the current max frequency group, reduce mFreq
+                mFreq--;
+            return val;
+        }
+    };
+{% endblock solution_code %}

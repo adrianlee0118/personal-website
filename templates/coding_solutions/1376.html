@@ -40,22 +40,20 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-            unordered_map<int,vector<int>> MgrEmpPos;     //allow us to iterate over subordinates given a manager ID
-            for (int i = 0; i < manager.size(); i++){
+        int numOfMinutes(int n, int headID, vector&lt;int&gt;& manager, vector&lt;int&gt;& informTime) {
+            unordered_map&lt;int,vector&lt;int&gt;&gt; MgrEmpPos;     //allow us to iterate over subordinates given a manager ID
+            for (int i = 0; i &lt; manager.size(); i++)
                 MgrEmpPos[manager[i]].push_back(i);
-            }
             return getMaxTime(headID,MgrEmpPos,manager,informTime);
         }
         
         //Post Order traversal, pass up the maximum time to the root from any leaf
-        int getMaxTime(int headID, unordered_map<int,vector<int>>& MgrEmpPos,vector<int>& manager, vector<int>& informTime){
-            unordered_map<int,vector<int>>::iterator got = MgrEmpPos.find(headID);
+        int getMaxTime(int headID, unordered_map&lt;int,vector&lt;int&gt;&gt;& MgrEmpPos,vector&lt;int&gt;& manager, vector&lt;int&gt;& informTime){
+            unordered_map&lt;int,vector&lt;int&gt;&gt;::iterator got = MgrEmpPos.find(headID);
             if (got != MgrEmpPos.end()){        //If subordinates exist
                 int maxBranch = 0;              //Get maximum time to alert all subordinates downstream of each sub
-                for (auto& b : MgrEmpPos[headID]){
+                for (auto& b : MgrEmpPos[headID])
                     maxBranch = max(maxBranch,getMaxTime(b,MgrEmpPos,manager,informTime));
-                }
                 return informTime[headID]+maxBranch;           //Pass the longest time up in the tree
             }
             return informTime[headID];       //if no manager subs, pass the time for this leaf to notify everyone else

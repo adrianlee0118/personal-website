@@ -38,7 +38,7 @@
     <!-- coding portion of solution-->
     class TweetCounts {
     private:
-        unordered_map<string,vector<int>> TweetTimes;         //ensure tweet time stamps are indexed by tweet name
+        unordered_map&lt;string,vector&lt;int&gt;&gt; TweetTimes;         //ensure tweet time stamps are indexed by tweet name
         
     public:
         TweetCounts() {
@@ -50,12 +50,12 @@
             return;
         }
         
-        vector<int> getTweetCountsPerFrequency(string freq, string tweetName, int startTime, int endTime) {
+        vector&lt;int&gt; getTweetCountsPerFrequency(string freq, string tweetName, int startTime, int endTime) {
             if (!TweetTimes.count(tweetName)) return {0};                     //if no tweet names on record match, return 0
             int f = (freq[0] == 'm')? 60 : (freq[0] == 'h')? 3600 : 86400;    //get the frequency step in seconds
-            vector<int> ans((endTime-startTime)/f + 1, 0);                    //set up the answer--each frequency step in the range gets a slot
+            vector&lt;int&gt; ans((endTime-startTime)/f + 1, 0);                    //set up the answer--each frequency step in the range gets a slot
             for (auto& t : TweetTimes[tweetName]){                 //for all tweets with the given name
-                if (t < startTime || t > endTime) continue;        //if in range
+                if (t &lt; startTime || t > endTime) continue;        //if in range
                 ans[(t-startTime)/f]++;                            //Add to the count in the relevant slot
             }
             return ans;

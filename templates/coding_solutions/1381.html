@@ -34,7 +34,7 @@
     class CustomStack {
     private:
         int msize;
-        stack<int> contents;
+        stack&lt;int&gt; contents;
         
     public:
         CustomStack(int maxSize) {
@@ -42,9 +42,8 @@
         }
         
         void push(int x) {
-            if (contents.size() < msize){
+            if (contents.size() &lt; msize)
                 contents.push(x);
-            }
         }
         
         int pop() {
@@ -52,24 +51,22 @@
                 int tmp = contents.top();
                 contents.pop();
                 return tmp;
-            } else {
+            } else 
                 return -1;
-            }
         }
         
         void increment(int k, int val) {
-            stack<int> tmp;
+            stack&lt;int&gt; tmp;
             while (!contents.empty()){
                 tmp.push(contents.top());
                 contents.pop();
             }
             int i = 0;
             while (!tmp.empty()){
-                if (i < k){
+                if (i &lt; k)
                     contents.push(tmp.top()+val);
-                } else {
+                else 
                     contents.push(tmp.top());
-                }
                 tmp.pop();
                 i++;
             }
