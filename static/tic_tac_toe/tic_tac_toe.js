@@ -1,150 +1,202 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
+  return React.createElement(
+    "button",
+    { className: "square", onClick: props.onClick },
+    props.value
   );
 }
 
-class Board extends React.Component {
-  renderSquare(i) {
-    return (
-      <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
+var Board = function (_React$Component) {
+  _inherits(Board, _React$Component);
+
+  function Board() {
+    _classCallCheck(this, Board);
+
+    return _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).apply(this, arguments));
   }
 
-  render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
+  _createClass(Board, [{
+    key: "renderSquare",
+    value: function renderSquare(i) {
+      var _this2 = this;
 
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      history: [
-        {
-          squares: Array(9).fill(null)
+      return React.createElement(Square, {
+        value: this.props.squares[i],
+        onClick: function onClick() {
+          return _this2.props.onClick(i);
         }
-      ],
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          { className: "board-row" },
+          this.renderSquare(0),
+          this.renderSquare(1),
+          this.renderSquare(2)
+        ),
+        React.createElement(
+          "div",
+          { className: "board-row" },
+          this.renderSquare(3),
+          this.renderSquare(4),
+          this.renderSquare(5)
+        ),
+        React.createElement(
+          "div",
+          { className: "board-row" },
+          this.renderSquare(6),
+          this.renderSquare(7),
+          this.renderSquare(8)
+        )
+      );
+    }
+  }]);
+
+  return Board;
+}(React.Component);
+
+var Game = function (_React$Component2) {
+  _inherits(Game, _React$Component2);
+
+  function Game(props) {
+    _classCallCheck(this, Game);
+
+    var _this3 = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
+
+    _this3.state = {
+      history: [{
+        squares: Array(9).fill(null)
+      }],
       stepNumber: 0,
       xIsNext: true
     };
+    return _this3;
   }
 
-  handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({
-      history: history.concat([
-        {
+  _createClass(Game, [{
+    key: "handleClick",
+    value: function handleClick(i) {
+      var history = this.state.history.slice(0, this.state.stepNumber + 1);
+      var current = history[history.length - 1];
+      var squares = current.squares.slice();
+      if (calculateWinner(squares) || squares[i]) {
+        return;
+      }
+      squares[i] = this.state.xIsNext ? "X" : "O";
+      this.setState({
+        history: history.concat([{
           squares: squares
-        }
-      ]),
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
-    });
-  }
-
-  jumpTo(step) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0
-    });
-  }
-
-  render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-
-    const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
-
-    let status;
-    if (winner) {
-      status = "Winner: " + winner;
-    } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+        }]),
+        stepNumber: history.length,
+        xIsNext: !this.state.xIsNext
+      });
     }
+  }, {
+    key: "jumpTo",
+    value: function jumpTo(step) {
+      this.setState({
+        stepNumber: step,
+        xIsNext: step % 2 === 0
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
 
-    return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={i => this.handleClick(i)}
-          />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
-      </div>
-    );
-  }
-}
+      var history = this.state.history;
+      var current = history[this.state.stepNumber];
+      var winner = calculateWinner(current.squares);
+
+      var moves = history.map(function (step, move) {
+        var desc = move ? 'Go to move #' + move : 'Go to game start';
+        return React.createElement(
+          "li",
+          { key: move },
+          React.createElement(
+            "button",
+            { onClick: function onClick() {
+                return _this4.jumpTo(move);
+              } },
+            desc
+          )
+        );
+      });
+
+      var status = void 0;
+      if (winner) {
+        status = "Winner: " + winner;
+      } else {
+        status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      }
+
+      return React.createElement(
+        "div",
+        { className: "game" },
+        React.createElement(
+          "div",
+          { className: "game-board" },
+          React.createElement(Board, {
+            squares: current.squares,
+            onClick: function onClick(i) {
+              return _this4.handleClick(i);
+            }
+          })
+        ),
+        React.createElement(
+          "div",
+          { className: "game-info" },
+          React.createElement(
+            "div",
+            null,
+            status
+          ),
+          React.createElement(
+            "ol",
+            null,
+            moves
+          )
+        )
+      );
+    }
+  }]);
+
+  return Game;
+}(React.Component);
 
 //calculate winner plus driver code
 
 function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+  var lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  for (var i = 0; i < lines.length; i++) {
+    var _lines$i = _slicedToArray(lines[i], 3),
+        a = _lines$i[0],
+        b = _lines$i[1],
+        c = _lines$i[2];
+
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
   return null;
 }
-  
+
 // Driver code
-console.log('accessed tic_tac_toe.js file')
-ReactDOM.render(<Game/>,document.getElementById("ttt_container"));
+console.log('accessed tic_tac_toe.js file');
+ReactDOM.render(React.createElement(Game, null), document.getElementById("ttt_container"));
