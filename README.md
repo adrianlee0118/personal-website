@@ -32,14 +32,15 @@ The following persons:
 
 The following companies for hosting site's files:
   - The pages are hosted on [PythonAnywhere](https://www.pythonanywhere.com/)
-  - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/)
+  - Some resources are served from [Bootstrap CDN](https://www.bootstrapcdn.com/),
+  - [React's CDN](https://reactjs.org/),
   - And [Cloudflare's free CDN](https://www.cloudflare.com/en-ca/).
 
 ## Pending Tasks
   - Update theme
-  - Add remainder of existing LeetCode solutions
   - Contacts page
   - New material: LeetCode, Blog
   - Add 404 pages
   - Search box for coding_solutions table
   - Add PDF resume
+  - Make all LC solutions HTML safe
