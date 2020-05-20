@@ -23,38 +23,38 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        vector&lt;vector&lt;int&gt;&gt; diagonalSort(vector&lt;vector&lt;int&gt;&gt;& mat) {
             
             int m = mat.size();
             int n = mat[0].size();
             
             //sort in place diagonals extending from cells on left edge of grid
             for (int i = m-1; i >= 0; i--){
-                vector<int> temp;
+                vector&lt;int&gt; temp;
                 int x = 0;
-                for (int y = i; y <= m-1 && x < n; y++){
+                for (int y = i; y &lt;= m-1 && x &lt; n; y++){
                     temp.push_back(mat[y][x]);
                     x++;
                 }
                 sort(temp.begin(),temp.end());
                 x = 0;
-                for (int y = i; y <= m-1 && x < n; y++){
+                for (int y = i; y &lt;= m-1 && x &lt; n; y++){
                     mat[y][x] = temp[x];
                     x++;
                 }
             }
             
             //sort in place diagonals extending from cells on top edge of grid
-            for (int i = 1; i < n; i++){
-                vector<int> temp;
+            for (int i = 1; i &lt; n; i++){
+                vector&lt;int&gt; temp;
                 int y = 0;
-                for (int x = i; x < n && y < m; x++){
+                for (int x = i; x &lt; n && y &lt; m; x++){
                     temp.push_back(mat[y][x]);
                     y++;
                 }
                 sort(temp.begin(),temp.end());
                 y = 0;
-                for (int x = i; x < n && y < m; x++){
+                for (int x = i; x &lt; n && y &lt; m; x++){
                     mat[y][x] = temp[y];
                     y++;
                 }

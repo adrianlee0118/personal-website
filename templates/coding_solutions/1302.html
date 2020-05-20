@@ -31,30 +31,24 @@
         }
         
         void getMaxDepth(TreeNode* root, int depth, int& maxDepth){
-            if (!root){
+            if (!root)
                 return;
-            }
             
-            if (depth > maxDepth){
+            if (depth > maxDepth)
                 maxDepth = depth;
-            }
             
-            if (root->left){
+            if (root->left)
                 getMaxDepth(root->left, depth+1, maxDepth);
-            }
-            if (root->right){
+            if (root->right)
                 getMaxDepth(root->right, depth+1, maxDepth);
-            }
         }
         
         void getDeepestLeaves(TreeNode* root, int depth, int maxDepth, int& sum){
-            if (!root){
+            if (!root)
                 return;
-            }
             
-            if (depth == maxDepth){
+            if (depth == maxDepth)
                 sum += root->val;
-            }
             
             getDeepestLeaves(root->left, depth+1, maxDepth, sum);
             getDeepestLeaves(root->right, depth+1, maxDepth, sum);

@@ -28,23 +28,21 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        vector&lt;int&gt; kWeakestRows(vector&lt;vector&lt;int&gt;&gt;& mat, int k) {
             
             //Row index + count of 1s
-            vector<int> RowSoldier;
+            vector&lt;int&gt; RowSoldier;
             
             //Keep track of smallest numbers and avoid duplicates
-            priority_queue<int, vector<int>, greater<int>> pq;
-            set<int> prevcounts;
+            priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;
+            set&lt;int&gt; prevcounts;
             
             //Count all soldiers in each row, avoiding duplicate counts when inserting to priority queue
-            for (int i = 0; i < mat.size(); i++){
+            for (int i = 0; i &lt; mat.size(); i++){
                 int j;
-                for (j = 0; j < mat[i].size(); j++){
-                    if (mat[i][j] == 0){
+                for (j = 0; j &lt; mat[i].size(); j++)
+                    if (mat[i][j] == 0)
                         break;
-                    }
-                }
                 RowSoldier.push_back(j);
                 if (prevcounts.find(j) == prevcounts.end()){
                     pq.push(j);
@@ -53,20 +51,19 @@
             }
             
             //Retrieve k weakest
-            vector<int> ans;
+            vector&lt;int&gt; ans;
             int answercount = 0;
-            while (!pq.empty() && answercount < k){
+            while (!pq.empty() && answercount &lt; k){
                 
                 int count = pq.top();
                 pq.pop();
 
-                for (int l = 0; l < RowSoldier.size(); l++){
+                for (int l = 0; l &lt; RowSoldier.size(); l++){
                     if (RowSoldier[l] == count){
                         ans.push_back(l);
                         answercount++;
-                        if (answercount >= k){
+                        if (answercount >= k)
                             break;
-                        }
                     }
                 }
             }

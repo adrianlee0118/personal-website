@@ -22,17 +22,16 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> sumZero(int n) {
-            vector<int> ans;
+        vector&lt;int&gt; sumZero(int n) {
+            vector&lt;int&gt; ans;
             int curr = 1;
-            while (ans.size() < n){
+            while (ans.size() &lt; n){
                 if (n-ans.size() > 1){
                     ans.push_back(curr);
                     ans.push_back(-1*curr);
                     curr++;
-                } else {
+                } else
                     ans.push_back(0);
-                }
             }
             return ans;
         }

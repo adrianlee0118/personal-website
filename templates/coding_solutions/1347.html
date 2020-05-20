@@ -30,15 +30,13 @@
     public:
         int minSteps(string s, string t) {
             int letters[26] = {0};
-            for (auto c : s){
+            for (auto& c : s)
                 letters[c-'a']++;
-            }
             int count = 0;
             for (auto c : t){
                 letters[c-'a']--;
-                if (letters[c-'a'] < 0 ){
+                if (letters[c-'a'] &lt; 0 )
                     count++;
-                }
             }
             return count;
         }

@@ -24,14 +24,13 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
-            vector<int> ans;
-            vector<int> memo;
+        vector&lt;int&gt; xorQueries(vector&lt;int&gt;& arr, vector&lt;vector&lt;int&gt;&gt;& queries) {
+            vector&lt;int&gt; ans;
+            vector&lt;int&gt; memo;
             memo.push_back(arr[0]);
             
-            for (int i = 1; i < arr.size(); i++){    //memo is a prefix XOR array
+            for (int i = 1; i &lt; arr.size(); i++)    //memo is a prefix XOR array
                 memo.push_back(arr[i]^memo[i-1]);
-            }
             for (auto x : queries) {
                 auto first = x[0];
                 auto second = x[1];

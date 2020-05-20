@@ -25,15 +25,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-            vector<int> ans;
+        vector&lt;int&gt; getAllElements(TreeNode* root1, TreeNode* root2) {
+            vector&lt;int&gt; ans;
             DFS(root1, ans);
             DFS(root2, ans);
             sort(begin(ans),end(ans));
             return ans;
         }
         
-        void DFS(TreeNode* root, vector<int>& ans){
+        void DFS(TreeNode* root, vector&lt;int&gt;& ans){
             if (!root) return;
             ans.push_back(root->val);
             DFS(root->left, ans);

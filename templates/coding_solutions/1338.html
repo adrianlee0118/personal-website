@@ -25,32 +25,29 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int minSetSize(vector<int>& arr) {
+        int minSetSize(vector&lt;int&gt;& arr) {
             
             //Count various different numbers
-            map<int, int> NumberCount;
-            for (auto c: arr){
+            map&lt;int, int&gt; NumberCount;
+            for (auto& c: arr)
                 NumberCount[c]++;
-            }
             
             //Sort the counts
-            vector<int> counts;
-            for (map<int,int>::iterator it = NumberCount.begin(); it != NumberCount.end(); it++){
+            vector&lt;int&gt; counts;
+            for (map&lt;int,int&gt;::iterator it = NumberCount.begin(); it != NumberCount.end(); it++)
                 counts.push_back(it->second);
-            }
             sort(counts.begin(),counts.end());
             
             //Add largest counts until the sum exceeds half of the size of the array
             int index = counts.size()-1;
             int sum = counts[index];
             int half;
-            if (arr.size() % 2 == 0){
+            if (arr.size() % 2 == 0)
                 half = arr.size()/2;
-            } else {
+            else
                 half = arr.size()/2+1;
-            }
             
-            while (sum < half){
+            while (sum &lt; half){
                 index--;
                 sum += counts[index];
             }

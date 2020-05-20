@@ -32,15 +32,12 @@
         
         TreeNode* DeleteNodes(TreeNode* root, int target){
             if (!root) return NULL;
-            if (root->left) {
+            if (root->left)
                 root->left = DeleteNodes(root->left,target);
-            }
-            if (root->right) {
+            if (root->right)
                 root->right = DeleteNodes(root->right,target);
-            }
-            if (!root->left && !root->right && root->val == target){
+            if (!root->left && !root->right && root->val == target)
                 return NULL;
-            }
             return root;
         }
     };

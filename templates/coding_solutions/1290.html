@@ -35,10 +35,9 @@
             }
             int power = 0;
             int dec = 0;
-            for (int i = 0; i < bin.size(); i++){
-                if (bin[bin.size()-i-1] == '1'){
+            for (int i = 0; i &lt; bin.size(); i++){
+                if (bin[bin.size()-i-1] == '1')
                     dec += pow(2,power);
-                }
                 power++;
             }
             return dec;

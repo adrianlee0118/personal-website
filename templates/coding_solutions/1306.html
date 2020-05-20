@@ -27,11 +27,14 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        bool canReach(vector<int>& arr, int start) {
-            if (start < 0 || start >= arr.size() || arr[start] < 0) return false;
-            if (arr[start] == 0) return true;
+        bool canReach(vector&lt;int&gt;& arr, int start) {
+            if (start &lt; 0 || start >= arr.size() || arr[start] &lt; 0) 
+                return false;
+            if (arr[start] == 0) 
+                return true;
             arr[start] *= -1;
-            if (canReach(arr,start+arr[start]) || canReach(arr,start-arr[start])) return true;
+            if (canReach(arr,start+arr[start]) || canReach(arr,start-arr[start])) 
+                return true;
             arr[start] *= -1;
             return false;
         }

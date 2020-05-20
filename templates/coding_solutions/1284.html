@@ -35,42 +35,43 @@
         int m, n;
         
     public:
-        int minFlips(vector<vector<int>>& mat) {
+        int minFlips(vector&lt;vector&lt;int&gt;&gt;& mat) {
             this->m = mat.size();
             this->n = mat[0].size();
             int ans = DFSBacktrack(mat,0,0,0);
-            return (ans == INT_MAX)?-1:ans;
+            return (ans == INT_MAX)? -1 : ans;
         }
         
-        void flip(vector<vector<int>>& mat, int i, int j) {
+        void flip(vector&lt;vector&lt;int&gt;&gt;& mat, int i, int j) {
             mat[i][j] ^= 1;                                   //flip the cell
-            if(i  > 0) mat[i-1][j] ^= 1;                      //flip the surrounding cells if they exist
-            if(j > 0) mat[i][j-1] ^= 1;
-            if(i < m-1) mat[i+1][j] ^= 1;
-            if(j < n-1) mat[i][j+1] ^=1;
+            if(i  > 0) 
+                mat[i-1][j] ^= 1;                      //flip the surrounding cells if they exist
+            if(j > 0) 
+                mat[i][j-1] ^= 1;
+            if(i &lt; m-1) 
+                mat[i+1][j] ^= 1;
+            if(j &lt; n-1) 
+                mat[i][j+1] ^=1;
             return;
         }
         
         //check if the matrix is a zero matrix
-        bool zeroMat(vector<vector<int>>& mat) {
-            for(int i = 0; i < m; i++) {
-                for(int j = 0; j < n; j++) {
+        bool zeroMat(vector&lt;vector&lt;int&gt;&gt;& mat) {
+            for(int i = 0; i &lt; m; i++) 
+                for(int j = 0; j &lt; n; j++)
                     if(mat[i][j]) return false;
-                }
-            }
             return true;
         }
         
         //DFS Backtrack: at every cell in the matrix, try a DFS with flip and one without a flip, return minimum flip count to get zero matrix if possible, 
         //else INT_MAX
-        int DFSBacktrack(vector<vector<int>>& mat, int x, int y, int count) {
+        int DFSBacktrack(vector&lt;vector&lt;int&gt;&gt;& mat, int x, int y, int count) {
             if(x == m) {                                //going row by row from left to right do the analysis
                 x = 0;
                 y++;
             }
-            if(y == n) {
+            if(y == n)
                 return zeroMat(mat)?count:INT_MAX;   //if finished last row, check if zero matrix, if yes, return number of flips, else INT_MAX
-            }  
             int path1 = DFSBacktrack(mat,x+1,y,count);                //at each cell do a DFS without flipping the cell
             flip(mat,x,y);
             int path2 = DFSBacktrack(mat,x+1,y,count+1) ;             //and do a DFS off of flipping that cell (moving to next cell left to right, top to bottom)

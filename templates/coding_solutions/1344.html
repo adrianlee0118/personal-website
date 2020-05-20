@@ -26,21 +26,18 @@
             //Get angle of hour and of minute hand clockwise from reference 12 o'clock
             double minangle = minutes*6;
             double hourangle = hour*30 + (((double) minutes)/60)*30;   //Add fraction of next hour based on minutes
-            if (hourangle > 360){           //if the hour is 12, ensure the smallest angle from 12 is recorded
+            if (hourangle > 360)           //if the hour is 12, ensure the smallest angle from 12 is recorded
                 hourangle -= 360;
-            }
             
             //Get the smallest angle between the two hands and return
             double angle;
-            if (minangle > hourangle){
+            if (minangle > hourangle)
                 angle = minangle-hourangle;
-            } else {
+            else
                 angle = hourangle-minangle;
-            }
             
-            if (angle > 180){
+            if (angle > 180)
                 angle = 360-angle;
-            }
             return angle;
         }
     };

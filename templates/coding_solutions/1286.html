@@ -28,18 +28,18 @@
     <!-- coding portion of solution-->
     class CombinationIterator {
     private:
-        void DFS(const string &s, int n, int len, int idx, string &path, vector<string> &res) {
+        void DFS(const string &s, int n, int len, int idx, string &path, vector&lt;string&gt; &res) {
             if (path.size() == len) {
                 res.push_back(path);
                 return;
             }
-            for (int i = idx; i < n; i++) {
+            for (int i = idx; i &lt; n; i++) {
                 path.push_back(s[i]);
                 DFS(s, n, len, i + 1, path, res);
                 path.pop_back();
             }
         }
-        vector<string> V_;
+        vector&lt;string&gt; V_;
         int idx_;
         
     public:
@@ -54,7 +54,7 @@
         }
         
         bool hasNext() {
-            return idx_ < V_.size();
+            return idx_ &lt; V_.size();
         }
     
     };

@@ -39,9 +39,8 @@
             //Store number, rank without duplicates in a map
             int i = 1;
             unordered_map &lt;int,int&gt; NumRank;
-            for(auto d : dummy) {
+            for(auto& d : dummy)
                 if(NumRank.find(d) == NumRank.end()) NumRank[d] = i++; 
-            }
             
             //Populate vector with ranks of numbers inserted with reference to original ordering of numbers
             i = 0;

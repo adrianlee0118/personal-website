@@ -28,17 +28,17 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        int removeCoveredIntervals(vector<vector<int>>& intervals) {
-            vector<bool> use(intervals.size(),false);
+        int removeCoveredIntervals(vector&lt;vector&lt;int&gt;&gt;& intervals) {
+            vector&lt;bool&gt; use(intervals.size(),false);
             use[0] = true;
-            for (int i = 1; i < intervals.size(); i++){
+            for (int i = 1; i &lt; intervals.size(); i++){
                 bool absorbed = false;
-                for (int j = 0; j < i; j++){
+                for (int j = 0; j &lt; i; j++){
                     if (use[j]){
-                        if (intervals[i][0] >= intervals[j][0] && intervals[i][1] <= intervals[j][1]){
+                        if (intervals[i][0] >= intervals[j][0] && intervals[i][1] &lt;= intervals[j][1]){
                             absorbed = true;
                             break;
-                        } else if (intervals[j][0] >= intervals[i][0] && intervals[j][1] <= intervals[i][1]){
+                        } else if (intervals[j][0] >= intervals[i][0] && intervals[j][1] &lt;= intervals[i][1]){
                             use[j] = false;
                             use[i] = true;
                             absorbed = true;
@@ -48,9 +48,8 @@
                 if (!absorbed) use[i] = true;
             }
             int count = 0;
-            for (int i = 0; i < use.size(); i++){
+            for (int i = 0; i &lt; use.size(); i++)
                 if (use[i]) count++;
-            }
             return count;
         }
     };

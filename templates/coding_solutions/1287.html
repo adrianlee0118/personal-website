@@ -27,17 +27,15 @@
     class Solution {
     public:
         int findSpecialInteger(vector&lt;int&gt;& arr) {
-            if (arr.size() == 1){
+            if (arr.size() == 1)
                 return arr[0];
-            }
             int count = 1;
             int last = arr[0];
             for (int i = 1; i &lt; arr.size(); i++){
                 if (arr[i] == last){
                     count++;
-                    if (count > arr.size()/4){
+                    if (count > arr.size()/4)
                         return arr[i];
-                    }
                 } else {
                     last = arr[i];
                     count = 1;

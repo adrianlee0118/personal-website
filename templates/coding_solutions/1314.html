@@ -9,7 +9,7 @@
     <!-- Problem statement (format with p tags)-->
     <p class="question">
         Given a m * n matrix mat and an integer K, return a matrix answer where each answer[i][j] is the sum of all elements 
-        mat[r][c] for i - K <= r <= i + K, j - K <= c <= j + K, and (r, c) is a valid position in the matrix.
+        mat[r][c] for i - K &lt;= r &lt;= i + K, j - K &lt;= c &lt;= j + K, and (r, c) is a valid position in the matrix.
     </p>
     <div class="line"></div>
 {% endblock question %}
@@ -23,22 +23,33 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<vector<int>> matrixBlockSum(vector<vector<int>>& mat, int K) {
-            vector<vector<int>> ans;
-            for (int i = 0; i < mat.size(); i++){
-                vector<int> row;
+        vector&lt;vector&lt;int&gt;&gt; matrixBlockSum(vector&lt;vector&lt;int&gt;&gt;& mat, int K) {
+            vector&lt;vector&lt;int&gt;&gt;ans;
+            for (int i = 0; i &lt; mat.size(); i++){
+                vector&lt;int&gt; row;
                 int minx, maxx, miny, maxy;
-                if (i - K < 0){ minx = 0; } else { minx = i - K;}
-                if (i + K >= mat.size()){ maxx = mat.size()-1; } else { maxx = i + K; }
-                for (int j = 0; j < mat[0].size(); j++){
-                    if (j - K < 0){ miny = 0; } else { miny = j - K;}
-                    if (j + K >= mat[0].size()){ maxy = mat[0].size()-1; } else { maxy = j + K; }
+                if (i - K &lt; 0) 
+                    minx = 0; 
+                else 
+                    minx = i - K;
+                if (i + K >= mat.size())
+                    maxx = mat.size()-1; 
+                else
+                    maxx = i + K;
+
+                for (int j = 0; j &lt; mat[0].size(); j++){
+                    if (j - K &lt; 0)
+                        miny = 0; 
+                    else
+                        miny = j - K;
+                    if (j + K >= mat[0].size())
+                        maxy = mat[0].size()-1; 
+                    else
+                        maxy = j + K;
                     int sum = 0;
-                    for (int x = minx; x <= maxx; x++){
-                        for (int y = miny; y <= maxy; y++){
+                    for (int x = minx; x &lt;= maxx; x++)
+                        for (int y = miny; y &lt;= maxy; y++)
                             sum += mat[x][y];
-                        }
-                    }
                     row.push_back(sum);
                 }
                 ans.push_back(row);

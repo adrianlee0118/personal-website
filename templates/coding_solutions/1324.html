@@ -28,9 +28,9 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> printVertically(string s) {
+        vector&lt;string&gt; printVertically(string s) {
             
-            vector<string> words;
+            vector&lt;string&gt; words;
             
             stringstream ss(s);
             string word;
@@ -40,15 +40,15 @@
                 maxLen = max((int)word.size(), maxLen);
             }
             
-            vector<string> ans;
+            vector&lt;string&gt; ans;
             int n = words.size();
-            for (int j = 0; j < maxLen; j++) {
+            for (int j = 0; j &lt; maxLen; j++) {
                 
                 string current = "";
                 
                 for (string& word : words) {
                     
-                    if (j < word.size()) current.push_back(word[j]);
+                    if (j &lt; word.size()) current.push_back(word[j]);
                     
                     //this is essential for deleting leading spaces
                     else current.push_back(' ');
