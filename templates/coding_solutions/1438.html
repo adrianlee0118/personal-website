@@ -43,14 +43,12 @@
             while (end &lt; nums.size()){
                 int cur = nums[end];
                 
-                while (!minq.empty() && nums[minq.back()] >= cur){
+                while (!minq.empty() && nums[minq.back()] >= cur)
                     minq.pop_back();       //replace greater numbers than current number with current number
-                }
                 minq.push_back(end);
                 
-                while (!maxq.empty() && nums[maxq.back()] &lt;= cur){
+                while (!maxq.empty() && nums[maxq.back()] &lt;= cur)
                     maxq.pop_back();       //replace smaller numbers than current number with current number
-                }
                 maxq.push_back(end);
                 
                 //Grab the maximum and minimum in the range thus far and compare them
@@ -62,12 +60,10 @@
                 
                 if (maxval - minval > limit){     //if limit is exceeded, move start up
                     start++;
-                    if (start > minq.front()){   //remove current mins and maxes that have fallen outside the range
+                    if (start > minq.front())   //remove current mins and maxes that have fallen outside the range
                         minq.pop_front();
-                    } 
-                    if (start > maxq.front()){
+                    if (start > maxq.front())
                         maxq.pop_front();
-                    }
                 } else {
                     mlen = max(mlen,end-start+1);  //if limit not exceeded, store length and extend array length
                     end++;

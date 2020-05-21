@@ -29,14 +29,11 @@
     public:
         string destCity(vector&lt;vector&lt;string&gt;&gt;& paths) {
             unordered_map&lt;string,string&gt; dest;
-            for (auto& p : paths){
+            for (auto& p : paths)
                 dest[p[0]] = p[1];
-            }
-            for (auto& p : paths){
-                if (dest.count(p[1]) == 0 ){
+            for (auto& p : paths)
+                if (dest.count(p[1]) == 0 )
                     return p[1];
-                }
-            }
             return "";
         }
     };

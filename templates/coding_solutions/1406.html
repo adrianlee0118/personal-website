@@ -44,7 +44,7 @@
         int dp[50001];     //total score possible for a player playing from position i
         
     public:
-        string stoneGameIII(vector<int>& stoneValue) {
+        string stoneGameIII(vector&lt;int&gt;& stoneValue) {
             if (stoneValue.empty()) return "Tie";
             fill_n(dp, 50001, INT_MIN);
             int total = accumulate(stoneValue.begin(),stoneValue.end(),0);  //Get total possible score
@@ -56,10 +56,10 @@
         }
         
         //DFS to find the current player's score given some position in stoneValue and the total remaining scoring up for grabs
-        int firstPlayerScore(vector<int>& stoneValue, int pos, int total){
+        int firstPlayerScore(vector&lt;int&gt;& stoneValue, int pos, int total){
             if (pos >= stoneValue.size()) return 0;
             if (dp[pos] != INT_MIN) return dp[pos];
-            for (int i = 1, sum = 0; i < 4 && pos + i <= stoneValue.size(); i++){   //Iterating through the current player's choices of takes
+            for (int i = 1, sum = 0; i &lt; 4 && pos + i &lt;= stoneValue.size(); i++){   //Iterating through the current player's choices of takes
                 sum += stoneValue[pos+i-1];
                 dp[pos] = max(dp[pos], total - firstPlayerScore(stoneValue,pos+i,total-sum));  //Score from this turn is current total minus next player's score from next round, maintain the max
             }

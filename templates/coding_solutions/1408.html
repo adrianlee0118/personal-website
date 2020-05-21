@@ -25,10 +25,10 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<string> stringMatching(vector<string>& words) {
-            vector<string> ans;
-            for (int i = 0; i < words.size(); i++){
-                for (int j = 0; j < words.size(); j++){
+        vector&lt;string&gt; stringMatching(vector&lt;string&gt;& words) {
+            vector&lt;string&gt; ans;
+            for (int i = 0; i &lt; words.size(); i++){
+                for (int j = 0; j &lt; words.size(); j++){
                     if (j != i && words[j].find(words[i]) != -1){
                         ans.push_back(words[i]);
                         break;

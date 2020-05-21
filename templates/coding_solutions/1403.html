@@ -34,15 +34,15 @@
     <!-- coding portion of solution-->
     class Solution {
     public:
-        vector<int> minSubsequence(vector<int>& nums) {
+        vector&lt;int&gt; minSubsequence(vector&lt;int&gt;& nums) {
             sort(nums.begin(),nums.end());
             int sum = accumulate(nums.begin(),nums.end(),0);
-            vector<int> ans;
-            while (accumulate(ans.begin(),ans.end(),0) <= sum/2){
+            vector&lt;int&gt; ans;
+            while (accumulate(ans.begin(),ans.end(),0) &lt;= sum/2){
                 ans.push_back(nums.back());
                 nums.pop_back();
             }
-            sort(ans.begin(),ans.end(),greater<int>());
+            sort(ans.begin(),ans.end(),greater&lt;int&gt;());
             return ans;
         }
     };

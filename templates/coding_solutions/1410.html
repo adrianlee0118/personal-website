@@ -45,7 +45,7 @@
             replaceString(text, "&quot;", "\"");
             replaceString(text, "&apos;", "\'");
             replaceString(text, "&gt;", ">");
-            replaceString(text, "&lt;", "<");
+            replaceString(text, "&lt;", "&lt;");
             replaceString(text, "&frasl;", "/");
             replaceString(text, "-", "&");       //convert the ampersands
             return text;
@@ -53,11 +53,10 @@
     
         void replaceString(string& text, const string& search, const string& replace) {
             int i = 0;
-            while(i < text.size()) {
+            while(i &lt; text.size()) {
                 int i = text.find(search,i);
-                if (i == string::npos){
+                if (i == string::npos)
                     break;
-                }
                 text.replace(i, search.size(), replace);
                 i += replace.size();
             }

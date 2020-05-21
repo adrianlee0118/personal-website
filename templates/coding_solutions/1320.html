@@ -1,0 +1,102 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have a keyboard layout where each English uppercase letter is located at a coordinate as set by laying out the letters
+        in rows of size 6 from left to right. For example, the letter A is located at coordinate (0,0), the letter B is located at 
+        coordinate (0,1), the letter P is located at coordinate (2,3) and the letter Z is located at coordinate (4,1).
+    </p>
+    <p class="question">
+        Given the string word, return the minimum total distance to type such string using only two fingers. The distance between 
+        coordinates (x1,y1) and (x2,y2) is |x1 - x2| + |y1 - y2|. 
+    </p>
+    <p class="question">
+        Note that the initial positions of your two fingers are considered free so don't count towards your total distance, also 
+        your two fingers do not have to start at the first letter or the first two letters.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use pairs to keep track of coordinates and distances between disparate points. The hardest part about writing the DP was 
+        remembering that in order to track distance scores with respect to the state of the system, the indexing had to account 
+        not just for the letter in the word but also the position of fingers f1 and f2 at that point as well (therefore a string 
+        was used as a key for the DP in order to account for all of these anchoring factors).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        unordered_map&lt;char,pair&lt;int,int&gt;&gt; letterCoords;  //Map containing positions indexed by letter
+        unordered_map&lt;string, int&gt; dp;                   //Minimum distance from some starting index given certain positions of f1 and f2
+        
+    public:
+        int minimumDistance(string word) {
+            
+            // Map all letters to positions
+            letterCoords['A'] = make_pair(0,0);
+            letterCoords['B'] = make_pair(0,1);
+            letterCoords['C'] = make_pair(0,2);
+            letterCoords['D'] = make_pair(0,3);
+            letterCoords['E'] = make_pair(0,4);
+            letterCoords['F'] = make_pair(0,5);
+            letterCoords['G'] = make_pair(1,0);
+            letterCoords['H'] = make_pair(1,1);
+            letterCoords['I'] = make_pair(1,2);
+            letterCoords['J'] = make_pair(1,3);
+            letterCoords['K'] = make_pair(1,4);
+            letterCoords['L'] = make_pair(1,5);
+            letterCoords['M'] = make_pair(2,0);
+            letterCoords['N'] = make_pair(2,1);
+            letterCoords['O'] = make_pair(2,2);
+            letterCoords['P'] = make_pair(2,3);
+            letterCoords['Q'] = make_pair(2,4);
+            letterCoords['R'] = make_pair(2,5);
+            letterCoords['S'] = make_pair(3,0);
+            letterCoords['T'] = make_pair(3,1);
+            letterCoords['U'] = make_pair(3,2);
+            letterCoords['V'] = make_pair(3,3);
+            letterCoords['W'] = make_pair(3,4);
+            letterCoords['X'] = make_pair(3,5);
+            letterCoords['Y'] = make_pair(4,0);
+            letterCoords['Z'] = make_pair(4,1);
+            
+            //Set up DP (minimum distance from some starting index)
+            
+            
+            // DFS to find minimum total distance spanned by fingers
+            pair&lt;int,int&gt; f1 = make_pair(-1,-1);
+            pair&lt;int,int&gt; f2 = make_pair(-1,-1);
+            return TypeAndMeasure(word,0,f1,f2);
+        }
+        
+        int TypeAndMeasure(string& word, int pos, pair&lt;int,int&gt; f1, pair&lt;int,int&gt; f2){
+            if (pos == word.size())
+                return 0;
+            
+            string key = to_string(pos)+to_string(f1.first)+to_string(f1.second)+to_string(f2.first)+to_string(f2.second);
+            if (dp.find(key) != dp.end())
+                return dp[key];
+            
+            //Iterate over the two possible movement options and determine the total distance that would result from each move
+            //Use the first finger
+            int adddist = (f1.first == -1)? 0 : abs(letterCoords[word[pos]].first - f1.first)+abs(letterCoords[word[pos]].second - f1.second);
+            int moveFirst = adddist + TypeAndMeasure(word,pos+1,letterCoords[word[pos]],f2);
+            
+            //Use the second finger
+            adddist = (f2.first == -1)? 0 : abs(letterCoords[word[pos]].first - f2.first)+abs(letterCoords[word[pos]].second - f2.second);
+            int moveSecond = adddist + TypeAndMeasure(word,pos+1,f1,letterCoords[word[pos]]);
+            
+            //Set the DP value from this index to the end to be the minimum distance of the two options
+            return dp[key] = min(moveFirst,moveSecond);
+        }
+    };
+{% endblock solution_code %}

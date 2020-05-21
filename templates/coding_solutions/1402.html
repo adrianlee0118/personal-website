@@ -36,7 +36,7 @@ class Solution {
         int dp[500][500] = {};         //position ranges from 0-499, time from 1-500
         
     public:
-        int maxSatisfaction(vector<int>& satisfaction) {
+        int maxSatisfaction(vector&lt;int&gt;& satisfaction) {
             sort(satisfaction.begin(),satisfaction.end());       //set up for bottom-up DP
             return DFS(satisfaction,0,1);
         }
@@ -45,7 +45,7 @@ class Solution {
         //dishes have been taken up to that point as indicated by the time value. This is accomplished by doing a DFS 
         //with the current position's dish and one without and taking the maximum--answers are stored in a dp vector 
         //mapping pos to time to speed up later DFS calculations
-        int DFS(vector<int>& satisfaction,int pos,int time){
+        int DFS(vector&lt;int&gt;& satisfaction,int pos,int time){
             if (pos >= satisfaction.size()) return 0;
             if (dp[pos][time]) return dp[pos][time];
             return dp[pos][time] = max(DFS(satisfaction,pos+1,time),time*satisfaction[pos]+DFS(satisfaction,pos+1,time+1));
