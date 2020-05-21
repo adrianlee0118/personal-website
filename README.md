@@ -22,6 +22,7 @@ The domain name was acquired from Google Domains.
 ## Thanks to
   - The Flask micro web framework
   - Flask-Bootstrap
+  - Facebook's React JavaScript library
   - Leetcode for public coding challenges, which the coding_solutions section is made from
   - Google for various stock images
   - Font Awesome is used for some of the social media icons
