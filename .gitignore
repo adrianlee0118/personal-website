@@ -8,6 +8,8 @@ env/
 # Others
 .vscode/
 draft/
+LICENSE.md
+README.md
 
 # External NPM
 node_modules
