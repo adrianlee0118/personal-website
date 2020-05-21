@@ -1,5 +1,5 @@
 ## About
-My personal website and blog, developed from scratch using Flask for Python and Bootstrap.
+My personal website and blog, developed from scratch using Flask for Python, Bootstrap and React.
 
 www.adrianlee0118.com
 
