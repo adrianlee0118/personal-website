@@ -7,7 +7,7 @@ The domain name was acquired from Google Domains.
 
 ## Directories
   - static: contains CSS styles, images used on pages, and third party scripts
-    - web application directories may contain jsx files as indicated by name; these files are transpiled using Babel from NPM into the plain JavaScript files in the same directories
+    - web application directories may contain jsx files as indicated by name; these files are transpiled using Babel from NPM into the plain JavaScript files in the same directories, which are the versions used with HTML pages for rendering the React components contained within
   - templates: contains all html templates, subfolder coding_solutions contains all text for Leetcode solution pages
   - home directory: contains flask backend app.py and the associated db
 
