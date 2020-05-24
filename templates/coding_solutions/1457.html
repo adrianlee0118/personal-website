@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree where node values are digits from 1 to 9. A path in the binary tree is said to be pseudo-palindromic 
+        if at least one permutation of the node values in the path is a palindrome.
+    </p>
+    <p class="question">
+        Return the number of pseudo-palindromic paths going from the root node to leaf nodes.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Pseudo-palindromic numbers can have at most one character that occurs with an odd frequency in order to maintain their
+        symmetry.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int pseudoPalindromicPaths (TreeNode* root) {
+            vector&lt;int&gt; numCount(10,0);
+            int count = 0;
+            DFS(root, numCount, count);
+            return count;
+        }
+        
+        void DFS(TreeNode* root, vector&lt;int&gt;& numCount, int& count){
+            if (!root)
+                return;
+            
+            numCount[root->val]++;
+            if (root->left || root->right){
+                DFS(root->left, numCount, count);
+                DFS(root->right, numCount, count);
+            } else {
+                int oddCount = 0;
+                for (int i = 1; i &lt;= 9; i++){
+                    if (numCount[i] % 2 > 0)
+                        oddCount++;
+                    if (oddCount > 1)
+                        break;
+                }
+                if (oddCount &lt;= 1)
+                    count++;
+            }
+            numCount[root->val]--;
+            return;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s and an integer k.
+    </p>
+    <p class="question">
+        Return the maximum number of vowel letters in any substring of s with length k.
+    </p>
+    <p class="question">
+        Vowel letters in English are (a, e, i, o, u).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Prefix sum to count all vowels and then a sliding window analysis to get the maximum.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxVowels(string s, int k) {
+            vector&lt;int&gt; prefix(s.size()+1, 0);
+            for (int i = 0; i &lt; s.size(); i++)
+                prefix[i+1] = (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')? prefix[i]+1 : prefix[i];
+            int ans = 0;
+            for (int i = k; i &lt; prefix.size(); i++)
+                ans = max(ans, prefix[i] - prefix[i-k]);
+            return ans;
+        }
+    };
+{% endblock solution_code %}

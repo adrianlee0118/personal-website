@@ -1,0 +1,58 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a sentence that consists of some words separated by a single space, and a searchWord.
+    </p>
+    <p class="question">
+        You have to check if searchWord is a prefix of any word in sentence.
+    </p>
+    <p class="question">
+        Return the index of the word in sentence where searchWord is a prefix of this word (1-indexed).
+    </p>
+    <p class="question">
+        If searchWord is a prefix of more than one word, return the index of the first word (minimum index). If there is no such 
+        word return -1.
+    </p>
+    <p class="question">
+        A prefix of a string S is any leading contiguous substring of S.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Parse string word by word using input string stream, counter increments before processing to accommodate 1-indexing.
+        Use substring to assess prefix.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int isPrefixOfWord(string sentence, string searchWord) {
+            if(searchWord.size() >  sentence.size())
+                return -1;
+            if(sentence == searchWord)
+                return 0;
+            
+            int n = searchWord.size();
+            istringstream iss(sentence);
+            
+            string s = "";
+            int i = 0;
+            while(iss >> s){
+                i++;
+                if(s.substr(0,n) == searchWord)
+                    return i;
+            }
+            return -1;
+        }
+    };
+{% endblock solution_code %}
