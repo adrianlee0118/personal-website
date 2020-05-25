@@ -1,0 +1,53 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        We write the integers of A and B (in the order they are given) on two separate horizontal lines.
+    </p>
+    <p class="question">
+        Now, we may draw connecting lines: a straight line connecting two numbers A[i] and B[j] such that:
+    </p>
+    <ul>
+        <li>A[i] == B[j];</li>
+        <li>The line we draw does not intersect any other connecting (non-horizontal) line.</li>
+    </ul>
+    <p class="question">
+        Note that a connecting lines cannot intersect even at the endpoints: each number can only belong to one connecting line.
+    </p>
+    <p class="question">
+        Return the maximum number of connecting lines we can draw in this way.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        For every pair of digits, one from each string, compared (when we iterate through the 2D DP) the total lines will be:
+    </p>
+    <ol>
+        <li>If the two digits match, the total before introducing both digits plus 1 (dp[i-1][j-1] + 1)</li>
+        <li>If the two digits don't match, the maximum total of adding either digit--this accounts for the case where the 
+            current added digit, whether it's from string A or B, matches with a previously encountered digit in the other string</li>
+    </ol>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxUncrossedLines(vector&lt;int&gt;& A, vector&lt;int&gt;& B) {
+            int m = A.size();
+            int n = B.size();
+            vector&lt;vector&lt;int&gt;&gt; dp(m+1, vector&lt;int&gt;(n+1, 0));
+            for(int i = 1; i &lt;= m; i++)
+                for(int j = 1; j &lt;= n; j++)
+                    dp[i][j] = max(dp[i-1][j], max(dp[i][j-1], dp[i-1][j-1]+(A[i-1]==B[j-1])));
+            return dp[m][n];
+        }
+    };
+{% endblock solution_code %}
