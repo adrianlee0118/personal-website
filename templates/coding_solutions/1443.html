@@ -34,7 +34,7 @@
                 return 0;
             
             //Hash all destinations to origins for ease of access
-            unordered_map&lt;vector&lt;int&gt;&gt; fromTos;
+            unordered_map&lt;int,vector&lt;int&gt;&gt; fromTos;
             for (auto& e : edges)
                 fromTos[e[0]].push_back(e[1]); 
             
