@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a set of N people (numbered 1, 2, ..., N), we would like to split everyone into two groups of any size.
+    </p>
+    <p class="question">
+        Each person may dislike some other people, and they should not go into the same group. 
+    </p>
+    <p class="question">
+        Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
+    </p>
+    <p class="question">
+        Return true if and only if it is possible to split everyone into two groups in this way.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool possibleBipartition(int N, vector&lt;vector&lt;int&gt;&gt;& dislikes) {
+            
+            //Index all dislikes by person
+            unordered_map&lt;int,unordered_set&lt;int&gt;&gt; no;
+            for (auto& d : dislikes){
+                no[d[0]].insert(d[1]);
+                no[d[1]].insert(d[0]);
+            }
+            
+            // Iterate over all the people 1 to N; assign or check groups are 1 or -1 in a way that there are no conflicts in the two groups
+            vector&lt;int&gt; group(N+1,0);      //person ID to group number
+            for(int i = 1; i &lt;= N; i++)
+                if(group[i] == 0 && !DFS(group, no, i, 1)) 
+                    return false;
+            return true;
+        }
+        
+        // DFS: assigns the current person to the current group (1 or -1) if not visited, if visited, check if the assigned group is the same as the 
+        // current--if the same, then continue the same check of all of the current person's dislikes with the current group toggled to the other (-1 or 1)
+        bool DFS(vector&lt;int&gt;& group, unordered_map&lt;int,unordered_set&lt;int&gt;&gt;& no, int cur, int grp){
+            
+            //current person has previously been visited and assigned a group, if same as current group return true (groups are 1 or -1) 
+            if(group[cur] != 0) 
+                return group[cur] == grp;
+            
+            //if not previously visited, assign to current expected group
+            group[cur] = grp;
+            
+            //Iterating over all dislikes of the current person, check if or assign to the opposite group
+            for(auto& d : no[cur]) 
+                if(!DFS(group, no, d, -grp)) 
+                    return false;    //If we encounter an already-assigned person that isn't in the opposite group, a conflict exists
+            return true;  //we didn't find any conflicts in assigning all people to group 1 or -1.
+        }
+    };
+{% endblock solution_code %}
