@@ -1,0 +1,95 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given a string s containing lowercase letters and an integer k. You need to :
+    </p>
+    <ul>
+        <li>First, change some characters of s to other lowercase English letters.</li>
+        <li>Then divide s into k non-empty disjoint substrings such that each substring is palindrome.</li>
+    </ul>
+    <p class="question">
+        Return the minimal number of characters that you need to change to divide the string.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Main idea: recursion where for a given length of the string we try different positions of dividing the string into two 
+        parts--for the first part, we calculate the cost of converting to a single palindrome and for the second part we kick off the 
+        recursion for calculating changes required for changing that portion to some reduced number of palindromes (since the first 
+        part of the string has become a palindrome).
+    </p>
+    <p>
+        A countdown of the number of palindromes is modified at each recursion dive and when it reaches 1, we just calculate the 
+        cost for turning the entire remaining string into a palindrome and add to the total.
+    </p>
+    <p>
+        At any given length, each partition position represents a move 'option' and we store the minimum changes cost to achieve 
+        k palindromes from any given state using a DP.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int palindromePartition(string s, int k) {
+            
+            //Pre-calculate the single-palindrome cost for all possible substrings of s, mapped to start position i and end position j within string s
+            int n = s.size();
+            vector&lt;vector&lt;int&gt;&gt; substrCosts(n,vector&lt;int&gt;(n,-1));
+            for (int l = 1; l &lt;= n; l++)                      //for all possible substring lengths within string s
+                for (int i = 0; i &lt;= n - l; i++) {            //iterating over all possible start positions in s of a substring
+                    int j = i + l - 1;                      
+                    substrCosts[i][j] = getSubstrCost(s.substr(i,l));  //store the single palindrome cost at this substring start and end point
+                } 
+            
+            //Build the top down DP to keep track of minimum costs of making some number of palindromes from some start position in s--top down until we get to position 0 making k palindromes
+            vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(k, -1));            //DP: at some start position in s and given some number of palindromes up to k that must be generated from that point (two indices), store the minimum cost
+            return getMinPalindromeCost(substrCosts, dp, s, 0, k-1); 
+        }
+        
+        //Get the cost of turning string str into a single palindrome
+        int getSubstrCost(string str){
+            int front = 0;
+            int back = str.size()-1;
+            int cnt = 0;
+            while (front &lt; back){
+                if (str[front] != str[back])
+                    cnt++;
+                front++;
+                back--;
+            }
+            return cnt;
+        }
+        
+        //Recursively, using a DP, get the minimum cost to make some number of palindromes num+1 with the portion of string s starting from startpos and ending at the end of s.
+        int getMinPalindromeCost(vector&lt;vector&lt;int&gt;&gt;& substrCosts, vector&lt;vector&lt;int&gt;&gt;& dp, string& s, int startpos, int num){
+            int n = s.size();
+            if (startpos == n)         //if starting position is the same as size, i.e. we processed the whole string
+                return INT_MAX;
+            if (num == 0)              //if remainder is zero (i.e. number of palindromes still needed is 1), return deletions needed to make substring between position i and n-1 a single palindrome
+                return substrCosts[startpos][n-1];
+            if (dp[startpos][num] != -1) 
+                return dp[startpos][num];    //if we already found the number of changes from this position to get the desired number of palindromes return it
+            
+            int ans = INT_MAX;
+            for (int j = startpos; j &lt; n; j++) {     //Iterating over all string end points from the start position to the end of the string position n-1, calculate the single palindrome cost of the range (startpos,j) and use recursion to determine cost between (j+1,n-1) given remaining palindromes required, take the minimum cost found from iterating over all the possible moves
+                int costij = substrCosts[startpos][j];     //Cost up to position j is the palindrome cost (for a single palindrome) for the substring between startpos and j previously calculated 
+                if (num > 0) {                              //if we still need more palindromes
+                    int costOfRest = getMinPalindromeCost(substrCosts, dp, s, j + 1, num - 1);   //find palindromes on the portion of the string that remains (from position j+1, get num-1 palindromes)
+                    if (costOfRest &lt; INT_MAX)
+                        ans = min(ans, costij + costOfRest);  //the cost from i given the current rem remaining palindromes required is the minimum of the costs calculated
+                }
+            } 
+            return dp[startpos][num] = ans;
+        }
+    };
+{% endblock solution_code %}
