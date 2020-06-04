@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        TinyURL is a URL shortening service where you enter a URL such as https://leetcode.com/problems/design-tinyurl and it returns 
+        a short URL such as http://tinyurl.com/4e9iAk.
+    </p>
+    <p class="question">
+        Design the encode and decode methods for the TinyURL service. There is no restriction on how your encode/decode algorithm 
+        should work. You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original 
+        URL.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+    
+        string base="http://tinyurl.com/";
+        unordered_map&lt;string,string&gt; shorttolong;
+        
+        // Encodes a URL to a shortened URL.
+        string encode(string longUrl) {
+            string s = to_string(hash&lt;string&gt;{}(longUrl));
+            shorttolong[base+s]=longUrl;
+            return base+s;
+        }
+    
+        // Decodes a shortened URL to its original URL.
+        string decode(string shortUrl) {
+            return shorttolong[shortUrl];
+        }
+    };
+{% endblock solution_code %}

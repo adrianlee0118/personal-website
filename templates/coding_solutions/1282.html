@@ -1,0 +1,44 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are n people whose IDs go from 0 to n - 1 and each person belongs exactly to one group. Given the array groupSizes of 
+        length n telling the group size each person belongs to, return the groups there are and the people's IDs each group includes.
+    </p>
+    <p class="question">
+        You can return any solution in any order and the same applies for IDs. Also, it is guaranteed that there exists at least one 
+        solution. 
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+       
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;vector&lt;int&gt;&gt; groupThePeople(vector&lt;int&gt;& arr) {
+            unordered_map &lt;int, vector&lt;int&gt;&gt; m;   //group ids by group size
+            int n = arr.size();
+            vector &lt;vector&lt;int&gt;&gt; ans;
+            for(int i = 0; i &lt; n; i++){
+                m[arr[i]].push_back(i);
+                if(m[arr[i]].size() == arr[i]){    //if the group size is filled, push it to answer and zero out
+                    ans.push_back(m[arr[i]]);
+                    m[arr[i]] = {};
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

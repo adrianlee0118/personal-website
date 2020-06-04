@@ -1,0 +1,60 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        In an infinite binary tree where every node has two children, the nodes are labelled in row order.
+    </p>
+    <p class="question">
+        In the odd numbered rows (ie., the first, third, fifth,...), the labelling is left to right, while in the even numbered rows 
+        (second, fourth, sixth,...), the labelling is right to left.
+    </p>
+    <p class="question">
+        Given the label of a node in this tree, return the labels in the path from the root of the tree to the node with that label.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Starting with n, iteratively decrement with a transform expression to trace the path through the tree. At each step up in the 
+        tree, the value in the path will be the minimum value at that level plus some offset.
+    </p>
+    <p>
+        The offset is calculated as the difference between the maximum value at the new level and the current n value divided by 2. 
+        This quantity basically enables the 'flipping' in the value between maximum and minimum of the new value and then adding to 
+        the extent that it's needed such that the correct node 'bucket' is identified.
+    </p>
+    <p>
+        Note: unnecessary brackets are used to help others follow the math logic.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; pathInZigZagTree(int n) {
+            int l = getLevel(n);           //Get n's level
+            vector&lt;int&gt; ans(l+1, 0);       //Answer has level number of spaces (the path through each level) plus the root level
+            int i = l;                     //for iterating from deepest level to the root
+            while(n > 1){                  //Iterating from n to 1
+                ans[i] = n;
+                n = pow(2,l-1) + (pow(2,l) - 1) - n/2; //At each step in the path, transform n = (first number of next level = pow(2,l-1)) + (max at next level up = pow(2,l) - 1) - (offset = n/2)
+                l--;
+                i--;
+            }
+            ans[0] = 1;     //Set the remaining value to the root value
+            return ans;
+        }
+        
+        //Get the zero-indexed level that the label n exists on
+        int getLevel(int n) {
+            return (n == 1)? 0 : getLevel(n/2)+1; 
+        }
+    };
+{% endblock solution_code %}
