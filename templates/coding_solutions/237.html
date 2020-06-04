@@ -1,0 +1,30 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Make the pointer to the current node point to the next node, effectively removing the current node from the list.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        void deleteNode(ListNode* node) {
+            *node = *(node->next);
+            return;
+        }
+    };
+{% endblock solution_code %}
