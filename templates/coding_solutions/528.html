@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array w of positive integers, where w[i] describes the weight of index i, write a function pickIndex which randomly 
+        picks an index from the array of weights with a frequency proportional to the weight it refers to.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+            vector&lt;int&gt; landing;       //store cumulative weight sum by index in w--basically each index becomes mapped to the upper bound of its portion of the probability space (as indicated by weight), offset by the amount of probability space occupied by previous indices' weights
+        
+    public:
+        Solution(vector&lt;int&gt;& w) {
+            int cumulative = 0; 
+            for(auto& i : w){
+                cumulative += i;
+                landing.push_back(cumulative);   //store the upper bounds of all the 'buckets' in the probability space
+            }
+            return;
+        }
+        
+        int pickIndex() {
+            int x = rand() % landing.back();            //random number between 0 and total weight - 1, inclusive
+            return upper_bound(landing.begin(), landing.end(), x) - landing.begin();  //Retrieve iterator pointing to the smallest bucket upper bound (cumulative weight) that is greater in value than the random weight retrieved in teh range, subtract the beginning iterator to obtain the index in the original w vector it points to
+        }
+    };
+{% endblock solution_code %}
