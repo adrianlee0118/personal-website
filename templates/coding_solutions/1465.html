@@ -1,0 +1,54 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a rectangular cake with height h and width w, and two arrays of integers horizontalCuts and verticalCuts where 
+        horizontalCuts[i] is the distance from the top of the rectangular cake to the ith horizontal cut and similarly, 
+        verticalCuts[j] is the distance from the left of the rectangular cake to the jth vertical cut.
+    </p>
+    <p class="question">
+        Return the maximum area of a piece of cake after you cut at each horizontal and vertical position provided in the arrays 
+        horizontalCuts and verticalCuts. Since the answer can be a huge number, return this modulo 10^9 + 7.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int m = 1000000007;
+        
+    public:
+        int maxArea(int h, int w, vector&lt;int&gt;& horizontalCuts, vector&lt;int&gt;& verticalCuts) {
+            
+            //Sort ascending and get the baseline chunk dimension (from the edge to the first cut)
+            sort(begin(horizontalCuts),end(horizontalCuts));
+            sort(begin(verticalCuts),end(verticalCuts));
+            int maxhor = verticalCuts[0];
+            int maxver = horizontalCuts[0];
+            
+            //Add the cut characterized by the far edge
+            horizontalCuts.push_back(h);
+            verticalCuts.push_back(w);
+            
+            //Find the greatest horizontal and vertical chunk dimensions as differences in spacing of adjacent cuts
+            for (int j = 1; j &lt; horizontalCuts.size(); j++)
+                maxver = (horizontalCuts[j]-horizontalCuts[j-1] > maxver)? horizontalCuts[j] - horizontalCuts[j-1] : maxver;
+            for (int i = 1; i &lt; verticalCuts.size(); i++)
+                maxhor = (verticalCuts[i]-verticalCuts[i-1] > maxhor)? verticalCuts[i] - verticalCuts[i-1] : maxhor;
+            return ((long) maxhor*maxver) % m;
+        }
+    };
+{% endblock solution_code %}

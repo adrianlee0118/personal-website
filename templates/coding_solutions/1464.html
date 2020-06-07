@@ -1,0 +1,31 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of 
+        (nums[i]-1)*(nums[j]-1).
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int maxProduct(vector&lt;int&gt;& nums) {
+            sort(begin(nums),end(nums));
+            return (nums.back()-1)*(nums[nums.size()-2]-1);
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number 
+        of steps or move forward in the history number of steps.
+    </p>
+    <p class="question">
+        Implement the BrowserHistory class:
+    </p>
+    <ul>
+        <li>BrowserHistory(string homepage) Initializes the object with the homepage of the browser.</li>
+        <li>void visit(string url) visits url from the current page. It clears up all the forward history.</li>
+        <li>string back(int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will 
+            return only x steps. Return the current url after moving back in history at most steps.</li>
+        <li>string forward(int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, 
+            you will forward only x steps. Return the current url after forwarding in history at most steps.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class BrowserHistory {
+    private:
+        vector&lt;string&gt; history;   //Keep track of all URLs
+        int idx;                 //Keep track of current position within URL repository
+        
+    public:
+        BrowserHistory(string homepage) {
+            this->history.push_back(homepage);   //Initialize first history item
+            this->idx = 0;                       //Set index
+            return;
+        }
+        
+        void visit(string url) {
+            while (this->idx &lt; history.size()-1)   //Erase all future histories that exist because a back command was executed
+                history.pop_back();
+            this->history.push_back(url);  //then add the current history and increment the index
+            this->idx++;
+            return;
+        }
+        
+        string back(int steps) {
+            this->idx -= steps;         //decrement the index and return the history item
+            if (this->idx &lt; 0)
+                this->idx = 0;
+            return this->history[idx]; 
+        }
+        
+        string forward(int steps) {
+            this->idx += steps;                      //incrmeent the index and return the history item
+            if (this->idx > this->history.size()-1)
+                this->idx = this->history.size()-1;
+            return this->history[idx];
+        }
+    };
+{% endblock solution_code %}

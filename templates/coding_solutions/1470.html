@@ -1,0 +1,39 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+    </p>
+    <p class="question">
+        Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; shuffle(vector&lt;int&gt;& nums, int n) {
+            vector&lt;int&gt; ans;
+            
+            //Alternately add x (first half numbers) and y to populate ans
+            for (int i = 0; i &lt; n; i++){
+                ans.push_back(nums[i]);
+                ans.push_back(nums[n+i]);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

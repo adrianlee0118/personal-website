@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr and an integer k.
+    </p>
+    <p class="question">
+        A value arr[i] is said to be stronger than a value arr[j] if |arr[i] - m| > |arr[j] - m| where m is the median of the array.
+If |arr[i] - m| == |arr[j] - m|, then arr[i] is said to be stronger than arr[j] if arr[i] > arr[j].
+    </p>
+    <p class="question">
+        Return a list of the strongest k values in the array. return the answer in any arbitrary order.
+    </p>
+    <p class="question">
+        Median is the middle value in an ordered integer list. More formally, if the length of the list is n, the median is the 
+        element in position ((n - 1) / 2) in the sorted list (0-indexed).
+    </p>
+    <ul>
+        <li>For arr = [6, -3, 7, 2, 11], n = 5 and the median is obtained by sorting the array arr = [-3, 2, 6, 7, 11] and the 
+            median is arr[m] where m = ((5 - 1) / 2) = 2. The median is 6.</li>
+        <li>For arr = [-7, 22, 17, 3], n = 4 and the median is obtained by sorting the array arr = [-7, 3, 17, 22] and the 
+            median is arr[m] where m = ((4 - 1) / 2) = 1. The median is 3.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; getStrongest(vector&lt;int&gt;& arr, int k) {
+            
+            //Get the median
+            sort(begin(arr),end(arr));
+            int m = arr[(arr.size()-1)/2];
+            
+            //Index all numbers by strength rating and obtain a unique set of all strengths measured sorted descending
+            unordered_map&lt;int,vector&lt;int&gt;&gt; ratingNums;
+            unordered_set&lt;int&gt; r;
+            for (auto& a : arr){
+                int rate = abs(a - m);
+                ratingNums[rate].push_back(a);
+                r.insert(rate);
+            }
+            vector&lt;int&gt; rs(r.begin(), r.end());
+            sort(begin(rs),end(rs),greater&lt;int&gt;());   //sort strengths descending
+            
+            //From highest to lowest strengths, add numbers from biggest to smallest until ans.size() == k
+            vector&lt;int&gt; ans;
+            for (int i = 0; i &lt; rs.size(); i++){
+                int rate = rs[i];
+                sort(ratingNums[rate].begin(), ratingNums[rate].end(), greater&lt;int&gt;());
+                for (int j = 0; j &lt; ratingNums[rate].size() && ans.size() &lt; k; j++)
+                    ans.push_back(ratingNums[rate][j]);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}
