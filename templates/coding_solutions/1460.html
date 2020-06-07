@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given two integer arrays of equal length target and arr.
+    </p>
+    <p class="question">
+        In one step, you can select any non-empty sub-array of arr and reverse it. You are allowed to make any number of steps.
+    </p>
+    <p class="question">
+        Return True if you can make arr equal to target, or False otherwise.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Basically, the question is to determine whether the two vectors consist of the same elements in the same quantities. As long 
+        as all the ingredients of target are in arr, there WILL be a way to flip elements to make the order of arr the same as target.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool canBeEqual(vector&lt;int&gt;& target, vector&lt;int&gt;& arr) {
+            unordered_map&lt;int,int&gt; numCount;
+            int total = 0;
+            for (auto& t : target){
+                numCount[t]++;
+                total++;
+            }
+            for (auto& a : arr){
+                if (numCount[a] == 0)
+                    return false;
+                numCount[a]--;
+                total--;
+            }
+            return total == 0;
+        }
+    };
+{% endblock solution_code %}

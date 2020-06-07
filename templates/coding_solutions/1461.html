@@ -1,0 +1,43 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary string s and an integer k.
+    </p>
+    <p class="question">
+        Return True if all binary codes of length k is a substring of s. Otherwise, return False.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        If all distinct binary strings of size k are represented in s, the set of all unique substrings of s should be of size 2^k.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool hasAllCodes(string s, int k) {
+            if (s.size() &lt; k)
+                return false;
+            unordered_set&lt;string&gt; codes;              //Store all codes
+            for (int i = 0; i &lt; k; i++){              //For all possible offsets from position 0 in the string
+                for (int j = 0; j &lt; s.size(); j+=k){
+                    string code = s.substr(j,k);
+                    if (code.size() == k)
+                        codes.insert(code);           //Get and store all substrings of size k from the current offset
+                }
+                s = s.substr(1);         //Shift the reading frame
+            }
+            return codes.size() == pow(2,k);  //check if the number of unique codes equals 2^k
+        }
+    };
+{% endblock solution_code %}
