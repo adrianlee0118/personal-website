@@ -1,0 +1,35 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        You are given coins of different denominations and a total amount of money. Write a function to compute the number of 
+        combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int change(int amount, vector&lt;int&gt;& coins) {
+            vector&lt;int&gt; dp(amount+1);            //key: total sum, value: number of ways to build the total sum with the coins available
+            dp[0] = 1;    
+            for (auto& c : coins)   
+                for (int i = c; i &lt;= amount; i++)   //for all resultant total sums of adding the current coin that are <= amount
+                    dp[i] += dp[i - c];             //Add the number of ways to assemble total sum equal to the previous coin step (i - coin value)
+            return dp[amount];
+        }
+    };
+{% endblock solution_code %}
