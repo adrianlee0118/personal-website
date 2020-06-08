@@ -1,0 +1,37 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer, write a function to determine if it is a power of two.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isPowerOfTwo(int n) {
+            int i = 0;
+            while (true){
+                if (pow(2,i) == n)
+                    return true;
+                else if (pow(2,i) > n)
+                    break;
+                i++;
+            }
+            return false;
+        }
+    };
+{% endblock solution_code %}
