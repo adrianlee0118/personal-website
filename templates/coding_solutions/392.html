@@ -1,0 +1,47 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string s and a string t, check if s is subsequence of t.
+    </p>
+    <p class="question">
+        A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the 
+        characters without disturbing the relative positions of the remaining characters. (ie, "ace" is a subsequence of "abcde" 
+        while "aec" is not).
+    </p>
+    <p class="question">
+        Follow Up: If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T 
+        has its subsequence. In this scenario, how would you change your code?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        bool isSubsequence(string s, string t) {
+            int idx = 0;
+            int start = 0;
+            while (idx &lt; s.size() && start &lt; t.size()){      //for all letters in s
+                auto it = find(begin(t)+start,end(t),s[idx]);   
+                if (it == end(t))                  //if s[idx] is not in the remaining part of t
+                    return false;
+                start = distance(begin(t),it)+1;   //if s[idx] is in the remaining part of t, narrow the remaining part and move to next letter in s
+                idx++;
+            }
+            return idx == s.size();
+        }
+    };
+{% endblock solution_code %}
