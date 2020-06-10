@@ -55,6 +55,11 @@ def tic_tac_toe():
     return render_template('web_apps/tic_tac_toe.html', 
                             title="Tic Tac Toe in React")
 
+@app.route('/projects/invoice_editor')
+def invoice_editor():
+    return render_template('web_apps/invoice_editor.html', 
+                            title="React-Redux Invoice Editor")
+
 @app.route('/coding_solutions')
 def coding_solutions():
     result = get_cs_db().execute('SELECT id,name,difficulty,type FROM cs_data ORDER BY id')
