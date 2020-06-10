@@ -1,0 +1,36 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be 
+        if it were inserted in order.
+    </p>
+    <p class="question">
+        You may assume no duplicates in the array.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int searchInsert(vector&lt;int&gt;& nums, int target) {
+            int idx = 0;
+            while (idx &lt; nums.size() && nums[idx] &lt; target)
+                idx++;
+            return idx;
+        }
+    };
+{% endblock solution_code %}
