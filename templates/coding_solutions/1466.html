@@ -1,0 +1,74 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are n cities numbered from 0 to n-1 and n-1 roads such that there is only one way to travel between two different 
+        cities (this network form a tree). Last year, The ministry of transport decided to orient the roads in one direction because 
+        they are too narrow.
+    </p>
+    <p class="question">
+        Roads are represented by connections where connections[i] = [a, b] represents a road from city a to b.
+    </p>
+    <p class="question">
+        This year, there will be a big event in the capital (city 0), and many people want to travel to this city.
+    </p>
+    <p class="question">
+        Your task consists of reorienting some roads such that each city can visit the city 0. Return the minimum number of edges 
+        changed.
+    </p>
+    <p class="question">
+        It's guaranteed that each city can reach the city 0 after reorder.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Set up adjacency matrices indexed by origins and by destinations so that a bi-directional BFS can be performed. During the 
+        BFS outward traversal from zero, paths traversed in the adjacency matrix indexed by origin will be counted as required 
+        changes (since these paths by default flow outward).
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;& connections) {
+            
+            //Set up the count and make forward (destinations indexed by origin) and backward (origins indexed by destination) adjacency matrices
+            int changes = 0;
+            vector&lt;vector&lt;int&gt;&gt; dest(n);
+            vector&lt;vector&lt;int&gt;&gt; orig(n);
+            for (auto& c : connections){
+                dest[c[0]].push_back(c[1]);
+                orig[c[1]].push_back(c[0]);
+            }
+            
+            //Use bi-directional BFS traversal of network from zero to count all paths that need to be reversed and then return changes
+            vector&lt;int&gt; reachesZero(n,0);
+            queue&lt;int&gt; stops;
+            stops.push(0);
+            while (!stops.empty()){
+                int cur = stops.front();
+                reachesZero[cur] = 1;
+                stops.pop();
+                for (auto& d : dest[cur])        //If paths from source go toward the outer node, note a change is needed
+                    if (reachesZero[d] == 0){  
+                        changes++;           
+                        stops.push(d);
+                    }
+                for (auto& o : orig[cur])        //If path comes toward zero, no change needed, mark for traversal
+                    if (reachesZero[o] == 0)
+                        stops.push(o);
+            }   
+            
+            return changes;
+        }
+    };
+{% endblock solution_code %}
