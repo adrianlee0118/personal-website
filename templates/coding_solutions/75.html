@@ -1,0 +1,52 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color are adjacent, 
+        with the colors in the order red, white and blue.
+    </p>
+    <p class="question">
+        Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+    </p>
+    <p class="question">
+        Note: You are not suppose to use the library's sort function for this problem.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Maintain a pointer to indicate the right bound of the zero group, on the left side of the array, and another pointer to 
+        indicate the left bound of the two group, on the right side of the array--the one group lies between these two pointers. 
+        Initially, the one group comprises the entire array (pointers start at 0 and n-1). Iterating over the array, swap 0s and 2s 
+        with the index of the zero or two group boundary as appropriate and shift the boundary. When the iterator meets the two group 
+        boundary, the array should be sorted in order.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        void sortColors(vector&lt;int&gt;& nums) {
+            int left = 0;                        //The index just to the right of the zero group; will keep pace with i or be outpaced by i
+            int right = nums.size()-1;           //The index just to the left of the two group
+            for(int i = 0; i &lt;= right; i++){ 
+                if(nums[i] == 0) {
+                    swap(nums[i], nums[left]);   //i either coincides with left or is greater than i--if we have a zero, add it to the zero group
+                    left++;                      //move the zero group's boundary
+                } else if(nums[i] == 2) {
+                    swap(nums[i], nums[right]);  //if we have two, add to the two group
+                    i--;                         //shift i backwards so we can process the number we just moved into the i slot
+                    right--;                     //shift the two boundary to the left
+                }
+            }                   //If we encounter a one, we leave it in the middle of the zero and two groups
+            return;
+        }
+    };
+{% endblock solution_code %}

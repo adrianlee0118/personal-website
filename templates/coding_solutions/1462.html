@@ -1,0 +1,74 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are a total of n courses you have to take, labeled from 0 to n-1.
+    </p>
+    <p class="question">
+        Some courses may have direct prerequisites, for example, to take course 0 you have first to take course 1, which is expressed 
+        as a pair: [1,0]
+    </p>
+    <p class="question">
+        Given the total number of courses n, a list of direct prerequisite pairs and a list of queries pairs.
+    </p>
+    <p class="question">
+        You should answer for each queries[i] whether the course queries[i][0] is a prerequisite of the course queries[i][1] or not.
+    </p>
+    <p class="question">
+        Return a list of boolean, the answers to the given queries.
+    </p>
+    <p class="question">
+        Please note that if course a is a prerequisite of course b and course b is a prerequisite of course c, then, course a is a 
+        prerequisite of course c.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;& prerequisites, vector&lt;vector&lt;int&gt;&gt;& queries) {
+            
+            //An adjacency matrix: first index is a given course, second index possible prerequisites -- 1 indicates is a prereq, 0 not, -1 not checked
+            vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n,-1));
+            
+            //Map each course to all of its immediate prerequisites and record relationships in the adjacency matrix
+            unordered_map&lt;int, vector&lt;int&gt;&gt; allpre;
+            for (auto& p : prerequisites) {
+                allpre[p[1]].push_back(p[0]);
+                dp[p[1]][p[0]] = 1;
+            }
+            
+            //For all queries, use a DFS through the adjacency matrix, recording new relationships found, to determine if a dependency relationship exists as stated and simultaneously record relationships that shorten later DFS's in the iteration
+            vector&lt;bool&gt; ans;
+            for (auto& q : queries) {
+                bool a = DFS(allpre, dp, q[1], q[0]);
+                ans.push_back(a);
+            }
+            return ans;
+        }
+        
+        bool DFS(unordered_map&lt;int,vector&lt;int&gt;&gt;& allpre, vector&lt;vector&lt;int&gt;&gt;& dp, int course, int prereq) {
+            if (dp[course][prereq] != -1)          //If previously checked, return 1 if a relationship exists and 0 if not
+                return dp[course][prereq];
+            
+            for (auto& pre : allpre[course])         //Examine for match or DFS to each of course's prerequisites to search for prereq in the course's prerequisites
+                if (pre == prereq || DFS(allpre, dp, pre, prereq))
+                    return dp[course][prereq] = 1;       //If a match was found in course's immediate prerequisites or some upstream prerequisite, set the dp value to for all levels between the match and the current course so that latter dps can make use of this result
+            
+            return dp[course][prereq] = 0;      //if no match was found
+        }
+    };
+{% endblock solution_code %}
