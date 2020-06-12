@@ -1,0 +1,72 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Design a data structure that supports all following operations in average O(1) time.
+    </p>
+    <ol>
+        <li>insert(val): Inserts an item val to the set if not already present.</li>
+        <li>remove(val): Removes an item val from the set if present.</li>
+        <li>getRandom: Returns a random element from current set of elements. Each element must have the same probability of being 
+            returned.</li>
+    </ol>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Use an unordered_map to track positions of numbers within the set so that they can be accessed or their presence can be 
+        assessed in O(1) time. For insertions, just add to the array and record position in the map; for removals, swap the target 
+        element with the last element, update position of the former last element and pop the array's back.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class RandomizedSet {
+    private:
+        unordered_map&lt;int,int&gt; positions;    //Index all numbers by position
+        vector&lt;int&gt; nums;                    //The set of numbers
+        int n;                               //The size of the set
+        
+    public:
+        /** Initialize your data structure here. */
+        RandomizedSet() {
+            this->n = 0;
+        }
+        
+        /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+        bool insert(int val) {
+            if (positions.count(val) == 0){
+                positions[val] = n;
+                n++;
+                nums.push_back(val);
+                return true;
+            } else
+                return false;
+        }
+        
+        /** Removes a value from the set. Returns true if the set contained the specified element. */
+        bool remove(int val) {
+            if (positions.count(val)){
+                this->nums[positions[val]] = this->nums.back();
+                this->positions[nums.back()] = positions[val];
+                this->nums.pop_back();
+                n--;
+                this->positions.erase(val);
+                return true;
+            } else
+                return false;
+        }
+        
+        /** Get a random element from the set. */
+        int getRandom() {
+            return nums[rand() % n];             //Index accessed is a random number between 0 and n-1
+        }
+    };
+{% endblock solution_code %}
