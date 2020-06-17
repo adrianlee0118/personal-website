@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        There are n cities connected by m flights. Each flight starts from city u and arrives at v with a price w.
+    </p>
+    <p class="question">
+        Now given all the cities and flights, together with starting city src and the destination dst, your task is to find the 
+        cheapest price from src to dst with up to k stops. If there is no such route, output -1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findCheapestPrice(int n, vector&lt;vector&lt;int&gt;&gt;& flights, int src, int dst, int K) {
+            
+            // Group/index all flights by origin beforehand to improve performance when iterating
+            vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; connections(n);
+            for (int i = 0; i &lt; flights.size(); i++)
+                connections[flights[i][0]].push_back(make_pair(flights[i][1],flights[i][2]));
+            
+            // DFS through all possible connections from origin to find cheapest price
+            int cheapest = INT_MAX;
+            for (int i = 0; i &lt; connections[src].size(); i++)
+                DFS(connections, connections[src][i].first, dst, K, connections[src][i].second, cheapest);
+            return cheapest == INT_MAX? -1 : cheapest;
+        }
+        
+        void DFS(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;& connections, int current, int dst, int stopsleft, int total, int& cheapest){
+            if (total > cheapest || stopsleft &lt; 0)          //if we're out of stops or the running cost has exceeded cheapest found, no need for further analysis
+                return;
+            if (current == dst){                 //If we got to the destination, record cheapest price
+                cheapest = min(cheapest,total);
+                return;
+            }
+            
+            // Iterate over possible connections from current city, do DFSes to try to reach dst
+            for (int i = 0; i &lt; connections[current].size(); i++)
+                DFS(connections, connections[current][i].first, dst, stopsleft-1, total+connections[current][i].second, cheapest);
+            return;
+        }
+    };
+{% endblock solution_code %}
