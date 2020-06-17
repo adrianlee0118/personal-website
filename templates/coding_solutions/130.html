@@ -1,0 +1,76 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
+    </p>
+    <p class="question">
+        A region is captured by flipping all 'O's into 'X's in that surrounded region.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    private:
+        int m, n;
+        vector&lt;int&gt; ystep = {1,-1,0,0};       //for iterating over the array
+        vector&lt;int&gt; xstep = {0,0,1,-1};
+        
+    public:
+        void solve(vector&lt;vector&lt;char&gt;&gt;& board) {
+            this->m = board.size();
+            if (m == 0)                        //treat the edge case
+                return;
+            
+            this->n = board[0].size();
+            
+            //Cover all non-island 'O's with '*'
+            for (int i = 0; i &lt; m; i++){
+                if (board[i][0] == 'O')
+                    DFS(board,i,0);
+                if (board[i][n-1] == 'O')
+                    DFS(board,i,n-1);
+            }
+            for (int j = 0; j &lt; n; j++){
+                if (board[0][j] == 'O')
+                    DFS(board,0,j);
+                if (board[m-1][j] == 'O')
+                    DFS(board,m-1,j);
+            }
+            
+            //Change asterisks back to 'O's and 'O's to 'X's (the remaining 'O's are islands)
+            for (int i = 0; i &lt; m; i++)
+                for (int j = 0; j &lt; n; j++){
+                    if (board[i][j] == 'O')
+                        board[i][j] = 'X';
+                    else if (board[i][j] == '*')
+                        board[i][j] = 'O';
+                }
+            return;
+        }
+        
+        //Covers an entire joined section of 'O's with asterisks
+        void DFS(vector&lt;vector&lt;char&gt;&gt;& board, int i, int j){
+            if(i &lt; 0 || i >= this->m || j &lt; 0 || j >= this->n || board[i][j] != 'O')
+                return;
+            
+            board[i][j] = '*';
+            for (int k = 0; k &lt; 4; k++)
+                DFS(board,i+ystep[k],j+xstep[k]);
+            return;
+        }
+    };
+{% endblock solution_code %}
