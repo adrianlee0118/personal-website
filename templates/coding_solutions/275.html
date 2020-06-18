@@ -1,0 +1,48 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of citations sorted in ascending order (each citation is a non-negative integer) of a researcher, write a 
+        function to compute the researcher's h-index.
+    </p>
+    <p class="question">
+        According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h 
+        citations each, and the other N − h papers have no more than h citations each."
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int hIndex(vector&lt;int&gt;& citations) {
+            int N = citations.size();
+            if (N == 0)                 //If no citations, then there are 0 papers with at least however many citations
+                return 0;
+            int start = 0;              //Set up bounds of binary search
+            int end = N-1;
+            int h = 0;
+            while (start &lt;= end){
+                int cur = start + (end - start)/2; //Successively evaluate midpoint of range and narrow the range
+                if (citations[cur] >= N-cur){      //We found a valid h; there are N - cur papers with at least cur citations--the score cur counts from 0 to cur whereas the paper quantity counts from N down to cur
+                    h = N-cur;
+                    end = cur-1;           //Since the midpoint is a valid h, we search the upper half for a greater valid h, since we want the largest possible h
+                } else 
+                    start = cur+1;        //Since the midpoint is not a valid h, we need a larger number of papers or a lower score to get a suitable h; search the lower half
+            }
+            return h;
+        }
+    };
+{% endblock solution_code %}
