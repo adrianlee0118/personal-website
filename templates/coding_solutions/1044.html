@@ -1,0 +1,63 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a string S, consider all duplicated substrings: (contiguous) substrings of S that occur 2 or more times.  (The 
+        occurrences may overlap.)
+    </p>
+    <p class="question">
+        Return any duplicated substring that has the longest possible length.  (If S does not have a duplicated substring, the answer 
+        is "".)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Conduct a binary search of substring size to target the longest length at which duplicate substrings are observed. For each 
+        substring length, use an unordered_set in conjunction with a sliding window analysis to assess the presence of duplicates. As 
+        others have mentioned, use string_view in lieu of string to avoid repeated dynamic memory allocation which sends most initial 
+        variations of trials of this concept to TLE.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        string longestDupSubstring(string S) {
+            
+            //Set up range of binary search, answer container and unordered_set for recording substrings seen
+            int start = 0;
+            int end = S.size()-1;
+            string_view ans;
+            unordered_set&lt;string_view&gt; seen;
+            
+            //Perform a binary search for narrowing substring size to the longest possible for which duplicates are observed
+            while (start &lt;= end){
+                int len = start + ((end-start)>>1);
+                bool found = false;
+                for (int i = 0; i &lt; S.size()+1-len; i++){              //Iterating through all substrings of the current size within S
+                    string_view str = string_view(S).substr(i, len);   //store substrings as string_view to mitigate TLE from dynamic memory allocation
+                    if (seen.count(str)){                              //At this substring size if we already saw the current substring, break the iteration and search the upper half of the range for a larger size where duplicates are found
+                        ans = str;
+                        found = true;
+                        break;
+                    } else
+                        seen.emplace(str);
+                }
+                if (found)
+                    start = len+1;
+                else
+                    end = len-1;        //If no duplicates found, search the lower range for shorter substrings that have duplicates
+                seen.clear();           //Reset the unordered_set for the next substring length group
+            }
+            return {ans.begin(),ans.end()};    //Return answer as a string, not string_view
+        }
+    };
+{% endblock solution_code %}
