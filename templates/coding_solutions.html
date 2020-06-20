@@ -2,6 +2,10 @@
 {% block style %}
   <!-- script to make table sortable -->
   <script src="{{ url_for('static', filename='third_party/sorttable.js') }}"></script>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='sorttable.css') }}"
+  />
 {% endblock style %}
 {% block content %}
     <h1>Adrian Lee</h1>

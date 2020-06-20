@@ -331,51 +331,7 @@ a.article:hover {
     width: 100%;
 }
 
-/* ---------------------------------------------------
-    TABLE STYLE
------------------------------------------------------ */
 
-table.sortable {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    font-size: 15px;
-    width: 1100px;
-    margin-left: 50px;
-    table-layout: fixed;
-}
-
-.sortable tbody{
-    display:block;
-    width: 100%;
-    overflow: auto;
-    height: 600px;
-}
-
-.sortable thead, tr {
-    display:block;
-}
-
-.sortable td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    width: 220px;
-}
-
-a:hover{
-    color: darkblue ;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-.sortable thead {
-    background-color:#dddddd;
-    color:#666666;
-    font-weight: bold;
-    cursor: default;
-}
 
 
 /* ---------------------------------------------------
