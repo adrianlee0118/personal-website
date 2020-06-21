@@ -1,0 +1,75 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Your country has an infinite number of lakes. Initially, all the lakes are empty, but when it rains over the nth lake, the 
+        nth lake becomes full of water. If it rains over a lake which is full of water, there will be a flood. Your goal is to avoid 
+        the flood in any lake.
+    </p>
+    <p class="question">
+        Given an integer array rains where:
+    </p>
+    <ul>
+        <li>rains[i] > 0 means there will be rains over the rains[i] lake.</li>
+        <li>rains[i] == 0 means there are no rains this day and you can choose one lake this day and dry it.</li>
+    </ul>
+    <p class="question">
+        Return an array ans where:
+    </p>
+    <ul>
+        <li>ans.length == rains.length</li>
+        <li>ans[i] == -1 if rains[i] > 0.</li>
+        <li>ans[i] is the lake you choose to dry in the ith day if rains[i] == 0.</li>
+    </ul>
+    <p class="question">
+        If there are multiple valid answers return any of them. If it is impossible to avoid flood return an empty array.
+    </p>
+    <p class="question">
+        Notice that if you chose to dry a full lake, it becomes empty, but if you chose to dry an empty lake, nothing changes. (see 
+        example 4)
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Assign placeholder lake number 1 to answer vector as dry days are encountered--as rainy days are encountered, access 
+        unassigned dry days within range and assign drying on demand.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; avoidFlood(vector&lt;int&gt;& rains) {
+            vector&lt;int&gt; ans;
+            unordered_map&lt;int, int&gt; lakefull;  //Index: lake number; Value: day on which lake was filled
+            set&lt;int&gt; dryDay;                   //Record positions of dry days in order they occur, assign lake number dryings on-demand
+            for (int i = 0; i &lt; rains.size(); i++) { 
+                if (rains[i] == 0) {  
+                    dryDay.insert(i);    //if the day is dry, store it with placeholder 1 (drying lake 1)
+                    ans.push_back(1); 
+                } else {
+                    int lake = rains[i]; 
+                    if (lakefull.find(lake) != lakefull.end()) {       //if it rains in a lake and that lake is already full
+                        auto it = dryDay.lower_bound(lakefull[lake]);  //Obtain the first available dry day after the lake was filled
+                        if (it == dryDay.end())  //if that day doesn't exist, flooding occurred
+                            return {};
+                        int dryD = *it;          //if that day does exist, overwrite the initial placeholder 1 with the current lake number to indicate this lake was selectively dried on that dry day and remove from available dry days
+                        ans[dryD] = lake; 
+                        dryDay.erase(dryD); 
+                    }
+                    lakefull[lake] = i;   //Indicate the lake was filled on day i and add -1 to answer
+                    ans.push_back(-1);
+                }
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

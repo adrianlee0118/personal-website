@@ -1,0 +1,69 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of 
+        M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his 
+        way through the dungeon to rescue the princess.
+    </p>
+    <p class="question">
+        The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or 
+        below, he dies immediately.
+    </p>
+    <p class="question">
+        Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other 
+        rooms are either empty (0's) or contain magic orbs that increase the knight's health (positive integers).
+    </p>
+    <p class="question">
+        In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
+    </p>
+    <p class="question">
+        Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
+    </p>
+    <p class="question">
+        Note:
+    </p>
+    <ul>
+        <li>The knight's health has no upper bound.</li>
+        <li>Any room can contain threats or power-ups, even the first room the knight enters and the bottom-right room where the 
+            princess is imprisoned.</li>
+    </ul>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        A standard DFS with the help of a DP to avoid re-calculating values along each path.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int calculateMinimumHP(vector&lt;vector&lt;int&gt;&gt;& dungeon) {
+            vector&lt;vector&lt;int&gt;&gt; dp(dungeon.size(), vector&lt;int&gt;(dungeon[0].size(),-1));    //dp value is minimum initial health to get to the end from i, j
+            return DFS(dungeon,0,0,dp);
+        }
+        
+        int DFS(vector&lt;vector&lt;int&gt;&gt;& dungeon, int i, int j, vector&lt;vector&lt;int&gt;&gt;& dp){
+            if (i == dungeon.size()-1 && j == dungeon[0].size()-1)    //If we are on the last cell return the health needed to pass the cost if negative, otherwise return 1 if positive
+                return dungeon[i][j] > 0? 1 : 1 - dungeon[i][j];
+            if (dp[i][j] != -1)          //If we already calculated the cell previously, use the value
+                return dp[i][j];
+            
+            if (i == dungeon.size()-1)      //If in the last row, only DFS with j increments
+                return dp[i][j] = max(1, DFS(dungeon,i,j+1,dp)-dungeon[i][j]);
+            if (j == dungeon[0].size()-1)   //If in the last column, onlly DFS with i increments
+                return dp[i][j] = max(1, DFS(dungeon,i+1,j,dp)-dungeon[i][j]);
+            
+            //If not in the last row or column, return minimum of lateral or vertical step-DFS
+            return dp[i][j] = max(1, min(DFS(dungeon,i+1,j,dp)-dungeon[i][j],DFS(dungeon,i,j+1,dp)-dungeon[i][j]));
+        }
+    };
+{% endblock solution_code %}
