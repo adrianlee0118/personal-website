@@ -1,0 +1,59 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of strings names of size n. You will create n folders in your file system such that, at the ith minute, you 
+        will create a folder with the name names[i].
+    </p>
+    <p class="question">
+        Since two files cannot have the same name, if you enter a folder name which is previously used, the system will have a suffix 
+        addition to its name in the form of (k), where, k is the smallest positive integer such that the obtained name remains unique.
+    </p>
+    <p class="question">
+        Return an array of strings of length n where ans[i] is the actual name the system will assign to the ith folder when you 
+        create it.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;string&gt; getFolderNames(vector&lt;string&gt;& names) {
+            
+            //Map for tracking strings - Index: string that was prevoiusly seen, Value: numeral value
+            unordered_map&lt;string,int&gt; nameNum;
+            vector&lt;string&gt; ans;
+            
+            //Iterate over all names
+            for (auto& n : names){
+                if (nameNum[n] != 0){     //If we saw the name already
+                    string nom;
+                    while (true){
+                        nom = n+"("+to_string(nameNum[n])+")";   //Increment the numeral until we get a new unique string
+                        if (nameNum[nom] == 0)
+                            break;
+                        nameNum[n]++;
+                    }
+                    nameNum[nom]++;      //Store the new unique string in the map so it can be detected if seen again if this exact name/numeral combination occurs again
+                    ans.push_back(nom);  //Add to answer
+                } else 
+                    ans.push_back(n);  //If the string is brand new, just add to answer
+                nameNum[n]++;   //Increase the count for the current string
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

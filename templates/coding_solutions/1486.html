@@ -1,0 +1,38 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer n and an integer start.
+    </p>
+    <p class="question">
+        Define an array nums where nums[i] = start + 2*i (0-indexed) and n == nums.length.
+    </p>
+    <p class="question">
+        Return the bitwise XOR of all elements of nums.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int xorOperation(int n, int start) {
+            int ans = start;
+            for (int i = 1; i &lt; n; i++)
+                ans ^= (start+2*i);
+            return ans;
+        }
+    };
+{% endblock solution_code %}
