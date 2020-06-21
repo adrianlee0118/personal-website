@@ -1,0 +1,64 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        The set [1,2,3,...,n] contains a total of n! unique permutations.
+    </p>
+    <p class="question">
+        By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+    </p>
+    <ol>
+        <li>"123"</li>
+        <li>"132"</li>
+        <li>"213"</li>
+        <li>"231"</li>
+        <li>"312"</li>
+        <li>"321"</li>
+    </ol>
+    <p class="question">
+        Given n and k, return the kth permutation sequence.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        Going from the left-most char in the string to the right, iteratively decrement k given the number of available permutations 
+        in the hierarchy at each number-step of that position, calculated from the distance of the position from the right. For each 
+        successive position, carry over the remainder of k from the last position's calculations. Use n to track the distance of the 
+        current position from the right for calculations.
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int factorial[10] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};     //index: n valued 0-9, value: (n-1)!
+        
+        string getPermutation(int n, int k) {
+            
+            //Set up answer string and create char-form reference by value for all digits 1 to 9, 0-indexed
+            string ans = "";
+            vector&lt;char&gt; chardigits(n);
+            for (int i = 1; i &lt;= n; i++) 
+                chardigits[i-1] = '0' + i;
+            
+            //Iteratively decrement k at each position in the string, adding letters and updating the available letters repository chardigits accordingly
+            k--;             //obtain 0-index equivalent of k, which is 1-indexed
+            while (n) {
+                n--;
+                int step = k / factorial[n];     //k value decreases by the number of steps through the remaining digits given by k/(n-1)! where n is the number of digits to the right of and including the cucrrent digit
+                ans += chardigits[step];
+                chardigits.erase(begin(chardigits) + step);   //Erase the used digit--successive iterations will step through the updated ordering of remaining digits
+                k %= factorial[n];
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}
