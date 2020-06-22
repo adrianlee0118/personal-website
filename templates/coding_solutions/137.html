@@ -1,0 +1,49 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that 
+        single one.
+    </p>
+    <p class="question">
+        Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int singleNumber(vector&lt;int&gt;& nums) {
+            int n = nums.size();
+            long ans = 0;
+    
+            //For all bits in a standard 32-bit integer
+            for(int i = 0; i &lt; 32; i++){
+                int onebits = 0;
+                
+                //calculate sum of 1 bits in this position for all words
+                for(int j = 0; j &lt; n; j++){
+                    onebits += nums[j]&amp;1;     //adds 1 if nums[j] has a one bit 
+                    nums[j] >>= 1;           //values in nums are right-shifted so that at each i iteration, the smallest bit is the bit in question
+                }
+                
+                //If the one bits are not a multiple of 3, the unique number has a one bit at this position, add to answer
+                ans += (onebits % 3)*pow(2,i);
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an array of integers arr and an integer k. Find the least number of unique integers after removing exactly k elements.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int findLeastNumOfUniqueInts(vector&lt;int&gt;& arr, int k) {
+            
+            //Count all the numbers
+            unordered_map&lt;int,int&gt; numCount;
+            for (auto& a : arr)
+                numCount[a]++;
+            
+            //Index numbers by counts
+            unordered_map&lt;int,vector&lt;int&gt;&gt; countNum;
+            for (auto& n : numCount)
+                countNum[n.second].push_back(n.first);
+            
+            //Remove numbers from smallest frequency groups to biggest while possible given k value
+            int group = 1;
+            while (k >= group){
+                if (countNum[group].empty())
+                    group++;
+                else {
+                    countNum[group].pop_back();
+                    k -= group;
+                }
+            }
+            
+            //Count remaining unique numbers and return
+            int ans = 0;
+            for (auto& c : countNum)
+                ans += c.second.size();
+            
+            return ans;
+        }
+    };
+{% endblock solution_code %}
