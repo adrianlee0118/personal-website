@@ -1,0 +1,34 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a complete binary tree, count the number of nodes.
+    </p>
+    <p class="question">
+        Note: Definition of a complete binary tree from Wikipedia: <br>
+        In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as 
+        far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int countNodes(TreeNode* root) {
+            return !root ? 0 : 1 + countNodes(root->left) + countNodes(root->right);
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,70 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given an integer array bloomDay, an integer m and an integer k.
+    </p>
+    <p class="question">
+        We need to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.
+    </p>
+    <p class="question">
+        The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet.
+    </p>
+    <p class="question">
+        Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make 
+        m bouquets return -1.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int minDays(vector&lt;int&gt;& bloomDay, int m, int k) {
+            
+            //Set up a binary search for the day on which the bouquet conditions are met
+            int l = *min_element(begin(bloomDay),end(bloomDay));
+            int r = *max_element(begin(bloomDay),end(bloomDay));
+            int ans = -1;
+            while (l &lt;= r){
+                int day = l + (r-l)/2;
+                if (countBouquets(bloomDay, k, day) >= m){   //If we got the number of bouquets, store the answer and search for an earlier day
+                    ans = day;
+                    r = day-1;
+                } else             //If we didn't get the required bouquets, search later days
+                    l = day+1;
+            }
+            return ans;
+        }
+        
+        int countBouquets(vector&lt;int&gt;& bloomDay, int k, int day){
+            int ans = 0;
+            int flowerRow = 0;
+            
+            //Iterate across all flowers in sequence, count adjacents and bouquets if they are formed
+            for (int i = 0; i &lt; bloomDay.size(); i++){
+                if (bloomDay[i] &lt;= day){      //if we have a flower in this position, increase the running row count
+                    flowerRow++;
+                    if (flowerRow == k){      //if we have a bouquet, count it and reset the row count before continuing iteration
+                        ans++;
+                        flowerRow = 0;
+                    }
+                } else                 //if not a flower, reset the running row count
+                    flowerRow = 0;
+            }
+            return ans;
+        }
+    };
+{% endblock solution_code %}
