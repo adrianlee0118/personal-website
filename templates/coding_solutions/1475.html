@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given the array prices where prices[i] is the price of the ith item in a shop. There is a special discount for items in the 
+        shop, if you buy the ith item, then you will receive a discount equivalent to prices[j] where j is the minimum index such 
+        that j > i and prices[j] &lt;= prices[i], otherwise, you will not receive any discount at all.
+    </p>
+    <p class="question">
+        Return an array where the ith element is the final price you will pay for the ith item of the shop considering the special 
+        discount.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        vector&lt;int&gt; finalPrices(vector&lt;int&gt;& prices) {
+            for (int i = 0; i &lt; prices.size()-1; i++)
+                for (int j = i+1; j &lt; prices.size(); j++)
+                    if (prices[j] &lt;= prices[i]){
+                        prices[i] -= prices[j];
+                        break;
+                    }
+            return prices;
+        }
+    };
+{% endblock solution_code %}

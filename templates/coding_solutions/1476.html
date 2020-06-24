@@ -1,0 +1,56 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Implement the class SubrectangleQueries which receives a rows x cols rectangle as a matrix of integers in the constructor and 
+        supports two methods:
+    </p>
+    <ol>
+        <li>updateSubrectangle(int row1, int col1, int row2, int col2, int newValue)</li>
+        <ul>
+            <li>Updates all values with newValue in the subrectangle whose upper left coordinate is (row1,col1) and bottom right 
+                coordinate is (row2,col2).</li>
+        </ul>
+        <li>getValue(int row, int col)</li>
+        <ul>
+            <li>Returns the current value of the coordinate (row,col) from the rectangle.</li>
+        </ul>
+    </ol>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class SubrectangleQueries {
+    private:
+        vector&lt;vector&lt;int&gt;&gt; rec;
+        
+    public:
+        SubrectangleQueries(vector&lt;vector&lt;int&gt;&gt;& rectangle) {
+            this->rec = rectangle;
+            return;
+        }
+        
+        void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {
+            for (int i = row1; i &lt;= row2; i++)
+                for (int j = col1; j &lt;= col2; j++)
+                    this->rec[i][j] = newValue;
+            return;
+        }
+        
+        int getValue(int row, int col) {
+            return this->rec[row][col];
+        }
+    };
+{% endblock solution_code %}

@@ -1,0 +1,41 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n are there?
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int numTrees(int n) {
+            
+            //Solve for the edge cases - just one configuration
+            if (n == 0 || n == 1)
+                return 1;
+            
+            //Build the bottom up DP from the edge cases up
+            vector&lt;int&gt; dp(n+1);
+            dp[0] = 1;
+            dp[1] = 1;
+            for (int i = 2; i &lt; n+1; i++)
+                for (int j = 0; j &lt; i; j++)     //Each j iteration denotes centering the tree of i nodes at root numbered j--we add the left subtree combinations including root (dp[j], because all left subtree nodes must be <= j) times all right subtree combinations (dp[i-j-1], the leftover nodes) to the running sum of combinations for i nodes
+                    dp[i] += (dp[j] * dp[i-j-1]);
+            return dp[n];
+        }
+    };
+{% endblock solution_code %}
