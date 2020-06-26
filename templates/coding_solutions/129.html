@@ -1,0 +1,57 @@
+{% extends "coding_solutions/post.html" %}
+{% block head %}
+    <!-- Problem name including link-->
+    <a href="{{ url }}">
+        {{title}}
+    </a>
+{% endblock head %}
+{% block question %}
+    <!-- Problem statement (format with p tags)-->
+    <p class="question">
+        Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+    </p>
+    <p class="question">
+        An example is the root-to-leaf path 1->2->3 which represents the number 123.
+    </p>
+    <p class="question">
+        Find the total sum of all root-to-leaf numbers.
+    </p>
+    <p class="question">
+        Note: A leaf is a node with no children.
+    </p>
+    <div class="line"></div>
+{% endblock question %}
+{% block solution_exp %}
+    <!-- verbal portion of solution (format with p tags)-->
+    <p>
+        
+    </p>
+{% endblock solution_exp %}
+{% block solution_code %}
+    <!-- coding portion of solution-->
+    class Solution {
+    public:
+        int sumNumbers(TreeNode* root) {
+            if (!root)
+                return 0;
+            int sum = 0;
+            string path = "";
+            DFS(root, path, sum);
+            return sum;
+        }
+        
+        void DFS(TreeNode* root, string path, int& sum){
+            path += to_string(root->val);
+            if (!root->left && !root->right){
+                if (path.size())
+                    sum += stoi(path);
+                return;
+            }
+            if (root->left)
+                DFS(root->left, path, sum);
+            if (root->right)
+                DFS(root->right, path, sum);
+            return;
+        }
+    };
+{% endblock solution_code %}
